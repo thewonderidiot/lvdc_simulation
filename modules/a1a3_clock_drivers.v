@@ -8,7 +8,9 @@ module a1a3_clock_drivers(
     input wire cgqp,
     input wire cgqpn,
     input wire cgrp,
-    input wire cgrpn
+    input wire cgrpn,
+    output wire w7,
+    output wire y5
 );
 
 wire w1;
@@ -17,7 +19,6 @@ wire w3;
 wire w4;
 wire w5;
 wire w6;
-wire w7;
 wire w8;
 wire wda;
 wire wf;
@@ -37,7 +38,6 @@ wire y1;
 wire y2;
 wire y3;
 wire y4;
-wire y5;
 wire y6;
 wire y7;
 wire y8;
