@@ -11,15 +11,16 @@ module a4a12_clock_logic(
 
     output wire a1rp,
     output wire a1rpn,
-    output wire a2rp,
-    output wire a2rpn
+    output wire a1pp,
+    output wire a1ppn,
+    output wire a1qp,
+    output wire a1qpn,
+    output wire bo1p
 );
 
 // Internal wires
 wire a1p;
 wire a1pn;
-wire a1pp;
-wire a1ppn;
 wire a1q;
 wire a1qn;
 wire a1r;
@@ -36,8 +37,12 @@ wire a2pp;
 wire a2ppn;
 wire a2q;
 wire a2qn;
+wire a2qp;
+wire a2qpn;
 wire a2r;
 wire a2rn;
+wire a2rp;
+wire a2rpn;
 wire a2rv;
 wire a2rvn;
 wire a2s;
@@ -50,8 +55,12 @@ wire a3pp;
 wire a3ppn;
 wire a3q;
 wire a3qn;
+wire a3qp;
+wire a3qpn;
 wire a3r;
 wire a3rn;
+wire a3rp;
+wire a3rpn;
 wire a3rv;
 wire a3rvn;
 wire a3s;
@@ -60,7 +69,9 @@ wire a3sv;
 wire a3svn;
 wire bo1a;
 wire bo2a;
+wire bo2p;
 wire bo3a;
+wire bo3p;
 wor na1a;
 wire na2a;
 wire na2b;
@@ -159,19 +170,15 @@ i a1c(.a(na1a), .y(a3rn));
 
 tmv a26a(.en1(v5), .en2(v5), .en3(v5), .a1(a1r), .a2(a2r), .a3(a3r), .y(na26a));
 vi a28a(.a(na26a), .y(a1rv));
-
 tmv a19a(.en1(v5), .en2(v5), .en3(v5), .a1(a1r), .a2(a2r), .a3(a3r), .y(na19a));
 vi a21a(.a(na19a), .y(a2rv));
-
 tmv a12a(.en1(v5), .en2(v5), .en3(v5), .a1(a1r), .a2(a2r), .a3(a3r), .y(na12a));
 vi a14a(.a(na12a), .y(a3rv));
 
 tmv a27a(.en1(v5), .en2(v5), .en3(v5), .a1(a1rn), .a2(a2rn), .a3(a3rn), .y(na27a));
 vi a28b(.a(na27a), .y(a1rvn));
-
 tmv a20a(.en1(v5), .en2(v5), .en3(v5), .a1(a1rn), .a2(a2rn), .a3(a3rn), .y(na20a));
 vi a21b(.a(na20a), .y(a2rvn));
-
 tmv a13a(.en1(v5), .en2(v5), .en3(v5), .a1(a1rn), .a2(a2rn), .a3(a3rn), .y(na13a));
 vi a14b(.a(na13a), .y(a3rvn));
 
@@ -267,29 +274,40 @@ i a27d(.a(na27b), .y(a3pn));
 efl a34d(.a(a3p), .y(a3pp));
 efl a34e(.a(a3pn), .y(a3ppn));
 
+efl a10d(.a(bo1), .y(bo1p));
+efl a24d(.a(bo2), .y(bo2p));
+efl a28c(.a(bo3), .y(bo3p));
 
 tmv a5d(.en1(v5), .en2(v5), .en3(v5), .a1(a1s), .a2(a2s), .a3(a3s), .y(na5d));
 vi a12b(.a(na5d), .y(a1sv));
-
 tmv a6d(.en1(v5), .en2(v5), .en3(v5), .a1(a1s), .a2(a2s), .a3(a3s), .y(na6d));
 vi a13b(.a(na6d), .y(a2sv));
-
 tmv a7d(.en1(v5), .en2(v5), .en3(v5), .a1(a1s), .a2(a2s), .a3(a3s), .y(na7d));
 vi a14c(.a(na7d), .y(a3sv));
 
 tmv a16f(.en1(v5), .en2(v5), .en3(v5), .a1(a1sn), .a2(a2sn), .a3(a3sn), .y(na16f));
 vi a12c(.a(na16f), .y(a1svn));
-
 tmv a19b(.en1(v5), .en2(v5), .en3(v5), .a1(a1sn), .a2(a2sn), .a3(a3sn), .y(na19b));
 vi a13c(.a(na19b), .y(a2svn));
-
 tmv a20b(.en1(v5), .en2(v5), .en3(v5), .a1(a1sn), .a2(a2sn), .a3(a3sn), .y(na20b));
 vi a14d(.a(na20b), .y(a3svn));
 
 // 10-99
-efl a10d(.a(bo1), .y(bo1a));
-efl a24d(.a(bo2), .y(bo2a));
-efl a28c(.a(bo3), .y(bo3a));
+efl a10e(.a(bo1), .y(bo1a));
+efl a24e(.a(bo2), .y(bo2a));
+efl a28d(.a(bo3), .y(bo3a));
+
+efl a1d(.a(a1q), .y(a1qp));
+efl a1e(.a(a1qn), .y(a1qpn));
+
+efl a2d(.a(a2q), .y(a2qp));
+efl a2e(.a(a2qn), .y(a2qpn));
+
+efl a3d(.a(a3q), .y(a3qp));
+efl a3e(.a(a3qn), .y(a3qpn));
+
+efl a4d(.a(a3r), .y(a3rp));
+efl a4e(.a(a3rn), .y(a3rpn));
 
 endmodule
 `default_nettype wire

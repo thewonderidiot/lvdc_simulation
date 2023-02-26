@@ -15,8 +15,25 @@ wire bo2;
 wire bo2n;
 wire bo3;
 wire bo3n;
+wire bop;
+wire cgpp;
+wire cgppn;
+wire cgqp;
+wire cgqpn;
+wire cgrp;
+wire cgrpn;
 
 // Modules
+a1a3_clock_drivers a1a3(
+    .bop(bop),
+    .cgpp(cgpp),
+    .cgppn(cgppn),
+    .cgqp(cgqp),
+    .cgqpn(cgqpn),
+    .cgrp(cgrp),
+    .cgrpn(cgrpn)
+);
+
 a4a11_osc_buf a4a11(
     .bo1(bo1),
     .bo1n(bo1n),
@@ -31,7 +48,15 @@ a4a12_clock_logic a4a12(
     .v5(v5),
     .bo1(bo1),
     .bo2(bo2),
-    .bo3(bo3)
+    .bo3(bo3),
+
+    .a1pp(cgpp),
+    .a1ppn(cgppn),
+    .a1qp(cgqp),
+    .a1qpn(cgqpn),
+    .a1rp(cgrp),
+    .a1rpn(cgrpn),
+    .bo1p(bop)
 );
 
 endmodule

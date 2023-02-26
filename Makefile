@@ -1,13 +1,18 @@
-MODULES = a4a11_osc_buf \
+MODULES = a1a3_clock_drivers \
+	  a4a11_osc_buf \
 	  a4a12_clock_logic \
 
 COMPONENTS = a \
 	     bfr_pa \
 	     bfr_shp \
+	     cef \
+	     cg1 \
+	     cg2 \
 	     efl \
 	     i \
 	     ia1 \
 	     ia2 \
+	     nsi \
 	     osc \
 	     tmv \
 	     vi \
