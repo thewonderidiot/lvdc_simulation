@@ -55,6 +55,18 @@ wire g7;
 wire g7n;
 wire g7v;
 wire g7vn;
+wire pa;
+wire pan;
+wire pav;
+wire pavn;
+wire pb;
+wire pbn;
+wire pbv;
+wire pbvn;
+wire pc;
+wire pcn;
+wire pcv;
+wire pcvn;
 wire w7;
 wire y5;
 
@@ -75,6 +87,12 @@ assign g6v = g6;
 assign g6vn = g6n;
 assign g7v = g7;
 assign g7vn = g7n;
+assign pav = pa;
+assign pavn = pan;
+assign pbv = pb;
+assign pbvn = pbn;
+assign pcv = pc;
+assign pcvn = pcn;
 
 // Modules
 a1a3_clock_drivers a1a3(
@@ -92,6 +110,7 @@ a1a3_clock_drivers a1a3(
 a1a13_timing a1a13(
     .v1(v1),
     .v4mod1(v4mod1),
+
     .av(av),
     .avn(avn),
     .g1v(g1v),
@@ -108,8 +127,15 @@ a1a13_timing a1a13(
     .g6vn(g6vn),
     .g7v(g7v),
     .g7vn(g7vn),
+    .pav(pav),
+    .pavn(pavn),
+    .pbv(pbv),
+    .pbvn(pbvn),
+    .pcv(pcv),
+    .pcvn(pcvn),
     .w7(w7),
     .y5(y5),
+
     .a(a),
     .an(an),
     .g1(g1),
@@ -125,7 +151,13 @@ a1a13_timing a1a13(
     .g6(g6),
     .g6n(g6n),
     .g7(g7),
-    .g7n(g7n)
+    .g7n(g7n),
+    .pa(pa),
+    .pan(pan),
+    .pb(pb),
+    .pbn(pbn),
+    .pc(pc),
+    .pcn(pcn)
 );
 
 a4a11_osc_buf a4a11(

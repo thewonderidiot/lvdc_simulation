@@ -8,7 +8,7 @@ lvdc lvdc1();
 initial begin
     $dumpfile("lvdc.fst");
     $dumpvars(0, lvdc1);
-    #100000 $finish;
+    #1000000 $finish;
 end
 
 endmodule

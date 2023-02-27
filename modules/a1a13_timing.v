@@ -21,6 +21,12 @@ module a1a13_timing(
     input wire g6vn,
     input wire g7v,
     input wire g7vn,
+    input wire pav,
+    input wire pavn,
+    input wire pbv,
+    input wire pbvn,
+    input wire pcv,
+    input wire pcvn,
     input wire w7,
     input wire y5,
 
@@ -39,35 +45,57 @@ module a1a13_timing(
     output wire g6,
     output wire g6n,
     output wire g7,
-    output wire g7n
+    output wire g7n,
+    output wire pa,
+    output wire pan,
+    output wire pb,
+    output wire pbn,
+    output wire pc,
+    output wire pcn
 );
 
 wire ab;
 wire abn;
+wire tbc;
+wire tbcn;
 
 wire na2b;
 wire na6b;
 wire na8a;
 wor na8b;
 wor na9a;
+wor na9d;
+wire na9f;
 wire na10a;
 wor na10b;
 wor na11b;
+wor na11d;
 wire na12a;
 wor na12b;
 wor na13a;
+wor na13d;
 wire na14a;
 wor na14b;
 wor na15a;
 wor na16b;
+wor na16d;
 wor na17a;
+wire na17d;
+wire na17e;
 wor na18a;
+wor na18d;
+wire na18e;
 wor na19a;
+wire na19d;
 wor na20b;
+wor na20e;
 wor na21a;
+wor na22a;
+wire na22b;
 wire na23a;
 wire na23b;
 wire na23c;
+wire na23e;
 wire na24b;
 wor na25b;
 wor na26a;
@@ -75,6 +103,7 @@ wire na26c;
 wire na27a;
 wire na27b;
 wire na27c;
+wor na29a;
 wor na32a;
 wor na33a;
 
@@ -156,6 +185,43 @@ i a25c(.a(na25b), .y(a));
 i a32c(.a(na32a), .y(an));
 a #(1) a32a(.clk(v4mod1), .a1(a), .y(na32a));
 a a32b(.clk(y5), .a1(abn), .y(na32a));
+
+// 10-40
+a a10d(.clk(w7), .exp(na17d), .a1(g2vn), .a2(g7vn), .a3(avn), .y(na9d));
+a a17d(.a1(pbvn), .y(na17d));
+a a9d(.clk(v4mod1), .a1(pa), .y(na9d));
+i a9e(.a(na9d), .y(pan));
+i a16f(.a(na16d), .y(pa)); 
+a #(1) a16d(.clk(v4mod1), .a1(pan), .y(na16d));
+a a16e(.clk(y5), .exp(na9f), .a1(pbv), .y(na16d));
+a a9f(.a1(g1v), .y(na9f));
+
+a a19d(.clk(y5), .a1(pbv), .y(na19d));
+a a20d(.exp(na19d), .a1(g3v), .y(na20e));
+a a20e(.clk(v1), .a1(tbc), .y(na20e));
+i a20f(.a(na20e), .y(tbcn));
+i a13f(.a(na13d), .y(tbc));
+a #(1) a13d(.clk(v4mod1), .a1(tbcn), .y(na13d));
+a a13e(.clk(y5), .a1(pav), .y(na13d));
+
+// 10-41
+a a10e(.clk(w7), .exp(na17e), .a1(pav), .a2(pcvn), .a3(g7vn), .y(na11d));
+a a17e(.a1(g2vn), .a2(avn), .y(na17e));
+a a11d(.clk(v4mod1), .a1(pb), .y(na11d));
+i a11e(.a(na11d), .y(pbn));
+i a18f(.a(na18d), .y(pb));
+a #(1) a18d(.clk(v4mod1), .a1(pbn), .y(na18d));
+a a11f(.clk(y5), .exp(na18e), .a1(pavn), .y(na18d));
+a a18e(.a1(pcv), .a2(g1v), .y(na18e));
+
+a a23d(.clk(w7), .exp(na23e), .a1(pavn), .a2(g7vn), .y(na22a));
+a a23e(.a1(g2vn), .a2(avn), .a3(pbv), .y(na23e));
+a a22a(.clk(v4mod1), .a1(pc), .y(na22a));
+i a22c(.a(na22a), .y(pcn));
+i a29c(.a(na29a), .y(pc));
+a #(1) a29a(.clk(v4mod1), .a1(pcn), .y(na29a));
+a a29b(.clk(y5), .exp(na22b), .a1(pbvn), .y(na29a));
+a a22b(.a1(pav), .a2(g1v), .y(na22b));
 
 endmodule
 `default_nettype wire

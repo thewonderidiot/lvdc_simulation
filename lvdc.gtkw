@@ -1,0 +1,37 @@
+[*]
+[*] GTKWave Analyzer v3.3.113 (w)1999-2022 BSI
+[*] Mon Feb 27 01:20:31 2023
+[*]
+[dumpfile] "/home/mike/lvdc_simulation/lvdc.fst"
+[dumpfile_mtime] "Mon Feb 27 01:19:55 2023"
+[dumpfile_size] 17327
+[savefile] "/home/mike/lvdc_simulation/lvdc.gtkw"
+[timestart] 257700000
+[size] 1920 1032
+[pos] -1 -1
+*-25.500002 977200000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] lvdc_sim.
+[treeopen] lvdc_sim.lvdc1.
+[sst_width] 251
+[signals_width] 78
+[sst_expanded] 1
+[sst_vpaned_height] 306
+@28
+lvdc_sim.lvdc1.a1a3.wf
+lvdc_sim.lvdc1.a1a3.xf
+lvdc_sim.lvdc1.a1a3.yf
+lvdc_sim.lvdc1.a1a3.zf
+lvdc_sim.lvdc1.a1a13.av
+lvdc_sim.lvdc1.a1a13.g1v
+lvdc_sim.lvdc1.a1a13.g2v
+lvdc_sim.lvdc1.a1a13.g3v
+lvdc_sim.lvdc1.a1a13.g4v
+lvdc_sim.lvdc1.a1a13.g5v
+lvdc_sim.lvdc1.a1a13.g6v
+lvdc_sim.lvdc1.a1a13.g7v
+lvdc_sim.lvdc1.a1a13.pav
+lvdc_sim.lvdc1.a1a13.pbv
+lvdc_sim.lvdc1.a1a13.pcv
+lvdc_sim.lvdc1.a1a13.tbc
+[pattern_trace] 1
+[pattern_trace] 0
