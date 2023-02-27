@@ -1,7 +1,7 @@
 `timescale 1ns/1ps
 `default_nettype none
 
-module a4a12_clock_logic(
+module clock_logic(
     input wire v1,
     input wire v5,
 

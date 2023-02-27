@@ -1,7 +1,7 @@
-MODULES = a1a3_clock_drivers \
-	  a1a13_timing \
-	  a4a11_osc_buf \
-	  a4a12_clock_logic \
+MODULES = clock_drivers \
+	  timing \
+	  osc_buf \
+	  clock_logic \
 
 COMPONENTS = a \
 	     bfr_pa \

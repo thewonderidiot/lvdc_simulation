@@ -1,7 +1,7 @@
 `timescale 1ns/1ps
 `default_nettype none
 
-module a1a13_timing(
+module timing(
     input wire v1,
     input wire v4mod1,
 

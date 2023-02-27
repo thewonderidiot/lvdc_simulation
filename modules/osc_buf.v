@@ -1,7 +1,7 @@
 `timescale 1ns/1ps
 `default_nettype none
 
-module a4a11_osc_buf(
+module osc_buf(
     output wire bo1,
     output wire bo1n,
     output wire bo2,

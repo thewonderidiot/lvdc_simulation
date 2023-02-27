@@ -95,7 +95,7 @@ assign pcv = pc;
 assign pcvn = pcn;
 
 // Modules
-a1a3_clock_drivers a1a3(
+clock_drivers a1a3(
     .bop(bop),
     .cgpp(cgpp),
     .cgppn(cgppn),
@@ -107,7 +107,7 @@ a1a3_clock_drivers a1a3(
     .y5(y5)
 );
 
-a1a13_timing a1a13(
+timing a1a13(
     .v1(v1),
     .v4mod1(v4mod1),
 
@@ -160,7 +160,7 @@ a1a13_timing a1a13(
     .pcn(pcn)
 );
 
-a4a11_osc_buf a4a11(
+osc_buf a4a11(
     .bo1(bo1),
     .bo1n(bo1n),
     .bo2(bo2),
@@ -169,7 +169,7 @@ a4a11_osc_buf a4a11(
     .bo3n(bo3n)
 );
 
-a4a12_clock_logic a4a12(
+clock_logic a4a12(
     .v1(v1),
     .v5(v5),
     .bo1(bo1),

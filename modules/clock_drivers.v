@@ -1,7 +1,7 @@
 `timescale 1ns/1ps
 `default_nettype none
 
-module a1a3_clock_drivers(
+module clock_drivers(
     input wire bop,
     input wire cgpp,
     input wire cgppn,
