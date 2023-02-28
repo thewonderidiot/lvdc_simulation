@@ -3,6 +3,7 @@ MODULES = clock_drivers \
 	  osc_buf \
 	  clock_logic \
 	  buffer_register_12 \
+	  buffer_register_3 \
 
 COMPONENTS = a \
 	     bfr_pa \
