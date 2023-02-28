@@ -2,6 +2,7 @@ MODULES = clock_drivers \
 	  timing \
 	  osc_buf \
 	  clock_logic \
+	  buffer_register_12 \
 
 COMPONENTS = a \
 	     bfr_pa \
@@ -21,9 +22,9 @@ COMPONENTS = a \
 MODULE_SOURCES = $(addsuffix .v, $(addprefix modules/, $(MODULES)))
 COMPONENT_SOURCES = $(addsuffix .v, $(addprefix components/, $(COMPONENTS)))
 
-SOURCES = $(MODULE_SOURCES)\
-	  $(COMPONENT_SOURCES)\
-	  lvdc.v\
+SOURCES = $(MODULE_SOURCES) \
+	  $(COMPONENT_SOURCES) \
+	  lvdc.v \
 	  lvdc_sim.v
 
 .phony: all
