@@ -124,7 +124,7 @@ a #(1) a33b(.clk(v1), .a1(pqr), .y(na33b));
 
 // 10-13
 dld a2(.volt(v5), .gate(dl44), .clk(bon), .y(dld44b));
-dl #(44500) dl1(.a(dld44b), .y(tp3));
+dl #(43390) dl1(.a(dld44b), .y(tp3));
 dsa a15(.a(tp3), .y(dl44sa));
 
 dld a6(.volt(v5), .gate(dl31), .clk(bon), .y(dld31b));
