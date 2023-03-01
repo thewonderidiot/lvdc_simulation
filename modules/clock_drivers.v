@@ -10,7 +10,14 @@ module clock_drivers(
     input wire cgrp,
     input wire cgrpn,
     output wire w7,
-    output wire y5
+    output wire wn,
+    output wire x3,
+    output wire xn,
+    output wire y5,
+    output wire y8,
+    output wire yn,
+    output wire z2,
+    output wire zn
 );
 
 wire w1;
@@ -22,10 +29,8 @@ wire w6;
 wire w8;
 wire wda;
 wire wf;
-wire wn;
 wire x1;
 wire x2;
-wire x3;
 wire x4;
 wire x5;
 wire x6;
@@ -33,19 +38,15 @@ wire x7;
 wire x8;
 wire xda;
 wire xf;
-wire xn;
 wire y1;
 wire y2;
 wire y3;
 wire y4;
 wire y6;
 wire y7;
-wire y8;
 wire yda;
 wire yf;
-wire yn;
 wire z1;
-wire z2;
 wire z3;
 wire z4;
 wire z5;
@@ -54,7 +55,6 @@ wire z7;
 wire z8;
 wire zda;
 wire zf;
-wire zn;
 
 wor ncg2_01;
 wor ncg2_02;

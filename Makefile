@@ -1,9 +1,10 @@
-MODULES = clock_drivers \
-	  timing \
-	  osc_buf \
-	  clock_logic \
-	  buffer_register_12 \
+MODULES = buffer_register_12 \
 	  buffer_register_3 \
+	  clock_drivers \
+	  clock_logic \
+	  delay_line \
+	  osc_buf \
+	  timing \
 
 COMPONENTS = a \
 	     bfr_pa \
@@ -11,6 +12,9 @@ COMPONENTS = a \
 	     cef \
 	     cg1 \
 	     cg2 \
+	     dl \
+	     dld \
+	     dsa \
 	     efl \
 	     i \
 	     ia1 \

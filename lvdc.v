@@ -27,6 +27,8 @@ wire cgqp;
 wire cgqpn;
 wire cgrp;
 wire cgrpn;
+wire dl31;
+wire dl44;
 wire g1;
 wire g1n;
 wire g1v;
@@ -68,7 +70,14 @@ wire pcn;
 wire pcv;
 wire pcvn;
 wire w7;
+wire wn;
+wire x3;
+wire xn;
 wire y5;
+wire y8;
+wire yn;
+wire z2;
+wire zn;
 
 // TMR bypass for breadboard computer
 assign av = a;
@@ -104,7 +113,30 @@ clock_drivers a1a3(
     .cgrp(cgrp),
     .cgrpn(cgrpn),
     .w7(w7),
-    .y5(y5)
+    .wn(wn),
+    .x3(x3),
+    .xn(xn),
+    .y5(y5),
+    .y8(y8),
+    .yn(yn),
+    .z2(z2),
+    .zn(zn)
+);
+
+delay_line a1a5(
+    .v1(v1),
+    .v5(v5),
+    .bon(bo1n),
+    .dl31(dl31),
+    .dl44(dl44),
+    .w7(w7),
+    .wn(wn),
+    .x3(x3),
+    .xn(xn),
+    .y8(y8),
+    .yn(yn),
+    .z2(z2),
+    .zn(zn)
 );
 
 timing a1a13(
@@ -348,6 +380,12 @@ buffer_register_3 a5a11(
     .m7sa12(1'b0),
     .m7sa14(1'b0)
 );
+
+// TEMP TESTING
+wire stp0;
+assign stp0 = pav & g2v;
+assign dl31 = ~(y8 & stp0);
+assign dl44 = 0;
 
 endmodule
 `default_nettype wire
