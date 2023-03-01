@@ -1,27 +1,38 @@
 [*]
 [*] GTKWave Analyzer v3.3.113 (w)1999-2022 BSI
-[*] Mon Feb 27 01:20:31 2023
+[*] Wed Mar  1 03:59:59 2023
 [*]
 [dumpfile] "/home/mike/lvdc_simulation/lvdc.fst"
-[dumpfile_mtime] "Mon Feb 27 01:19:55 2023"
-[dumpfile_size] 17327
+[dumpfile_mtime] "Wed Mar  1 03:37:00 2023"
+[dumpfile_size] 26762
 [savefile] "/home/mike/lvdc_simulation/lvdc.gtkw"
-[timestart] 257700000
+[timestart] 52500000
 [size] 1920 1032
 [pos] -1 -1
-*-25.500002 977200000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-23.100002 94660000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] lvdc_sim.
 [treeopen] lvdc_sim.lvdc1.
 [sst_width] 251
-[signals_width] 78
+[signals_width] 219
 [sst_expanded] 1
 [sst_vpaned_height] 306
+@10c00029
+[color] 7
+[transaction_args] ""
+^<2 ./scripts/decode_phase.py
+#{phase} lvdc_sim.lvdc1.a1a13.pcv lvdc_sim.lvdc1.a1a13.pbv lvdc_sim.lvdc1.a1a13.pav
 @28
-lvdc_sim.lvdc1.a1a3.wf
-lvdc_sim.lvdc1.a1a3.xf
-lvdc_sim.lvdc1.a1a3.yf
-lvdc_sim.lvdc1.a1a3.zf
-lvdc_sim.lvdc1.a1a13.av
+lvdc_sim.lvdc1.a1a13.pav
+lvdc_sim.lvdc1.a1a13.pbv
+lvdc_sim.lvdc1.a1a13.pcv
+@1401201
+-group_end
+@10c00022
+[color] 6
+[transaction_args] ""
+^<3 ./scripts/decode_bit_time.py
+#{bit time} lvdc_sim.lvdc1.a1a13.g7v lvdc_sim.lvdc1.a1a13.g6v lvdc_sim.lvdc1.a1a13.g5v lvdc_sim.lvdc1.a1a13.g4v lvdc_sim.lvdc1.a1a13.g3v lvdc_sim.lvdc1.a1a13.g2v lvdc_sim.lvdc1.a1a13.g1v
+@28
 lvdc_sim.lvdc1.a1a13.g1v
 lvdc_sim.lvdc1.a1a13.g2v
 lvdc_sim.lvdc1.a1a13.g3v
@@ -29,9 +40,19 @@ lvdc_sim.lvdc1.a1a13.g4v
 lvdc_sim.lvdc1.a1a13.g5v
 lvdc_sim.lvdc1.a1a13.g6v
 lvdc_sim.lvdc1.a1a13.g7v
-lvdc_sim.lvdc1.a1a13.pav
-lvdc_sim.lvdc1.a1a13.pbv
-lvdc_sim.lvdc1.a1a13.pcv
-lvdc_sim.lvdc1.a1a13.tbc
+@1401200
+-group_end
+@10c00022
+[color] 5
+[transaction_args] ""
+^<1 ./scripts/decode_clock.py
+#{Clock} lvdc_sim.lvdc1.a1a3.zf lvdc_sim.lvdc1.a1a3.yf lvdc_sim.lvdc1.a1a3.xf lvdc_sim.lvdc1.a1a3.wf
+@28
+lvdc_sim.lvdc1.a1a3.wf
+lvdc_sim.lvdc1.a1a3.xf
+lvdc_sim.lvdc1.a1a3.yf
+lvdc_sim.lvdc1.a1a3.zf
+@1401200
+-group_end
 [pattern_trace] 1
 [pattern_trace] 0
