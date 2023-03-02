@@ -51,13 +51,13 @@ module timing(
     output wire pb,
     output wire pbn,
     output wire pc,
-    output wire pcn
+    output wire pcn,
+    output wire tbc,
+    output wire tbcn
 );
 
 wire ab;
 wire abn;
-wire tbc;
-wire tbcn;
 
 wire na2b;
 wire na6b;

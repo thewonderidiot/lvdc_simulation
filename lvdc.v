@@ -69,14 +69,21 @@ wire pc;
 wire pcn;
 wire pcv;
 wire pcvn;
+wire tbc;
+wire tbcn;
+wire tbcv;
+wire tbcvn;
+wire w1;
 wire w7;
 wire wn;
 wire x3;
 wire xn;
 wire y5;
+wire y7;
 wire y8;
 wire yn;
 wire z2;
+wire z3;
 wire zn;
 
 // TMR bypass for breadboard computer
@@ -102,6 +109,8 @@ assign pbv = pb;
 assign pbvn = pbn;
 assign pcv = pc;
 assign pcvn = pcn;
+assign tbcv = tbc;
+assign tbcvn = tbcn;
 
 // Modules
 clock_drivers a1a3(
@@ -112,14 +121,17 @@ clock_drivers a1a3(
     .cgqpn(cgqpn),
     .cgrp(cgrp),
     .cgrpn(cgrpn),
+    .w1(w1),
     .w7(w7),
     .wn(wn),
     .x3(x3),
     .xn(xn),
     .y5(y5),
+    .y7(y7),
     .y8(y8),
     .yn(yn),
     .z2(z2),
+    .z3(z3),
     .zn(zn)
 );
 
@@ -136,6 +148,53 @@ delay_line a1a5(
     .y8(y8),
     .yn(yn),
     .z2(z2),
+    .zn(zn)
+);
+
+arithmetic a1a10(
+    .v1(v1),
+    .a1v(1'b0),
+    .a2v(1'b0),
+    .a5v(1'b0),
+    .a6v(1'b0),
+    .av(av),
+    .avn(avn),
+    .ai1v(1'b0),
+    .ai3v(1'b0),
+    .cstv(1'b0),
+    .exmvn(1'b1),
+    .g1v(g1v),
+    .g1vn(g1vn),
+    .g3vn(g3vn),
+    .g4v(g4v),
+    .g5v(g5v),
+    .g5vn(g5vn),
+    .g6vn(g6vn),
+    .g7v(g7v),
+    .g7vn(g7vn),
+    .intv(1'b0),
+    .hoyv(1'b0),
+    .op1v(1'b0),
+    .op1vn(1'b1),
+    .op2v(1'b0),
+    .op2vn(1'b1),
+    .op3v(1'b0),
+    .op3vn(1'b1),
+    .op4v(1'b0),
+    .op4vn(1'b1),
+    .p3vn(1'b1),
+    .pav(pav),
+    .pavn(pavn),
+    .pbv(pbv),
+    .pcv(pcv),
+    .q8v(1'b0),
+    .shfv(1'b0),
+    .tbcv(tbcv),
+    .voyvn(1'b0),
+    .w1(w1),
+    .x3(x3),
+    .y7(y7),
+    .z3(z3),
     .zn(zn)
 );
 
@@ -189,7 +248,9 @@ timing a1a13(
     .pb(pb),
     .pbn(pbn),
     .pc(pc),
-    .pcn(pcn)
+    .pcn(pcn),
+    .tbc(tbc),
+    .tbcn(tbcn)
 );
 
 osc_buf a4a11(
@@ -384,8 +445,8 @@ buffer_register_3 a5a11(
 // TEMP TESTING
 wire stp0;
 assign stp0 = pav & g2v;
-assign dl31 = ~(y8 & stp0);
-assign dl44 = 0;
+assign dl31 = 0; // ~(y8 & stp0);
+assign dl44 = ~(w7 & stp0); // 0;
 
 endmodule
 `default_nettype wire

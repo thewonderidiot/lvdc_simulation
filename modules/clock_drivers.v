@@ -9,18 +9,20 @@ module clock_drivers(
     input wire cgqpn,
     input wire cgrp,
     input wire cgrpn,
+    output wire w1,
     output wire w7,
     output wire wn,
     output wire x3,
     output wire xn,
     output wire y5,
+    output wire y7,
     output wire y8,
     output wire yn,
     output wire z2,
+    output wire z3,
     output wire zn
 );
 
-wire w1;
 wire w2;
 wire w3;
 wire w4;
@@ -43,11 +45,9 @@ wire y2;
 wire y3;
 wire y4;
 wire y6;
-wire y7;
 wire yda;
 wire yf;
 wire z1;
-wire z3;
 wire z4;
 wire z5;
 wire z6;

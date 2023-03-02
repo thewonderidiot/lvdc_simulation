@@ -1,4 +1,5 @@
-MODULES = buffer_register_12 \
+MODULES = arithmetic \
+	  buffer_register_12 \
 	  buffer_register_3 \
 	  clock_drivers \
 	  clock_logic \
