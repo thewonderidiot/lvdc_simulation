@@ -33,7 +33,7 @@ while True:
                 signal_names[sig_num] = sig_name
                 signals[sig_name] = 0
             elif line.startswith('$dumpvars'):
-                print('$name clock')
+                print('$name Clock')
                 print('#0')
 
             continue
@@ -47,13 +47,13 @@ while True:
         sig_name = signal_names[sig_num]
         signals[sig_name] = state
 
-        if signals['wf']:
+        if signals['WF']:
             clock = 'W'
-        elif signals['xf']:
+        elif signals['XF']:
             clock = 'X'
-        elif signals['yf']:
+        elif signals['YF']:
             clock = 'Y'
-        elif signals['zf']:
+        elif signals['ZF']:
             clock = 'Z'
 
         if clock != last_clock:

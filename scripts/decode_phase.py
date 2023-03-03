@@ -33,7 +33,7 @@ while True:
                 signal_names[sig_num] = sig_name
                 signals[sig_name] = 0
             elif line.startswith('$dumpvars'):
-                print('$name phase')
+                print('$name Phase')
                 print('#0')
 
             continue
@@ -47,11 +47,11 @@ while True:
         sig_name = signal_names[sig_num]
         signals[sig_name] = state
 
-        if signals['pav'] and not signals['pbv']:
+        if signals['PAV'] and not signals['PBV']:
             phase = 'A'
-        elif signals['pbv'] and not signals['pcv']:
+        elif signals['PBV'] and not signals['PCV']:
             phase = 'B'
-        elif signals['pcv'] and not signals['pav']:
+        elif signals['PCV'] and not signals['PAV']:
             phase = 'C'
 
         if phase != last_phase:

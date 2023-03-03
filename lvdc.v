@@ -5,448 +5,448 @@ module lvdc(
 );
 
 // Power rails
-reg v1 = 1;
-reg v4mod1 = 1;
-reg v5 = 1;
+reg V1 = 1;
+reg V4MOD1 = 1;
+reg V5 = 1;
 
 // Backplane wires
-wire a;
-wire an;
-wire av;
-wire avn;
-wire bo1;
-wire bo1n;
-wire bo2;
-wire bo2n;
-wire bo3;
-wire bo3n;
-wire bop;
-wire cgpp;
-wire cgppn;
-wire cgqp;
-wire cgqpn;
-wire cgrp;
-wire cgrpn;
-wire dl31;
-wire dl44;
-wire g1;
-wire g1n;
-wire g1v;
-wire g1vn;
-wire g2;
-wire g2n;
-wire g2v;
-wire g2vn;
-wire g3;
-wire g3n;
-wire g3v;
-wire g3vn;
-wire g4;
-wire g4n;
-wire g4v;
-wire g4vn;
-wire g5;
-wire g5n;
-wire g5v;
-wire g5vn;
-wire g6;
-wire g6n;
-wire g6v;
-wire g6vn;
-wire g7;
-wire g7n;
-wire g7v;
-wire g7vn;
-wire pa;
-wire pan;
-wire pav;
-wire pavn;
-wire pb;
-wire pbn;
-wire pbv;
-wire pbvn;
-wire pc;
-wire pcn;
-wire pcv;
-wire pcvn;
-wire tbc;
-wire tbcn;
-wire tbcv;
-wire tbcvn;
-wire w1;
-wire w7;
-wire wn;
-wire x3;
-wire xn;
-wire y5;
-wire y7;
-wire y8;
-wire yn;
-wire z2;
-wire z3;
-wire zn;
+wire A;
+wire AN;
+wire AV;
+wire AVN;
+wire BO1;
+wire BO1N;
+wire BO2;
+wire BO2N;
+wire BO3;
+wire BO3N;
+wire BOP;
+wire CGPP;
+wire CGPPN;
+wire CGQP;
+wire CGQPN;
+wire CGRP;
+wire CGRPN;
+wire DL31;
+wire DL44;
+wire G1;
+wire G1N;
+wire G1V;
+wire G1VN;
+wire G2;
+wire G2N;
+wire G2V;
+wire G2VN;
+wire G3;
+wire G3N;
+wire G3V;
+wire G3VN;
+wire G4;
+wire G4N;
+wire G4V;
+wire G4VN;
+wire G5;
+wire G5N;
+wire G5V;
+wire G5VN;
+wire G6;
+wire G6N;
+wire G6V;
+wire G6VN;
+wire G7;
+wire G7N;
+wire G7V;
+wire G7VN;
+wire PA;
+wire PAN;
+wire PAV;
+wire PAVN;
+wire PB;
+wire PBN;
+wire PBV;
+wire PBVN;
+wire PC;
+wire PCN;
+wire PCV;
+wire PCVN;
+wire TBC;
+wire TBCN;
+wire TBCV;
+wire TBCVN;
+wire W1;
+wire W7;
+wire WN;
+wire X3;
+wire XN;
+wire Y5;
+wire Y7;
+wire Y8;
+wire YN;
+wire Z2;
+wire Z3;
+wire ZN;
 
 // TMR bypass for breadboard computer
-assign av = a;
-assign avn = an;
-assign g1v = g1;
-assign g1vn = g1n;
-assign g2v = g2;
-assign g2vn = g2n;
-assign g3v = g3;
-assign g3vn = g3n;
-assign g4v = g4;
-assign g4vn = g4n;
-assign g5v = g5;
-assign g5vn = g5n;
-assign g6v = g6;
-assign g6vn = g6n;
-assign g7v = g7;
-assign g7vn = g7n;
-assign pav = pa;
-assign pavn = pan;
-assign pbv = pb;
-assign pbvn = pbn;
-assign pcv = pc;
-assign pcvn = pcn;
-assign tbcv = tbc;
-assign tbcvn = tbcn;
+assign AV = A;
+assign AVN = AN;
+assign G1V = G1;
+assign G1VN = G1N;
+assign G2V = G2;
+assign G2VN = G2N;
+assign G3V = G3;
+assign G3VN = G3N;
+assign G4V = G4;
+assign G4VN = G4N;
+assign G5V = G5;
+assign G5VN = G5N;
+assign G6V = G6;
+assign G6VN = G6N;
+assign G7V = G7;
+assign G7VN = G7N;
+assign PAV = PA;
+assign PAVN = PAN;
+assign PBV = PB;
+assign PBVN = PBN;
+assign PCV = PC;
+assign PCVN = PCN;
+assign TBCV = TBC;
+assign TBCVN = TBCN;
 
 // Modules
 clock_drivers a1a3(
-    .bop(bop),
-    .cgpp(cgpp),
-    .cgppn(cgppn),
-    .cgqp(cgqp),
-    .cgqpn(cgqpn),
-    .cgrp(cgrp),
-    .cgrpn(cgrpn),
-    .w1(w1),
-    .w7(w7),
-    .wn(wn),
-    .x3(x3),
-    .xn(xn),
-    .y5(y5),
-    .y7(y7),
-    .y8(y8),
-    .yn(yn),
-    .z2(z2),
-    .z3(z3),
-    .zn(zn)
+    .BOP(BOP),
+    .CGPP(CGPP),
+    .CGPPN(CGPPN),
+    .CGQP(CGQP),
+    .CGQPN(CGQPN),
+    .CGRP(CGRP),
+    .CGRPN(CGRPN),
+    .W1(W1),
+    .W7(W7),
+    .WN(WN),
+    .X3(X3),
+    .XN(XN),
+    .Y5(Y5),
+    .Y7(Y7),
+    .Y8(Y8),
+    .YN(YN),
+    .Z2(Z2),
+    .Z3(Z3),
+    .ZN(ZN)
 );
 
 delay_line a1a5(
-    .v1(v1),
-    .v5(v5),
-    .bon(bo1n),
-    .dl31(dl31),
-    .dl44(dl44),
-    .w7(w7),
-    .wn(wn),
-    .x3(x3),
-    .xn(xn),
-    .y8(y8),
-    .yn(yn),
-    .z2(z2),
-    .zn(zn)
+    .V1(V1),
+    .V5(V5),
+    .BON(BO1N),
+    .DL31(DL31),
+    .DL44(DL44),
+    .W7(W7),
+    .WN(WN),
+    .X3(X3),
+    .XN(XN),
+    .Y8(Y8),
+    .YN(YN),
+    .Z2(Z2),
+    .ZN(ZN)
 );
 
 arithmetic a1a10(
-    .v1(v1),
-    .a1v(1'b0),
-    .a2v(1'b0),
-    .a5v(1'b0),
-    .a6v(1'b0),
-    .av(av),
-    .avn(avn),
-    .ai1v(1'b0),
-    .ai3v(1'b0),
-    .cstv(1'b0),
-    .exmvn(1'b1),
-    .g1v(g1v),
-    .g1vn(g1vn),
-    .g3vn(g3vn),
-    .g4v(g4v),
-    .g5v(g5v),
-    .g5vn(g5vn),
-    .g6vn(g6vn),
-    .g7v(g7v),
-    .g7vn(g7vn),
-    .intv(1'b0),
-    .hoyv(1'b0),
-    .op1v(1'b0),
-    .op1vn(1'b1),
-    .op2v(1'b0),
-    .op2vn(1'b1),
-    .op3v(1'b0),
-    .op3vn(1'b1),
-    .op4v(1'b0),
-    .op4vn(1'b1),
-    .p3vn(1'b1),
-    .pav(pav),
-    .pavn(pavn),
-    .pbv(pbv),
-    .pcv(pcv),
-    .q8v(1'b0),
-    .shfv(1'b0),
-    .tbcv(tbcv),
-    .voyvn(1'b0),
-    .w1(w1),
-    .x3(x3),
-    .y7(y7),
-    .z3(z3),
-    .zn(zn)
+    .V1(V1),
+    .A1V(1'b0),
+    .A2V(1'b0),
+    .A5V(1'b0),
+    .A6V(1'b0),
+    .AV(AV),
+    .AVN(AVN),
+    .AI1V(1'b0),
+    .AI3V(1'b0),
+    .CSTV(1'b0),
+    .EXMVN(1'b1),
+    .G1V(G1V),
+    .G1VN(G1VN),
+    .G3VN(G3VN),
+    .G4V(G4V),
+    .G5V(G5V),
+    .G5VN(G5VN),
+    .G6VN(G6VN),
+    .G7V(G7V),
+    .G7VN(G7VN),
+    .INTV(1'b0),
+    .HOYV(1'b0),
+    .OP1V(1'b0),
+    .OP1VN(1'b1),
+    .OP2V(1'b0),
+    .OP2VN(1'b1),
+    .OP3V(1'b0),
+    .OP3VN(1'b1),
+    .OP4V(1'b0),
+    .OP4VN(1'b1),
+    .P3VN(1'b1),
+    .PAV(PAV),
+    .PAVN(PAVN),
+    .PBV(PBV),
+    .PCV(PCV),
+    .Q8V(1'b0),
+    .SHFV(1'b0),
+    .TBCV(TBCV),
+    .VOYVN(1'b0),
+    .W1(W1),
+    .X3(X3),
+    .Y7(Y7),
+    .Z3(Z3),
+    .ZN(ZN)
 );
 
 timing a1a13(
-    .v1(v1),
-    .v4mod1(v4mod1),
+    .V1(V1),
+    .V4MOD1(V4MOD1),
 
-    .av(av),
-    .avn(avn),
-    .g1v(g1v),
-    .g1vn(g1vn),
-    .g2v(g2v),
-    .g2vn(g2vn),
-    .g3v(g3v),
-    .g3vn(g3vn),
-    .g4v(g4v),
-    .g4vn(g4vn),
-    .g5v(g5v),
-    .g5vn(g5vn),
-    .g6v(g6v),
-    .g6vn(g6vn),
-    .g7v(g7v),
-    .g7vn(g7vn),
-    .pav(pav),
-    .pavn(pavn),
-    .pbv(pbv),
-    .pbvn(pbvn),
-    .pcv(pcv),
-    .pcvn(pcvn),
-    .w7(w7),
-    .y5(y5),
+    .AV(AV),
+    .AVN(AVN),
+    .G1V(G1V),
+    .G1VN(G1VN),
+    .G2V(G2V),
+    .G2VN(G2VN),
+    .G3V(G3V),
+    .G3VN(G3VN),
+    .G4V(G4V),
+    .G4VN(G4VN),
+    .G5V(G5V),
+    .G5VN(G5VN),
+    .G6V(G6V),
+    .G6VN(G6VN),
+    .G7V(G7V),
+    .G7VN(G7VN),
+    .PAV(PAV),
+    .PAVN(PAVN),
+    .PBV(PBV),
+    .PBVN(PBVN),
+    .PCV(PCV),
+    .PCVN(PCVN),
+    .W7(W7),
+    .Y5(Y5),
 
-    .a(a),
-    .an(an),
-    .g1(g1),
-    .g1n(g1n),
-    .g2(g2),
-    .g2n(g2n),
-    .g3(g3),
-    .g3n(g3n),
-    .g4(g4),
-    .g4n(g4n),
-    .g5(g5),
-    .g5n(g5n),
-    .g6(g6),
-    .g6n(g6n),
-    .g7(g7),
-    .g7n(g7n),
-    .pa(pa),
-    .pan(pan),
-    .pb(pb),
-    .pbn(pbn),
-    .pc(pc),
-    .pcn(pcn),
-    .tbc(tbc),
-    .tbcn(tbcn)
+    .A(A),
+    .AN(AN),
+    .G1(G1),
+    .G1N(G1N),
+    .G2(G2),
+    .G2N(G2N),
+    .G3(G3),
+    .G3N(G3N),
+    .G4(G4),
+    .G4N(G4N),
+    .G5(G5),
+    .G5N(G5N),
+    .G6(G6),
+    .G6N(G6N),
+    .G7(G7),
+    .G7N(G7N),
+    .PA(PA),
+    .PAN(PAN),
+    .PB(PB),
+    .PBN(PBN),
+    .PC(PC),
+    .PCN(PCN),
+    .TBC(TBC),
+    .TBCN(TBCN)
 );
 
 osc_buf a4a11(
-    .bo1(bo1),
-    .bo1n(bo1n),
-    .bo2(bo2),
-    .bo2n(bo2n),
-    .bo3(bo3),
-    .bo3n(bo3n)
+    .BO1(BO1),
+    .BO1N(BO1N),
+    .BO2(BO2),
+    .BO2N(BO2N),
+    .BO3(BO3),
+    .BO3N(BO3N)
 );
 
 clock_logic a4a12(
-    .v1(v1),
-    .v5(v5),
-    .bo1(bo1),
-    .bo2(bo2),
-    .bo3(bo3),
+    .V1(V1),
+    .V5(V5),
+    .BO1(BO1),
+    .BO2(BO2),
+    .BO3(BO3),
 
-    .a1pp(cgpp),
-    .a1ppn(cgppn),
-    .a1qp(cgqp),
-    .a1qpn(cgqpn),
-    .a1rp(cgrp),
-    .a1rpn(cgrpn),
-    .bo1p(bop)
+    .A1PP(CGPP),
+    .A1PPN(CGPPN),
+    .A1QP(CGQP),
+    .A1QPN(CGQPN),
+    .A1RP(CGRP),
+    .A1RPN(CGRPN),
+    .BO1P(BOP)
 );
 
 buffer_register_12 a5a9(
-    .v1(v1),
-    .aNcbrvn(1'b0),
-    .aNsbryv(1'b0),
-    .aNsbrzv(1'b0),
-    .aNtr1v(1'b0),
-    .aNtr2v(1'b0),
-    .aNtr3v(1'b0),
-    .aNtr4v(1'b0),
-    .aNtr5v(1'b0),
-    .aNtr7v(1'b0),
-    .aNtr8v(1'b0),
-    .aNtr10v(1'b0),
-    .aNtr11v(1'b0),
-    .aNtr13v(1'b0),
-    .mAsa1(1'b0),
-    .mAsa2(1'b0),
-    .mAsa3(1'b0),
-    .mAsa4(1'b0),
-    .mAsa5(1'b0),
-    .mAsa7(1'b0),
-    .mAsa8(1'b0),
-    .mAsa10(1'b0),
-    .mAsa11(1'b0),
-    .mAsa13(1'b0),
-    .mBsa1(1'b0),
-    .mBsa2(1'b0),
-    .mBsa3(1'b0),
-    .mBsa4(1'b0),
-    .mBsa5(1'b0),
-    .mBsa7(1'b0),
-    .mBsa8(1'b0),
-    .mBsa10(1'b0),
-    .mBsa11(1'b0),
-    .mBsa13(1'b0),
-    .mCsa1(1'b0),
-    .mCsa2(1'b0),
-    .mCsa3(1'b0),
-    .mCsa4(1'b0),
-    .mCsa5(1'b0),
-    .mCsa7(1'b0),
-    .mCsa8(1'b0),
-    .mCsa10(1'b0),
-    .mCsa11(1'b0),
-    .mCsa13(1'b0),
-    .mDsa1(1'b0),
-    .mDsa2(1'b0),
-    .mDsa3(1'b0),
-    .mDsa4(1'b0),
-    .mDsa5(1'b0),
-    .mDsa7(1'b0),
-    .mDsa8(1'b0),
-    .mDsa10(1'b0),
-    .mDsa11(1'b0),
-    .mDsa13(1'b0)
+    .V1(V1),
+    .AnCBRVN(1'b0),
+    .AnSBRYV(1'b0),
+    .AnSBRZV(1'b0),
+    .AnTR1V(1'b0),
+    .AnTR2V(1'b0),
+    .AnTR3V(1'b0),
+    .AnTR4V(1'b0),
+    .AnTR5V(1'b0),
+    .AnTR7V(1'b0),
+    .AnTR8V(1'b0),
+    .AnTR10V(1'b0),
+    .AnTR11V(1'b0),
+    .AnTR13V(1'b0),
+    .MaSA1(1'b0),
+    .MaSA2(1'b0),
+    .MaSA3(1'b0),
+    .MaSA4(1'b0),
+    .MaSA5(1'b0),
+    .MaSA7(1'b0),
+    .MaSA8(1'b0),
+    .MaSA10(1'b0),
+    .MaSA11(1'b0),
+    .MaSA13(1'b0),
+    .MbSA1(1'b0),
+    .MbSA2(1'b0),
+    .MbSA3(1'b0),
+    .MbSA4(1'b0),
+    .MbSA5(1'b0),
+    .MbSA7(1'b0),
+    .MbSA8(1'b0),
+    .MbSA10(1'b0),
+    .MbSA11(1'b0),
+    .MbSA13(1'b0),
+    .McSA1(1'b0),
+    .McSA2(1'b0),
+    .McSA3(1'b0),
+    .McSA4(1'b0),
+    .McSA5(1'b0),
+    .McSA7(1'b0),
+    .McSA8(1'b0),
+    .McSA10(1'b0),
+    .McSA11(1'b0),
+    .McSA13(1'b0),
+    .MdSA1(1'b0),
+    .MdSA2(1'b0),
+    .MdSA3(1'b0),
+    .MdSA4(1'b0),
+    .MdSA5(1'b0),
+    .MdSA7(1'b0),
+    .MdSA8(1'b0),
+    .MdSA10(1'b0),
+    .MdSA11(1'b0),
+    .MdSA13(1'b0)
 );
 
 buffer_register_12 a5a10(
-    .v1(v1),
-    .aNcbrvn(1'b0),
-    .aNsbryv(1'b0),
-    .aNsbrzv(1'b0),
-    .aNtr1v(1'b0),
-    .aNtr2v(1'b0),
-    .aNtr3v(1'b0),
-    .aNtr4v(1'b0),
-    .aNtr5v(1'b0),
-    .aNtr7v(1'b0),
-    .aNtr8v(1'b0),
-    .aNtr10v(1'b0),
-    .aNtr11v(1'b0),
-    .aNtr13v(1'b0),
-    .mAsa1(1'b0),
-    .mAsa2(1'b0),
-    .mAsa3(1'b0),
-    .mAsa4(1'b0),
-    .mAsa5(1'b0),
-    .mAsa7(1'b0),
-    .mAsa8(1'b0),
-    .mAsa10(1'b0),
-    .mAsa11(1'b0),
-    .mAsa13(1'b0),
-    .mBsa1(1'b0),
-    .mBsa2(1'b0),
-    .mBsa3(1'b0),
-    .mBsa4(1'b0),
-    .mBsa5(1'b0),
-    .mBsa7(1'b0),
-    .mBsa8(1'b0),
-    .mBsa10(1'b0),
-    .mBsa11(1'b0),
-    .mBsa13(1'b0),
-    .mCsa1(1'b0),
-    .mCsa2(1'b0),
-    .mCsa3(1'b0),
-    .mCsa4(1'b0),
-    .mCsa5(1'b0),
-    .mCsa7(1'b0),
-    .mCsa8(1'b0),
-    .mCsa10(1'b0),
-    .mCsa11(1'b0),
-    .mCsa13(1'b0),
-    .mDsa1(1'b0),
-    .mDsa2(1'b0),
-    .mDsa3(1'b0),
-    .mDsa4(1'b0),
-    .mDsa5(1'b0),
-    .mDsa7(1'b0),
-    .mDsa8(1'b0),
-    .mDsa10(1'b0),
-    .mDsa11(1'b0),
-    .mDsa13(1'b0)
+    .V1(V1),
+    .AnCBRVN(1'b0),
+    .AnSBRYV(1'b0),
+    .AnSBRZV(1'b0),
+    .AnTR1V(1'b0),
+    .AnTR2V(1'b0),
+    .AnTR3V(1'b0),
+    .AnTR4V(1'b0),
+    .AnTR5V(1'b0),
+    .AnTR7V(1'b0),
+    .AnTR8V(1'b0),
+    .AnTR10V(1'b0),
+    .AnTR11V(1'b0),
+    .AnTR13V(1'b0),
+    .MaSA1(1'b0),
+    .MaSA2(1'b0),
+    .MaSA3(1'b0),
+    .MaSA4(1'b0),
+    .MaSA5(1'b0),
+    .MaSA7(1'b0),
+    .MaSA8(1'b0),
+    .MaSA10(1'b0),
+    .MaSA11(1'b0),
+    .MaSA13(1'b0),
+    .MbSA1(1'b0),
+    .MbSA2(1'b0),
+    .MbSA3(1'b0),
+    .MbSA4(1'b0),
+    .MbSA5(1'b0),
+    .MbSA7(1'b0),
+    .MbSA8(1'b0),
+    .MbSA10(1'b0),
+    .MbSA11(1'b0),
+    .MbSA13(1'b0),
+    .McSA1(1'b0),
+    .McSA2(1'b0),
+    .McSA3(1'b0),
+    .McSA4(1'b0),
+    .McSA5(1'b0),
+    .McSA7(1'b0),
+    .McSA8(1'b0),
+    .McSA10(1'b0),
+    .McSA11(1'b0),
+    .McSA13(1'b0),
+    .MdSA1(1'b0),
+    .MdSA2(1'b0),
+    .MdSA3(1'b0),
+    .MdSA4(1'b0),
+    .MdSA5(1'b0),
+    .MdSA7(1'b0),
+    .MdSA8(1'b0),
+    .MdSA10(1'b0),
+    .MdSA11(1'b0),
+    .MdSA13(1'b0)
 );
 
 buffer_register_3 a5a11(
-    .v1(v1),
-    .a1cbrvn(1'b0),
-    .a2cbrvn(1'b0),
-    .a1parv(1'b0),
-    .a2parv(1'b0),
-    .a1sbrxv(1'b0),
-    .a2sbrxv(1'b0),
-    .a1tr6v(1'b0),
-    .a2tr6v(1'b0),
-    .a1tr9v(1'b0),
-    .a2tr9v(1'b0),
-    .a1tr12v(1'b0),
-    .a2tr12v(1'b0),
-    .a1tr14v(1'b0),
-    .a2tr14v(1'b0),
-    .m0sa6(1'b0),
-    .m0sa9(1'b0),
-    .m0sa12(1'b0),
-    .m0sa14(1'b0),
-    .m1sa6(1'b0),
-    .m1sa9(1'b0),
-    .m1sa12(1'b0),
-    .m1sa14(1'b0),
-    .m2sa6(1'b0),
-    .m2sa9(1'b0),
-    .m2sa12(1'b0),
-    .m2sa14(1'b0),
-    .m3sa6(1'b0),
-    .m3sa9(1'b0),
-    .m3sa12(1'b0),
-    .m3sa14(1'b0),
-    .m4sa6(1'b0),
-    .m4sa9(1'b0),
-    .m4sa12(1'b0),
-    .m4sa14(1'b0),
-    .m5sa6(1'b0),
-    .m5sa9(1'b0),
-    .m5sa12(1'b0),
-    .m5sa14(1'b0),
-    .m6sa6(1'b0),
-    .m6sa9(1'b0),
-    .m6sa12(1'b0),
-    .m6sa14(1'b0),
-    .m7sa6(1'b0),
-    .m7sa9(1'b0),
-    .m7sa12(1'b0),
-    .m7sa14(1'b0)
+    .V1(V1),
+    .A1CBRVN(1'b0),
+    .A2CBRVN(1'b0),
+    .A1PARV(1'b0),
+    .A2PARV(1'b0),
+    .A1SBRXV(1'b0),
+    .A2SBRXV(1'b0),
+    .A1TR6V(1'b0),
+    .A2TR6V(1'b0),
+    .A1TR9V(1'b0),
+    .A2TR9V(1'b0),
+    .A1TR12V(1'b0),
+    .A2TR12V(1'b0),
+    .A1TR14V(1'b0),
+    .A2TR14V(1'b0),
+    .M0SA6(1'b0),
+    .M0SA9(1'b0),
+    .M0SA12(1'b0),
+    .M0SA14(1'b0),
+    .M1SA6(1'b0),
+    .M1SA9(1'b0),
+    .M1SA12(1'b0),
+    .M1SA14(1'b0),
+    .M2SA6(1'b0),
+    .M2SA9(1'b0),
+    .M2SA12(1'b0),
+    .M2SA14(1'b0),
+    .M3SA6(1'b0),
+    .M3SA9(1'b0),
+    .M3SA12(1'b0),
+    .M3SA14(1'b0),
+    .M4SA6(1'b0),
+    .M4SA9(1'b0),
+    .M4SA12(1'b0),
+    .M4SA14(1'b0),
+    .M5SA6(1'b0),
+    .M5SA9(1'b0),
+    .M5SA12(1'b0),
+    .M5SA14(1'b0),
+    .M6SA6(1'b0),
+    .M6SA9(1'b0),
+    .M6SA12(1'b0),
+    .M6SA14(1'b0),
+    .M7SA6(1'b0),
+    .M7SA9(1'b0),
+    .M7SA12(1'b0),
+    .M7SA14(1'b0)
 );
 
 // TEMP TESTING
-wire stp0;
-assign stp0 = pav & g2v;
-assign dl31 = 0; // ~(y8 & stp0);
-assign dl44 = ~(w7 & stp0); // 0;
+wire STP0;
+assign STP0 = PAV & G2V;
+assign DL31 = 0; // ~(Y8 & STP0);
+assign DL44 = ~(W7 & STP0); // 0;
 
 endmodule
 `default_nettype wire

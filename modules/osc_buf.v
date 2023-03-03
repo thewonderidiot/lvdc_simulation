@@ -2,49 +2,49 @@
 `default_nettype none
 
 module osc_buf(
-    output wire bo1,
-    output wire bo1n,
-    output wire bo2,
-    output wire bo2n,
-    output wire bo3,
-    output wire bo3n
+    output wire BO1,
+    output wire BO1N,
+    output wire BO2,
+    output wire BO2N,
+    output wire BO3,
+    output wire BO3N
 );
 
-wire bot1;
-wire bot2;
-wire bot3;
-wire clk;
-wire tp4;
-wire tp6;
-wire tp9;
-wire tp15;
-wire tp16;
-wire tp18;
+wire BOT1;
+wire BOT2;
+wire BOT3;
+wire CLK;
+wire TP4;
+wire TP6;
+wire TP9;
+wire TP15;
+wire TP16;
+wire TP18;
 
 // 10-94
-osc osc1(clk);
+osc osc1(CLK);
 
-bfr_shp bfr_shp1(clk, tp16);
-ia1 ia11(tp16, bot1);
+bfr_shp bfr_shp1(CLK, TP16);
+ia1 ia11(TP16, BOT1);
 
-bfr_shp bfr_shp2(clk, tp6);
-ia1 ia12(tp6, bot2);
+bfr_shp bfr_shp2(CLK, TP6);
+ia1 ia12(TP6, BOT2);
 
-bfr_shp bfr_shp3(clk, tp18);
-ia1 ia13(tp18, bot3);
+bfr_shp bfr_shp3(CLK, TP18);
+ia1 ia13(TP18, BOT3);
 
 // 10-95
-ia2 ia21(bot1, tp9);
-bfr_pa bfr_pa1(tp9, bo1n);
-vi vi1(tp9, bo1);
+ia2 ia21(BOT1, TP9);
+bfr_pa bfr_pa1(TP9, BO1N);
+vi vi1(TP9, BO1);
 
-ia2 ia22(bot2, tp15);
-bfr_pa bfr_pa2(tp15, bo2n);
-vi vi2(tp15, bo2);
+ia2 ia22(BOT2, TP15);
+bfr_pa bfr_pa2(TP15, BO2N);
+vi vi2(TP15, BO2);
 
-ia2 ia23(bot3, tp4);
-bfr_pa bfr_pa3(tp4, bo3n);
-vi vi3(tp4, bo3);
+ia2 ia23(BOT3, TP4);
+bfr_pa bfr_pa3(TP4, BO3N);
+vi vi3(TP4, BO3);
 
 endmodule
 `default_nettype wire

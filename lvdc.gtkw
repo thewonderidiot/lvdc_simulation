@@ -20,38 +20,38 @@
 [color] 7
 [transaction_args] ""
 ^<2 ./scripts/decode_phase.py
-#{phase} lvdc_sim.lvdc1.a1a13.pcv lvdc_sim.lvdc1.a1a13.pbv lvdc_sim.lvdc1.a1a13.pav
+#{phase} lvdc_sim.lvdc1.a1a13.PCV lvdc_sim.lvdc1.a1a13.PBV lvdc_sim.lvdc1.a1a13.PAV
 @28
-lvdc_sim.lvdc1.a1a13.pav
-lvdc_sim.lvdc1.a1a13.pbv
-lvdc_sim.lvdc1.a1a13.pcv
+lvdc_sim.lvdc1.a1a13.PAV
+lvdc_sim.lvdc1.a1a13.PBV
+lvdc_sim.lvdc1.a1a13.PCV
 @1401201
 -group_end
 @10c00022
 [color] 6
 [transaction_args] ""
 ^<3 ./scripts/decode_bit_time.py
-#{bit time} lvdc_sim.lvdc1.a1a13.g7v lvdc_sim.lvdc1.a1a13.g6v lvdc_sim.lvdc1.a1a13.g5v lvdc_sim.lvdc1.a1a13.g4v lvdc_sim.lvdc1.a1a13.g3v lvdc_sim.lvdc1.a1a13.g2v lvdc_sim.lvdc1.a1a13.g1v
+#{bit time} lvdc_sim.lvdc1.a1a13.G7V lvdc_sim.lvdc1.a1a13.G6V lvdc_sim.lvdc1.a1a13.G5V lvdc_sim.lvdc1.a1a13.G4V lvdc_sim.lvdc1.a1a13.G3V lvdc_sim.lvdc1.a1a13.G2V lvdc_sim.lvdc1.a1a13.G1V
 @28
-lvdc_sim.lvdc1.a1a13.g1v
-lvdc_sim.lvdc1.a1a13.g2v
-lvdc_sim.lvdc1.a1a13.g3v
-lvdc_sim.lvdc1.a1a13.g4v
-lvdc_sim.lvdc1.a1a13.g5v
-lvdc_sim.lvdc1.a1a13.g6v
-lvdc_sim.lvdc1.a1a13.g7v
+lvdc_sim.lvdc1.a1a13.G1V
+lvdc_sim.lvdc1.a1a13.G2V
+lvdc_sim.lvdc1.a1a13.G3V
+lvdc_sim.lvdc1.a1a13.G4V
+lvdc_sim.lvdc1.a1a13.G5V
+lvdc_sim.lvdc1.a1a13.G6V
+lvdc_sim.lvdc1.a1a13.G7V
 @1401200
 -group_end
 @10c00022
 [color] 5
 [transaction_args] ""
 ^<1 ./scripts/decode_clock.py
-#{Clock} lvdc_sim.lvdc1.a1a3.zf lvdc_sim.lvdc1.a1a3.yf lvdc_sim.lvdc1.a1a3.xf lvdc_sim.lvdc1.a1a3.wf
+#{Clock} lvdc_sim.lvdc1.a1a3.ZF lvdc_sim.lvdc1.a1a3.YF lvdc_sim.lvdc1.a1a3.XF lvdc_sim.lvdc1.a1a3.WF
 @28
-lvdc_sim.lvdc1.a1a3.wf
-lvdc_sim.lvdc1.a1a3.xf
-lvdc_sim.lvdc1.a1a3.yf
-lvdc_sim.lvdc1.a1a3.zf
+lvdc_sim.lvdc1.a1a3.WF
+lvdc_sim.lvdc1.a1a3.XF
+lvdc_sim.lvdc1.a1a3.YF
+lvdc_sim.lvdc1.a1a3.ZF
 @1401200
 -group_end
 [pattern_trace] 1

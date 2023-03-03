@@ -33,7 +33,7 @@ while True:
                 signal_names[sig_num] = sig_name
                 signals[sig_name] = 0
             elif line.startswith('$dumpvars'):
-                print('$name bit_time')
+                print('$name BitTime')
                 print('#0')
 
             continue
@@ -47,33 +47,33 @@ while True:
         sig_name = signal_names[sig_num]
         signals[sig_name] = state
 
-        if signals['g1v'] and not signals['g2v']:
+        if signals['G1V'] and not signals['G2V']:
             bit_time = 1
-        elif signals['g2v'] and not signals['g3v']:
+        elif signals['G2V'] and not signals['G3V']:
             bit_time = 2
-        elif signals['g3v'] and not signals['g4v']:
+        elif signals['G3V'] and not signals['G4V']:
             bit_time = 3
-        elif signals['g4v'] and not signals['g5v']:
+        elif signals['G4V'] and not signals['G5V']:
             bit_time = 4
-        elif signals['g5v'] and not signals['g6v']:
+        elif signals['G5V'] and not signals['G6V']:
             bit_time = 5
-        elif signals['g6v'] and not signals['g7v']:
+        elif signals['G6V'] and not signals['G7V']:
             bit_time = 6
-        elif signals['g7v'] and signals['g1v']:
+        elif signals['G7V'] and signals['G1V']:
             bit_time = 7
-        elif not signals['g1v'] and signals['g2v']:
+        elif not signals['G1V'] and signals['G2V']:
             bit_time = 8
-        elif not signals['g2v'] and signals['g3v']:
+        elif not signals['G2V'] and signals['G3V']:
             bit_time = 9
-        elif not signals['g3v'] and signals['g4v']:
+        elif not signals['G3V'] and signals['G4V']:
             bit_time = 10
-        elif not signals['g4v'] and signals['g5v']:
+        elif not signals['G4V'] and signals['G5V']:
             bit_time = 11
-        elif not signals['g5v'] and signals['g6v']:
+        elif not signals['G5V'] and signals['G6V']:
             bit_time = 12
-        elif not signals['g6v'] and signals['g7v']:
+        elif not signals['G6V'] and signals['G7V']:
             bit_time = 13
-        elif not signals['g7v'] and not signals['g1v']:
+        elif not signals['G7V'] and not signals['G1V']:
             bit_time = 14
 
         if bit_time != last_bit_time:
