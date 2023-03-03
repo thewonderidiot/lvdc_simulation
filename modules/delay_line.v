@@ -14,13 +14,13 @@ module delay_line(
     input wire Y8,
     input wire YN,
     input wire Z2,
-    input wire ZN
+    input wire ZN,
+    output wire ACC0,
+    output wire ACC0N,
+    output wire AI0,
+    output wire AI0N
 );
 
-wire ACC0;
-wire ACC0N;
-wire AI0;
-wire AI0N;
 wire DL31SA;
 wire DL44SA;
 wire DLD31B;

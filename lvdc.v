@@ -7,6 +7,7 @@ module lvdc(
 // Power rails
 reg V1 = 1;
 reg V4MOD1 = 1;
+reg V4MOD3 = 1;
 reg V5 = 1;
 
 // Backplane wires
@@ -14,6 +15,26 @@ wire A;
 wire AN;
 wire AV;
 wire AVN;
+wire ACC0;
+wire ACC0N;
+wire ACC1;
+wire ACC1N;
+wire ACC1V;
+wire ACC1VN;
+wire AI0;
+wire AI0N;
+wire AI1;
+wire AI1N;
+wire AI1V;
+wire AI1VN;
+wire AI2;
+wire AI2N;
+wire AI2V;
+wire AI2VN;
+wire AI3;
+wire AI3N;
+wire AI3V;
+wire AI3VN;
 wire BO1;
 wire BO1N;
 wire BO2;
@@ -89,6 +110,14 @@ wire ZN;
 // TMR bypass for breadboard computer
 assign AV = A;
 assign AVN = AN;
+assign ACC1V = ACC1;
+assign ACC1VN = ACC1N;
+assign AI1V = AI1;
+assign AI1VN = AI1N;
+assign AI2V = AI2;
+assign AI2VN = AI2N;
+assign AI3V = AI3;
+assign AI3VN = AI3N;
 assign G1V = G1;
 assign G1VN = G1N;
 assign G2V = G2;
@@ -148,31 +177,47 @@ delay_line a1a5(
     .Y8(Y8),
     .YN(YN),
     .Z2(Z2),
-    .ZN(ZN)
+    .ZN(ZN),
+    .ACC0(ACC0),
+    .ACC0N(ACC0N),
+    .AI0(AI0),
+    .AI0N(AI0N)
 );
 
 arithmetic a1a10(
     .V1(V1),
+    .V4MOD3(V4MOD3),
     .A1V(1'b0),
     .A2V(1'b0),
     .A5V(1'b0),
     .A6V(1'b0),
+    .ACC0(ACC0),
+    .ACC1V(ACC1V),
     .AV(AV),
     .AVN(AVN),
-    .AI1V(1'b0),
-    .AI3V(1'b0),
+    .AI0(AI0),
+    .AI0N(AI0N),
+    .AI1V(AI1V),
+    .AI2V(AI2V),
+    .AI2VN(AI2VN),
+    .AI3V(AI3V),
+    .AI3VN(AI3VN),
     .CSTV(1'b0),
+    .DATAV(1'b0),
     .EXMVN(1'b1),
     .G1V(G1V),
     .G1VN(G1VN),
+    .G2VN(G2VN),
     .G3VN(G3VN),
     .G4V(G4V),
     .G5V(G5V),
     .G5VN(G5VN),
+    .G6V(G6V),
     .G6VN(G6VN),
     .G7V(G7V),
     .G7VN(G7VN),
     .INTV(1'b0),
+    .HOPC1V(1'b0),
     .HOYV(1'b0),
     .OP1V(1'b0),
     .OP1VN(1'b1),
@@ -186,16 +231,34 @@ arithmetic a1a10(
     .PAV(PAV),
     .PAVN(PAVN),
     .PBV(PBV),
+    .PBVN(PBVN),
     .PCV(PCV),
+    .PCVN(PCVN),
+    .PIOV(1'b0),
     .Q8V(1'b0),
     .SHFV(1'b0),
     .TBCV(TBCV),
+    .TRSV(1'b0),
+    .TRSVN(1'b1),
+    .TTLV(1'b0),
+    .UTRV(1'b0),
     .VOYVN(1'b0),
     .W1(W1),
+    .WN(WN),
     .X3(X3),
     .Y7(Y7),
     .Z3(Z3),
-    .ZN(ZN)
+    .ZN(ZN),
+    .ACC1(ACC1),
+    .ACC1N(ACC1N),
+    .AI1(AI1),
+    .AI1N(AI1N),
+    .AI2(AI2),
+    .AI2N(AI2N),
+    .AI3(AI3),
+    .AI3N(AI3N),
+    .DL31(DL31),
+    .DL44(DL44)
 );
 
 timing a1a13(
@@ -441,12 +504,6 @@ buffer_register_3 a5a11(
     .M7SA12(1'b0),
     .M7SA14(1'b0)
 );
-
-// TEMP TESTING
-wire STP0;
-assign STP0 = PAV & G2V;
-assign DL31 = 0; // ~(Y8 & STP0);
-assign DL44 = ~(W7 & STP0); // 0;
 
 endmodule
 `default_nettype wire
