@@ -4,6 +4,7 @@ MODULES = arithmetic \
 	  clock_drivers \
 	  clock_logic \
 	  delay_line \
+	  mem_timing \
 	  osc_buf \
 	  timing \
 

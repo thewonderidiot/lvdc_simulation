@@ -2,12 +2,15 @@
 `default_nettype none
 
 module lvdc(
+    input wire CSTN,
+    input wire HALTV
 );
 
 // Power rails
 reg V1 = 1;
 reg V4MOD1 = 1;
 reg V4MOD3 = 1;
+reg V4MOD7 = 1;
 reg V5 = 1;
 
 // Backplane wires
@@ -48,6 +51,8 @@ wire CGQP;
 wire CGQPN;
 wire CGRP;
 wire CGRPN;
+wire CST;
+wire CSTV;
 wire DL31;
 wire DL44;
 wire G1;
@@ -90,6 +95,10 @@ wire PC;
 wire PCN;
 wire PCV;
 wire PCVN;
+wire RUN;
+wire RUNN;
+wire RUNV;
+wire RUNVN;
 wire TBC;
 wire TBCN;
 wire TBCV;
@@ -99,12 +108,14 @@ wire W7;
 wire WN;
 wire X3;
 wire XN;
+wire Y1;
 wire Y5;
 wire Y7;
 wire Y8;
 wire YN;
 wire Z2;
 wire Z3;
+wire Z7;
 wire ZN;
 
 // TMR bypass for breadboard computer
@@ -118,6 +129,7 @@ assign AI2V = AI2;
 assign AI2VN = AI2N;
 assign AI3V = AI3;
 assign AI3VN = AI3N;
+assign CSTV = CST;
 assign G1V = G1;
 assign G1VN = G1N;
 assign G2V = G2;
@@ -138,6 +150,8 @@ assign PBV = PB;
 assign PBVN = PBN;
 assign PCV = PC;
 assign PCVN = PCN;
+assign RUNV = RUN;
+assign RUNVN = RUNN;
 assign TBCV = TBC;
 assign TBCVN = TBCN;
 
@@ -155,12 +169,14 @@ clock_drivers a1a3(
     .WN(WN),
     .X3(X3),
     .XN(XN),
+    .Y1(Y1),
     .Y5(Y5),
     .Y7(Y7),
     .Y8(Y8),
     .YN(YN),
     .Z2(Z2),
     .Z3(Z3),
+    .Z7(Z7),
     .ZN(ZN)
 );
 
@@ -202,7 +218,7 @@ arithmetic a1a10(
     .AI2VN(AI2VN),
     .AI3V(AI3V),
     .AI3VN(AI3VN),
-    .CSTV(1'b0),
+    .CSTV(CSTV),
     .DATAV(1'b0),
     .EXMVN(1'b1),
     .G1V(G1V),
@@ -314,6 +330,30 @@ timing a1a13(
     .PCN(PCN),
     .TBC(TBC),
     .TBCN(TBCN)
+);
+
+mem_timing a1a15(
+    .V1(V1),
+    .V4MOD7(V4MOD7),
+    .CSTN(CSTN),
+    .G6V(G6V),
+    .G7VN(G7VN),
+    .HALTV(HALTV),
+    .HOPV(1'b0),
+    .INTV(1'b0),
+    .OP1VN(1'b1),
+    .OP2VN(1'b1),
+    .OP3V(1'b0),
+    .OP4V(1'b0),
+    .PAV(PAV),
+    .RUNVN(RUNVN),
+    .STOVN(1'b1),
+    .TTLV(1'b0),
+    .Y1(Y1),
+    .Z7(Z7),
+    .CST(CST),
+    .RUN(RUN),
+    .RUNN(RUNN)
 );
 
 osc_buf a4a11(
