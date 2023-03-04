@@ -3,7 +3,8 @@
 
 module lvdc(
     input wire CSTN,
-    input wire HALTV
+    input wire HALTV,
+    input wire TER
 );
 
 // Power rails
@@ -103,18 +104,24 @@ wire TBC;
 wire TBCN;
 wire TBCV;
 wire TBCVN;
+wire UTR;
+wire UTRV;
 wire W1;
+wire W3;
 wire W7;
 wire WN;
 wire X3;
+wire X4;
 wire XN;
 wire Y1;
+wire Y3;
 wire Y5;
 wire Y7;
 wire Y8;
 wire YN;
 wire Z2;
 wire Z3;
+wire Z5;
 wire Z7;
 wire ZN;
 
@@ -154,6 +161,7 @@ assign RUNV = RUN;
 assign RUNVN = RUNN;
 assign TBCV = TBC;
 assign TBCVN = TBCN;
+assign UTRV = UTR;
 
 // Modules
 clock_drivers a1a3(
@@ -165,17 +173,21 @@ clock_drivers a1a3(
     .CGRP(CGRP),
     .CGRPN(CGRPN),
     .W1(W1),
+    .W3(W3),
     .W7(W7),
     .WN(WN),
     .X3(X3),
+    .X4(X4),
     .XN(XN),
     .Y1(Y1),
+    .Y3(Y3),
     .Y5(Y5),
     .Y7(Y7),
     .Y8(Y8),
     .YN(YN),
     .Z2(Z2),
     .Z3(Z3),
+    .Z5(Z5),
     .Z7(Z7),
     .ZN(ZN)
 );
@@ -257,7 +269,7 @@ arithmetic a1a10(
     .TRSV(1'b0),
     .TRSVN(1'b1),
     .TTLV(1'b0),
-    .UTRV(1'b0),
+    .UTRV(UTRV),
     .VOYVN(1'b0),
     .W1(W1),
     .WN(WN),
@@ -274,7 +286,8 @@ arithmetic a1a10(
     .AI3(AI3),
     .AI3N(AI3N),
     .DL31(DL31),
-    .DL44(DL44)
+    .DL44(DL44),
+    .UTR(UTR)
 );
 
 timing a1a13(
@@ -336,21 +349,60 @@ mem_timing a1a15(
     .V1(V1),
     .V4MOD7(V4MOD7),
     .CSTN(CSTN),
+    .DMA(1'b0),
+    .DMB(1'b0),
+    .EAC(1'b0),
+    .EAP(1'b0),
+    .EBC(1'b0),
+    .EBP(1'b0),
+    .EXMV(1'b0),
+    .EXMVN(1'b1),
+    .G1V(G1V),
+    .G1VN(G1VN),
+    .G2V(G2V),
+    .G2VN(G2VN),
+    .G3V(G3V),
+    .G3VN(G3VN),
+    .G4V(G4V),
+    .G5VN(G5VN),
     .G6V(G6V),
+    .G6VN(G6VN),
+    .G7V(G7V),
     .G7VN(G7VN),
     .HALTV(HALTV),
     .HOPV(1'b0),
+    .IMA(1'b0),
+    .IMB(1'b0),
     .INTV(1'b0),
     .OP1VN(1'b1),
     .OP2VN(1'b1),
     .OP3V(1'b0),
     .OP4V(1'b0),
+    .MFFVN(1'b1),
+    .MSSVN(1'b1),
+    .MTTVN(1'b1),
+    .MZOVN(1'b1),
     .PAV(PAV),
+    .PAVN(PAVN),
+    .PBV(PBV),
+    .PBVN(PBVN),
+    .PCV(PCV),
+    .PCVN(PCVN),
     .RUNVN(RUNVN),
     .STOVN(1'b1),
+    .TER(TER),
+    .TR4V(1'b0),
+    .TR13V(1'b0),
     .TTLV(1'b0),
+    .UTRV(UTRV),
+    .W3(W3),
+    .X4(X4),
+    .XN(XN),
     .Y1(Y1),
+    .Y3(Y3),
+    .Z5(Z5),
     .Z7(Z7),
+    .ZN(ZN),
     .CST(CST),
     .RUN(RUN),
     .RUNN(RUNN)

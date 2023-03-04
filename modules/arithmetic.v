@@ -75,7 +75,8 @@ module arithmetic(
     output wire AI3,
     output wire AI3N,
     output wire DL31,
-    output wire DL44
+    output wire DL44,
+    output wire UTR
 );
 
 wire AI4;
@@ -91,7 +92,6 @@ wire Q8DN;
 wire RAC;
 wire RACN;
 wire UACC0;
-wire UTR;
 wire ZER;
 wire ZERN;
 

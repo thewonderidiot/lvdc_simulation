@@ -5,10 +5,12 @@ module lvdc_sim;
 
 reg CSTN = 1;
 reg HALTV = 1;
+reg TER = 0;
 
 lvdc lvdc1(
     .CSTN(CSTN),
-    .HALTV(HALTV)
+    .HALTV(HALTV),
+    .TER(TER)
 );
 
 initial begin
