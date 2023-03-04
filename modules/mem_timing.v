@@ -60,6 +60,8 @@ module mem_timing(
     input wire Z7,
     input wire ZN,
     output wire CST,
+    output wire MAO,
+    output wire MBO,
     output wire RUN,
     output wire RUNN
 );
@@ -69,8 +71,6 @@ wire COCN;
 wire CNC;
 wire CNCN;
 wire INHBS;
-wire MAO;
-wire MBO;
 wire MFF;
 wire MSS;
 wire MTT;

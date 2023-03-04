@@ -3,6 +3,8 @@
 
 module lvdc(
     input wire CSTN,
+    input wire DATAV,
+    input wire DIN,
     input wire HALTV,
     input wire TER
 );
@@ -10,6 +12,7 @@ module lvdc(
 // Power rails
 reg V1 = 1;
 reg V4MOD1 = 1;
+reg V4MOD2 = 1;
 reg V4MOD3 = 1;
 reg V4MOD7 = 1;
 reg V5 = 1;
@@ -46,6 +49,34 @@ wire BO2N;
 wire BO3;
 wire BO3N;
 wire BOP;
+wire BRA1;
+wire BRA2;
+wire BRA3;
+wire BRA4;
+wire BRA5;
+wire BRA6;
+wire BRA7;
+wire BRA8;
+wire BRA9;
+wire BRA10;
+wire BRA11;
+wire BRA12;
+wire BRA13;
+wire BRA14;
+wire BRB1;
+wire BRB2;
+wire BRB3;
+wire BRB4;
+wire BRB5;
+wire BRB6;
+wire BRB7;
+wire BRB8;
+wire BRB9;
+wire BRB10;
+wire BRB11;
+wire BRB12;
+wire BRB13;
+wire BRB14;
 wire CGPP;
 wire CGPPN;
 wire CGQP;
@@ -84,6 +115,10 @@ wire G7;
 wire G7N;
 wire G7V;
 wire G7VN;
+wire MAO;
+wire MAOV;
+wire MBO;
+wire MBOV;
 wire PA;
 wire PAN;
 wire PAV;
@@ -104,17 +139,38 @@ wire TBC;
 wire TBCN;
 wire TBCV;
 wire TBCVN;
+wire TR1;
+wire TR1V;
+wire TR2;
+wire TR2V;
+wire TR3;
+wire TR3V;
+wire TR4;
+wire TR4V;
+wire TR5;
+wire TR5V;
+wire TR6;
+wire TR6V;
+wire TR7;
+wire TR7V;
+wire TR8;
+wire TR8V;
+wire TR9;
+wire TR9V;
 wire UTR;
 wire UTRV;
 wire W1;
 wire W3;
+wire W6;
 wire W7;
 wire WN;
 wire X3;
 wire X4;
+wire X8;
 wire XN;
 wire Y1;
 wire Y3;
+wire Y4;
 wire Y5;
 wire Y7;
 wire Y8;
@@ -151,6 +207,8 @@ assign G6V = G6;
 assign G6VN = G6N;
 assign G7V = G7;
 assign G7VN = G7N;
+assign MAOV = MAO;
+assign MBOV = MBO;
 assign PAV = PA;
 assign PAVN = PAN;
 assign PBV = PB;
@@ -161,6 +219,15 @@ assign RUNV = RUN;
 assign RUNVN = RUNN;
 assign TBCV = TBC;
 assign TBCVN = TBCN;
+assign TR1V = TR1;
+assign TR2V = TR2;
+assign TR3V = TR3;
+assign TR4V = TR4;
+assign TR5V = TR5;
+assign TR6V = TR6;
+assign TR7V = TR7;
+assign TR8V = TR8;
+assign TR9V = TR9;
 assign UTRV = UTR;
 
 // Modules
@@ -174,13 +241,16 @@ clock_drivers a1a3(
     .CGRPN(CGRPN),
     .W1(W1),
     .W3(W3),
+    .W6(W6),
     .W7(W7),
     .WN(WN),
     .X3(X3),
     .X4(X4),
+    .X8(X8),
     .XN(XN),
     .Y1(Y1),
     .Y3(Y3),
+    .Y4(Y4),
     .Y5(Y5),
     .Y7(Y7),
     .Y8(Y8),
@@ -231,7 +301,7 @@ arithmetic a1a10(
     .AI3V(AI3V),
     .AI3VN(AI3VN),
     .CSTV(CSTV),
-    .DATAV(1'b0),
+    .DATAV(DATAV),
     .EXMVN(1'b1),
     .G1V(G1V),
     .G1VN(G1VN),
@@ -391,7 +461,7 @@ mem_timing a1a15(
     .RUNVN(RUNVN),
     .STOVN(1'b1),
     .TER(TER),
-    .TR4V(1'b0),
+    .TR4V(TR4V),
     .TR13V(1'b0),
     .TTLV(1'b0),
     .UTRV(UTRV),
@@ -404,8 +474,48 @@ mem_timing a1a15(
     .Z7(Z7),
     .ZN(ZN),
     .CST(CST),
+    .MAO(MAO),
+    .MBO(MBO),
     .RUN(RUN),
     .RUNN(RUNN)
+);
+
+transfer_reg_1 a1a18(
+    .V1(V1),
+    .V4MOD2(V4MOD2),
+    .AI1V(AI1V),
+    .BRA1(BRA1),
+    .BRB1(BRB1),
+    .CLTR(1'b0),
+    .DIN(DIN),
+    .G1V(G1V),
+    .G1VN(G1VN),
+    .G7VN(G7VN),
+    .MAOV(MAOV),
+    .MBOV(MBOV),
+    .MD2V(1'b0),
+    .PAV(PAV),
+    .PBVN(PBVN),
+    .PCV(PCV),
+    .RUNV(RUNV),
+    .RUNVN(RUNVN),
+    .SRTR(1'b0),
+    .STMD(1'b0),
+    .STMDN(1'b1),
+    .STO(1'b0),
+    .TBR(1'b0),
+    .W6(W6),
+    .X8(X8),
+    .Y4(Y4),
+    .TR1(TR1),
+    .TR2(TR2),
+    .TR3(TR3),
+    .TR4(TR4),
+    .TR5(TR5),
+    .TR6(TR6),
+    .TR7(TR7),
+    .TR8(TR8),
+    .TR9(TR9)
 );
 
 osc_buf a4a11(
@@ -438,13 +548,13 @@ buffer_register_12 a5a9(
     .AnCBRVN(1'b0),
     .AnSBRYV(1'b0),
     .AnSBRZV(1'b0),
-    .AnTR1V(1'b0),
-    .AnTR2V(1'b0),
-    .AnTR3V(1'b0),
-    .AnTR4V(1'b0),
-    .AnTR5V(1'b0),
-    .AnTR7V(1'b0),
-    .AnTR8V(1'b0),
+    .AnTR1V(TR1V),
+    .AnTR2V(TR2V),
+    .AnTR3V(TR3V),
+    .AnTR4V(TR4V),
+    .AnTR5V(TR5V),
+    .AnTR7V(TR7V),
+    .AnTR8V(TR8V),
     .AnTR10V(1'b0),
     .AnTR11V(1'b0),
     .AnTR13V(1'b0),
@@ -487,7 +597,17 @@ buffer_register_12 a5a9(
     .MdSA8(1'b0),
     .MdSA10(1'b0),
     .MdSA11(1'b0),
-    .MdSA13(1'b0)
+    .MdSA13(1'b0),
+    .BRx1(BRA1),
+    .BRx2(BRA2),
+    .BRx3(BRA3),
+    .BRx4(BRA4),
+    .BRx5(BRA5),
+    .BRx7(BRA7),
+    .BRx8(BRA8),
+    .BRx10(BRA10),
+    .BRx11(BRA11),
+    .BRx13(BRA13)
 );
 
 buffer_register_12 a5a10(
@@ -495,13 +615,13 @@ buffer_register_12 a5a10(
     .AnCBRVN(1'b0),
     .AnSBRYV(1'b0),
     .AnSBRZV(1'b0),
-    .AnTR1V(1'b0),
-    .AnTR2V(1'b0),
-    .AnTR3V(1'b0),
-    .AnTR4V(1'b0),
-    .AnTR5V(1'b0),
-    .AnTR7V(1'b0),
-    .AnTR8V(1'b0),
+    .AnTR1V(TR1V),
+    .AnTR2V(TR2V),
+    .AnTR3V(TR3V),
+    .AnTR4V(TR4V),
+    .AnTR5V(TR5V),
+    .AnTR7V(TR7V),
+    .AnTR8V(TR8V),
     .AnTR10V(1'b0),
     .AnTR11V(1'b0),
     .AnTR13V(1'b0),
@@ -544,7 +664,17 @@ buffer_register_12 a5a10(
     .MdSA8(1'b0),
     .MdSA10(1'b0),
     .MdSA11(1'b0),
-    .MdSA13(1'b0)
+    .MdSA13(1'b0),
+    .BRx1(BRB1),
+    .BRx2(BRB2),
+    .BRx3(BRB3),
+    .BRx4(BRB4),
+    .BRx5(BRB5),
+    .BRx7(BRB7),
+    .BRx8(BRB8),
+    .BRx10(BRB10),
+    .BRx11(BRB11),
+    .BRx13(BRB13)
 );
 
 buffer_register_3 a5a11(
@@ -555,10 +685,10 @@ buffer_register_3 a5a11(
     .A2PARV(1'b0),
     .A1SBRXV(1'b0),
     .A2SBRXV(1'b0),
-    .A1TR6V(1'b0),
-    .A2TR6V(1'b0),
-    .A1TR9V(1'b0),
-    .A2TR9V(1'b0),
+    .A1TR6V(TR6V),
+    .A2TR6V(TR6V),
+    .A1TR9V(TR9V),
+    .A2TR9V(TR9V),
     .A1TR12V(1'b0),
     .A2TR12V(1'b0),
     .A1TR14V(1'b0),
@@ -594,7 +724,15 @@ buffer_register_3 a5a11(
     .M7SA6(1'b0),
     .M7SA9(1'b0),
     .M7SA12(1'b0),
-    .M7SA14(1'b0)
+    .M7SA14(1'b0),
+    .BRA6(BRA6),
+    .BRA9(BRA9),
+    .BRA12(BRA12),
+    .BRA14(BRA14),
+    .BRB6(BRB6),
+    .BRB9(BRB9),
+    .BRB12(BRB12),
+    .BRB14(BRB14)
 );
 
 endmodule

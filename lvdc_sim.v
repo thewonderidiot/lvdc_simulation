@@ -4,11 +4,15 @@
 module lvdc_sim;
 
 reg CSTN = 1;
+reg DATAV = 0;
+reg DIN = 0;
 reg HALTV = 1;
 reg TER = 0;
 
 lvdc lvdc1(
     .CSTN(CSTN),
+    .DATAV(DATAV),
+    .DIN(DIN),
     .HALTV(HALTV),
     .TER(TER)
 );

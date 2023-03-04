@@ -7,6 +7,7 @@ MODULES = arithmetic \
 	  mem_timing \
 	  osc_buf \
 	  timing \
+	  transfer_reg_1 \
 
 COMPONENTS = a \
 	     bfr_pa \
