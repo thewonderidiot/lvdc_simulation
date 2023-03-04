@@ -157,6 +157,8 @@ wire TR8;
 wire TR8V;
 wire TR9;
 wire TR9V;
+wire TR9D;
+wire TR9DN;
 wire UTR;
 wire UTRV;
 wire W1;
@@ -166,6 +168,7 @@ wire W7;
 wire WN;
 wire X3;
 wire X4;
+wire X5;
 wire X8;
 wire XN;
 wire Y1;
@@ -246,6 +249,7 @@ clock_drivers a1a3(
     .WN(WN),
     .X3(X3),
     .X4(X4),
+    .X5(X5),
     .X8(X8),
     .XN(XN),
     .Y1(Y1),
@@ -484,13 +488,36 @@ transfer_reg_1 a1a18(
     .V1(V1),
     .V4MOD2(V4MOD2),
     .AI1V(AI1V),
+    .AVN(AVN),
     .BRA1(BRA1),
+    .BRA2(BRA2),
+    .BRA3(BRA3),
+    .BRA4(BRA4),
+    .BRA5(BRA5),
+    .BRA6(BRA6),
+    .BRA7(BRA7),
+    .BRA8(BRA8),
+    .BRA9(BRA9),
     .BRB1(BRB1),
+    .BRB2(BRB2),
+    .BRB3(BRB3),
+    .BRB4(BRB4),
+    .BRB5(BRB5),
+    .BRB6(BRB6),
+    .BRB7(BRB7),
+    .BRB8(BRB8),
+    .BRB9(BRB9),
     .CLTR(1'b0),
     .DIN(DIN),
+    .EXMVN(1'b1),
     .G1V(G1V),
     .G1VN(G1VN),
+    .G3VN(G3VN),
+    .G5V(G5V),
+    .G6VN(G6VN),
+    .G7V(G7V),
     .G7VN(G7VN),
+    .INTV(1'b0),
     .MAOV(MAOV),
     .MBOV(MBOV),
     .MD2V(1'b0),
@@ -500,13 +527,13 @@ transfer_reg_1 a1a18(
     .RUNV(RUNV),
     .RUNVN(RUNVN),
     .SRTR(1'b0),
-    .STMD(1'b0),
-    .STMDN(1'b1),
     .STO(1'b0),
     .TBR(1'b0),
     .W6(W6),
+    .X5(X5),
     .X8(X8),
     .Y4(Y4),
+    .Z2(Z2),
     .TR1(TR1),
     .TR2(TR2),
     .TR3(TR3),
@@ -515,7 +542,9 @@ transfer_reg_1 a1a18(
     .TR6(TR6),
     .TR7(TR7),
     .TR8(TR8),
-    .TR9(TR9)
+    .TR9(TR9),
+    .TR9D(TR9D),
+    .TR9DN(TR9DN)
 );
 
 osc_buf a4a11(
