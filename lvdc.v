@@ -77,12 +77,15 @@ wire BRB11;
 wire BRB12;
 wire BRB13;
 wire BRB14;
+wire CBRN;
+wire CBRVN;
 wire CGPP;
 wire CGPPN;
 wire CGQP;
 wire CGQPN;
 wire CGRP;
 wire CGRPN;
+wire CLTR;
 wire CST;
 wire CSTV;
 wire DL31;
@@ -131,15 +134,27 @@ wire PC;
 wire PCN;
 wire PCV;
 wire PCVN;
+wire RD;
+wire RDV;
 wire RUN;
 wire RUNN;
 wire RUNV;
 wire RUNVN;
+wire SBRX;
+wire SBRXV;
+wire SBRY;
+wire SBRYV;
+wire SBRZ;
+wire SBRZV;
+wire SRTR;
+wire STO;
 wire TBC;
 wire TBCN;
 wire TBCV;
 wire TBCVN;
+wire TBR;
 wire TR1;
+wire TR1N;
 wire TR1V;
 wire TR2;
 wire TR2V;
@@ -159,6 +174,18 @@ wire TR9;
 wire TR9V;
 wire TR9D;
 wire TR9DN;
+wire TR10;
+wire TR10V;
+wire TR11;
+wire TR11V;
+wire TR12;
+wire TR12V;
+wire TR13;
+wire TR13V;
+wire TRS;
+wire TRSN;
+wire TRSV;
+wire TRSVN;
 wire UTR;
 wire UTRV;
 wire W1;
@@ -166,6 +193,7 @@ wire W3;
 wire W6;
 wire W7;
 wire WN;
+wire X2;
 wire X3;
 wire X4;
 wire X5;
@@ -175,6 +203,7 @@ wire Y1;
 wire Y3;
 wire Y4;
 wire Y5;
+wire Y6;
 wire Y7;
 wire Y8;
 wire YN;
@@ -182,6 +211,7 @@ wire Z2;
 wire Z3;
 wire Z5;
 wire Z7;
+wire Z8;
 wire ZN;
 
 // TMR bypass for breadboard computer
@@ -195,6 +225,7 @@ assign AI2V = AI2;
 assign AI2VN = AI2N;
 assign AI3V = AI3;
 assign AI3VN = AI3N;
+assign CBRVN = CBRN;
 assign CSTV = CST;
 assign G1V = G1;
 assign G1VN = G1N;
@@ -218,8 +249,12 @@ assign PBV = PB;
 assign PBVN = PBN;
 assign PCV = PC;
 assign PCVN = PCN;
+assign RDV = RD;
 assign RUNV = RUN;
 assign RUNVN = RUNN;
+assign SBRXV = SBRX;
+assign SBRYV = SBRY;
+assign SBRZV = SBRZ;
 assign TBCV = TBC;
 assign TBCVN = TBCN;
 assign TR1V = TR1;
@@ -231,6 +266,12 @@ assign TR6V = TR6;
 assign TR7V = TR7;
 assign TR8V = TR8;
 assign TR9V = TR9;
+assign TR10V = TR10;
+assign TR11V = TR11;
+assign TR12V = TR12;
+assign TR13V = TR13;
+assign TRSV = TRS;
+assign TRSVN = TRSN;
 assign UTRV = UTR;
 
 // Modules
@@ -247,6 +288,7 @@ clock_drivers a1a3(
     .W6(W6),
     .W7(W7),
     .WN(WN),
+    .X2(X2),
     .X3(X3),
     .X4(X4),
     .X5(X5),
@@ -256,6 +298,7 @@ clock_drivers a1a3(
     .Y3(Y3),
     .Y4(Y4),
     .Y5(Y5),
+    .Y6(Y6),
     .Y7(Y7),
     .Y8(Y8),
     .YN(YN),
@@ -263,6 +306,7 @@ clock_drivers a1a3(
     .Z3(Z3),
     .Z5(Z5),
     .Z7(Z7),
+    .Z8(Z8),
     .ZN(ZN)
 );
 
@@ -340,8 +384,8 @@ arithmetic a1a10(
     .Q8V(1'b0),
     .SHFV(1'b0),
     .TBCV(TBCV),
-    .TRSV(1'b0),
-    .TRSVN(1'b1),
+    .TRSV(TRSV),
+    .TRSVN(TRSVN),
     .TTLV(1'b0),
     .UTRV(UTRV),
     .VOYVN(1'b0),
@@ -362,6 +406,80 @@ arithmetic a1a10(
     .DL31(DL31),
     .DL44(DL44),
     .UTR(UTR)
+);
+
+transfer_reg_2 a1a11(
+    .V1(V1),
+    .V4MOD2(V4MOD2),
+    .AV(AV),
+    .AVN(AVN),
+    .A5V(1'b0),
+    .A6V(1'b0),
+    .AI2V(AI2V),
+    .BRA10(BRA10),
+    .BRA11(BRA11),
+    .BRA12(BRA12),
+    .BRA13(BRA13),
+    .BRB10(BRB10),
+    .BRB11(BRB11),
+    .BRB12(BRB12),
+    .BRB13(BRB13),
+    .CBRN(CBRN),
+    .EXMVN(1'b1),
+    .G1V(G1V),
+    .G1VN(G1VN),
+    .G2V(G2V),
+    .G2VN(G2VN),
+    .G3V(G3V),
+    .G3VN(G3VN),
+    .G4VN(G4VN),
+    .G5V(G5V),
+    .G5VN(G5VN),
+    .G6V(G6V),
+    .G6VN(G6VN),
+    .G7V(G7V),
+    .G7VN(G7VN),
+    .HOPV(1'b1),
+    .MAOV(MAOV),
+    .MBOV(MBOV),
+    .OP1VN(1'b1),
+    .OP2V(1'b0),
+    .OP2VN(1'b1),
+    .OP3V(1'b0),
+    .OP4V(1'b0),
+    .PAV(PAV),
+    .PBV(PBV),
+    .PCV(PCV),
+    .PCVN(PCVN),
+    .RDV(RDV),
+    .RUNV(RUNV),
+    .RUNVN(RUNVN),
+    .SBRX(SBRX),
+    .SBRY(SBRY),
+    .SBRZ(SBRZ),
+    .SHFV(1'b0),
+    .STOVN(1'b1),
+    .TR1N(TR1N),
+    .TR1V(TR1V),
+    .TR9D(TR9D),
+    .TR9DN(TR9DN),
+    .W1(W1),
+    .WN(WN),
+    .X2(X2),
+    .Y6(Y6),
+    .YN(YN),
+    .Z8(Z8),
+    .ZN(ZN),
+    .CLTR(CLTR),
+    .SRTR(SRTR),
+    .STO(STO),
+    .TBR(TBR),
+    .TR10(TR10),
+    .TR11(TR11),
+    .TR12(TR12),
+    .TR13(TR13),
+    .TRS(TRS),
+    .TRSN(TRSN)
 );
 
 timing a1a13(
@@ -444,7 +562,7 @@ mem_timing a1a15(
     .G7V(G7V),
     .G7VN(G7VN),
     .HALTV(HALTV),
-    .HOPV(1'b0),
+    .HOPV(1'b1),
     .IMA(1'b0),
     .IMB(1'b0),
     .INTV(1'b0),
@@ -462,11 +580,12 @@ mem_timing a1a15(
     .PBVN(PBVN),
     .PCV(PCV),
     .PCVN(PCVN),
+    .RD(RD),
     .RUNVN(RUNVN),
     .STOVN(1'b1),
     .TER(TER),
     .TR4V(TR4V),
-    .TR13V(1'b0),
+    .TR13V(TR13V),
     .TTLV(1'b0),
     .UTRV(UTRV),
     .W3(W3),
@@ -507,7 +626,7 @@ transfer_reg_1 a1a18(
     .BRB7(BRB7),
     .BRB8(BRB8),
     .BRB9(BRB9),
-    .CLTR(1'b0),
+    .CLTR(CLTR),
     .DIN(DIN),
     .EXMVN(1'b1),
     .G1V(G1V),
@@ -526,15 +645,16 @@ transfer_reg_1 a1a18(
     .PCV(PCV),
     .RUNV(RUNV),
     .RUNVN(RUNVN),
-    .SRTR(1'b0),
-    .STO(1'b0),
-    .TBR(1'b0),
+    .SRTR(SRTR),
+    .STO(STO),
+    .TBR(TBR),
     .W6(W6),
     .X5(X5),
     .X8(X8),
     .Y4(Y4),
     .Z2(Z2),
     .TR1(TR1),
+    .TR1N(TR1N),
     .TR2(TR2),
     .TR3(TR3),
     .TR4(TR4),
@@ -574,9 +694,9 @@ clock_logic a4a12(
 
 buffer_register_12 a5a9(
     .V1(V1),
-    .AnCBRVN(1'b0),
-    .AnSBRYV(1'b0),
-    .AnSBRZV(1'b0),
+    .AnCBRVN(CBRVN),
+    .AnSBRYV(SBRYV),
+    .AnSBRZV(SBRZV),
     .AnTR1V(TR1V),
     .AnTR2V(TR2V),
     .AnTR3V(TR3V),
@@ -584,9 +704,9 @@ buffer_register_12 a5a9(
     .AnTR5V(TR5V),
     .AnTR7V(TR7V),
     .AnTR8V(TR8V),
-    .AnTR10V(1'b0),
-    .AnTR11V(1'b0),
-    .AnTR13V(1'b0),
+    .AnTR10V(TR10V),
+    .AnTR11V(TR11V),
+    .AnTR13V(TR13V),
     .MaSA1(1'b0),
     .MaSA2(1'b0),
     .MaSA3(1'b0),
@@ -641,9 +761,9 @@ buffer_register_12 a5a9(
 
 buffer_register_12 a5a10(
     .V1(V1),
-    .AnCBRVN(1'b0),
-    .AnSBRYV(1'b0),
-    .AnSBRZV(1'b0),
+    .AnCBRVN(CBRVN),
+    .AnSBRYV(SBRYV),
+    .AnSBRZV(SBRZV),
     .AnTR1V(TR1V),
     .AnTR2V(TR2V),
     .AnTR3V(TR3V),
@@ -651,9 +771,9 @@ buffer_register_12 a5a10(
     .AnTR5V(TR5V),
     .AnTR7V(TR7V),
     .AnTR8V(TR8V),
-    .AnTR10V(1'b0),
-    .AnTR11V(1'b0),
-    .AnTR13V(1'b0),
+    .AnTR10V(TR10V),
+    .AnTR11V(TR11V),
+    .AnTR13V(TR13V),
     .MaSA1(1'b0),
     .MaSA2(1'b0),
     .MaSA3(1'b0),
@@ -708,20 +828,18 @@ buffer_register_12 a5a10(
 
 buffer_register_3 a5a11(
     .V1(V1),
-    .A1CBRVN(1'b0),
-    .A2CBRVN(1'b0),
+    .A1CBRVN(CBRVN),
+    .A2CBRVN(CBRVN),
     .A1PARV(1'b0),
     .A2PARV(1'b0),
-    .A1SBRXV(1'b0),
-    .A2SBRXV(1'b0),
+    .A1SBRXV(SBRXV),
+    .A2SBRXV(SBRXV),
     .A1TR6V(TR6V),
     .A2TR6V(TR6V),
     .A1TR9V(TR9V),
     .A2TR9V(TR9V),
-    .A1TR12V(1'b0),
-    .A2TR12V(1'b0),
-    .A1TR14V(1'b0),
-    .A2TR14V(1'b0),
+    .A1TR12V(TR12V),
+    .A2TR12V(TR12V),
     .M0SA6(1'b0),
     .M0SA9(1'b0),
     .M0SA12(1'b0),

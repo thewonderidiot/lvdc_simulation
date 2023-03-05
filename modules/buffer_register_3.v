@@ -15,8 +15,6 @@ module buffer_register_3(
     input wire A2TR9V,
     input wire A1TR12V,
     input wire A2TR12V,
-    input wire A1TR14V,
-    input wire A2TR14V,
     input wire M0SA6,
     input wire M0SA9,
     input wire M0SA12,

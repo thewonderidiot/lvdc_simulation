@@ -62,6 +62,7 @@ module mem_timing(
     output wire CST,
     output wire MAO,
     output wire MBO,
+    output wire RD,
     output wire RUN,
     output wire RUNN
 );
@@ -76,7 +77,6 @@ wire MSS;
 wire MTT;
 wire MOP;
 wire MZO;
-wire RD;
 wire RDM;
 wire RDMN;
 wire RECN;

@@ -52,6 +52,7 @@ module transfer_reg_1(
     input wire Y4,
     input wire Z2,
     output wire TR1,
+    output wire TR1N,
     output wire TR2,
     output wire TR3,
     output wire TR4,
@@ -68,7 +69,6 @@ wire SS;
 wire SSN;
 wire STMD;
 wire STMDN;
-wire TR1N;
 wire TR1D;
 wire TR1DN;
 wire TR2N;
@@ -261,7 +261,7 @@ i a1e(.a(na1c), .y(TR7));
 a #(1) a1c(.clk(V4MOD2), .a1(TR7N), .y(na1c));
 a a1d(.clk(X8), .exp(na22a), .a1(TR6DN), .y(na1c));
 a a22a(.a1(SRTR), .y(na22a));
-a a2f(.clk(X8), .exp(na18b), .y(na1c));
+a a2f(.clk(X8), .exp(na18b), .a1(CLTR), .y(na1c));
 a a18b(.a1(EXMVN), .y(na18b));
 
 a a24b(.a1(EXMVN), .y(na24b));
