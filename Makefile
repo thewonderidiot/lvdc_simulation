@@ -5,6 +5,7 @@ MODULES = arithmetic \
 	  clock_logic \
 	  delay_line \
 	  mem_timing \
+	  op_code_reg \
 	  osc_buf \
 	  timing \
 	  transfer_reg_1 \

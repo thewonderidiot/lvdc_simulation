@@ -6,6 +6,7 @@ module lvdc(
     input wire DATAV,
     input wire DIN,
     input wire HALTV,
+    input wire INTCV,
     input wire TER
 );
 
@@ -14,6 +15,7 @@ reg V1 = 1;
 reg V4MOD1 = 1;
 reg V4MOD2 = 1;
 reg V4MOD3 = 1;
+reg V4MOD5 = 1;
 reg V4MOD7 = 1;
 reg V5 = 1;
 
@@ -90,6 +92,10 @@ wire CST;
 wire CSTV;
 wire DL31;
 wire DL44;
+wire EXM;
+wire EXMN;
+wire EXMV;
+wire EXMVN;
 wire G1;
 wire G1N;
 wire G1V;
@@ -118,10 +124,30 @@ wire G7;
 wire G7N;
 wire G7V;
 wire G7VN;
+wire HOP;
+wire HOPV;
+wire INT;
+wire INTV;
 wire MAO;
 wire MAOV;
 wire MBO;
 wire MBOV;
+wire OP1;
+wire OP1N;
+wire OP1V;
+wire OP1VN;
+wire OP2;
+wire OP2N;
+wire OP2V;
+wire OP2VN;
+wire OP3;
+wire OP3N;
+wire OP3V;
+wire OP3VN;
+wire OP4;
+wire OP4N;
+wire OP4V;
+wire OP4VN;
 wire PA;
 wire PAN;
 wire PAV;
@@ -134,6 +160,8 @@ wire PC;
 wire PCN;
 wire PCV;
 wire PCVN;
+wire PIO;
+wire PIOV;
 wire RD;
 wire RDV;
 wire RUN;
@@ -146,8 +174,12 @@ wire SBRY;
 wire SBRYV;
 wire SBRZ;
 wire SBRZV;
+wire SHF;
+wire SHFV;
 wire SRTR;
 wire STO;
+wire STON;
+wire STOVN;
 wire TBC;
 wire TBCN;
 wire TBCV;
@@ -186,6 +218,8 @@ wire TRS;
 wire TRSN;
 wire TRSV;
 wire TRSVN;
+wire TTL;
+wire TTLV;
 wire UTR;
 wire UTRV;
 wire W1;
@@ -227,6 +261,8 @@ assign AI3V = AI3;
 assign AI3VN = AI3N;
 assign CBRVN = CBRN;
 assign CSTV = CST;
+assign EXMV = EXM;
+assign EXMVN = EXMN;
 assign G1V = G1;
 assign G1VN = G1N;
 assign G2V = G2;
@@ -241,20 +277,33 @@ assign G6V = G6;
 assign G6VN = G6N;
 assign G7V = G7;
 assign G7VN = G7N;
+assign HOPV = HOP;
+assign INTV = INT;
 assign MAOV = MAO;
 assign MBOV = MBO;
+assign OP1V = OP1;
+assign OP1VN = OP1N;
+assign OP2V = OP2;
+assign OP2VN = OP2N;
+assign OP3V = OP3;
+assign OP3VN = OP3N;
+assign OP4V = OP4;
+assign OP4VN = OP4N;
 assign PAV = PA;
 assign PAVN = PAN;
 assign PBV = PB;
 assign PBVN = PBN;
 assign PCV = PC;
 assign PCVN = PCN;
+assign PIOV = PIO;
 assign RDV = RD;
 assign RUNV = RUN;
 assign RUNVN = RUNN;
 assign SBRXV = SBRX;
 assign SBRYV = SBRY;
 assign SBRZV = SBRZ;
+assign SHFV = SHF;
+assign STOVN = STON;
 assign TBCV = TBC;
 assign TBCVN = TBCN;
 assign TR1V = TR1;
@@ -272,6 +321,7 @@ assign TR12V = TR12;
 assign TR13V = TR13;
 assign TRSV = TRS;
 assign TRSVN = TRSN;
+assign TTLV = TTL;
 assign UTRV = UTR;
 
 // Modules
@@ -350,7 +400,7 @@ arithmetic a1a10(
     .AI3VN(AI3VN),
     .CSTV(CSTV),
     .DATAV(DATAV),
-    .EXMVN(1'b1),
+    .EXMVN(EXMVN),
     .G1V(G1V),
     .G1VN(G1VN),
     .G2VN(G2VN),
@@ -362,17 +412,17 @@ arithmetic a1a10(
     .G6VN(G6VN),
     .G7V(G7V),
     .G7VN(G7VN),
-    .INTV(1'b0),
+    .INTV(INTV),
     .HOPC1V(1'b0),
     .HOYV(1'b0),
-    .OP1V(1'b0),
-    .OP1VN(1'b1),
-    .OP2V(1'b0),
-    .OP2VN(1'b1),
-    .OP3V(1'b0),
-    .OP3VN(1'b1),
-    .OP4V(1'b0),
-    .OP4VN(1'b1),
+    .OP1V(OP1V),
+    .OP1VN(OP1VN),
+    .OP2V(OP2V),
+    .OP2VN(OP2VN),
+    .OP3V(OP3V),
+    .OP3VN(OP3VN),
+    .OP4V(OP4V),
+    .OP4VN(OP4VN),
     .P3VN(1'b1),
     .PAV(PAV),
     .PAVN(PAVN),
@@ -380,13 +430,13 @@ arithmetic a1a10(
     .PBVN(PBVN),
     .PCV(PCV),
     .PCVN(PCVN),
-    .PIOV(1'b0),
+    .PIOV(PIOV),
     .Q8V(1'b0),
-    .SHFV(1'b0),
+    .SHFV(SHFV),
     .TBCV(TBCV),
     .TRSV(TRSV),
     .TRSVN(TRSVN),
-    .TTLV(1'b0),
+    .TTLV(TTLV),
     .UTRV(UTRV),
     .VOYVN(1'b0),
     .W1(W1),
@@ -425,7 +475,7 @@ transfer_reg_2 a1a11(
     .BRB12(BRB12),
     .BRB13(BRB13),
     .CBRN(CBRN),
-    .EXMVN(1'b1),
+    .EXMVN(EXMVN),
     .G1V(G1V),
     .G1VN(G1VN),
     .G2V(G2V),
@@ -439,14 +489,14 @@ transfer_reg_2 a1a11(
     .G6VN(G6VN),
     .G7V(G7V),
     .G7VN(G7VN),
-    .HOPV(1'b1),
+    .HOPV(HOPV),
     .MAOV(MAOV),
     .MBOV(MBOV),
-    .OP1VN(1'b1),
-    .OP2V(1'b0),
-    .OP2VN(1'b1),
-    .OP3V(1'b0),
-    .OP4V(1'b0),
+    .OP1VN(OP1VN),
+    .OP2V(OP2V),
+    .OP2VN(OP2VN),
+    .OP3V(OP3V),
+    .OP4V(OP4V),
     .PAV(PAV),
     .PBV(PBV),
     .PCV(PCV),
@@ -457,8 +507,8 @@ transfer_reg_2 a1a11(
     .SBRX(SBRX),
     .SBRY(SBRY),
     .SBRZ(SBRZ),
-    .SHFV(1'b0),
-    .STOVN(1'b1),
+    .SHFV(SHFV),
+    .STOVN(STOVN),
     .TR1N(TR1N),
     .TR1V(TR1V),
     .TR9D(TR9D),
@@ -480,6 +530,66 @@ transfer_reg_2 a1a11(
     .TR13(TR13),
     .TRS(TRS),
     .TRSN(TRSN)
+);
+
+op_code_reg a1a12(
+    .V1(V1),
+    .V4MOD5(V4MOD5),
+    .A8V(1'b0),
+    .A9V(1'b0),
+    .CSTV(CSTV),
+    .G1V(G1V),
+    .G1VN(G1VN),
+    .G2VN(G2VN),
+    .G4VN(G4VN),
+    .G5V(G5V),
+    .G5VN(G5VN),
+    .G6V(G6V),
+    .G6VN(G6VN),
+    .G7V(G7V),
+    .G7VN(G7VN),
+    .HOYV(1'b0),
+    .HOYVN(1'b1),
+    .INTCV(INTCV),
+    .OP2V(OP2V),
+    .OP3V(OP3V),
+    .OP4V(OP4V),
+    .PAV(PAV),
+    .PBVN(PBVN),
+    .TR1V(TR1V),
+    .TR2V(TR2V),
+    .TR3V(TR3V),
+    .TR4V(TR4V),
+    .TR5V(TR5V),
+    .TR6V(TR6V),
+    .TR7V(TR7V),
+    .TR8V(TR8V),
+    .TR9V(TR9V),
+    .TR10V(TR10V),
+    .TR11V(TR11V),
+    .TR12V(TR12V),
+    .TR13V(TR13V),
+    .VOYVN(1'b1),
+    .W6(W6),
+    .WN(WN),
+    .X2(X2),
+    .Y6(Y6),
+    .Z2(Z2),
+    .EXM(EXM),
+    .EXMN(EXMN),
+    .HOP(HOP),
+    .INT(INT),
+    .OP1(OP1),
+    .OP1N(OP1N),
+    .OP2(OP2),
+    .OP2N(OP2N),
+    .OP3(OP3),
+    .OP3N(OP3N),
+    .OP4(OP4),
+    .OP4N(OP4N),
+    .SHF(SHF),
+    .STON(STON),
+    .TTL(TTL)
 );
 
 timing a1a13(
@@ -547,8 +657,8 @@ mem_timing a1a15(
     .EAP(1'b0),
     .EBC(1'b0),
     .EBP(1'b0),
-    .EXMV(1'b0),
-    .EXMVN(1'b1),
+    .EXMV(EXMV),
+    .EXMVN(EXMVN),
     .G1V(G1V),
     .G1VN(G1VN),
     .G2V(G2V),
@@ -562,14 +672,14 @@ mem_timing a1a15(
     .G7V(G7V),
     .G7VN(G7VN),
     .HALTV(HALTV),
-    .HOPV(1'b1),
+    .HOPV(HOPV),
     .IMA(1'b0),
     .IMB(1'b0),
-    .INTV(1'b0),
-    .OP1VN(1'b1),
-    .OP2VN(1'b1),
-    .OP3V(1'b0),
-    .OP4V(1'b0),
+    .INTV(INTV),
+    .OP1VN(OP1VN),
+    .OP2VN(OP2VN),
+    .OP3V(OP3V),
+    .OP4V(OP4V),
     .MFFVN(1'b1),
     .MSSVN(1'b1),
     .MTTVN(1'b1),
@@ -582,11 +692,11 @@ mem_timing a1a15(
     .PCVN(PCVN),
     .RD(RD),
     .RUNVN(RUNVN),
-    .STOVN(1'b1),
+    .STOVN(STOVN),
     .TER(TER),
     .TR4V(TR4V),
     .TR13V(TR13V),
-    .TTLV(1'b0),
+    .TTLV(TTLV),
     .UTRV(UTRV),
     .W3(W3),
     .X4(X4),
@@ -628,7 +738,7 @@ transfer_reg_1 a1a18(
     .BRB9(BRB9),
     .CLTR(CLTR),
     .DIN(DIN),
-    .EXMVN(1'b1),
+    .EXMVN(EXMVN),
     .G1V(G1V),
     .G1VN(G1VN),
     .G3VN(G3VN),
@@ -636,7 +746,7 @@ transfer_reg_1 a1a18(
     .G6VN(G6VN),
     .G7V(G7V),
     .G7VN(G7VN),
-    .INTV(1'b0),
+    .INTV(INTV),
     .MAOV(MAOV),
     .MBOV(MBOV),
     .MD2V(1'b0),
@@ -716,7 +826,7 @@ buffer_register_12 a5a9(
     .MaSA8(1'b0),
     .MaSA10(1'b0),
     .MaSA11(1'b0),
-    .MaSA13(1'b0),
+    .MaSA13(PAV & G1VN & G2V),
     .MbSA1(1'b0),
     .MbSA2(1'b0),
     .MbSA3(1'b0),
