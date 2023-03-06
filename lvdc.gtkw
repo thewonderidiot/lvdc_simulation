@@ -1,21 +1,21 @@
 [*]
 [*] GTKWave Analyzer v3.3.113 (w)1999-2022 BSI
-[*] Sun Mar  5 08:59:48 2023
+[*] Mon Mar  6 07:45:04 2023
 [*]
 [dumpfile] "/home/mike/lvdc_simulation/lvdc.fst"
-[dumpfile_mtime] "Sun Mar  5 08:43:31 2023"
-[dumpfile_size] 110856
+[dumpfile_mtime] "Mon Mar  6 07:19:38 2023"
+[dumpfile_size] 129470
 [savefile] "/home/mike/lvdc_simulation/lvdc.gtkw"
-[timestart] 268600000
+[timestart] 289100000
 [size] 1920 1002
 [pos] -1 -1
-*-26.400002 685600000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-26.400002 758400000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] lvdc_sim.
 [treeopen] lvdc_sim.lvdc1.
 [sst_width] 251
 [signals_width] 140
 [sst_expanded] 1
-[sst_vpaned_height] 277
+[sst_vpaned_height] 466
 @10c00028
 [color] 7
 [transaction_args] ""
@@ -54,23 +54,29 @@ lvdc_sim.lvdc1.a1a3.YF
 lvdc_sim.lvdc1.a1a3.ZF
 @1401200
 -group_end
-@10c00023
+@10c00022
 [transaction_args] ""
-^<4 /home/mike/lvdc_simulation/scripts/decode_instruction_counter.py
-#{IC} lvdc_sim.lvdc1.PAV lvdc_sim.lvdc1.a1a3.XF lvdc_sim.lvdc1.G2V lvdc_sim.lvdc1.G1V lvdc_sim.lvdc1.TR8V lvdc_sim.lvdc1.TR7V lvdc_sim.lvdc1.TR6V lvdc_sim.lvdc1.TR5V lvdc_sim.lvdc1.TR4V lvdc_sim.lvdc1.TR3V lvdc_sim.lvdc1.TR2V lvdc_sim.lvdc1.TR1V
-@29
-lvdc_sim.lvdc1.TR1V
-lvdc_sim.lvdc1.TR2V
-lvdc_sim.lvdc1.TR3V
-lvdc_sim.lvdc1.TR4V
-lvdc_sim.lvdc1.TR5V
-lvdc_sim.lvdc1.TR6V
-lvdc_sim.lvdc1.TR7V
-lvdc_sim.lvdc1.TR8V
-lvdc_sim.lvdc1.G1V
-lvdc_sim.lvdc1.G2V
-lvdc_sim.lvdc1.a1a3.XF
-lvdc_sim.lvdc1.PAV
+^<4 /home/mike/lvdc_simulation/scripts/decode_opcode.py
+#{Opcode} lvdc_sim.lvdc1.OP4V lvdc_sim.lvdc1.OP3V lvdc_sim.lvdc1.OP2V lvdc_sim.lvdc1.OP1V
+@28
+lvdc_sim.lvdc1.OP1V
+lvdc_sim.lvdc1.OP2V
+lvdc_sim.lvdc1.OP3V
+lvdc_sim.lvdc1.OP4V
+@1401200
+-group_end
+@c00031
+#{A} lvdc_sim.lvdc1.A9V lvdc_sim.lvdc1.A8V lvdc_sim.lvdc1.A7V lvdc_sim.lvdc1.A6V lvdc_sim.lvdc1.A5V lvdc_sim.lvdc1.A4V lvdc_sim.lvdc1.A3V lvdc_sim.lvdc1.A2V lvdc_sim.lvdc1.A1V
+@28
+lvdc_sim.lvdc1.A1V
+lvdc_sim.lvdc1.A2V
+lvdc_sim.lvdc1.A3V
+lvdc_sim.lvdc1.A4V
+lvdc_sim.lvdc1.A5V
+lvdc_sim.lvdc1.A6V
+lvdc_sim.lvdc1.A7V
+lvdc_sim.lvdc1.A8V
+lvdc_sim.lvdc1.A9V
 @1401201
 -group_end
 @c00030

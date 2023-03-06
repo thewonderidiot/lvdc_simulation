@@ -28,6 +28,7 @@ module clock_drivers(
     output wire Y7,
     output wire Y8,
     output wire YN,
+    output wire Z1,
     output wire Z2,
     output wire Z3,
     output wire Z5,
@@ -50,7 +51,6 @@ wire XF;
 wire Y2;
 wire YDA;
 wire YF;
-wire Z1;
 wire Z4;
 wire Z6;
 wire ZDA;

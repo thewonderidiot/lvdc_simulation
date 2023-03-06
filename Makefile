@@ -1,4 +1,5 @@
-MODULES = arithmetic \
+MODULES = add_reg_x_decode \
+	  arithmetic \
 	  buffer_register_12 \
 	  buffer_register_3 \
 	  clock_drivers \

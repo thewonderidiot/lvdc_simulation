@@ -16,6 +16,7 @@ reg V4MOD1 = 1;
 reg V4MOD2 = 1;
 reg V4MOD3 = 1;
 reg V4MOD5 = 1;
+reg V4MOD6 = 1;
 reg V4MOD7 = 1;
 reg V5 = 1;
 
@@ -24,6 +25,24 @@ wire A;
 wire AN;
 wire AV;
 wire AVN;
+wire A1;
+wire A1V;
+wire A2;
+wire A2V;
+wire A3;
+wire A3V;
+wire A4;
+wire A4V;
+wire A5;
+wire A5V;
+wire A6;
+wire A6V;
+wire A7;
+wire A7V;
+wire A8;
+wire A8V;
+wire A9;
+wire A9V;
 wire ACC0;
 wire ACC0N;
 wire ACC1;
@@ -241,6 +260,7 @@ wire Y6;
 wire Y7;
 wire Y8;
 wire YN;
+wire Z1;
 wire Z2;
 wire Z3;
 wire Z5;
@@ -251,6 +271,15 @@ wire ZN;
 // TMR bypass for breadboard computer
 assign AV = A;
 assign AVN = AN;
+assign A1V = A1;
+assign A2V = A2;
+assign A3V = A3;
+assign A4V = A4;
+assign A5V = A5;
+assign A6V = A6;
+assign A7V = A7;
+assign A8V = A8;
+assign A9V = A9;
 assign ACC1V = ACC1;
 assign ACC1VN = ACC1N;
 assign AI1V = AI1;
@@ -352,6 +381,7 @@ clock_drivers a1a3(
     .Y7(Y7),
     .Y8(Y8),
     .YN(YN),
+    .Z1(Z1),
     .Z2(Z2),
     .Z3(Z3),
     .Z5(Z5),
@@ -383,10 +413,10 @@ delay_line a1a5(
 arithmetic a1a10(
     .V1(V1),
     .V4MOD3(V4MOD3),
-    .A1V(1'b0),
-    .A2V(1'b0),
-    .A5V(1'b0),
-    .A6V(1'b0),
+    .A1V(A1V),
+    .A2V(A2V),
+    .A5V(A5V),
+    .A6V(A6V),
     .ACC0(ACC0),
     .ACC1V(ACC1V),
     .AV(AV),
@@ -463,8 +493,8 @@ transfer_reg_2 a1a11(
     .V4MOD2(V4MOD2),
     .AV(AV),
     .AVN(AVN),
-    .A5V(1'b0),
-    .A6V(1'b0),
+    .A5V(A5V),
+    .A6V(A6V),
     .AI2V(AI2V),
     .BRA10(BRA10),
     .BRA11(BRA11),
@@ -535,8 +565,8 @@ transfer_reg_2 a1a11(
 op_code_reg a1a12(
     .V1(V1),
     .V4MOD5(V4MOD5),
-    .A8V(1'b0),
-    .A9V(1'b0),
+    .A8V(A8V),
+    .A9V(A9V),
     .CSTV(CSTV),
     .G1V(G1V),
     .G1VN(G1VN),
@@ -587,6 +617,7 @@ op_code_reg a1a12(
     .OP3N(OP3N),
     .OP4(OP4),
     .OP4N(OP4N),
+    .PIO(PIO),
     .SHF(SHF),
     .STON(STON),
     .TTL(TTL)
@@ -777,6 +808,55 @@ transfer_reg_1 a1a18(
     .TR9DN(TR9DN)
 );
 
+add_reg_x_decode a1a19(
+    .V1(V1),
+    .V4MOD6(V4MOD6),
+    .AVN(AVN),
+    .A1V(A1V),
+    .A2V(A2V),
+    .A3V(A3V),
+    .A4V(A4V),
+    .A5V(A5V),
+    .A6V(A6V),
+    .A7V(A7V),
+    .A8V(A8V),
+    .DS4(1'b0),
+    .EXMV(EXMV),
+    .EXMVN(EXMVN),
+    .EXMDN(1'b1),
+    .G1V(G1V),
+    .G5VN(G5VN),
+    .G6V(G6V),
+    .G6VN(G6VN),
+    .G7V(G7V),
+    .IS4(1'b0),
+    .PAV(PAV),
+    .TR1V(TR1V),
+    .TR2V(TR2V),
+    .TR3V(TR3V),
+    .TR4V(TR4V),
+    .TR5V(TR5V),
+    .TR6V(TR6V),
+    .TR7V(TR7V),
+    .TR8V(TR8V),
+    .TR9V(TR9V),
+    .WN(WN),
+    .X5(X5),
+    .Y4(Y4),
+    .Y5(Y5),
+    .Z1(Z1),
+    .Z2(Z2),
+    .A1(A1),
+    .A2(A2),
+    .A3(A3),
+    .A4(A4),
+    .A5(A5),
+    .A6(A6),
+    .A7(A7),
+    .A8(A8),
+    .A9(A9)
+);
+
 osc_buf a4a11(
     .BO1(BO1),
     .BO1N(BO1N),
@@ -824,8 +904,8 @@ buffer_register_12 a5a9(
     .MaSA5(1'b0),
     .MaSA7(1'b0),
     .MaSA8(1'b0),
-    .MaSA10(1'b0),
-    .MaSA11(1'b0),
+    .MaSA10(PAV & G1VN & G2V),
+    .MaSA11(PAV & G1VN & G2V),
     .MaSA13(PAV & G1VN & G2V),
     .MbSA1(1'b0),
     .MbSA2(1'b0),
@@ -952,7 +1032,7 @@ buffer_register_3 a5a11(
     .A2TR12V(TR12V),
     .M0SA6(1'b0),
     .M0SA9(1'b0),
-    .M0SA12(1'b0),
+    .M0SA12(PAV & G1VN & G2V),
     .M0SA14(1'b0),
     .M1SA6(1'b0),
     .M1SA9(1'b0),

@@ -158,7 +158,7 @@ i a15c(.a(na15b), .y(OP2));
 i a16c(.a(na16a), .y(OP2N));
 a a16a(.clk(V4MOD5), .a1(OP2), .y(na16a));
 a a16b(.a1(TR12V), .a2(G5VN), .y(na16b));
-a a23b(.clk(Y6), .exp(na16b), .a1(PAV), .a2(G6V), .y(na16b));
+a a23b(.clk(Y6), .exp(na16b), .a1(PAV), .a2(G6V), .y(na16a));
 
 a a33a(.clk(Z2), .a1(PAV), .a2(G6VN), .a3(G7V), .y(na34a));
 a #(1) a34a(.clk(V4MOD5), .a1(EXMN), .y(na34a));
