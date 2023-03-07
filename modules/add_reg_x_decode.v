@@ -357,7 +357,7 @@ a a25d(.exp(na32b), .a1(TA), .y(na32c));
 a a32c(.clk(V1), .a1(A6), .y(na32c));
 i a32d(.a(na32c), .y(A6AN));
 i a31e(.a(na31c), .y(A6));
-a a31c(.clk(V4MOD6), .a1(A6AN), .y(na31c));
+a #(1) a31c(.clk(V4MOD6), .a1(A6AN), .y(na31c));
 a a31d(.clk(Y5), .a1(TA), .y(na31c));
 a a25e(.clk(V1), .a1(A6), .y(na25e));
 i a25f(.a(na25e), .y(A6N));

@@ -100,6 +100,8 @@ wire BRB13;
 wire BRB14;
 wire CBRN;
 wire CBRVN;
+wire CDS;
+wire CDSV;
 wire CGPP;
 wire CGPPN;
 wire CGQP;
@@ -145,12 +147,22 @@ wire G7V;
 wire G7VN;
 wire HOP;
 wire HOPV;
+wire HOPC1;
+wire HOPC1V;
 wire INT;
 wire INTV;
 wire MAO;
 wire MAOV;
 wire MBO;
 wire MBOV;
+wire MZON;
+wire MZOVN;
+wire MTTN;
+wire MTTVN;
+wire MFFN;
+wire MFFVN;
+wire MSSN;
+wire MSSVN;
 wire OP1;
 wire OP1N;
 wire OP1V;
@@ -199,6 +211,8 @@ wire SRTR;
 wire STO;
 wire STON;
 wire STOVN;
+wire SYLC1;
+wire SYLC1V;
 wire TBC;
 wire TBCN;
 wire TBCV;
@@ -243,6 +257,7 @@ wire UTR;
 wire UTRV;
 wire W1;
 wire W3;
+wire W5;
 wire W6;
 wire W7;
 wire WN;
@@ -289,6 +304,7 @@ assign AI2VN = AI2N;
 assign AI3V = AI3;
 assign AI3VN = AI3N;
 assign CBRVN = CBRN;
+assign CDSV = CDS;
 assign CSTV = CST;
 assign EXMV = EXM;
 assign EXMVN = EXMN;
@@ -307,9 +323,14 @@ assign G6VN = G6N;
 assign G7V = G7;
 assign G7VN = G7N;
 assign HOPV = HOP;
+assign HOPC1V = HOPC1;
 assign INTV = INT;
 assign MAOV = MAO;
 assign MBOV = MBO;
+assign MZOVN = MZON;
+assign MTTVN = MTTN;
+assign MFFVN = MFFN;
+assign MSSVN = MSSN;
 assign OP1V = OP1;
 assign OP1VN = OP1N;
 assign OP2V = OP2;
@@ -333,6 +354,7 @@ assign SBRYV = SBRY;
 assign SBRZV = SBRZ;
 assign SHFV = SHF;
 assign STOVN = STON;
+assign SYLC1V = SYLC1;
 assign TBCV = TBC;
 assign TBCVN = TBCN;
 assign TR1V = TR1;
@@ -364,6 +386,7 @@ clock_drivers a1a3(
     .CGRPN(CGRPN),
     .W1(W1),
     .W3(W3),
+    .W5(W5),
     .W6(W6),
     .W7(W7),
     .WN(WN),
@@ -443,7 +466,7 @@ arithmetic a1a10(
     .G7V(G7V),
     .G7VN(G7VN),
     .INTV(INTV),
-    .HOPC1V(1'b0),
+    .HOPC1V(HOPC1V),
     .HOYV(1'b0),
     .OP1V(OP1V),
     .OP1VN(OP1VN),
@@ -504,7 +527,6 @@ transfer_reg_2 a1a11(
     .BRB11(BRB11),
     .BRB12(BRB12),
     .BRB13(BRB13),
-    .CBRN(CBRN),
     .EXMVN(EXMVN),
     .G1V(G1V),
     .G1VN(G1VN),
@@ -550,6 +572,8 @@ transfer_reg_2 a1a11(
     .YN(YN),
     .Z8(Z8),
     .ZN(ZN),
+    .CBRN(CBRN),
+    .CDS(CDS),
     .CLTR(CLTR),
     .SRTR(SRTR),
     .STO(STO),
@@ -678,6 +702,58 @@ timing a1a13(
     .TBCN(TBCN)
 );
 
+mem_mod_reg_sect_ser a1a14(
+    .V1(V1),
+    .V4MOD6(V4MOD6),
+    .AV(AV),
+    .AVN(AVN),
+    .CDSV(CDSV),
+    .DS1(1'b0),
+    .DS2(1'b0),
+    .DS3(1'b0),
+    .DS4(1'b0),
+    .DS1M(1'b0),
+    .DS2M(1'b0),
+    .DSS(1'b0),
+    .DSSN(1'b1),
+    .G1V(G1V),
+    .G1VN(G1VN),
+    .G2V(G2V),
+    .G2VN(G2VN),
+    .G3V(G3V),
+    .G3VN(G3VN),
+    .G4V(G4V),
+    .G4VN(G4VN),
+    .G5V(G5V),
+    .G5VN(G5VN),
+    .G6V(G6V),
+    .G6VN(G6VN),
+    .G7V(G7V),
+    .G7VN(G7VN),
+    .HOPV(HOPV),
+    .IS1(1'b0),
+    .IS2(1'b0),
+    .IS3(1'b0),
+    .IS4(1'b0),
+    .ISS(1'b0),
+    .ISSN(1'b1),
+    .OP1V(OP1V),
+    .PAV(PAV),
+    .PBV(PBV),
+    .PCV(PCV),
+    .SYLC1V(SYLC1V),
+    .W5(W5),
+    .X2(X2),
+    .XN(XN),
+    .Y7(Y7),
+    .Z8(Z8),
+    .HOPC1(HOPC1),
+    .MZON(MZON),
+    .MTTN(MTTN),
+    .MFFN(MFFN),
+    .MSSN(MSSN)
+);
+
 mem_timing a1a15(
     .V1(V1),
     .V4MOD7(V4MOD7),
@@ -711,10 +787,10 @@ mem_timing a1a15(
     .OP2VN(OP2VN),
     .OP3V(OP3V),
     .OP4V(OP4V),
-    .MFFVN(1'b1),
-    .MSSVN(1'b1),
-    .MTTVN(1'b1),
-    .MZOVN(1'b1),
+    .MZOVN(MZOVN),
+    .MTTVN(MTTVN),
+    .MFFVN(MFFVN),
+    .MSSVN(MSSVN),
     .PAV(PAV),
     .PAVN(PAVN),
     .PBV(PBV),
@@ -741,7 +817,8 @@ mem_timing a1a15(
     .MAO(MAO),
     .MBO(MBO),
     .RUN(RUN),
-    .RUNN(RUNN)
+    .RUNN(RUNN),
+    .SYLC1(SYLC1)
 );
 
 transfer_reg_1 a1a18(

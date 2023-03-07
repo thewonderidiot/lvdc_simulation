@@ -30,10 +30,10 @@ module mem_timing(
     input wire IMA,
     input wire IMB,
     input wire INTV,
+    input wire MZOVN,
+    input wire MTTVN,
     input wire MFFVN,
     input wire MSSVN,
-    input wire MTTVN,
-    input wire MZOVN,
     input wire OP1VN,
     input wire OP2VN,
     input wire OP3V,
@@ -64,7 +64,8 @@ module mem_timing(
     output wire MBO,
     output wire RD,
     output wire RUN,
-    output wire RUNN
+    output wire RUNN,
+    output wire SYLC1
 );
 
 wire COC;
@@ -86,7 +87,6 @@ wire SLD;
 wire SLDN;
 wire SYL0N;
 wire SYL1N;
-wire SYLC1;
 wire SYLC1N;
 wire SYNC;
 wire SYNCN;

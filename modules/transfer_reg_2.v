@@ -60,6 +60,7 @@ module transfer_reg_2(
     input wire Z8,
     input wire ZN,
     output wire CBRN,
+    output wire CDS,
     output wire CLTR,
     output wire SBRX,
     output wire SBRY,
@@ -75,7 +76,6 @@ module transfer_reg_2(
     output wire TRSN
 );
 
-wire CDS;
 wire CDSN;
 wire CKP;
 wire CKPN;

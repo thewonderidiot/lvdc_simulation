@@ -5,6 +5,7 @@ MODULES = add_reg_x_decode \
 	  clock_drivers \
 	  clock_logic \
 	  delay_line \
+	  mem_mod_reg_sect_ser \
 	  mem_timing \
 	  op_code_reg \
 	  osc_buf \

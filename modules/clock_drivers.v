@@ -11,6 +11,7 @@ module clock_drivers(
     input wire CGRPN,
     output wire W1,
     output wire W3,
+    output wire W5,
     output wire W6,
     output wire W7,
     output wire WN,
@@ -39,7 +40,6 @@ module clock_drivers(
 
 wire W2;
 wire W4;
-wire W5;
 wire W8;
 wire WDA;
 wire WF;
