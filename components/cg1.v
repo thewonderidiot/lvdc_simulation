@@ -6,7 +6,7 @@ module cg1(
     output wire y
 );
 
-assign #2 y = a;
+assign y = a;
 
 endmodule
 `default_nettype wire
