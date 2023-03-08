@@ -8,7 +8,7 @@ module dld(
     output wire y
 );
 
-assign #2 y = volt & gate & clk;
+assign y = volt & gate & clk;
 
 endmodule
 `default_nettype wire

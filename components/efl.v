@@ -6,7 +6,7 @@ module efl(
     output wire y
 );
 
-assign #1 y = a;
+assign #2 y = a;
 
 endmodule
 `default_nettype wire

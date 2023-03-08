@@ -47,7 +47,8 @@ module add_reg_x_decode(
     output wire A6,
     output wire A7,
     output wire A8,
-    output wire A9
+    output wire A9,
+    output wire TA
 );
 
 wire A1N;
@@ -93,7 +94,6 @@ wire AY6N;
 wire AY7N;
 wire S4;
 wire S4N;
-wire TA;
 wire TAN;
 
 wor na1a;

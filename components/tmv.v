@@ -19,7 +19,7 @@ assign int_a1 = en1 & a1;
 assign int_a2 = en2 & a2;
 assign int_a3 = en3 & a3;
 
-assign #5 y = ~((int_a1 & int_a2) | (int_a1 & int_a3) | (int_a2 & int_a3));
+assign #2 y = ~((int_a1 & int_a2) | (int_a1 & int_a3) | (int_a2 & int_a3));
 
 endmodule
 `default_nettype wire

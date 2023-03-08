@@ -38,7 +38,7 @@ pullup r6(int_clk);
 
 reg rst = 1;
 
-assign #2 y = rst ? iv : (int_clk & int_a1 & int_a2 & int_a3 & int_a4 & int_exp);
+assign y = rst ? iv : (int_clk & int_a1 & int_a2 & int_a3 & int_a4 & int_exp);
 
 initial begin
     #100 rst = 0;

@@ -113,10 +113,19 @@ wire CST;
 wire CSTV;
 wire DL31;
 wire DL44;
+wire DS1;
+wire DS2;
+wire DS3;
+wire DS4;
+wire DS1M;
+wire DS2M;
+wire DSS;
+wire DSSN;
 wire EXM;
-wire EXMN;
 wire EXMV;
+wire EXMN;
 wire EXMVN;
+wire EXMDN;
 wire G1;
 wire G1N;
 wire G1V;
@@ -151,6 +160,12 @@ wire HOPC1;
 wire HOPC1V;
 wire INT;
 wire INTV;
+wire IS1;
+wire IS2;
+wire IS3;
+wire IS4;
+wire ISS;
+wire ISSN;
 wire MAO;
 wire MAOV;
 wire MBO;
@@ -213,11 +228,13 @@ wire STON;
 wire STOVN;
 wire SYLC1;
 wire SYLC1V;
+wire TA;
 wire TBC;
 wire TBCN;
 wire TBCV;
 wire TBCVN;
 wire TBR;
+wire TBRV;
 wire TR1;
 wire TR1N;
 wire TR1V;
@@ -357,6 +374,7 @@ assign STOVN = STON;
 assign SYLC1V = SYLC1;
 assign TBCV = TBC;
 assign TBCVN = TBCN;
+assign TBRV = TBR;
 assign TR1V = TR1;
 assign TR2V = TR2;
 assign TR3V = TR3;
@@ -708,14 +726,14 @@ mem_mod_reg_sect_ser a1a14(
     .AV(AV),
     .AVN(AVN),
     .CDSV(CDSV),
-    .DS1(1'b0),
-    .DS2(1'b0),
-    .DS3(1'b0),
-    .DS4(1'b0),
-    .DS1M(1'b0),
-    .DS2M(1'b0),
-    .DSS(1'b0),
-    .DSSN(1'b1),
+    .DS1(DS1),
+    .DS2(DS2),
+    .DS3(DS3),
+    .DS4(DS4),
+    .DS1M(DS1M),
+    .DS2M(DS2M),
+    .DSS(DSS),
+    .DSSN(DSSN),
     .G1V(G1V),
     .G1VN(G1VN),
     .G2V(G2V),
@@ -731,12 +749,12 @@ mem_mod_reg_sect_ser a1a14(
     .G7V(G7V),
     .G7VN(G7VN),
     .HOPV(HOPV),
-    .IS1(1'b0),
-    .IS2(1'b0),
-    .IS3(1'b0),
-    .IS4(1'b0),
-    .ISS(1'b0),
-    .ISSN(1'b1),
+    .IS1(IS1),
+    .IS2(IS2),
+    .IS3(IS3),
+    .IS4(IS4),
+    .ISS(ISS),
+    .ISSN(ISSN),
     .OP1V(OP1V),
     .PAV(PAV),
     .PBV(PBV),
@@ -897,16 +915,16 @@ add_reg_x_decode a1a19(
     .A6V(A6V),
     .A7V(A7V),
     .A8V(A8V),
-    .DS4(1'b0),
+    .DS4(DS4),
     .EXMV(EXMV),
     .EXMVN(EXMVN),
-    .EXMDN(1'b1),
+    .EXMDN(EXMDN),
     .G1V(G1V),
     .G5VN(G5VN),
     .G6V(G6V),
     .G6VN(G6VN),
     .G7V(G7V),
-    .IS4(1'b0),
+    .IS4(IS4),
     .PAV(PAV),
     .TR1V(TR1V),
     .TR2V(TR2V),
@@ -931,7 +949,63 @@ add_reg_x_decode a1a19(
     .A6(A6),
     .A7(A7),
     .A8(A8),
-    .A9(A9)
+    .A9(A9),
+    .TA(TA)
+);
+
+sect_reg_y_decode a1a20(
+    .V1(V1),
+    .V4MOD6(V4MOD6),
+    .A9(A9),
+    .BRA7(BRA7),
+    .BRA8(BRA8),
+    .BRB7(BRB7),
+    .BRB8(BRB8),
+    .CDSV(CDSV),
+    .EXMV(EXMV),
+    .EXMVN(EXMVN),
+    .G1V(G1V),
+    .G1VN(G1VN),
+    .G2V(G2V),
+    .G2VN(G2VN),
+    .G3V(G3V),
+    .G3VN(G3VN),
+    .G4V(G4V),
+    .G4VN(G4VN),
+    .G5V(G5V),
+    .G5VN(G5VN),
+    .G6V(G6V),
+    .G6VN(G6VN),
+    .G7V(G7V),
+    .G7VN(G7VN),
+    .HOPV(HOPV),
+    .MAOV(MAOV),
+    .MBOV(MBOV),
+    .PAV(PAV),
+    .PBV(PBV),
+    .PCV(PCV),
+    .TA(TA),
+    .TBRV(TBRV),
+    .TRSV(TRSV),
+    .WN(WN),
+    .X5(X5),
+    .Y5(Y5),
+    .Z1(Z1),
+    .DS1(DS1),
+    .DS2(DS2),
+    .DS3(DS3),
+    .DS4(DS4),
+    .DS1M(DS1M),
+    .DS2M(DS2M),
+    .DSS(DSS),
+    .DSSN(DSSN),
+    .EXMDN(EXMDN),
+    .IS1(IS1),
+    .IS2(IS2),
+    .IS3(IS3),
+    .IS4(IS4),
+    .ISS(ISS),
+    .ISSN(ISSN)
 );
 
 osc_buf a4a11(
@@ -980,9 +1054,9 @@ buffer_register_12 a5a9(
     .MaSA4(1'b0),
     .MaSA5(1'b0),
     .MaSA7(1'b0),
-    .MaSA8(1'b0),
+    .MaSA8(PAV & G1VN & G2V),
     .MaSA10(PAV & G1VN & G2V),
-    .MaSA11(PAV & G1VN & G2V),
+    .MaSA11(1'b0),
     .MaSA13(PAV & G1VN & G2V),
     .MbSA1(1'b0),
     .MbSA2(1'b0),

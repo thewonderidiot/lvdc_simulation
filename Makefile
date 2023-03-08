@@ -9,6 +9,7 @@ MODULES = add_reg_x_decode \
 	  mem_timing \
 	  op_code_reg \
 	  osc_buf \
+	  sect_reg_y_decode \
 	  timing \
 	  transfer_reg_1 \
 	  transfer_reg_2 \
