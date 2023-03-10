@@ -109,10 +109,18 @@ wire CGQPN;
 wire CGRP;
 wire CGRPN;
 wire CLTR;
+wire CNC;
+wire COC;
 wire CST;
 wire CSTV;
 wire DL31;
 wire DL44;
+wire DMA;
+wire DMAN;
+wire DMAVN;
+wire DMB;
+wire DMBN;
+wire DMBVN;
 wire DS1;
 wire DS2;
 wire DS3;
@@ -121,6 +129,8 @@ wire DS1M;
 wire DS2M;
 wire DSS;
 wire DSSN;
+wire EAC;
+wire EBC;
 wire EXM;
 wire EXMV;
 wire EXMN;
@@ -158,6 +168,12 @@ wire HOP;
 wire HOPV;
 wire HOPC1;
 wire HOPC1V;
+wire IMA;
+wire IMAN;
+wire IMAVN;
+wire IMB;
+wire IMBN;
+wire IMBVN;
 wire INT;
 wire INTV;
 wire IS1;
@@ -170,12 +186,16 @@ wire MAO;
 wire MAOV;
 wire MBO;
 wire MBOV;
+wire MZO;
 wire MZON;
 wire MZOVN;
+wire MTT;
 wire MTTN;
 wire MTTVN;
+wire MFF;
 wire MFFN;
 wire MFFVN;
+wire MSS;
 wire MSSN;
 wire MSSVN;
 wire OP1;
@@ -194,6 +214,8 @@ wire OP4;
 wire OP4N;
 wire OP4V;
 wire OP4VN;
+wire PAR;
+wire PARV;
 wire PA;
 wire PAN;
 wire PAV;
@@ -210,6 +232,7 @@ wire PIO;
 wire PIOV;
 wire RD;
 wire RDV;
+wire RECN;
 wire RUN;
 wire RUNN;
 wire RUNV;
@@ -228,6 +251,8 @@ wire STON;
 wire STOVN;
 wire SYLC1;
 wire SYLC1V;
+wire SYNC;
+wire SYNCN;
 wire TA;
 wire TBC;
 wire TBCN;
@@ -235,6 +260,7 @@ wire TBCV;
 wire TBCVN;
 wire TBR;
 wire TBRV;
+wire TIME;
 wire TR1;
 wire TR1N;
 wire TR1V;
@@ -323,6 +349,8 @@ assign AI3VN = AI3N;
 assign CBRVN = CBRN;
 assign CDSV = CDS;
 assign CSTV = CST;
+assign DMAVN = DMAN;
+assign DMBVN = DMBN;
 assign EXMV = EXM;
 assign EXMVN = EXMN;
 assign G1V = G1;
@@ -341,6 +369,8 @@ assign G7V = G7;
 assign G7VN = G7N;
 assign HOPV = HOP;
 assign HOPC1V = HOPC1;
+assign IMAVN = IMAN;
+assign IMBVN = IMBN;
 assign INTV = INT;
 assign MAOV = MAO;
 assign MBOV = MBO;
@@ -356,6 +386,7 @@ assign OP3V = OP3;
 assign OP3VN = OP3N;
 assign OP4V = OP4;
 assign OP4VN = OP4N;
+assign PARV = PAR;
 assign PAV = PA;
 assign PAVN = PAN;
 assign PBV = PB;
@@ -593,6 +624,7 @@ transfer_reg_2 a1a11(
     .CBRN(CBRN),
     .CDS(CDS),
     .CLTR(CLTR),
+    .PAR(PAR),
     .SRTR(SRTR),
     .STO(STO),
     .TBR(TBR),
@@ -765,7 +797,11 @@ mem_mod_reg_sect_ser a1a14(
     .XN(XN),
     .Y7(Y7),
     .Z8(Z8),
+    .DMAN(DMAN),
+    .DMBN(DMBN),
     .HOPC1(HOPC1),
+    .IMAN(IMAN),
+    .IMBN(IMBN),
     .MZON(MZON),
     .MTTN(MTTN),
     .MFFN(MFFN),
@@ -776,11 +812,11 @@ mem_timing a1a15(
     .V1(V1),
     .V4MOD7(V4MOD7),
     .CSTN(CSTN),
-    .DMA(1'b0),
-    .DMB(1'b0),
-    .EAC(1'b0),
+    .DMA(DMA),
+    .DMB(DMB),
+    .EAC(EAC),
     .EAP(1'b0),
-    .EBC(1'b0),
+    .EBC(EBC),
     .EBP(1'b0),
     .EXMV(EXMV),
     .EXMVN(EXMVN),
@@ -798,8 +834,8 @@ mem_timing a1a15(
     .G7VN(G7VN),
     .HALTV(HALTV),
     .HOPV(HOPV),
-    .IMA(1'b0),
-    .IMB(1'b0),
+    .IMA(IMA),
+    .IMB(IMB),
     .INTV(INTV),
     .OP1VN(OP1VN),
     .OP2VN(OP2VN),
@@ -815,7 +851,6 @@ mem_timing a1a15(
     .PBVN(PBVN),
     .PCV(PCV),
     .PCVN(PCVN),
-    .RD(RD),
     .RUNVN(RUNVN),
     .STOVN(STOVN),
     .TER(TER),
@@ -831,12 +866,76 @@ mem_timing a1a15(
     .Z5(Z5),
     .Z7(Z7),
     .ZN(ZN),
+    .CNC(CNC),
+    .COC(COC),
     .CST(CST),
     .MAO(MAO),
     .MBO(MBO),
+    .MZO(MZO),
+    .MTT(MTT),
+    .MFF(MFF),
+    .MSS(MSS),
+    .RD(RD),
+    .RECN(RECN),
     .RUN(RUN),
     .RUNN(RUNN),
-    .SYLC1(SYLC1)
+    .SYLC1(SYLC1),
+    .SYNC(SYNC),
+    .SYNCN(SYNCN),
+    .TIME(TIME)
+);
+
+error_det_sw a1a16(
+    .V1(V1),
+    .V4MOD7(V4MOD7),
+    .CNC(CNC),
+    .COC(COC),
+    .DMAVN(DMAVN),
+    .DMBVN(DMBVN),
+    .EAP(1'b0),
+    .EBP(1'b0),
+    .ED0X(1'b0),
+    .ED0Y(1'b0),
+    .ED1X(1'b0),
+    .ED1Y(1'b0),
+    .ED2X(1'b0),
+    .ED2Y(1'b0),
+    .ED3X(1'b0),
+    .ED3Y(1'b0),
+    .ED4X(1'b0),
+    .ED4Y(1'b0),
+    .ED5X(1'b0),
+    .ED5Y(1'b0),
+    .ED6X(1'b0),
+    .ED6Y(1'b0),
+    .ED7X(1'b0),
+    .ED7Y(1'b0),
+    .HOPV(HOPV),
+    .IMAVN(IMAVN),
+    .IMBVN(IMBVN),
+    .MZO(MZO),
+    .MZOVN(MZOVN),
+    .MTT(MTT),
+    .MTTVN(MTTVN),
+    .MFF(MFF),
+    .MFFVN(MFFVN),
+    .MSS(MSS),
+    .MSSVN(MSSVN),
+    .RECN(RECN),
+    .RUNVN(RUNVN),
+    .SYNC(SYNC),
+    .SYNCN(SYNCN),
+    .TIME(TIME),
+    .W3(W3),
+    .Y3(Y3),
+    .YN(YN),
+    .Z7(Z7),
+    .DMA(DMA),
+    .DMB(DMB),
+    .EAC(EAC),
+    .EBC(EBC),
+    .IMA(IMA),
+    .IMB(IMB)
 );
 
 transfer_reg_1 a1a18(
@@ -1171,8 +1270,8 @@ buffer_register_3 a5a11(
     .V1(V1),
     .A1CBRVN(CBRVN),
     .A2CBRVN(CBRVN),
-    .A1PARV(1'b0),
-    .A2PARV(1'b0),
+    .A1PARV(PARV),
+    .A2PARV(PARV),
     .A1SBRXV(SBRXV),
     .A2SBRXV(SBRXV),
     .A1TR6V(TR6V),

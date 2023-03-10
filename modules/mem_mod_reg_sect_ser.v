@@ -46,7 +46,11 @@ module mem_mod_reg_sect_ser(
     input wire XN,
     input wire Y7,
     input wire Z8,
+    output wire DMAN,
+    output wire DMBN,
     output wire HOPC1,
+    output wire IMAN,
+    output wire IMBN,
     output wire MZON,
     output wire MTTN,
     output wire MFFN,
@@ -59,8 +63,6 @@ wire DM2;
 wire DM2N;
 wire DM3;
 wire DM3N;
-wire DMAN;
-wire DMBN;
 wire DUPDN;
 wire DUPIN;
 wire HOPC1N;
@@ -72,8 +74,6 @@ wire IM2;
 wire IM2N;
 wire IM3;
 wire IM3N;
-wire IMAN;
-wire IMBN;
 wire OC;
 wor OCN;
 wire RED;

@@ -62,6 +62,7 @@ module transfer_reg_2(
     output wire CBRN,
     output wire CDS,
     output wire CLTR,
+    output wire PAR,
     output wire SBRX,
     output wire SBRY,
     output wire SBRZ,
@@ -80,7 +81,6 @@ wire CDSN;
 wire CKP;
 wire CKPN;
 wire CLTRN;
-wire PAR;
 wire PARN;
 wire PDD;
 wire PDDN;
@@ -320,8 +320,8 @@ a a13d(.clk(Z8), .a1(TR1N), .a2(PDD), .a3(SBRZ), .y(na14d));
 a a6e(.clk(Z8), .a1(TR1V), .a2(PDDN), .a3(SBRZ), .y(na14d));
 a a14d(.clk(YN), .a1(PAR), .y(na14d));
 i a14e(.a(na14d), .y(PARN));
-i #(1) a7e(.a(na7d), .y(PAR));
-a a7d(.clk(V4MOD2), .a1(PARN), .y(na7d));
+i a7e(.a(na7d), .y(PAR));
+a #(1) a7d(.clk(V4MOD2), .a1(PARN), .y(na7d));
 
 a a27d(.clk(W1), .a1(POD), .y(na27e));
 a a27e(.clk(V1), .a1(PDD), .y(na27e));

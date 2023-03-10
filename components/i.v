@@ -6,7 +6,7 @@ module i(
     output wire y
 );
 
-assign #2 y = ~a;
+assign #20 y = ~a;
 
 endmodule
 `default_nettype wire

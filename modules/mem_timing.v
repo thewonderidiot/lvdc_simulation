@@ -59,28 +59,31 @@ module mem_timing(
     input wire Z5,
     input wire Z7,
     input wire ZN,
+    output wire CNC,
+    output wire COC,
     output wire CST,
     output wire MAO,
     output wire MBO,
+    output wire MZO,
+    output wire MTT,
+    output wire MFF,
+    output wire MSS,
     output wire RD,
+    output wire RECN,
     output wire RUN,
     output wire RUNN,
-    output wire SYLC1
+    output wire SYLC1,
+    output wire SYNC,
+    output wire SYNCN,
+    output wire TIME
 );
 
-wire COC;
 wire COCN;
-wire CNC;
 wire CNCN;
 wire INHBS;
-wire MFF;
-wire MSS;
-wire MTT;
 wire MOP;
-wire MZO;
 wire RDM;
 wire RDMN;
-wire RECN;
 wire SINK;
 wire SINKN;
 wire SLD;
@@ -88,9 +91,6 @@ wire SLDN;
 wire SYL0N;
 wire SYL1N;
 wire SYLC1N;
-wire SYNC;
-wire SYNCN;
-wire TIME;
 wire TIMEN;
 wire TLC;
 wire TLCN;
