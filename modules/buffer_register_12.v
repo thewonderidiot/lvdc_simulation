@@ -57,27 +57,26 @@ module buffer_register_12(
     input wire MdSA11,
     input wire MdSA13,
     output wire BRx1,
+    output wire BRx1N,
     output wire BRx2,
+    output wire BRx2N,
     output wire BRx3,
+    output wire BRx3N,
     output wire BRx4,
+    output wire BRx4N,
     output wire BRx5,
+    output wire BRx5N,
     output wire BRx7,
+    output wire BRx7N,
     output wire BRx8,
+    output wire BRx8N,
     output wire BRx10,
+    output wire BRx10N,
     output wire BRx11,
-    output wire BRx13
+    output wire BRx11N,
+    output wire BRx13,
+    output wire BRx13N
 );
-
-wire BRx1N;
-wire BRx2N;
-wire BRx3N;
-wire BRx4N;
-wire BRx5N;
-wire BRx7N;
-wire BRx8N;
-wire BRx10N;
-wire BRx11N;
-wire BRx13N;
 
 wire na8a;
 wire na8b;

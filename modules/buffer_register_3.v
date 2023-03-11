@@ -48,24 +48,24 @@ module buffer_register_3(
     input wire M7SA12,
     input wire M7SA14,
     output wire BRA6,
+    output wire BRA6N,
     output wire BRA9,
+    output wire BRA9N,
     output wire BRA12,
+    output wire BRA12N,
     output wire BRA14,
+    output wire BRA14N,
     output wire BRB6,
+    output wire BRB6N,
     output wire BRB9,
+    output wire BRB9N,
     output wire BRB12,
-    output wire BRB14
+    output wire BRB12N,
+    output wire BRB14,
+    output wire BRB14N
 );
 
-wire BRA6N;
-wire BRA9N;
-wire BRA12N;
-wire BRA14N;
 wire BRA14P;
-wire BRB6N;
-wire BRB9N;
-wire BRB12N;
-wire BRB14N;
 wire BRB14P;
 
 wire na8a;

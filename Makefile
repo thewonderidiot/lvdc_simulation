@@ -7,6 +7,7 @@ MODULES = add_reg_x_decode \
 	  delay_line \
 	  error_det_sw \
 	  mem_mod_reg_sect_ser \
+	  mem_parity_check \
 	  mem_timing \
 	  op_code_reg \
 	  osc_buf \

@@ -71,33 +71,61 @@ wire BO3;
 wire BO3N;
 wire BOP;
 wire BRA1;
+wire BRA1N;
 wire BRA2;
+wire BRA2N;
 wire BRA3;
+wire BRA3N;
 wire BRA4;
+wire BRA4N;
 wire BRA5;
+wire BRA5N;
 wire BRA6;
+wire BRA6N;
 wire BRA7;
+wire BRA7N;
 wire BRA8;
+wire BRA8N;
 wire BRA9;
+wire BRA9N;
 wire BRA10;
+wire BRA10N;
 wire BRA11;
+wire BRA11N;
 wire BRA12;
+wire BRA12N;
 wire BRA13;
+wire BRA13N;
 wire BRA14;
+wire BRA14N;
 wire BRB1;
+wire BRB1N;
 wire BRB2;
+wire BRB2N;
 wire BRB3;
+wire BRB3N;
 wire BRB4;
+wire BRB4N;
 wire BRB5;
+wire BRB5N;
 wire BRB6;
+wire BRB6N;
 wire BRB7;
+wire BRB7N;
 wire BRB8;
+wire BRB8N;
 wire BRB9;
+wire BRB9N;
 wire BRB10;
+wire BRB10N;
 wire BRB11;
+wire BRB11N;
 wire BRB12;
+wire BRB12N;
 wire BRB13;
+wire BRB13N;
 wire BRB14;
+wire BRB14N;
 wire CBRN;
 wire CBRVN;
 wire CDS;
@@ -130,7 +158,9 @@ wire DS2M;
 wire DSS;
 wire DSSN;
 wire EAC;
+wire EAP;
 wire EBC;
+wire EBP;
 wire EXM;
 wire EXMV;
 wire EXMN;
@@ -815,9 +845,9 @@ mem_timing a1a15(
     .DMA(DMA),
     .DMB(DMB),
     .EAC(EAC),
-    .EAP(1'b0),
+    .EAP(EAP),
     .EBC(EBC),
-    .EBP(1'b0),
+    .EBP(EBP),
     .EXMV(EXMV),
     .EXMVN(EXMVN),
     .G1V(G1V),
@@ -892,8 +922,8 @@ error_det_sw a1a16(
     .COC(COC),
     .DMAVN(DMAVN),
     .DMBVN(DMBVN),
-    .EAP(1'b0),
-    .EBP(1'b0),
+    .EAP(EAP),
+    .EBP(EBP),
     .ED0X(1'b0),
     .ED0Y(1'b0),
     .ED1X(1'b0),
@@ -936,6 +966,68 @@ error_det_sw a1a16(
     .EBC(EBC),
     .IMA(IMA),
     .IMB(IMB)
+);
+
+mem_parity_check a1a17(
+    .V1(V1),
+    .BRA1(BRA1),
+    .BRA1N(BRA1N),
+    .BRA2(BRA2),
+    .BRA2N(BRA2N),
+    .BRA3(BRA3),
+    .BRA3N(BRA3N),
+    .BRA4(BRA4),
+    .BRA4N(BRA4N),
+    .BRA5(BRA5),
+    .BRA5N(BRA5N),
+    .BRA6(BRA6),
+    .BRA6N(BRA6N),
+    .BRA7(BRA7),
+    .BRA7N(BRA7N),
+    .BRA8(BRA8),
+    .BRA8N(BRA8N),
+    .BRA9(BRA9),
+    .BRA9N(BRA9N),
+    .BRA10(BRA10),
+    .BRA10N(BRA10N),
+    .BRA11(BRA11),
+    .BRA11N(BRA11N),
+    .BRA12(BRA12),
+    .BRA12N(BRA12N),
+    .BRA13(BRA13),
+    .BRA13N(BRA13N),
+    .BRA14(BRA14),
+    .BRA14N(BRA14N),
+    .BRB1(BRB1),
+    .BRB1N(BRB1N),
+    .BRB2(BRB2),
+    .BRB2N(BRB2N),
+    .BRB3(BRB3),
+    .BRB3N(BRB3N),
+    .BRB4(BRB4),
+    .BRB4N(BRB4N),
+    .BRB5(BRB5),
+    .BRB5N(BRB5N),
+    .BRB6(BRB6),
+    .BRB6N(BRB6N),
+    .BRB7(BRB7),
+    .BRB7N(BRB7N),
+    .BRB8(BRB8),
+    .BRB8N(BRB8N),
+    .BRB9(BRB9),
+    .BRB9N(BRB9N),
+    .BRB10(BRB10),
+    .BRB10N(BRB10N),
+    .BRB11(BRB11),
+    .BRB11N(BRB11N),
+    .BRB12(BRB12),
+    .BRB12N(BRB12N),
+    .BRB13(BRB13),
+    .BRB13N(BRB13N),
+    .BRB14(BRB14),
+    .BRB14N(BRB14N),
+    .EAP(EAP),
+    .EBP(EBP)
 );
 
 transfer_reg_1 a1a18(
@@ -1188,15 +1280,25 @@ buffer_register_12 a5a9(
     .MdSA11(1'b0),
     .MdSA13(1'b0),
     .BRx1(BRA1),
+    .BRx1N(BRA1N),
     .BRx2(BRA2),
+    .BRx2N(BRA2N),
     .BRx3(BRA3),
+    .BRx3N(BRA3N),
     .BRx4(BRA4),
+    .BRx4N(BRA4N),
     .BRx5(BRA5),
+    .BRx5N(BRA5N),
     .BRx7(BRA7),
+    .BRx7N(BRA7N),
     .BRx8(BRA8),
+    .BRx8N(BRA8N),
     .BRx10(BRA10),
+    .BRx10N(BRA10N),
     .BRx11(BRA11),
-    .BRx13(BRA13)
+    .BRx11N(BRA11N),
+    .BRx13(BRA13),
+    .BRx13N(BRA13N)
 );
 
 buffer_register_12 a5a10(
@@ -1255,15 +1357,25 @@ buffer_register_12 a5a10(
     .MdSA11(1'b0),
     .MdSA13(1'b0),
     .BRx1(BRB1),
+    .BRx1N(BRB1N),
     .BRx2(BRB2),
+    .BRx2N(BRB2N),
     .BRx3(BRB3),
+    .BRx3N(BRB3N),
     .BRx4(BRB4),
+    .BRx4N(BRB4N),
     .BRx5(BRB5),
+    .BRx5N(BRB5N),
     .BRx7(BRB7),
+    .BRx7N(BRB7N),
     .BRx8(BRB8),
+    .BRx8N(BRB8N),
     .BRx10(BRB10),
+    .BRx10N(BRB10N),
     .BRx11(BRB11),
-    .BRx13(BRB13)
+    .BRx11N(BRB11N),
+    .BRx13(BRB13),
+    .BRx13N(BRB13N)
 );
 
 buffer_register_3 a5a11(
@@ -1283,7 +1395,7 @@ buffer_register_3 a5a11(
     .M0SA6(1'b0),
     .M0SA9(1'b0),
     .M0SA12(PAV & G1VN & G2V),
-    .M0SA14(1'b0),
+    .M0SA14(PAV & G1VN & G2V),
     .M1SA6(1'b0),
     .M1SA9(1'b0),
     .M1SA12(1'b0),
@@ -1313,13 +1425,21 @@ buffer_register_3 a5a11(
     .M7SA12(1'b0),
     .M7SA14(1'b0),
     .BRA6(BRA6),
+    .BRA6N(BRA6N),
     .BRA9(BRA9),
+    .BRA9N(BRA9N),
     .BRA12(BRA12),
+    .BRA12N(BRA12N),
     .BRA14(BRA14),
+    .BRA14N(BRA14N),
     .BRB6(BRB6),
+    .BRB6N(BRB6N),
     .BRB9(BRB9),
+    .BRB9N(BRB9N),
     .BRB12(BRB12),
-    .BRB14(BRB14)
+    .BRB12N(BRB12N),
+    .BRB14(BRB14),
+    .BRB14N(BRB14N)
 );
 
 endmodule
