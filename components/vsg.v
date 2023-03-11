@@ -10,7 +10,7 @@ module vsg(
 initial y = 1;
 
 always @(posedge a) begin
-    y <= #400 ~b;
+    y <= #400 b;
     y <= #460 1;
 end
 

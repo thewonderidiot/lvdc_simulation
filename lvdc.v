@@ -280,6 +280,20 @@ wire IS3;
 wire IS4;
 wire ISS;
 wire ISSN;
+wire M0SA1;
+wire M0SA2;
+wire M0SA3;
+wire M0SA4;
+wire M0SA5;
+wire M0SA6;
+wire M0SA7;
+wire M0SA8;
+wire M0SA9;
+wire M0SA10;
+wire M0SA11;
+wire M0SA12;
+wire M0SA13;
+wire M0SA14;
 wire M0SYNC;
 wire M0SYNCV;
 wire M1SYNC;
@@ -367,6 +381,10 @@ wire SRTR;
 wire STO;
 wire STON;
 wire STOVN;
+wire SYL0N;
+wire SYL0VN;
+wire SYL1N;
+wire SYL1VN;
 wire SYLC1;
 wire SYLC1V;
 wire SYNC;
@@ -563,6 +581,8 @@ assign SBRYV = SBRY;
 assign SBRZV = SBRZ;
 assign SHFV = SHF;
 assign STOVN = STON;
+assign SYL0VN = SYL0N;
+assign SYL1VN = SYL1N;
 assign SYLC1V = SYLC1;
 assign TBCV = TBC;
 assign TBCVN = TBCN;
@@ -1043,6 +1063,8 @@ mem_timing a1a15(
     .RECN(RECN),
     .RUN(RUN),
     .RUNN(RUNN),
+    .SYL0N(SYL0N),
+    .SYL1N(SYL1N),
     .SYLC1(SYLC1),
     .SYNC(SYNC),
     .SYNCN(SYNCN),
@@ -1413,16 +1435,16 @@ buffer_register_12 a5a9(
     .AnTR10V(TR10V),
     .AnTR11V(TR11V),
     .AnTR13V(TR13V),
-    .MaSA1(1'b0),
-    .MaSA2(1'b0),
-    .MaSA3(1'b0),
-    .MaSA4(1'b0),
-    .MaSA5(1'b0),
-    .MaSA7(1'b0),
-    .MaSA8(PAV & G1VN & G2V),
-    .MaSA10(PAV & G1VN & G2V),
-    .MaSA11(1'b0),
-    .MaSA13(PAV & G1VN & G2V),
+    .MaSA1(M0SA1),
+    .MaSA2(M0SA2),
+    .MaSA3(M0SA3),
+    .MaSA4(M0SA4),
+    .MaSA5(M0SA5),
+    .MaSA7(M0SA7),
+    .MaSA8(M0SA8),
+    .MaSA10(M0SA10),
+    .MaSA11(M0SA11),
+    .MaSA13(M0SA13),
     .MbSA1(1'b0),
     .MbSA2(1'b0),
     .MbSA3(1'b0),
@@ -1566,10 +1588,10 @@ buffer_register_3 a5a11(
     .A2TR9V(TR9V),
     .A1TR12V(TR12V),
     .A2TR12V(TR12V),
-    .M0SA6(1'b0),
-    .M0SA9(1'b0),
-    .M0SA12(PAV & G1VN & G2V),
-    .M0SA14(PAV & G1VN & G2V),
+    .M0SA6(M0SA6),
+    .M0SA9(M0SA9),
+    .M0SA12(M0SA12),
+    .M0SA14(M0SA14),
     .M1SA6(1'b0),
     .M1SA9(1'b0),
     .M1SA12(1'b0),
@@ -1652,9 +1674,25 @@ memory a6a0(
     .AnINHBSV(INHBSV),
     .AnRDMV(RDMV),
     .AnRDMVN(RDMVN),
+    .AnSYL0VN(SYL0VN),
+    .AnSYL1VN(SYL1VN),
     .MmSYNCV(M0SYNCV),
     .EDmX(ED0X),
-    .EDmY(ED0Y)
+    .EDmY(ED0Y),
+    .MmSA1(M0SA1),
+    .MmSA2(M0SA2),
+    .MmSA3(M0SA3),
+    .MmSA4(M0SA4),
+    .MmSA5(M0SA5),
+    .MmSA6(M0SA6),
+    .MmSA7(M0SA7),
+    .MmSA8(M0SA8),
+    .MmSA9(M0SA9),
+    .MmSA10(M0SA10),
+    .MmSA11(M0SA11),
+    .MmSA12(M0SA12),
+    .MmSA13(M0SA13),
+    .MmSA14(M0SA14)
 );
 
 

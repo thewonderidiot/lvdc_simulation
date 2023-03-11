@@ -37,9 +37,25 @@ module memory(
     input wire AnINHBSV,
     input wire AnRDMV,
     input wire AnRDMVN,
+    input wire AnSYL0VN,
+    input wire AnSYL1VN,
     input wire MmSYNCV,
     output wire EDmX,
-    output wire EDmY
+    output wire EDmY,
+    output wire MmSA1,
+    output wire MmSA2,
+    output wire MmSA3,
+    output wire MmSA4,
+    output wire MmSA5,
+    output wire MmSA6,
+    output wire MmSA7,
+    output wire MmSA8,
+    output wire MmSA9,
+    output wire MmSA10,
+    output wire MmSA11,
+    output wire MmSA12,
+    output wire MmSA13,
+    output wire MmSA14
 );
 
 wire MmRDP1;
@@ -117,6 +133,20 @@ always @(*) begin
     default: address[11:9] = 3'o0;
     endcase
 end
+
+// Data
+reg [28:1] core[0:4095];
+initial begin
+    $readmemh("core/module0.mem", core);
+end
+
+wire [28:1] data;
+assign data = core[address];
+
+wire [14:1] syllable;
+assign syllable = AnSYL1VN ? data[14:1] : data[28:15];
+
+assign {MmSA14, MmSA13, MmSA12, MmSA11, MmSA10, MmSA9, MmSA8, MmSA7, MmSA6, MmSA5, MmSA4, MmSA3, MmSA2, MmSA1} = MmSTROB ? 14'b0 : syllable;
 
 // Outputs
 assign EDmX = MmRDP3 | MmSTRP3;

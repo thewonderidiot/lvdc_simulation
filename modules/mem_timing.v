@@ -75,6 +75,8 @@ module mem_timing(
     output wire RECN,
     output wire RUN,
     output wire RUNN,
+    output wire SYL0N,
+    output wire SYL1N,
     output wire SYLC1,
     output wire SYNC,
     output wire SYNCN,
@@ -88,8 +90,6 @@ wire SINK;
 wire SINKN;
 wire SLD;
 wire SLDN;
-wire SYL0N;
-wire SYL1N;
 wire SYLC1N;
 wire TIMEN;
 wire TLC;
