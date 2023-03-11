@@ -162,6 +162,14 @@ wire BRA13;
 wire BRA13N;
 wire BRA14;
 wire BRA14N;
+wire BRAO;
+wire BRAON;
+wire BRAOV;
+wire BRAOVN;
+wire BRBO;
+wire BRBON;
+wire BRBOV;
+wire BRBOVN;
 wire BRB1;
 wire BRB1N;
 wire BRB2;
@@ -514,6 +522,10 @@ assign AY40VN = AY40N;
 assign AY50VN = AY50N;
 assign AY60VN = AY60N;
 assign AY70VN = AY70N;
+assign BRAOV = BRAO;
+assign BRAOVN = BRAON;
+assign BRBOV = BRBO;
+assign BRBOVN = BRBON;
 assign CBRVN = CBRN;
 assign CDSV = CDS;
 assign CSTV = CST;
@@ -1116,6 +1128,10 @@ error_det_sw a1a16(
     .Y3(Y3),
     .YN(YN),
     .Z7(Z7),
+    .BRAO(BRAO),
+    .BRAON(BRAON),
+    .BRBO(BRBO),
+    .BRBON(BRBON),
     .DMA(DMA),
     .DMB(DMB),
     .EAC(EAC),
@@ -1671,11 +1687,41 @@ memory a6a0(
     .AnAY50VN(AY50VN),
     .AnAY60VN(AY60VN),
     .AnAY70VN(AY70VN),
+    .AnBROVa(BRAOV),
+    .AnBROVb(BRAOVN),
     .AnINHBSV(INHBSV),
     .AnRDMV(RDMV),
     .AnRDMVN(RDMVN),
     .AnSYL0VN(SYL0VN),
     .AnSYL1VN(SYL1VN),
+    .BRA1(BRA1),
+    .BRA2(BRA2),
+    .BRA3(BRA3),
+    .BRA4(BRA4),
+    .BRA5(BRA5),
+    .BRA6(BRA6),
+    .BRA7(BRA7),
+    .BRA8(BRA8),
+    .BRA9(BRA9),
+    .BRA10(BRA10),
+    .BRA11(BRA11),
+    .BRA12(BRA12),
+    .BRA13(BRA13),
+    .BRA14(BRA14),
+    .BRB1(BRB1),
+    .BRB2(BRB2),
+    .BRB3(BRB3),
+    .BRB4(BRB4),
+    .BRB5(BRB5),
+    .BRB6(BRB6),
+    .BRB7(BRB7),
+    .BRB8(BRB8),
+    .BRB9(BRB9),
+    .BRB10(BRB10),
+    .BRB11(BRB11),
+    .BRB12(BRB12),
+    .BRB13(BRB13),
+    .BRB14(BRB14),
     .MmSYNCV(M0SYNCV),
     .EDmX(ED0X),
     .EDmY(ED0Y),

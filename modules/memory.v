@@ -34,11 +34,41 @@ module memory(
     input wire AnAY50VN,
     input wire AnAY60VN,
     input wire AnAY70VN,
+    input wire AnBROVa,
+    input wire AnBROVb,
     input wire AnINHBSV,
     input wire AnRDMV,
     input wire AnRDMVN,
     input wire AnSYL0VN,
     input wire AnSYL1VN,
+    input wire BRA1,
+    input wire BRA2,
+    input wire BRA3,
+    input wire BRA4,
+    input wire BRA5,
+    input wire BRA6,
+    input wire BRA7,
+    input wire BRA8,
+    input wire BRA9,
+    input wire BRA10,
+    input wire BRA11,
+    input wire BRA12,
+    input wire BRA13,
+    input wire BRA14,
+    input wire BRB1,
+    input wire BRB2,
+    input wire BRB3,
+    input wire BRB4,
+    input wire BRB5,
+    input wire BRB6,
+    input wire BRB7,
+    input wire BRB8,
+    input wire BRB9,
+    input wire BRB10,
+    input wire BRB11,
+    input wire BRB12,
+    input wire BRB13,
+    input wire BRB14,
     input wire MmSYNCV,
     output wire EDmX,
     output wire EDmY,
@@ -58,6 +88,20 @@ module memory(
     output wire MmSA14
 );
 
+wire MmINH1;
+wire MmINH2;
+wire MmINH3;
+wire MmINH4;
+wire MmINH5;
+wire MmINH6;
+wire MmINH7;
+wire MmINH8;
+wire MmINH9;
+wire MmINH10;
+wire MmINH11;
+wire MmINH12;
+wire MmINH13;
+wire MmINH14;
 wire MmRDP1;
 wire MmRDP2;
 wire MmRDP3;
@@ -140,13 +184,40 @@ initial begin
     $readmemh("core/module0.mem", core);
 end
 
+// Inhibit
+id id1(.a(BRA1), .b(AnBROVa), .c(BRB1), .d(AnBROVb), .clk2(MmSTRP2), .y(MmINH1));
+id id2(.a(BRA2), .b(AnBROVa), .c(BRB2), .d(AnBROVb), .clk2(MmSTRP2), .y(MmINH2));
+id id3(.a(BRA3), .b(AnBROVa), .c(BRB3), .d(AnBROVb), .clk2(MmSTRP2), .y(MmINH3));
+id id4(.a(BRA4), .b(AnBROVa), .c(BRB4), .d(AnBROVb), .clk2(MmSTRP2), .y(MmINH4));
+id id5(.a(BRA5), .b(AnBROVa), .c(BRB5), .d(AnBROVb), .clk2(MmSTRP2), .y(MmINH5));
+id id6(.a(BRA6), .b(AnBROVa), .c(BRB6), .d(AnBROVb), .clk2(MmSTRP2), .y(MmINH6));
+id id7(.a(BRA7), .b(AnBROVa), .c(BRB7), .d(AnBROVb), .clk2(MmSTRP2), .y(MmINH7));
+id id8(.a(BRA8), .b(AnBROVa), .c(BRB8), .d(AnBROVb), .clk2(MmSTRP2), .y(MmINH8));
+id id9(.a(BRA9), .b(AnBROVa), .c(BRB9), .d(AnBROVb), .clk2(MmSTRP2), .y(MmINH9));
+id id10(.a(BRA10), .b(AnBROVa), .c(BRB10), .d(AnBROVb), .clk2(MmSTRP2), .y(MmINH10));
+id id11(.a(BRA11), .b(AnBROVa), .c(BRB11), .d(AnBROVb), .clk2(MmSTRP2), .y(MmINH11));
+id id12(.a(BRA12), .b(AnBROVa), .c(BRB12), .d(AnBROVb), .clk2(MmSTRP2), .y(MmINH12));
+id id13(.a(BRA13), .b(AnBROVa), .c(BRB13), .d(AnBROVb), .clk2(MmSTRP2), .y(MmINH13));
+id id14(.a(BRA14), .b(AnBROVa), .c(BRB14), .d(AnBROVb), .clk2(MmSTRP2), .y(MmINH14));
+
+wire [14:1] inh;
+assign inh = {MmINH1, MmINH2, MmINH3, MmINH4, MmINH5, MmINH6, MmINH7, MmINH8, MmINH9, MmINH10, MmINH11, MmINH12, MmINH13, MmINH14};
+
+always @(*) begin
+    if (MmSTRP3) begin
+        core[address] = AnSYL0VN ? {data[28:15], inh} : {inh, data[14:1]};
+    end
+end
+
+
+// Sense
 wire [28:1] data;
 assign data = core[address];
 
 wire [14:1] syllable;
-assign syllable = AnSYL1VN ? data[14:1] : data[28:15];
+assign syllable = AnSYL0VN ? data[14:1] : data[28:15];
 
-assign {MmSA14, MmSA13, MmSA12, MmSA11, MmSA10, MmSA9, MmSA8, MmSA7, MmSA6, MmSA5, MmSA4, MmSA3, MmSA2, MmSA1} = MmSTROB ? 14'b0 : syllable;
+assign {MmSA1, MmSA2, MmSA3, MmSA4, MmSA5, MmSA6, MmSA7, MmSA8, MmSA9, MmSA10, MmSA11, MmSA12, MmSA13, MmSA14} = MmSTROB ? 14'b0 : syllable;
 
 // Outputs
 assign EDmX = MmRDP3 | MmSTRP3;

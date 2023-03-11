@@ -30,6 +30,7 @@ COMPONENTS = a \
 	     i \
 	     ia1 \
 	     ia2 \
+	     id \
 	     mcd1 \
 	     mcd2 \
 	     nsi \

@@ -46,6 +46,10 @@ module error_det_sw(
     input wire Y3,
     input wire YN,
     input wire Z7,
+    output wire BRAO,
+    output wire BRAON,
+    output wire BRBO,
+    output wire BRBON,
     output wire DMA,
     output wire DMB,
     output wire EAC,
@@ -62,10 +66,6 @@ module error_det_sw(
     output wire M7SYNC
 );
 
-wire BRAO;
-wire BRAON;
-wire BRBO;
-wire BRBON;
 wire EADM;
 wire EADMN;
 wire EAIM;
