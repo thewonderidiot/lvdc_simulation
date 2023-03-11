@@ -62,6 +62,7 @@ module mem_timing(
     output wire CNC,
     output wire COC,
     output wire CST,
+    output wire INHBS,
     output wire MAO,
     output wire MBO,
     output wire MZO,
@@ -69,6 +70,8 @@ module mem_timing(
     output wire MFF,
     output wire MSS,
     output wire RD,
+    output wire RDM,
+    output wire RDMN,
     output wire RECN,
     output wire RUN,
     output wire RUNN,
@@ -80,10 +83,7 @@ module mem_timing(
 
 wire COCN;
 wire CNCN;
-wire INHBS;
 wire MOP;
-wire RDM;
-wire RDMN;
 wire SINK;
 wire SINKN;
 wire SLD;

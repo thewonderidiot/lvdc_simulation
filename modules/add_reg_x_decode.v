@@ -48,6 +48,30 @@ module add_reg_x_decode(
     output wire A7,
     output wire A8,
     output wire A9,
+    output wire AX0N,
+    output wire AX1N,
+    output wire AX2N,
+    output wire AX3N,
+    output wire AX4N,
+    output wire AX5N,
+    output wire AX6N,
+    output wire AX7N,
+    output wire AX00N,
+    output wire AX10N,
+    output wire AX20N,
+    output wire AX30N,
+    output wire AX40N,
+    output wire AX50N,
+    output wire AX60N,
+    output wire AX70N,
+    output wire AY0N,
+    output wire AY1N,
+    output wire AY2N,
+    output wire AY3N,
+    output wire AY4N,
+    output wire AY5N,
+    output wire AY6N,
+    output wire AY7N,
     output wire TA
 );
 
@@ -68,30 +92,6 @@ wire A7AN;
 wire A8N;
 wire A8AN;
 wire A9N;
-wire AX0N;
-wire AX1N;
-wire AX2N;
-wire AX3N;
-wire AX4N;
-wire AX5N;
-wire AX6N;
-wire AX7N;
-wire AX00N;
-wire AX10N;
-wire AX20N;
-wire AX30N;
-wire AX40N;
-wire AX50N;
-wire AX60N;
-wire AX70N;
-wire AY0N;
-wire AY1N;
-wire AY2N;
-wire AY3N;
-wire AY4N;
-wire AY5N;
-wire AY6N;
-wire AY7N;
 wire S4;
 wire S4N;
 wire TAN;
@@ -100,6 +100,7 @@ wor na1a;
 wor na2a;
 wor na3a;
 wire na3d;
+wire na3e;
 wire na4a;
 wire na4b;
 wor na5a;
@@ -295,6 +296,8 @@ i a1c(.a(na1a), .y(A4));
 a #(1) a1a(.clk(V4MOD6), .a1(A4AN), .y(na1a));
 a a2c(.clk(Y5), .a1(TA), .y(na1a));
 a a1b(.clk(Y5), .a1(EXMV), .y(na1a));
+a a3e(.clk(V1), .a1(A4), .y(na3e));
+i a3f(.a(na3e), .y(A4N));
 
 a a11d(.clk(Z2), .a1(TR4V), .a2(TA), .y(na10e));
 a a10e(.clk(V1), .a1(A5), .y(na10e));
@@ -363,7 +366,7 @@ a a25e(.clk(V1), .a1(A6), .y(na25e));
 i a25f(.a(na25e), .y(A6N));
 
 a a30d(.clk(V4MOD6), .a1(A4V), .a2(A5N), .y(na30d));
-a a30e(.exp(na30e), .a1(A6N), .y(na30e));
+a a30e(.exp(na30d), .a1(A6N), .y(na30e));
 i a30f(.a(na30e), .y(AY1N));
 
 a a15d(.clk(V4MOD6), .a1(A4N), .a2(A5N), .y(na15d));

@@ -51,7 +51,15 @@ module error_det_sw(
     output wire EAC,
     output wire EBC,
     output wire IMA,
-    output wire IMB
+    output wire IMB,
+    output wire M0SYNC,
+    output wire M1SYNC,
+    output wire M2SYNC,
+    output wire M3SYNC,
+    output wire M4SYNC,
+    output wire M5SYNC,
+    output wire M6SYNC,
+    output wire M7SYNC
 );
 
 wire BRAO;
@@ -82,14 +90,6 @@ wire FSA;
 wire FSAN;
 wire FSB;
 wire FSBN;
-wire M0SYNC;
-wire M1SYNC;
-wire M2SYNC;
-wire M3SYNC;
-wire M4SYNC;
-wire M5SYNC;
-wire M6SYNC;
-wire M7SYNC;
 
 wor na2a;
 wor na2d;
@@ -180,7 +180,7 @@ a a21a(.a1(EAIMN), .y(na21a));
 
 a a34a(.clk(V4MOD7), .a1(DMAVN), .a2(IMAVN), .y(na26b));
 a a26a(.clk(V4MOD7), .a1(SYNCN), .y(na26b));
-a a26b(.clk(V4MOD7), .a1(MZOVN), .y(na26b));
+a #(1) a26b(.clk(V4MOD7), .a1(MZOVN), .y(na26b));
 i a26c(.a(na26b), .y(M0SYNC));
 
 a a32a(.clk(W3), .a1(COC), .a2(FSAN), .a3(IMA), .y(na25b));
@@ -204,7 +204,7 @@ a #(1) a23a(.clk(V1), .a1(FSAN), .y(na23a));
 
 a a34b(.clk(V4MOD7), .a1(DMAVN), .a2(IMAVN), .y(na33b));
 a a33a(.clk(V4MOD7), .a1(SYNCN), .y(na33b));
-a a33b(.clk(V4MOD7), .a1(MTTVN), .y(na33b));
+a #(1) a33b(.clk(V4MOD7), .a1(MTTVN), .y(na33b));
 i a33c(.a(na33b), .y(M2SYNC));
 
 // 10-51
@@ -226,12 +226,12 @@ i a15c(.a(na15b), .y(EAC));
 
 a a27a(.clk(V4MOD7), .a1(DMAVN), .a2(IMAVN), .y(na28b));
 a a28a(.clk(V4MOD7), .a1(SYNCN), .y(na28b));
-a a28b(.clk(V4MOD7), .a1(MFFVN), .y(na28b));
+a #(1) a28b(.clk(V4MOD7), .a1(MFFVN), .y(na28b));
 i a28c(.a(na28b), .y(M4SYNC));
 
 a a27b(.clk(V4MOD7), .a1(DMAVN), .a2(IMAVN), .y(na35b));
 a a35a(.clk(V4MOD7), .a1(SYNCN), .y(na35b));
-a a35b(.clk(V4MOD7), .a1(MSSVN), .y(na35b));
+a #(1) a35b(.clk(V4MOD7), .a1(MSSVN), .y(na35b));
 i a35c(.a(na35b), .y(M6SYNC));
 
 a a12a(.clk(Z7), .a1(EAP), .a2(IMA), .a3(TIME), .y(na11b));
@@ -281,7 +281,7 @@ a a21d(.a1(EBIMN), .y(na21d));
 
 a a34c(.clk(V4MOD7), .a1(DMBVN), .a2(IMBVN), .y(na26e));
 a a26d(.clk(V4MOD7), .a1(SYNCN), .y(na26e));
-a a26e(.clk(V4MOD7), .a1(MZOVN), .y(na26e));
+a #(1) a26e(.clk(V4MOD7), .a1(MZOVN), .y(na26e));
 i a26f(.a(na26e), .y(M1SYNC));
 
 a a32c(.clk(W3), .a1(COC), .a2(FSBN), .a3(IMB), .y(na25e));
@@ -305,7 +305,7 @@ a #(1) a23d(.clk(V1), .a1(FSBN), .y(na23d));
 
 a a34d(.clk(V4MOD7), .a1(DMBVN), .a2(IMBVN), .y(na33e));
 a a33d(.clk(V4MOD7), .a1(SYNCN), .y(na33e));
-a a33e(.clk(V4MOD7), .a1(MTTVN), .y(na33e));
+a #(1) a33e(.clk(V4MOD7), .a1(MTTVN), .y(na33e));
 i a33f(.a(na33e), .y(M3SYNC));
 
 // 10-53
@@ -327,12 +327,12 @@ i a15f(.a(na15e), .y(EBC));
 
 a a27c(.clk(V4MOD7), .a1(DMBVN), .a2(IMBVN), .y(na28e));
 a a28d(.clk(V4MOD7), .a1(SYNCN), .y(na28e));
-a a28e(.clk(V4MOD7), .a1(MFFVN), .y(na28e));
+a #(1) a28e(.clk(V4MOD7), .a1(MFFVN), .y(na28e));
 i a28f(.a(na28e), .y(M5SYNC));
 
 a a27d(.clk(V4MOD7), .a1(DMBVN), .a2(IMBVN), .y(na35e));
 a a35d(.clk(V4MOD7), .a1(SYNCN), .y(na35e));
-a a35e(.clk(V4MOD7), .a1(MSSVN), .y(na35e));
+a #(1) a35e(.clk(V4MOD7), .a1(MSSVN), .y(na35e));
 i a35f(.a(na35e), .y(M7SYNC));
 
 a a12c(.clk(Z7), .a1(EBP), .a2(IMB), .a3(TIME), .y(na11e));

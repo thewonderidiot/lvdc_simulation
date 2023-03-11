@@ -39,6 +39,14 @@ module sect_reg_y_decode(
     input wire X5,
     input wire Y5,
     input wire Z1,
+    output wire AY00N,
+    output wire AY10N,
+    output wire AY20N,
+    output wire AY30N,
+    output wire AY40N,
+    output wire AY50N,
+    output wire AY60N,
+    output wire AY70N,
     output wire DS1,
     output wire DS2,
     output wire DS3,
@@ -57,14 +65,6 @@ module sect_reg_y_decode(
 );
 
 wire A9PADN;
-wire AY00N;
-wire AY10N;
-wire AY20N;
-wire AY30N;
-wire AY40N;
-wire AY50N;
-wire AY60N;
-wire AY70N;
 wire DS1N;
 wire DS2N;
 wire DS3N;

@@ -63,6 +63,70 @@ wire AI3;
 wire AI3N;
 wire AI3V;
 wire AI3VN;
+wire AX0N;
+wire AX0VN;
+wire AX1N;
+wire AX1VN;
+wire AX2N;
+wire AX2VN;
+wire AX3N;
+wire AX3VN;
+wire AX4N;
+wire AX4VN;
+wire AX5N;
+wire AX5VN;
+wire AX6N;
+wire AX6VN;
+wire AX7N;
+wire AX7VN;
+wire AX00N;
+wire AX00VN;
+wire AX10N;
+wire AX10VN;
+wire AX20N;
+wire AX20VN;
+wire AX30N;
+wire AX30VN;
+wire AX40N;
+wire AX40VN;
+wire AX50N;
+wire AX50VN;
+wire AX60N;
+wire AX60VN;
+wire AX70N;
+wire AX70VN;
+wire AY0N;
+wire AY0VN;
+wire AY1N;
+wire AY1VN;
+wire AY2N;
+wire AY2VN;
+wire AY3N;
+wire AY3VN;
+wire AY4N;
+wire AY4VN;
+wire AY5N;
+wire AY5VN;
+wire AY6N;
+wire AY6VN;
+wire AY7N;
+wire AY7VN;
+wire AY00N;
+wire AY00VN;
+wire AY10N;
+wire AY10VN;
+wire AY20N;
+wire AY20VN;
+wire AY30N;
+wire AY30VN;
+wire AY40N;
+wire AY40VN;
+wire AY50N;
+wire AY50VN;
+wire AY60N;
+wire AY60VN;
+wire AY70N;
+wire AY70VN;
 wire BO1;
 wire BO1N;
 wire BO2;
@@ -161,6 +225,8 @@ wire EAC;
 wire EAP;
 wire EBC;
 wire EBP;
+wire ED0X;
+wire ED0Y;
 wire EXM;
 wire EXMV;
 wire EXMN;
@@ -204,6 +270,8 @@ wire IMAVN;
 wire IMB;
 wire IMBN;
 wire IMBVN;
+wire INHBS;
+wire INHBSV;
 wire INT;
 wire INTV;
 wire IS1;
@@ -212,6 +280,22 @@ wire IS3;
 wire IS4;
 wire ISS;
 wire ISSN;
+wire M0SYNC;
+wire M0SYNCV;
+wire M1SYNC;
+wire M1SYNCV;
+wire M2SYNC;
+wire M2SYNCV;
+wire M3SYNC;
+wire M3SYNCV;
+wire M4SYNC;
+wire M4SYNCV;
+wire M5SYNC;
+wire M5SYNCV;
+wire M6SYNC;
+wire M6SYNCV;
+wire M7SYNC;
+wire M7SYNCV;
 wire MAO;
 wire MAOV;
 wire MBO;
@@ -262,6 +346,10 @@ wire PIO;
 wire PIOV;
 wire RD;
 wire RDV;
+wire RDM;
+wire RDMN;
+wire RDMV;
+wire RDMVN;
 wire RECN;
 wire RUN;
 wire RUNN;
@@ -376,6 +464,38 @@ assign AI2V = AI2;
 assign AI2VN = AI2N;
 assign AI3V = AI3;
 assign AI3VN = AI3N;
+assign AX0VN = AX0N;
+assign AX1VN = AX1N;
+assign AX2VN = AX2N;
+assign AX3VN = AX3N;
+assign AX4VN = AX4N;
+assign AX5VN = AX5N;
+assign AX6VN = AX6N;
+assign AX7VN = AX7N;
+assign AX00VN = AX00N;
+assign AX10VN = AX10N;
+assign AX20VN = AX20N;
+assign AX30VN = AX30N;
+assign AX40VN = AX40N;
+assign AX50VN = AX50N;
+assign AX60VN = AX60N;
+assign AX70VN = AX70N;
+assign AY0VN = AY0N;
+assign AY1VN = AY1N;
+assign AY2VN = AY2N;
+assign AY3VN = AY3N;
+assign AY4VN = AY4N;
+assign AY5VN = AY5N;
+assign AY6VN = AY6N;
+assign AY7VN = AY7N;
+assign AY00VN = AY00N;
+assign AY10VN = AY10N;
+assign AY20VN = AY20N;
+assign AY30VN = AY30N;
+assign AY40VN = AY40N;
+assign AY50VN = AY50N;
+assign AY60VN = AY60N;
+assign AY70VN = AY70N;
 assign CBRVN = CBRN;
 assign CDSV = CDS;
 assign CSTV = CST;
@@ -401,7 +521,16 @@ assign HOPV = HOP;
 assign HOPC1V = HOPC1;
 assign IMAVN = IMAN;
 assign IMBVN = IMBN;
+assign INHBSV = INHBS;
 assign INTV = INT;
+assign M0SYNCV = M0SYNC;
+assign M1SYNCV = M1SYNC;
+assign M2SYNCV = M2SYNC;
+assign M3SYNCV = M3SYNC;
+assign M4SYNCV = M4SYNC;
+assign M5SYNCV = M5SYNC;
+assign M6SYNCV = M6SYNC;
+assign M7SYNCV = M7SYNC;
 assign MAOV = MAO;
 assign MBOV = MBO;
 assign MZOVN = MZON;
@@ -425,6 +554,8 @@ assign PCV = PC;
 assign PCVN = PCN;
 assign PIOV = PIO;
 assign RDV = RD;
+assign RDMV = RDM;
+assign RDMVN = RDMN;
 assign RUNV = RUN;
 assign RUNVN = RUNN;
 assign SBRXV = SBRX;
@@ -899,6 +1030,7 @@ mem_timing a1a15(
     .CNC(CNC),
     .COC(COC),
     .CST(CST),
+    .INHBS(INHBS),
     .MAO(MAO),
     .MBO(MBO),
     .MZO(MZO),
@@ -906,6 +1038,8 @@ mem_timing a1a15(
     .MFF(MFF),
     .MSS(MSS),
     .RD(RD),
+    .RDM(RDM),
+    .RDMN(RDMN),
     .RECN(RECN),
     .RUN(RUN),
     .RUNN(RUNN),
@@ -924,8 +1058,8 @@ error_det_sw a1a16(
     .DMBVN(DMBVN),
     .EAP(EAP),
     .EBP(EBP),
-    .ED0X(1'b0),
-    .ED0Y(1'b0),
+    .ED0X(ED0X),
+    .ED0Y(ED0Y),
     .ED1X(1'b0),
     .ED1Y(1'b0),
     .ED2X(1'b0),
@@ -965,7 +1099,15 @@ error_det_sw a1a16(
     .EAC(EAC),
     .EBC(EBC),
     .IMA(IMA),
-    .IMB(IMB)
+    .IMB(IMB),
+    .M0SYNC(M0SYNC),
+    .M1SYNC(M1SYNC),
+    .M2SYNC(M2SYNC),
+    .M3SYNC(M3SYNC),
+    .M4SYNC(M4SYNC),
+    .M5SYNC(M5SYNC),
+    .M6SYNC(M6SYNC),
+    .M7SYNC(M7SYNC)
 );
 
 mem_parity_check a1a17(
@@ -1141,6 +1283,30 @@ add_reg_x_decode a1a19(
     .A7(A7),
     .A8(A8),
     .A9(A9),
+    .AX0N(AX0N),
+    .AX1N(AX1N),
+    .AX2N(AX2N),
+    .AX3N(AX3N),
+    .AX4N(AX4N),
+    .AX5N(AX5N),
+    .AX6N(AX6N),
+    .AX7N(AX7N),
+    .AX00N(AX00N),
+    .AX10N(AX10N),
+    .AX20N(AX20N),
+    .AX30N(AX30N),
+    .AX40N(AX40N),
+    .AX50N(AX50N),
+    .AX60N(AX60N),
+    .AX70N(AX70N),
+    .AY0N(AY0N),
+    .AY1N(AY1N),
+    .AY2N(AY2N),
+    .AY3N(AY3N),
+    .AY4N(AY4N),
+    .AY5N(AY5N),
+    .AY6N(AY6N),
+    .AY7N(AY7N),
     .TA(TA)
 );
 
@@ -1182,6 +1348,14 @@ sect_reg_y_decode a1a20(
     .X5(X5),
     .Y5(Y5),
     .Z1(Z1),
+    .AY00N(AY00N),
+    .AY10N(AY10N),
+    .AY20N(AY20N),
+    .AY30N(AY30N),
+    .AY40N(AY40N),
+    .AY50N(AY50N),
+    .AY60N(AY60N),
+    .AY70N(AY70N),
     .DS1(DS1),
     .DS2(DS2),
     .DS3(DS3),
@@ -1441,6 +1615,48 @@ buffer_register_3 a5a11(
     .BRB14(BRB14),
     .BRB14N(BRB14N)
 );
+
+memory a6a0(
+    .AnAX0VN(AX0VN),
+    .AnAX1VN(AX1VN),
+    .AnAX2VN(AX2VN),
+    .AnAX3VN(AX3VN),
+    .AnAX4VN(AX4VN),
+    .AnAX5VN(AX5VN),
+    .AnAX6VN(AX6VN),
+    .AnAX7VN(AX7VN),
+    .AnAX00VN(AX00VN),
+    .AnAX10VN(AX10VN),
+    .AnAX20VN(AX20VN),
+    .AnAX30VN(AX30VN),
+    .AnAX40VN(AX40VN),
+    .AnAX50VN(AX50VN),
+    .AnAX60VN(AX60VN),
+    .AnAX70VN(AX70VN),
+    .AnAY0VN(AY0VN),
+    .AnAY1VN(AY1VN),
+    .AnAY2VN(AY2VN),
+    .AnAY3VN(AY3VN),
+    .AnAY4VN(AY4VN),
+    .AnAY5VN(AY5VN),
+    .AnAY6VN(AY6VN),
+    .AnAY7VN(AY7VN),
+    .AnAY00VN(AY00VN),
+    .AnAY10VN(AY10VN),
+    .AnAY20VN(AY20VN),
+    .AnAY30VN(AY30VN),
+    .AnAY40VN(AY40VN),
+    .AnAY50VN(AY50VN),
+    .AnAY60VN(AY60VN),
+    .AnAY70VN(AY70VN),
+    .AnINHBSV(INHBSV),
+    .AnRDMV(RDMV),
+    .AnRDMVN(RDMVN),
+    .MmSYNCV(M0SYNCV),
+    .EDmX(ED0X),
+    .EDmY(ED0Y)
+);
+
 
 endmodule
 `default_nettype wire

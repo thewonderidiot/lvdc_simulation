@@ -9,6 +9,7 @@ MODULES = add_reg_x_decode \
 	  mem_mod_reg_sect_ser \
 	  mem_parity_check \
 	  mem_timing \
+	  memory \
 	  op_code_reg \
 	  osc_buf \
 	  sect_reg_y_decode \
@@ -29,10 +30,13 @@ COMPONENTS = a \
 	     i \
 	     ia1 \
 	     ia2 \
+	     mcd1 \
+	     mcd2 \
 	     nsi \
 	     osc \
 	     tmv \
 	     vi \
+	     vsg \
 
 MODULE_SOURCES = $(addsuffix .v, $(addprefix modules/, $(MODULES)))
 COMPONENT_SOURCES = $(addsuffix .v, $(addprefix components/, $(COMPONENTS)))
