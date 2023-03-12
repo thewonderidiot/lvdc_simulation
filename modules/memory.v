@@ -88,6 +88,8 @@ module memory(
     output wire MmSA14
 );
 
+parameter mod = 0;
+
 wire MmINH1;
 wire MmINH2;
 wire MmINH3;
@@ -181,7 +183,7 @@ end
 // Data
 reg [28:1] core[0:4095];
 initial begin
-    $readmemh("core/module0.mem", core);
+    $readmemh($sformatf("core/module%0d.mem", mod), core);
 end
 
 // Inhibit
