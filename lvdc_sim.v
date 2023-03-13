@@ -23,7 +23,7 @@ initial begin
     $dumpfile("lvdc.fst");
     $dumpvars(2, lvdc1);
     #100000 HALTV = 0;
-    #1000000 $finish;
+    #4000000 $finish;
 end
 
 endmodule

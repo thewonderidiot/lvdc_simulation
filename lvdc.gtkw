@@ -1,21 +1,21 @@
 [*]
 [*] GTKWave Analyzer v3.3.113 (w)1999-2022 BSI
-[*] Mon Mar  6 07:45:04 2023
+[*] Sun Mar 12 23:34:58 2023
 [*]
 [dumpfile] "/home/mike/lvdc_simulation/lvdc.fst"
-[dumpfile_mtime] "Mon Mar  6 07:19:38 2023"
-[dumpfile_size] 129470
+[dumpfile_mtime] "Sun Mar 12 23:33:21 2023"
+[dumpfile_size] 79090
 [savefile] "/home/mike/lvdc_simulation/lvdc.gtkw"
-[timestart] 289100000
-[size] 1920 1002
+[timestart] 203000000
+[size] 1920 1032
 [pos] -1 -1
-*-26.400002 758400000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-24.900002 192300000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] lvdc_sim.
 [treeopen] lvdc_sim.lvdc1.
 [sst_width] 251
-[signals_width] 140
+[signals_width] 179
 [sst_expanded] 1
-[sst_vpaned_height] 466
+[sst_vpaned_height] 482
 @10c00028
 [color] 7
 [transaction_args] ""
@@ -57,15 +57,53 @@ lvdc_sim.lvdc1.a1a3.ZF
 @10c00022
 [transaction_args] ""
 ^<4 /home/mike/lvdc_simulation/scripts/decode_opcode.py
-#{Opcode} lvdc_sim.lvdc1.OP4V lvdc_sim.lvdc1.OP3V lvdc_sim.lvdc1.OP2V lvdc_sim.lvdc1.OP1V
+#{Opcode} lvdc_sim.lvdc1.OP4V lvdc_sim.lvdc1.OP3V lvdc_sim.lvdc1.OP2V lvdc_sim.lvdc1.OP1V lvdc_sim.lvdc1.A9V lvdc_sim.lvdc1.A8V
 @28
+lvdc_sim.lvdc1.A8V
+lvdc_sim.lvdc1.A9V
 lvdc_sim.lvdc1.OP1V
 lvdc_sim.lvdc1.OP2V
 lvdc_sim.lvdc1.OP3V
 lvdc_sim.lvdc1.OP4V
 @1401200
 -group_end
-@c00031
+@c00030
+#{IM} lvdc_sim.lvdc1.a1a14.IM3 lvdc_sim.lvdc1.a1a14.IM2 lvdc_sim.lvdc1.a1a14.IM1
+@28
+lvdc_sim.lvdc1.a1a14.IM1
+lvdc_sim.lvdc1.a1a14.IM2
+lvdc_sim.lvdc1.a1a14.IM3
+@1401200
+-group_end
+@c00030
+#{IS} lvdc_sim.lvdc1.IS4 lvdc_sim.lvdc1.IS3 lvdc_sim.lvdc1.IS2 lvdc_sim.lvdc1.IS1
+@28
+lvdc_sim.lvdc1.IS1
+lvdc_sim.lvdc1.IS2
+lvdc_sim.lvdc1.IS3
+lvdc_sim.lvdc1.IS4
+@1401200
+-group_end
+@c00030
+#{DM} lvdc_sim.lvdc1.a1a14.DM3 lvdc_sim.lvdc1.a1a14.DM2 lvdc_sim.lvdc1.a1a14.DM1
+@28
+lvdc_sim.lvdc1.a1a14.DM1
+lvdc_sim.lvdc1.a1a14.DM2
+lvdc_sim.lvdc1.a1a14.DM3
+@1401200
+-group_end
+@c00030
+#{DS} lvdc_sim.lvdc1.DS4 lvdc_sim.lvdc1.DS3 lvdc_sim.lvdc1.DS2 lvdc_sim.lvdc1.DS1
+@28
+lvdc_sim.lvdc1.DS1
+lvdc_sim.lvdc1.DS2
+lvdc_sim.lvdc1.DS3
+lvdc_sim.lvdc1.DS4
+@1401200
+-group_end
+@28
++{S} lvdc_sim.lvdc1.SYLC1V
+@c00030
 #{A} lvdc_sim.lvdc1.A9V lvdc_sim.lvdc1.A8V lvdc_sim.lvdc1.A7V lvdc_sim.lvdc1.A6V lvdc_sim.lvdc1.A5V lvdc_sim.lvdc1.A4V lvdc_sim.lvdc1.A3V lvdc_sim.lvdc1.A2V lvdc_sim.lvdc1.A1V
 @28
 lvdc_sim.lvdc1.A1V
@@ -77,7 +115,7 @@ lvdc_sim.lvdc1.A6V
 lvdc_sim.lvdc1.A7V
 lvdc_sim.lvdc1.A8V
 lvdc_sim.lvdc1.A9V
-@1401201
+@1401200
 -group_end
 @c00030
 #{TR} lvdc_sim.lvdc1.TR13V lvdc_sim.lvdc1.TR12V lvdc_sim.lvdc1.TR11V lvdc_sim.lvdc1.TR10V lvdc_sim.lvdc1.TR9V lvdc_sim.lvdc1.TR8V lvdc_sim.lvdc1.TR7V lvdc_sim.lvdc1.TR6V lvdc_sim.lvdc1.TR5V lvdc_sim.lvdc1.TR4V lvdc_sim.lvdc1.TR3V lvdc_sim.lvdc1.TR2V lvdc_sim.lvdc1.TR1V
@@ -97,7 +135,7 @@ lvdc_sim.lvdc1.TR12V
 lvdc_sim.lvdc1.TR13V
 @1401200
 -group_end
-@c00030
+@c000b0
 #{BRA} lvdc_sim.lvdc1.BRA14 lvdc_sim.lvdc1.BRA13 lvdc_sim.lvdc1.BRA12 lvdc_sim.lvdc1.BRA11 lvdc_sim.lvdc1.BRA10 lvdc_sim.lvdc1.BRA9 lvdc_sim.lvdc1.BRA8 lvdc_sim.lvdc1.BRA7 lvdc_sim.lvdc1.BRA6 lvdc_sim.lvdc1.BRA5 lvdc_sim.lvdc1.BRA4 lvdc_sim.lvdc1.BRA3 lvdc_sim.lvdc1.BRA2 lvdc_sim.lvdc1.BRA1
 @28
 lvdc_sim.lvdc1.BRA1
@@ -114,9 +152,9 @@ lvdc_sim.lvdc1.BRA11
 lvdc_sim.lvdc1.BRA12
 lvdc_sim.lvdc1.BRA13
 lvdc_sim.lvdc1.BRA14
-@1401200
+@1401290
 -group_end
-@c00030
+@c000b0
 #{BRB} lvdc_sim.lvdc1.BRB14 lvdc_sim.lvdc1.BRB13 lvdc_sim.lvdc1.BRB12 lvdc_sim.lvdc1.BRB11 lvdc_sim.lvdc1.BRB10 lvdc_sim.lvdc1.BRB9 lvdc_sim.lvdc1.BRB8 lvdc_sim.lvdc1.BRB7 lvdc_sim.lvdc1.BRB6 lvdc_sim.lvdc1.BRB5 lvdc_sim.lvdc1.BRB4 lvdc_sim.lvdc1.BRB3 lvdc_sim.lvdc1.BRB2 lvdc_sim.lvdc1.BRB1
 @28
 lvdc_sim.lvdc1.BRB1
@@ -133,7 +171,7 @@ lvdc_sim.lvdc1.BRB11
 lvdc_sim.lvdc1.BRB12
 lvdc_sim.lvdc1.BRB13
 lvdc_sim.lvdc1.BRB14
-@1401200
+@1401280
 -group_end
 [pattern_trace] 1
 [pattern_trace] 0

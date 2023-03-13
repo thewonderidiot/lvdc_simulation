@@ -154,29 +154,29 @@ end
 
 always @(*) begin
     case ({AnAX70VN, AnAX60VN, AnAX50VN, AnAX40VN, AnAX30VN, AnAX20VN, AnAX10VN, AnAX00VN})
-    8'b11111110: address[8:6] = 3'o0;
-    8'b11111101: address[8:6] = 3'o1;
-    8'b11111011: address[8:6] = 3'o2;
-    8'b11110111: address[8:6] = 3'o3;
-    8'b11101111: address[8:6] = 3'o4;
-    8'b11011111: address[8:6] = 3'o5;
-    8'b10111111: address[8:6] = 3'o6;
-    8'b01111111: address[8:6] = 3'o7;
-    default: address[8:6] = 3'o0;
+    8'b11111110: {address[11], address[7:6]} = 3'o0;
+    8'b11111101: {address[11], address[7:6]} = 3'o1;
+    8'b11111011: {address[11], address[7:6]} = 3'o2;
+    8'b11110111: {address[11], address[7:6]} = 3'o3;
+    8'b11101111: {address[11], address[7:6]} = 3'o4;
+    8'b11011111: {address[11], address[7:6]} = 3'o5;
+    8'b10111111: {address[11], address[7:6]} = 3'o6;
+    8'b01111111: {address[11], address[7:6]} = 3'o7;
+    default: {address[11], address[7:6]} = 3'o0;
     endcase
 end
 
 always @(*) begin
     case ({AnAY70VN, AnAY60VN, AnAY50VN, AnAY40VN, AnAY30VN, AnAY20VN, AnAY10VN, AnAY00VN})
-    8'b11111110: address[11:9] = 3'o0;
-    8'b11111101: address[11:9] = 3'o1;
-    8'b11111011: address[11:9] = 3'o2;
-    8'b11110111: address[11:9] = 3'o3;
-    8'b11101111: address[11:9] = 3'o4;
-    8'b11011111: address[11:9] = 3'o5;
-    8'b10111111: address[11:9] = 3'o6;
-    8'b01111111: address[11:9] = 3'o7;
-    default: address[11:9] = 3'o0;
+    8'b11111110: address[10:8] = 3'o0;
+    8'b11111101: address[10:8] = 3'o1;
+    8'b11111011: address[10:8] = 3'o2;
+    8'b11110111: address[10:8] = 3'o3;
+    8'b11101111: address[10:8] = 3'o4;
+    8'b11011111: address[10:8] = 3'o5;
+    8'b10111111: address[10:8] = 3'o6;
+    8'b01111111: address[10:8] = 3'o7;
+    default: address[10:8] = 3'o0;
     endcase
 end
 

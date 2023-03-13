@@ -10,22 +10,24 @@ dump_lines = []
 last_op = '-'
 
 op_map = {
-    0b0000: 'HOP',
-    0b0001: 'MPY',
-    0b0010: 'SUB',
-    0b0011: 'DIV',
-    0b0100: 'TNZ',
-    0b0101: 'MPH',
-    0b0110: 'AND',
-    0b0111: 'ADD',
-    0b1000: 'TRA',
-    0b1001: 'XOR',
-    0b1010: 'PIO',
-    0b1011: 'STO',
-    0b1100: 'TMI',
-    0b1101: 'RSU',
-    0b1110: 'SHF', # Or CDS or EXM
-    0b1111: 'CLA',
+    0b000000: 'HOP',
+    0b000100: 'MPY',
+    0b001000: 'SUB',
+    0b001100: 'DIV',
+    0b010000: 'TNZ',
+    0b010100: 'MPH',
+    0b011000: 'AND',
+    0b011100: 'ADD',
+    0b100000: 'TRA',
+    0b100100: 'XOR',
+    0b101000: 'PIO',
+    0b101100: 'STO',
+    0b110000: 'TMI',
+    0b110100: 'RSU',
+    0b111000: 'CDS',
+    0b111010: 'SHF',
+    0b111011: 'EXM',
+    0b111100: 'CLA',
 }
 
 while True:
@@ -69,7 +71,12 @@ while True:
 
         opcode = 0
         for i in range(1,5):
-            opcode |= signals['OP%uV' % i] << (i-1)
+            opcode |= signals['OP%uV' % i] << (i+1)
+
+        # if opcode == 0b111000:
+        #     opcode |= signals['A9V'] << 1
+        #     if opcode == 0b111010:
+        #         opcode |= signals['A8V']
 
         op = op_map[opcode]
 

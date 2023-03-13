@@ -238,7 +238,7 @@ a a24b(.clk(Y4), .a1(TA), .y(na24a));
 
 a a29a(.clk(V4MOD6), .a1(A1N), .a2(A2N), .y(na29a));
 a a29b(.exp(na29a), .a1(A3N), .y(na29b));
-i a29c(.a(na29a), .y(AX0N));
+i a29c(.a(na29b), .y(AX0N));
 
 a a30a(.clk(V4MOD6), .a1(A1V), .a2(A2N), .y(na30a));
 a a30b(.exp(na30a), .a1(A3N), .y(na30b));
@@ -339,7 +339,7 @@ a a23e(.exp(na23d), .a1(A6N), .y(na23e));
 i a23f(.a(na23e), .y(AY3N));
 
 a a8d(.clk(V4MOD6), .a1(A4N), .a2(A5V), .y(na8d));
-a a8e(.clk(V4MOD6), .a1(A6V), .y(na8e));
+a a8e(.exp(na8d), .a1(A6V), .y(na8e));
 i a8f(.a(na8e), .y(AY6N));
 
 a a35d(.clk(V4MOD6), .a1(A7V), .a2(A8N), .y(na35d));
