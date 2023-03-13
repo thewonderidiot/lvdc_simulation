@@ -1,0 +1,183 @@
+        DOGD    0,17,0
+H95P1   HPC     L95P1
+VAR1    OCT     000000000
+VAR2    OCT     000000000
+
+        ORGDD   0,0,0,0,0,13,
+H5P2    HPC     L5P3
+H5P3    HPC     L5P3
+H5P4    HPC     L5P4
+H5P5    HPC     L5P5
+H5P6    HPC     L5P6
+
+*       PROGRAM ENTRANCE.
+L1P1    CDSD    0,13
+        HOP     H5P2
+
+*       BEGINNING OF ROUTINE ONE
+*       CHECK COMPUTER FOR ABILITY TO HOP TO ALL SECTORS.
+L5P2    HOP     HP1
+HP1     HPC     L5P2A
+*       SECTOR 1.
+        ORGDD   0,1,0,2,0,1,
+L5P2A   HOP     HP2
+HP2     HPC     L5P2B
+*       SECTOR 2.
+        ORGDD   0,2,1,0,0,2,1
+L5P2B   HOP     HP3
+HP3     HPC     L5P2C
+*       SECTOR 3.
+        ORGDD   0,3,0,376,0,3,
+L5P2C   HOP     HP4
+HP4     HPC     L5P2D
+*       SECTOR 4.
+        ORGDD   0,4,0,52,0,4,
+L5P2D   HOP     HP5
+HP5     HPC     L5P2E
+*       SECTOR 5.
+        ORGDD   0,5,0,3,0,5,10
+L5P2E   HOP     HP6
+HP6     HPC     L5P2F
+*       SECTOR 6.
+        ORGDD   0,6,0,0,0,16,365
+L5P2F   HOP     HP7
+HP7     HPC     L5P2G
+*       SECTOR 7.
+        ORGDD   0,7,0,177,0,16,2
+L5P2G   HOP     HP8
+HP8     HPC     L5P2H
+*       SECTOR 10.
+        ORGDD   0,10,1,77,0,16,3
+L5P2H   HOP     HP9
+HP9     HPC     L5P2I
+*       SECTOR  11.
+        ORGDD   0,11,1,257,0,16,4
+L5P2I   HOP     HP10
+HP10    HPC     L5P2J
+*       SECTOR  12.
+        ORGDD   0,12,0,0,0,16,5
+L5P2J   HOP     HP11
+HP11    HPC     L5P2K
+*       SECTOR  13.
+        ORGDD   0,13,1,373,0,16,6
+L5P2K   HOP     HP12
+HP12    HPC     L5P2L
+*       SECTOR  14.
+        ORGDD   0,14,0,30,0,16,7
+L5P2L   HOP     HP13
+HP13    HPC     L5P2M
+*       SECTOR  15.
+        ORGDD   0,15,0,376,0,16,10
+L5P2M   HOP     HP14
+HP14    HPC     L5P2N
+*       SECTOR  16.
+        ORGDD   0,16,0,0,0,16,376
+L5P2N   HOP     HP15
+HP15    HPC     L5P2P
+*       SECTOR  17.
+        ORGDD   0,17,1,277,0,16,11
+L5P2P   HOP     HP16
+HP16    HPC     L5P2Q
+*       MEMORY MODULE 2
+*       SECTOR  0 MM2
+        ORGDD   2,0,0,1,2,0,0
+L5P2Q   HOP     HP17
+HP17    HPC     L5P2R
+*       SECTOR  1 MM2
+        ORGDD   2,1,1,1,2,1,2
+L5P2R   HOP     HP18
+HP18    HPC     L5P2S
+*       SECTOR  2 MM2
+        ORGDD   2,2,0,2,2,2,3
+L5P2S   HOP     HP19
+HP19    HPC     L5P2T
+*       SECTOR  3 MM2
+        ORGDD   2,3,0,3,2,3,4
+L5P2T   HOP     HP20
+HP20    HPC     L5P2U
+*       SECTOR  4 MM2
+        ORGDD   2,4,0,4,2,4,5
+L5P2U   HOP     HP21
+HP21    HPC     L5P2V
+*       SECTOR  5 MM2
+        ORGDD   2,5,1,5,2,5,6
+L5P2V   HOP     HP22
+HP22    HPC     L5P2W
+*               SECTOR 6 MM2
+        ORGDD   2,6,0,60,2,6,7
+L5P2W   HOP     HP23
+HP23    HPC     L5P2X
+*       SECTOR  7
+        ORGDD   2,7,0,37,2,7,17
+L5P2X   HOP     HP24
+HP24    HPC     L5P2Y
+*       SECTOR  10 MM2
+        ORGDD   2,10,0,100,2,10,27
+L5P2Y   HOP     HP25
+HP25    HPC     L5P2Z
+*       SECTOR 11 MM2
+        ORGDD   2,11,0,200,2,11,37
+L5P2Z   HOP     HP26
+HP26    HPC     L5P2AA
+*       SECTOR 12 MM2
+        ORGDD   2,12,0,376,2,12,377
+L5P2AA  HOP     HP27
+HP27    HPC     L5P2BB
+*       SECTOR 13 MM2
+        ORGDD   2,13,0,376,2,13,377
+L5P2BB  HOP     HP28
+HP28    HPC     L5P2CC
+*       SECTOR 14 MM2
+        ORGDD   2,14,0,177,2,14,377
+L5P2CC  HOP     HP29
+HP29    HPC     L5P2DD
+*       SECTOR 15 MM2
+        ORGDD   2,15,0,7,2,15,177
+L5P2DD  HOP     HP30
+HP30    HPC     L5P2EE
+*       SECTOR 16 MM2
+        ORGDD   2,16,1,0,2,16,100
+L5P2EE  HOP     HP31
+HP31    HPC     L5P2FF
+*       SECTOR 17 MM2
+        ORGDD   2,17,1,372,2,17,77
+L5P2FF  HOP     HP32
+HP32    HPC     L5P3
+
+*       BEGIN CHECK OF TRANSFER CLASS INSTRUCTIONS.
+        ORGDD   0,0,0,373,0,13,1
+        ORGDD   0,0,0,170,0,13,0
+L5P3    CLA     H5P3
+        STO     VAR1
+        CLA     H5P4
+        STO     VAR2
+        CLA     =O400000000
+        TMI     L5P4
+        HOP     H95P1
+*       TEST TNZ INSTRUCTION.
+L5P4    CLA     H5P4
+        STO     VAR1
+        CLA     H5P5
+        STO     VAR2
+        CLA     =O000000002
+        TNZ     L5P5
+        HOP     H95P1
+*       TEST TMI WITH CLEARED ACCUMULATOR.
+L5P5    CLA     H5P5
+        STO     VAR1
+        CLA     H5P6
+        STO     VAR2
+        CLA     =O000000000
+        TMI     L15P1L
+        TRA     L5P6
+        HOP     H95P1
+*       TEST TNZ WITH CLEARED ACCUMULATOR.
+L5P6    TRA     L5P6
+L15P1L  TRA     L95P1
+
+
+
+
+
+        ORGDD   0,16,0,41,0,16,212
+L95P1   TRA     L95P1
