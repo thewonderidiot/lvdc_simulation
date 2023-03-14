@@ -14,12 +14,14 @@ module clock_drivers(
     output wire W5,
     output wire W6,
     output wire W7,
+    output wire WDA,
     output wire WN,
     output wire X2,
     output wire X3,
     output wire X4,
     output wire X5,
     output wire X8,
+    output wire XDA,
     output wire XN,
     output wire Y1,
     output wire Y3,
@@ -28,6 +30,7 @@ module clock_drivers(
     output wire Y6,
     output wire Y7,
     output wire Y8,
+    output wire YDA,
     output wire YN,
     output wire Z1,
     output wire Z2,
@@ -35,25 +38,22 @@ module clock_drivers(
     output wire Z5,
     output wire Z7,
     output wire Z8,
+    output wire ZDA,
     output wire ZN
 );
 
 wire W2;
 wire W4;
 wire W8;
-wire WDA;
 wire WF;
 wire X1;
 wire X6;
 wire X7;
-wire XDA;
 wire XF;
 wire Y2;
-wire YDA;
 wire YF;
 wire Z4;
 wire Z6;
-wire ZDA;
 wire ZF;
 
 wor ncg2_01;

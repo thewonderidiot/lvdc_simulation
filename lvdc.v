@@ -7,7 +7,13 @@ module lvdc(
     input wire DIN,
     input wire HALTV,
     input wire INTCV,
-    input wire TER
+    input wire TER,
+    output wire AI3V,
+    output wire PBV,
+    output wire WDA,
+    output wire XDA,
+    output wire YDA,
+    output wire ZDA
 );
 
 // Power rails
@@ -61,7 +67,6 @@ wire AI2V;
 wire AI2VN;
 wire AI3;
 wire AI3N;
-wire AI3V;
 wire AI3VN;
 wire AX0N;
 wire AX0VN;
@@ -470,7 +475,6 @@ wire PAV;
 wire PAVN;
 wire PB;
 wire PBN;
-wire PBV;
 wire PBVN;
 wire PC;
 wire PCN;
@@ -743,12 +747,14 @@ clock_drivers a1a3(
     .W5(W5),
     .W6(W6),
     .W7(W7),
+    .WDA(WDA),
     .WN(WN),
     .X2(X2),
     .X3(X3),
     .X4(X4),
     .X5(X5),
     .X8(X8),
+    .XDA(XDA),
     .XN(XN),
     .Y1(Y1),
     .Y3(Y3),
@@ -757,6 +763,7 @@ clock_drivers a1a3(
     .Y6(Y6),
     .Y7(Y7),
     .Y8(Y8),
+    .YDA(YDA),
     .YN(YN),
     .Z1(Z1),
     .Z2(Z2),
@@ -764,6 +771,7 @@ clock_drivers a1a3(
     .Z5(Z5),
     .Z7(Z7),
     .Z8(Z8),
+    .ZDA(ZDA),
     .ZN(ZN)
 );
 
