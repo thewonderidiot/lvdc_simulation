@@ -55,7 +55,7 @@ initial begin
     $dumpfile("lvdc.fst");
     $dumpvars(3, lvdc_sim);
     #100000 HALTV = 0;
-    #1000000 $finish;
+    #4000000 $finish;
 end
 
 endmodule

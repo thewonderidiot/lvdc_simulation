@@ -2,13 +2,22 @@
 H95P1   HPC     L95P1
 VAR1    OCT     000000000
 VAR2    OCT     000000000
+TEMP1   OCT     000000000
 
         ORGDD   0,0,0,0,0,13,
-H5P2    HPC     L5P3
+H5P2    HPC     L5P2
 H5P3    HPC     L5P3
 H5P4    HPC     L5P4
 H5P5    HPC     L5P5
 H5P6    HPC     L5P6
+H5P7    HPC     L5P7
+H6P1    HPC     L6P1
+H6P2    HPC     L6P2
+H6P3    HPC     L6P3
+H6P4    HPC     L6P4
+H6P5    HPC     L6P5
+H6P6    HPC     L6P6
+H6P7    HPC     L6P7
 
 *       PROGRAM ENTRANCE.
 L1P1    CDSD    0,13
@@ -145,7 +154,13 @@ L5P2FF  HOP     HP32
 HP32    HPC     L5P3
 
 *       BEGIN CHECK OF TRANSFER CLASS INSTRUCTIONS.
-        ORGDD   0,0,0,373,0,13,1
+        ORGDD   0,0,0,371,0,13,0
+        TRA     L5P7A
+*       TEST TRA TO SYLL 1
+        ORGDD   0,0,1,371,0,13,0
+L5P7    CLA     =O500000000
+        TRA     L5P7A
+*       TEST TMI INSTRUCTION.
         ORGDD   0,0,0,170,0,13,0
 L5P3    CLA     H5P3
         STO     VAR1
@@ -172,12 +187,82 @@ L5P5    CLA     H5P5
         TRA     L5P6
         HOP     H95P1
 *       TEST TNZ WITH CLEARED ACCUMULATOR.
-L5P6    TRA     L5P6
+L5P6    CLA     H5P6
+        STO     VAR1
+        CLA     H5P7
+        STO     VAR2
+        CLA     =O000000000
+        TNZ     L15P1L
+        TRA     L5P7
+        HOP     H95P1
+L5P7A   TMI     L6P1
 L15P1L  TRA     L95P1
 
+*       BEGINNING OF ROUTINE TWO
+*       OPERATION OF STO - ALL ONES.
+L6P1    TRA     L6P2
+L6P2    CLA     H6P2
+        STO     VAR1
+        CLA     H6P3
+        STO     VAR2
+        CLA     =O777777776
+        TNZ     *+2
+        TRA     L95P1
+        STO     TEMP1
+        CLA     =O000000000
+        CLA     TEMP1
+        TNZ     L6P2A
+        TRA     L95P1
+L6P2A   ADD     =O000000002
+        TNZ     L15P1K
+*       CHECK STO WITH ALL ZEROS.
+L6P3    CLA     H6P3
+        STO     VAR1
+        CLA     H6P4
+        STO     VAR2
+        CLA     =O000000000
+        STO     TEMP1
+        CLA     =O777777776
+        CLA     TEMP1
+        TNZ     L15P1K
+
+*       CAN ACCUMULATOR BE FILLED BY ADD.
+L6P4    CLA     H6P4
+        STO     VAR1
+        CLA     H6P5
+        STO     VAR2
+        CLA     =O000000000
+        ADD     =O777777776
+        TNZ     *+2
+        TRA     L15P1K
+        SUB     =O777777776
+        TNZ     L15P1K
+*       CAN ACCUMULATOR BE CHANGED BY ADDING ZERO
+L6P5    CLA     H6P5
+        STO     VAR1
+        CLA     H6P6
+        STO     VAR2
+        CLA     =O777777776
+        ADD     =O000000000
+        SUB     =O777777776
+        TNZ     L15P1K
+*       CAN ACCUMULATOR BE CLEARED BY ADD.
+L6P6    CLA     H6P6
+        STO     VAR1
+        CLA     H6P7
+        STO     VAR2
+        CLA     =O777777776
+        ADD     =O000000002
+        TNZ     L15P1K
+*       SAME AS L5P5 EXCEPT CONSTANTS REVERSED.
+L6P7    TRA     L6P7
 
 
 
+
+        ORGDD   0,0,1,0,0,13,
+L15P1K  TRA     L95P1
 
         ORGDD   0,16,0,41,0,16,212
-L95P1   TRA     L95P1
+L95P1   STO     TEMP1
+        TRA     L95P1

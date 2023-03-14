@@ -1,19 +1,19 @@
 [*]
 [*] GTKWave Analyzer v3.3.113 (w)1999-2022 BSI
-[*] Mon Mar 13 06:10:08 2023
+[*] Tue Mar 14 04:13:04 2023
 [*]
 [dumpfile] "/home/mike/lvdc_simulation/lvdc.fst"
-[dumpfile_mtime] "Mon Mar 13 06:06:05 2023"
-[dumpfile_size] 418259
+[dumpfile_mtime] "Tue Mar 14 03:56:01 2023"
+[dumpfile_size] 80192
 [savefile] "/home/mike/lvdc_simulation/lvdc.gtkw"
-[timestart] 636000000
+[timestart] 0
 [size] 1920 1032
 [pos] -1 -1
-*-28.800003 2426000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-27.032167 299100000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] lvdc_sim.
 [treeopen] lvdc_sim.lvdc1.
 [sst_width] 209
-[signals_width] 202
+[signals_width] 282
 [sst_expanded] 1
 [sst_vpaned_height] 482
 @10c00028
@@ -67,6 +67,8 @@ lvdc_sim.lvdc1.OP3V
 lvdc_sim.lvdc1.OP4V
 @1401200
 -group_end
+@b0
++{Acc} lvdc_sim.Acc[26:1]
 @10c00022
 [transaction_args] ""
 ^<5 /home/mike/lvdc_simulation/scripts/decode_module.py
