@@ -5,7 +5,7 @@ VAR2    OCT     000000000
 TEMP1   OCT     000000000
 
         ORGDD   0,0,0,0,0,13,
-H5P2    HPC     L5P2
+H5P2    HPC     L6P16
 H5P3    HPC     L5P3
 H5P4    HPC     L5P4
 H5P5    HPC     L5P5
@@ -18,6 +18,17 @@ H6P4    HPC     L6P4
 H6P5    HPC     L6P5
 H6P6    HPC     L6P6
 H6P7    HPC     L6P7
+H6P8    HPC     L6P8
+H6P9    HPC     L6P9
+H6P10   HPC     L6P10
+H6P11   HPC     L6P11
+H6P12   HPC     L6P12
+H6P13   HPC     L6P13
+H6P14   HPC     L6P14
+H6P15   HPC     L6P15
+H6P16   HPC     L6P16
+H6P17   HPC     L6P17
+H6P18   HPC     L6P18
 
 *       PROGRAM ENTRANCE.
 L1P1    CDSD    0,13
@@ -255,12 +266,107 @@ L6P6    CLA     H6P6
         ADD     =O000000002
         TNZ     L15P1K
 *       SAME AS L5P5 EXCEPT CONSTANTS REVERSED.
-L6P7    TRA     L6P7
+L6P7    CLA     H6P7
+        STO     VAR1
+        CLA     H6P8
+        STO     VAR2
+        CLA     =O000000002
+        ADD     =O777777776
+        TNZ     L15P1K
+        TRA     L6P8
+*       CHECK FOR CHANGE OF SIGN BIT.
+L6P8    CLA     H6P8
+        STO     VAR1
+        CLA     H6P9
+        STO     VAR2
+        CLA     =O200000000
+        ADD     =O200000000
+        TMI     L6P9
+        TRA     L15P1K
+*       SAME AS L5P7.
+L6P9    CLA     H6P9
+        STO     VAR1
+        CLA     H6P10
+        STO     VAR2
+        CLA     =O400000000
+        ADD     =O400000000
+        TMI     L15P1K
+*       ALL BIT COMBINATIONS ON ADD
+L6P10   CLA     H6P10
+        STO     VAR1
+        CLA     H6P11
+        STO     VAR2
+        CLA     =O252642550
+        ADD     =O107301660
+        SUB     =O362144430
+        TNZ     L15P1K
 
-
-
-
+*       CHECK SIMPLE SUBTRACTION.
+L6P11   CLA     H6P11
+        STO     VAR1
+        CLA     H6P12
+        STO     VAR2
+        CLA     =O400000000
+        SUB     =O400000000
+        TNZ     L15P1K
+*       CHECK SUBTRACTION OF LOW ORDER BIT
+L6P12   CLA     H6P12
+        STO     VAR1
+        CLA     H6P13
+        STO     VAR2
+        CLA     =O000000002
+        SUB     =O000000002
+        TNZ     L15P1K
+        TRA     L6P13
+*       SUBTRACT ALL ODD BITS.
         ORGDD   0,0,1,0,0,13,
+L6P13   CLA     H6P13
+        STO     VAR1
+        CLA     H6P14
+        STO     VAR2
+        CLA     =O525252524
+        SUB     =O525252524
+        TNZ     L15P1K
+*       SUBTRACT ALL EVEN BITS.
+L6P14   CLA     H6P14
+        STO     VAR1
+        CLA     H6P15
+        STO     VAR2
+        CLA     =O252525252
+        SUB     =O252525252
+        TNZ     L15P1K
+*       FILL ACCUMULATOR WITH SUBTRACT.
+L6P15   CLA     H6P15
+        STO     VAR1
+        CLA     H6P16
+        STO     VAR2
+        CLA     =O000000000
+        SUB     =O000000002
+        SUB     =O777777776
+        TNZ     L15P1K
+*       CHECK SUBTRACT ZERO.
+L6P16   CLA     H6P16
+        STO     VAR1
+        CLA     H6P17
+        STO     VAR2
+        CLA     =O000000000
+        SUB     =O000000000
+        TNZ     L15P1K
+*       SUB - ALL COMBINATIONS
+L6P17   CLA     H6P17
+        STO     VAR1
+        CLA     H6P18
+        STO     VAR2
+        CLA     =O046453224
+        SUB     =O114722350
+        SUB     =O731530654
+        TNZ     L15P1K
+*       CHECK AND FOR CLEARING ACCUMULATOR.
+L6P18   TRA     L6P18
+
+
+
+
 L15P1K  TRA     L95P1
 
         ORGDD   0,16,0,41,0,16,212
