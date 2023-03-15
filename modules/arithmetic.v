@@ -132,7 +132,7 @@ wor na21c;
 wire na21d;
 wor na22c;
 wor na23d;
-wire na24a;
+wor na24a;
 wire na25b;
 wor na26c;
 wire na26e;
@@ -259,7 +259,7 @@ a #(1) a22c(.clk(V4MOD3), .a1(AI2N), .y(na22c));
 a a22d(.clk(Y7), .a1(AI1N), .y(na22c));
 
 a a33c(.clk(Y7), .a1(AI1V), .a2(A2V), .y(na33c));
-a a13b(.exp(na33c), .a1(SHFV),. a2(RAC), .a3(PAVN), .y(na34d));
+a a13b(.exp(na33c), .a1(SHFV), .a2(RAC), .a3(PAVN), .y(na34d));
 a a20d(.clk(Y7), .a1(AI4), .a2(B), .a3(C), .y(na34d));
 a a20e(.clk(Y7), .a1(AI4), .a2(BN), .a3(CN), .y(na34d));
 a a34c(.clk(Y7), .a1(AI4N), .a2(B), .y(na34c));

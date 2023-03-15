@@ -303,9 +303,9 @@ a a9e(.clk(V1), .a1(TER), .y(na9e));
 i a9f(.a(na9e), .y(RECN));
 
 a a21a(.a1(PAV), .y(na21a));
-a a14a(.clk(Y3), .a1(G3VN), .a2(G4V), .a3(RD), .y(na21b));
+a a14a(.clk(Y3), .exp(na21a), .a1(G3VN), .a2(G4V), .a3(RD), .y(na21b));
 a a20c(.a1(PBV), .y(na20c));
-a a14b(.clk(Y3), .a1(G3VN), .a2(G2V), .a3(RD), .y(na21b));
+a a14b(.clk(Y3), .exp(na20c), .a1(G3VN), .a2(G2V), .a3(RD), .y(na21b));
 a a7a(.clk(Y3), .a1(PAVN), .a2(PCV), .y(na7a));
 a a7b(.exp(na7a), .a1(G2VN), .a2(G1V), .a3(RD), .y(na21b));
 a a21b(.clk(XN), .a1(TIME), .y(na21b));
