@@ -2451,7 +2451,7 @@ memory #(7) a6a7(
     .BRB12(BRB12),
     .BRB13(BRB13),
     .BRB14(BRB14),
-    .MmSYNCV(M5SYNCV),
+    .MmSYNCV(M7SYNCV),
     .EDmX(ED7X),
     .EDmY(ED7Y),
     .MmSA1(M7SA1),
