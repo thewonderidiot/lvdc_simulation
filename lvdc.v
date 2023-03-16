@@ -21,6 +21,7 @@ reg V1 = 1;
 reg V4MOD1 = 1;
 reg V4MOD2 = 1;
 reg V4MOD3 = 1;
+reg V4MOD4 = 1;
 reg V4MOD5 = 1;
 reg V4MOD6 = 1;
 reg V4MOD7 = 1;
@@ -218,8 +219,8 @@ wire CNC;
 wire COC;
 wire CST;
 wire CSTV;
-wire DL31;
-wire DL44;
+wand DL31;
+wand DL44;
 wire DMA;
 wire DMAN;
 wire DMAVN;
@@ -291,6 +292,10 @@ wire HOP;
 wire HOPV;
 wire HOPC1;
 wire HOPC1V;
+wire HOY;
+wire HOYN;
+wire HOYV;
+wire HOYVN;
 wire IMA;
 wire IMAN;
 wire IMAVN;
@@ -451,6 +456,7 @@ wire MFFVN;
 wire MSS;
 wire MSSN;
 wire MSSVN;
+wire NU;
 wire OP1;
 wire OP1N;
 wire OP1V;
@@ -482,6 +488,7 @@ wire PCV;
 wire PCVN;
 wire PIO;
 wire PIOV;
+wire PQR;
 wire RD;
 wire RDV;
 wire RDM;
@@ -505,6 +512,7 @@ wire SRTR;
 wire STO;
 wire STON;
 wire STOVN;
+wire STP;
 wire SYL0N;
 wire SYL0VN;
 wire SYL1N;
@@ -558,7 +566,12 @@ wire TTL;
 wire TTLV;
 wire UTR;
 wire UTRV;
+wire VOY;
+wire VOYN;
+wire VOYV;
+wire VOYVN;
 wire W1;
+wire W2;
 wire W3;
 wire W5;
 wire W6;
@@ -568,6 +581,7 @@ wire X2;
 wire X3;
 wire X4;
 wire X5;
+wire X7;
 wire X8;
 wire XN;
 wire Y1;
@@ -582,6 +596,7 @@ wire Z1;
 wire Z2;
 wire Z3;
 wire Z5;
+wire Z6;
 wire Z7;
 wire Z8;
 wire ZN;
@@ -665,6 +680,8 @@ assign G7V = G7;
 assign G7VN = G7N;
 assign HOPV = HOP;
 assign HOPC1V = HOPC1;
+assign HOYV = HOY;
+assign HOYVN = HOYN;
 assign IMAVN = IMAN;
 assign IMBVN = IMBN;
 assign INHBSV = INHBS;
@@ -732,6 +749,8 @@ assign TRSV = TRS;
 assign TRSVN = TRSN;
 assign TTLV = TTL;
 assign UTRV = UTR;
+assign VOYV = VOY;
+assign VOYVN = VOYN;
 
 // Modules
 clock_drivers a1a3(
@@ -743,6 +762,7 @@ clock_drivers a1a3(
     .CGRP(CGRP),
     .CGRPN(CGRPN),
     .W1(W1),
+    .W2(W2),
     .W3(W3),
     .W5(W5),
     .W6(W6),
@@ -753,6 +773,7 @@ clock_drivers a1a3(
     .X3(X3),
     .X4(X4),
     .X5(X5),
+    .X7(X7),
     .X8(X8),
     .XDA(XDA),
     .XN(XN),
@@ -769,6 +790,7 @@ clock_drivers a1a3(
     .Z2(Z2),
     .Z3(Z3),
     .Z5(Z5),
+    .Z6(Z6),
     .Z7(Z7),
     .Z8(Z8),
     .ZDA(ZDA),
@@ -792,7 +814,58 @@ delay_line a1a5(
     .ACC0(ACC0),
     .ACC0N(ACC0N),
     .AI0(AI0),
-    .AI0N(AI0N)
+    .AI0N(AI0N),
+    .NU(NU),
+    .PQR(PQR),
+    .STP(STP)
+);
+
+mult_div_1 a1a7(
+    .V1(V1),
+    .V4MOD4(V4MOD4),
+    .AI3V(AI3V),
+    .G2V(G2V),
+    .G4VN(G4VN),
+    .G5V(G5V),
+    .G6V(G6V),
+    .G7VN(G7VN),
+    .HOYV(HOYV),
+    .HOYVN(HOYVN),
+    .MD7V(1'b0),
+    .MR2(1'b0),
+    .NU(NU),
+    .OP1V(OP1V),
+    .OP2V(OP2V),
+    .OP2VN(OP2VN),
+    .OP3VN(OP3VN),
+    .OP4VN(OP4VN),
+    .P1VN(1'b1),
+    .P2VN(1'b1),
+    .P3VN(1'b1),
+    .PAV(PAV),
+    .PBV(PBV),
+    .PCV(PCV),
+    .PCVN(PCVN),
+    .PQR(PQR),
+    .PR2V(1'b0),
+    .PR10(1'b0),
+    .Q8V(1'b0),
+    .STP(STP),
+    .TBCV(TBCV),
+    .TMVN(1'b1),
+    .TTLV(TTLV),
+    .VOYV(VOYV),
+    .W2(W2),
+    .X7(X7),
+    .Y1(Y1),
+    .Z6(Z6),
+    .ZN(ZN),
+    .DL31(DL31),
+    .DL44(DL44),
+    .HOY(HOY),
+    .HOYN(HOYN),
+    .VOY(VOY),
+    .VOYN(VOYN)
 );
 
 arithmetic a1a10(
@@ -829,7 +902,7 @@ arithmetic a1a10(
     .G7VN(G7VN),
     .INTV(INTV),
     .HOPC1V(HOPC1V),
-    .HOYV(1'b0),
+    .HOYV(HOYV),
     .OP1V(OP1V),
     .OP1VN(OP1VN),
     .OP2V(OP2V),
@@ -853,7 +926,7 @@ arithmetic a1a10(
     .TRSVN(TRSVN),
     .TTLV(TTLV),
     .UTRV(UTRV),
-    .VOYVN(1'b0),
+    .VOYVN(VOYVN),
     .W1(W1),
     .WN(WN),
     .X3(X3),
@@ -965,8 +1038,8 @@ op_code_reg a1a12(
     .G6VN(G6VN),
     .G7V(G7V),
     .G7VN(G7VN),
-    .HOYV(1'b0),
-    .HOYVN(1'b1),
+    .HOYV(HOYV),
+    .HOYVN(HOYVN),
     .INTCV(INTCV),
     .OP2V(OP2V),
     .OP3V(OP3V),
@@ -986,7 +1059,7 @@ op_code_reg a1a12(
     .TR11V(TR11V),
     .TR12V(TR12V),
     .TR13V(TR13V),
-    .VOYVN(1'b1),
+    .VOYVN(VOYVN),
     .W6(W6),
     .WN(WN),
     .X2(X2),

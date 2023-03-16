@@ -18,7 +18,10 @@ module delay_line(
     output wire ACC0,
     output wire ACC0N,
     output wire AI0,
-    output wire AI0N
+    output wire AI0N,
+    output wire NU,
+    output wire PQR,
+    output wire STP
 );
 
 wire DL31SA;
@@ -29,13 +32,10 @@ wire MD0;
 wire MD0N;
 wire MR0;
 wire MR0N;
-wire NU;
 wire NUN;
-wire PQR;
 wire PQRN;
 wire PR;
 wire PRN;
-wire STP;
 wire STPN;
 wire TP3;
 wire TP16;
