@@ -235,6 +235,10 @@ wire DS1M;
 wire DS2M;
 wire DSS;
 wire DSSN;
+wire DTM;
+wire DTMN;
+wire DTMV;
+wire DTMVN;
 wire EAC;
 wire EAP;
 wire EBC;
@@ -444,6 +448,12 @@ wire MAO;
 wire MAOV;
 wire MBO;
 wire MBOV;
+wire MD0;
+wire MD0N;
+wire MD2;
+wire MD2V;
+wire MD7;
+wire MD7V;
 wire MZO;
 wire MZON;
 wire MZOVN;
@@ -473,6 +483,12 @@ wire OP4;
 wire OP4N;
 wire OP4V;
 wire OP4VN;
+wire P1N;
+wire P1VN;
+wire P2N;
+wire P2VN;
+wire P3N;
+wire P3VN;
 wire PAR;
 wire PARV;
 wire PA;
@@ -529,6 +545,10 @@ wire TBCVN;
 wire TBR;
 wire TBRV;
 wire TIME;
+wire TM;
+wire TMN;
+wire TMV;
+wire TMVN;
 wire TR1;
 wire TR1N;
 wire TR1V;
@@ -662,6 +682,8 @@ assign CDSV = CDS;
 assign CSTV = CST;
 assign DMAVN = DMAN;
 assign DMBVN = DMBN;
+assign DTMV = DTM;
+assign DTMVN = DTMN;
 assign EXMV = EXM;
 assign EXMVN = EXMN;
 assign G1V = G1;
@@ -696,6 +718,8 @@ assign M6SYNCV = M6SYNC;
 assign M7SYNCV = M7SYNC;
 assign MAOV = MAO;
 assign MBOV = MBO;
+assign MD2V = MD2;
+assign MD7V = MD7;
 assign MZOVN = MZON;
 assign MTTVN = MTTN;
 assign MFFVN = MFFN;
@@ -708,6 +732,9 @@ assign OP3V = OP3;
 assign OP3VN = OP3N;
 assign OP4V = OP4;
 assign OP4VN = OP4N;
+assign P1VN = P1N;
+assign P2VN = P2N;
+assign P3VN = P3N;
 assign PARV = PAR;
 assign PAV = PA;
 assign PAVN = PAN;
@@ -732,6 +759,8 @@ assign SYLC1V = SYLC1;
 assign TBCV = TBC;
 assign TBCVN = TBCN;
 assign TBRV = TBR;
+assign TMV = TM;
+assign TMVN = TMN;
 assign TR1V = TR1;
 assign TR2V = TR2;
 assign TR3V = TR3;
@@ -815,6 +844,8 @@ delay_line a1a5(
     .ACC0N(ACC0N),
     .AI0(AI0),
     .AI0N(AI0N),
+    .MD0(MD0),
+    .MD0N(MD0N),
     .NU(NU),
     .PQR(PQR),
     .STP(STP)
@@ -824,14 +855,26 @@ mult_div_1 a1a7(
     .V1(V1),
     .V4MOD4(V4MOD4),
     .AI3V(AI3V),
+    .DTMV(DTMV),
+    .DTMVN(DTMVN),
+    .ESDV(1'b0),
+    .ESDVN(1'b1),
+    .G1VN(G1VN),
     .G2V(G2V),
+    .G3VN(G3VN),
+    .G4V(G4V),
     .G4VN(G4VN),
     .G5V(G5V),
+    .G5VN(G5VN),
     .G6V(G6V),
+    .G6VN(G6VN),
+    .G7V(G7V),
     .G7VN(G7VN),
     .HOYV(HOYV),
     .HOYVN(HOYVN),
-    .MD7V(1'b0),
+    .MD0(MD0),
+    .MD0N(MD0N),
+    .MD7V(MD7V),
     .MR2(1'b0),
     .NU(NU),
     .OP1V(OP1V),
@@ -839,20 +882,33 @@ mult_div_1 a1a7(
     .OP2VN(OP2VN),
     .OP3VN(OP3VN),
     .OP4VN(OP4VN),
-    .P1VN(1'b1),
-    .P2VN(1'b1),
-    .P3VN(1'b1),
+    .P1VN(P1VN),
+    .P2VN(P2VN),
+    .P3VN(P3VN),
     .PAV(PAV),
     .PBV(PBV),
     .PCV(PCV),
     .PCVN(PCVN),
     .PQR(PQR),
+    .PR0V(1'b0),
+    .PR0VN(1'b1),
+    .PR1(1'b0),
+    .PR1N(1'b1),
     .PR2V(1'b0),
     .PR10(1'b0),
     .Q8V(1'b0),
+    .RUNV(RUNV),
+    .SG1(1'b0),
+    .SG1N(1'b1),
+    .SG2(1'b0),
+    .SG2N(1'b1),
     .STP(STP),
     .TBCV(TBCV),
-    .TMVN(1'b1),
+    .TFDV(1'b0),
+    .TFDVN(1'b1),
+    .TMV(TMV),
+    .TMVN(TMVN),
+    .TRSV(TRSV),
     .TTLV(TTLV),
     .VOYV(VOYV),
     .W2(W2),
@@ -862,8 +918,17 @@ mult_div_1 a1a7(
     .ZN(ZN),
     .DL31(DL31),
     .DL44(DL44),
+    .DTM(DTM),
+    .DTMN(DTMN),
     .HOY(HOY),
     .HOYN(HOYN),
+    .MD2(MD2),
+    .MD7(MD7),
+    .P1N(P1N),
+    .P2N(P2N),
+    .P3N(P3N),
+    .TM(TM),
+    .TMN(TMN),
     .VOY(VOY),
     .VOYN(VOYN)
 );
@@ -911,7 +976,7 @@ arithmetic a1a10(
     .OP3VN(OP3VN),
     .OP4V(OP4V),
     .OP4VN(OP4VN),
-    .P3VN(1'b1),
+    .P3VN(P3VN),
     .PAV(PAV),
     .PAVN(PAVN),
     .PBV(PBV),
@@ -1439,7 +1504,7 @@ transfer_reg_1 a1a18(
     .INTV(INTV),
     .MAOV(MAOV),
     .MBOV(MBOV),
-    .MD2V(1'b0),
+    .MD2V(MD2V),
     .PAV(PAV),
     .PBVN(PBVN),
     .PCV(PCV),
