@@ -259,6 +259,10 @@ wire ED6X;
 wire ED6Y;
 wire ED7X;
 wire ED7Y;
+wire ESD;
+wire ESDN;
+wire ESDV;
+wire ESDVN;
 wire EXM;
 wire EXMV;
 wire EXMN;
@@ -451,8 +455,18 @@ wire MBOV;
 wire MD0;
 wire MD0N;
 wire MD2;
+wire MD2N;
 wire MD2V;
+wire MD3;
+wire MD3N;
+wire MD4;
+wire MD4N;
+wire MD5;
+wire MD5N;
+wire MD6;
+wire MD6N;
 wire MD7;
+wire MD7N;
 wire MD7V;
 wire MZO;
 wire MZON;
@@ -522,6 +536,10 @@ wire SBRY;
 wire SBRYV;
 wire SBRZ;
 wire SBRZV;
+wire SG1;
+wire SG1N;
+wire SG2;
+wire SG2N;
 wire SHF;
 wire SHFV;
 wire SRTR;
@@ -544,6 +562,10 @@ wire TBCV;
 wire TBCVN;
 wire TBR;
 wire TBRV;
+wire TFD;
+wire TFDN;
+wire TFDV;
+wire TFDVN;
 wire TIME;
 wire TM;
 wire TMN;
@@ -615,6 +637,7 @@ wire YN;
 wire Z1;
 wire Z2;
 wire Z3;
+wire Z4;
 wire Z5;
 wire Z6;
 wire Z7;
@@ -684,6 +707,8 @@ assign DMAVN = DMAN;
 assign DMBVN = DMBN;
 assign DTMV = DTM;
 assign DTMVN = DTMN;
+assign ESDV = ESD;
+assign ESDVN = ESDN;
 assign EXMV = EXM;
 assign EXMVN = EXMN;
 assign G1V = G1;
@@ -759,6 +784,8 @@ assign SYLC1V = SYLC1;
 assign TBCV = TBC;
 assign TBCVN = TBCN;
 assign TBRV = TBR;
+assign TFDV = TFD;
+assign TFDVN = TFDN;
 assign TMV = TM;
 assign TMVN = TMN;
 assign TR1V = TR1;
@@ -818,6 +845,7 @@ clock_drivers a1a3(
     .Z1(Z1),
     .Z2(Z2),
     .Z3(Z3),
+    .Z4(Z4),
     .Z5(Z5),
     .Z6(Z6),
     .Z7(Z7),
@@ -857,8 +885,8 @@ mult_div_1 a1a7(
     .AI3V(AI3V),
     .DTMV(DTMV),
     .DTMVN(DTMVN),
-    .ESDV(1'b0),
-    .ESDVN(1'b1),
+    .ESDV(ESDV),
+    .ESDVN(ESDVN),
     .G1VN(G1VN),
     .G2V(G2V),
     .G3VN(G3VN),
@@ -898,14 +926,14 @@ mult_div_1 a1a7(
     .PR10(1'b0),
     .Q8V(1'b0),
     .RUNV(RUNV),
-    .SG1(1'b0),
-    .SG1N(1'b1),
-    .SG2(1'b0),
-    .SG2N(1'b1),
+    .SG1(SG1),
+    .SG1N(SG1N),
+    .SG2(SG2),
+    .SG2N(SG2N),
     .STP(STP),
     .TBCV(TBCV),
-    .TFDV(1'b0),
-    .TFDVN(1'b1),
+    .TFDV(TFDV),
+    .TFDVN(TFDVN),
     .TMV(TMV),
     .TMVN(TMVN),
     .TRSV(TRSV),
@@ -923,7 +951,17 @@ mult_div_1 a1a7(
     .HOY(HOY),
     .HOYN(HOYN),
     .MD2(MD2),
+    .MD2N(MD2N),
+    .MD3(MD3),
+    .MD3N(MD3N),
+    .MD4(MD4),
+    .MD4N(MD4N),
+    .MD5(MD5),
+    .MD5N(MD5N),
+    .MD6(MD6),
+    .MD6N(MD6N),
     .MD7(MD7),
+    .MD7N(MD7N),
     .P1N(P1N),
     .P2N(P2N),
     .P3N(P3N),
@@ -931,6 +969,67 @@ mult_div_1 a1a7(
     .TMN(TMN),
     .VOY(VOY),
     .VOYN(VOYN)
+);
+
+mult_div_2 a1a8(
+    .V1(V1),
+    .V4MOD4(V4MOD4),
+    .AV(AV),
+    .AVN(AVN),
+    .DTMV(DTMV),
+    .DTMVN(DTMVN),
+    .G1V(G1V),
+    .G1VN(G1VN),
+    .G2V(G2V),
+    .G2VN(G2VN),
+    .G3V(G3V),
+    .G3VN(G3VN),
+    .G4V(G4V),
+    .G4VN(G4VN),
+    .G5V(G5V),
+    .G6V(G6V),
+    .G6VN(G6VN),
+    .G7V(G7V),
+    .G7VN(G7VN),
+    .HOYV(HOYV),
+    .HOYVN(HOYVN),
+    .MD2(MD2),
+    .MD2N(MD2N),
+    .MD3(MD3),
+    .MD3N(MD3N),
+    .MD4(MD4),
+    .MD4N(MD4N),
+    .MD5(MD5),
+    .MD5N(MD5N),
+    .MD6(MD6),
+    .MD6N(MD6N),
+    .MD7V(MD7V),
+    .MD7N(MD7N),
+    .MR1V(1'b0),
+    .MR2(1'b0),
+    .MR2N(1'b1),
+    .P1VN(P1VN),
+    .P3VN(P3VN),
+    .PR4(1'b0),
+    .PR4N(1'b1),
+    .PR6(1'b0),
+    .PR6N(1'b1),
+    .Q1(1'b0),
+    .Q1N(1'b1),
+    .TMVN(TMVN),
+    .VOYVN(VOYVN),
+    .W2(W2),
+    .X7(X7),
+    .Y7(Y7),
+    .Z4(Z4),
+    .ESD(ESD),
+    .ESDN(ESDN),
+    .SG1(SG1),
+    .SG1N(SG1N),
+    .SG2(SG2),
+    .SG2N(SG2N),
+    .TFD(TFD),
+    .TFDN(TFDN)
 );
 
 arithmetic a1a10(

@@ -37,6 +37,7 @@ module clock_drivers(
     output wire Z1,
     output wire Z2,
     output wire Z3,
+    output wire Z4,
     output wire Z5,
     output wire Z6,
     output wire Z7,
@@ -53,7 +54,6 @@ wire X6;
 wire XF;
 wire Y2;
 wire YF;
-wire Z4;
 wire ZF;
 
 wor ncg2_01;

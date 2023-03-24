@@ -73,7 +73,17 @@ module mult_div_1(
     output wire HOY,
     output wire HOYN,
     output wire MD2,
+    output wire MD2N,
+    output wire MD3,
+    output wire MD3N,
+    output wire MD4,
+    output wire MD4N,
+    output wire MD5,
+    output wire MD5N,
+    output wire MD6,
+    output wire MD6N,
     output wire MD7,
+    output wire MD7N,
     output wire P1N,
     output wire P2N,
     output wire P3N,
@@ -89,16 +99,6 @@ wire K2;
 wire K2N;
 wire MD1;
 wire MD1N;
-wire MD2N;
-wire MD3;
-wire MD3N;
-wire MD4;
-wire MD4N;
-wire MD5;
-wire MD5N;
-wire MD6;
-wire MD6N;
-wire MD7N;
 wire Q9;
 wire Q9N;
 
