@@ -320,6 +320,10 @@ wire IS3;
 wire IS4;
 wire ISS;
 wire ISSN;
+wire K1;
+wire K1N;
+wire K2;
+wire K2N;
 wire M0SA1;
 wire M0SA2;
 wire M0SA3;
@@ -468,6 +472,14 @@ wire MD6N;
 wire MD7;
 wire MD7N;
 wire MD7V;
+wire MR0;
+wire MR0N;
+wire MR1;
+wire MR1N;
+wire MR1V;
+wire MR1VN;
+wire MR2;
+wire MR2N;
 wire MZO;
 wire MZON;
 wire MZOVN;
@@ -519,6 +531,27 @@ wire PCVN;
 wire PIO;
 wire PIOV;
 wire PQR;
+wire PR;
+wire PRN;
+wire PR0;
+wire PR0N;
+wire PR0V;
+wire PR0VN;
+wire PR1;
+wire PR1N;
+wire PR2;
+wire PR2N;
+wire PR2V;
+wire PR2VN;
+wire PR4;
+wire PR4N;
+wire PR6;
+wire PR6N;
+wire PR10;
+wire Q1;
+wire Q1N;
+wire Q8;
+wire Q8V;
 wire RD;
 wire RDV;
 wire RDM;
@@ -618,7 +651,9 @@ wire W3;
 wire W5;
 wire W6;
 wire W7;
+wire W8;
 wire WN;
+wire X1;
 wire X2;
 wire X3;
 wire X4;
@@ -745,6 +780,8 @@ assign MAOV = MAO;
 assign MBOV = MBO;
 assign MD2V = MD2;
 assign MD7V = MD7;
+assign MR1V = MR1;
+assign MR1VN = MR1N;
 assign MZOVN = MZON;
 assign MTTVN = MTTN;
 assign MFFVN = MFFN;
@@ -768,6 +805,11 @@ assign PBVN = PBN;
 assign PCV = PC;
 assign PCVN = PCN;
 assign PIOV = PIO;
+assign PR0V = PR0;
+assign PR0VN = PR0N;
+assign PR2V = PR2;
+assign PR2VN = PR2N;
+assign Q8V = Q8;
 assign RDV = RD;
 assign RDMV = RDM;
 assign RDMVN = RDMN;
@@ -823,8 +865,10 @@ clock_drivers a1a3(
     .W5(W5),
     .W6(W6),
     .W7(W7),
+    .W8(W8),
     .WDA(WDA),
     .WN(WN),
+    .X1(X1),
     .X2(X2),
     .X3(X3),
     .X4(X4),
@@ -874,8 +918,12 @@ delay_line a1a5(
     .AI0N(AI0N),
     .MD0(MD0),
     .MD0N(MD0N),
+    .MR0(MR0),
+    .MR0N(MR0N),
     .NU(NU),
     .PQR(PQR),
+    .PR(PR),
+    .PRN(PRN),
     .STP(STP)
 );
 
@@ -903,7 +951,7 @@ mult_div_1 a1a7(
     .MD0(MD0),
     .MD0N(MD0N),
     .MD7V(MD7V),
-    .MR2(1'b0),
+    .MR2(MR2),
     .NU(NU),
     .OP1V(OP1V),
     .OP2V(OP2V),
@@ -918,13 +966,13 @@ mult_div_1 a1a7(
     .PCV(PCV),
     .PCVN(PCVN),
     .PQR(PQR),
-    .PR0V(1'b0),
-    .PR0VN(1'b1),
-    .PR1(1'b0),
-    .PR1N(1'b1),
-    .PR2V(1'b0),
-    .PR10(1'b0),
-    .Q8V(1'b0),
+    .PR0V(PR0V),
+    .PR0VN(PR0VN),
+    .PR1(PR1),
+    .PR1N(PR1N),
+    .PR2V(PR2V),
+    .PR10(PR10),
+    .Q8V(Q8V),
     .RUNV(RUNV),
     .SG1(SG1),
     .SG1N(SG1N),
@@ -950,6 +998,10 @@ mult_div_1 a1a7(
     .DTMN(DTMN),
     .HOY(HOY),
     .HOYN(HOYN),
+    .K1(K1),
+    .K1N(K1N),
+    .K2(K2),
+    .K2N(K2N),
     .MD2(MD2),
     .MD2N(MD2N),
     .MD3(MD3),
@@ -1005,17 +1057,17 @@ mult_div_2 a1a8(
     .MD6N(MD6N),
     .MD7V(MD7V),
     .MD7N(MD7N),
-    .MR1V(1'b0),
-    .MR2(1'b0),
-    .MR2N(1'b1),
+    .MR1V(MR1V),
+    .MR2(MR2),
+    .MR2N(MR2N),
     .P1VN(P1VN),
     .P3VN(P3VN),
-    .PR4(1'b0),
-    .PR4N(1'b1),
-    .PR6(1'b0),
-    .PR6N(1'b1),
-    .Q1(1'b0),
-    .Q1N(1'b1),
+    .PR4(PR4),
+    .PR4N(PR4N),
+    .PR6(PR6),
+    .PR6N(PR6N),
+    .Q1(Q1),
+    .Q1N(Q1N),
     .TMVN(TMVN),
     .VOYVN(VOYVN),
     .W2(W2),
@@ -1030,6 +1082,82 @@ mult_div_2 a1a8(
     .SG2N(SG2N),
     .TFD(TFD),
     .TFDN(TFDN)
+);
+
+mult_div_3 a1a9(
+    .V1(V1),
+    .V4MOD4(V4MOD4),
+    .AI2V(AI2V),
+    .AI2VN(AI2VN),
+    .AI3V(AI3V),
+    .AI3VN(AI3VN),
+    .AV(AV),
+    .AVN(AVN),
+    .ESDV(ESDV),
+    .ESDVN(ESDVN),
+    .G2V(G2V),
+    .G3V(G3V),
+    .G4VN(G4VN),
+    .G5VN(G5VN),
+    .G7V(G7V),
+    .HOYV(HOYV),
+    .HOYVN(HOYVN),
+    .K1(K1),
+    .K1N(K1N),
+    .K2(K2),
+    .K2N(K2N),
+    .MR0(MR0),
+    .MR0N(MR0N),
+    .MR1V(MR1V),
+    .MR1VN(MR1VN),
+    .OP1V(OP1V),
+    .OP2V(OP2V),
+    .OP3VN(OP3VN),
+    .P1VN(P1VN),
+    .P2VN(P2VN),
+    .P3VN(P3VN),
+    .PAV(PAV),
+    .PR(PR),
+    .PRN(PRN),
+    .PR0V(PR0V),
+    .PR0VN(PR0VN),
+    .PR2V(PR2V),
+    .PR2VN(PR2VN),
+    .SG1(SG1),
+    .SG2(SG2),
+    .SG2N(SG2N),
+    .STP(STP),
+    .TBCV(TBCV),
+    .TFDV(TFDV),
+    .TFDVN(TFDVN),
+    .TMV(TMV),
+    .TMVN(TMVN),
+    .TTLV(TTLV),
+    .VOYV(VOYV),
+    .W8(W8),
+    .X1(X1),
+    .XN(XN),
+    .Y8(Y8),
+    .Z6(Z6),
+    .ZN(ZN),
+    .MR1(MR1),
+    .MR1N(MR1N),
+    .MR2(MR2),
+    .MR2N(MR2N),
+    .PR0(PR0),
+    .PR0N(PR0N),
+    .PR1(PR1),
+    .PR1N(PR1N),
+    .PR2(PR2),
+    .PR2N(PR2N),
+    .PR4(PR4),
+    .PR4N(PR4N),
+    .PR6(PR6),
+    .PR6N(PR6N),
+    .PR10(PR10),
+    .Q1(Q1),
+    .Q1N(Q1N),
+    .Q8(Q8)
 );
 
 arithmetic a1a10(
@@ -1083,7 +1211,7 @@ arithmetic a1a10(
     .PCV(PCV),
     .PCVN(PCVN),
     .PIOV(PIOV),
-    .Q8V(1'b0),
+    .Q8V(Q8V),
     .SHFV(SHFV),
     .TBCV(TBCV),
     .TRSV(TRSV),

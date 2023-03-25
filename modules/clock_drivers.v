@@ -15,8 +15,10 @@ module clock_drivers(
     output wire W5,
     output wire W6,
     output wire W7,
+    output wire W8,
     output wire WDA,
     output wire WN,
+    output wire X1,
     output wire X2,
     output wire X3,
     output wire X4,
@@ -47,9 +49,7 @@ module clock_drivers(
 );
 
 wire W4;
-wire W8;
 wire WF;
-wire X1;
 wire X6;
 wire XF;
 wire Y2;

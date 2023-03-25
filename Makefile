@@ -12,6 +12,7 @@ MODULES = add_reg_x_decode \
 	  memory \
 	  mult_div_1 \
 	  mult_div_2 \
+	  mult_div_3 \
 	  op_code_reg \
 	  osc_buf \
 	  sect_reg_y_decode \

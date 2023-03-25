@@ -72,6 +72,10 @@ module mult_div_1(
     output wire DTMN,
     output wire HOY,
     output wire HOYN,
+    output wire K1,
+    output wire K1N,
+    output wire K2,
+    output wire K2N,
     output wire MD2,
     output wire MD2N,
     output wire MD3,
@@ -93,10 +97,6 @@ module mult_div_1(
     output wire VOYN
 );
 
-wire K1;
-wire K1N;
-wire K2;
-wire K2N;
 wire MD1;
 wire MD1N;
 wire Q9;
