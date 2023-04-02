@@ -1,11 +1,19 @@
         DOGD    0,17,0
+H8P1A   HPC     L8P1
 H95P1   HPC     L95P1
 VAR1    OCT     000000000
 VAR2    OCT     000000000
 TEMP1   OCT     000000000
 
+        DOGD    0,0,375
+KMR     OCT     440000000
+        DOGD    0,10,375
+KMB     OCT     500000000
+        DOGD    2,07,375
+KMA     OCT     200000000
+
         ORGDD   0,0,0,0,0,13,
-H5P2    HPC     L6P16
+H5P2    HPC     L5P2
 H5P3    HPC     L5P3
 H5P4    HPC     L5P4
 H5P5    HPC     L5P5
@@ -29,6 +37,67 @@ H6P15   HPC     L6P15
 H6P16   HPC     L6P16
 H6P17   HPC     L6P17
 H6P18   HPC     L6P18
+H6P19   HPC     L6P19
+H6P20   HPC     L6P20
+H6P21   HPC     L6P21
+H6P22   HPC     L6P22
+H6P23   HPC     L6P23
+H7P1    HPC     L7P1
+H7P2    HPC     L7P2
+H7P3    HPC     L7P3
+H7P4    HPC     L7P4
+H7P5    HPC     L7P5
+H7P6    HPC     L7P6
+H7P7    HPC     L7P7
+H7P8    HPC     L7P8
+H7P9    HPC     L7P9
+H7P10   HPC     L7P10
+H7P11   HPC     L7P11
+H7P12   HPC     L7P12
+H7P13   HPC     L7P13
+H7P14   HPC     L7P14
+H7P15   HPC     L7P15
+H7P16   HPC     L7P16
+H7P17   HPC     L7P17
+H7P18   HPC     L7P18
+H7P19   HPC     L7P19
+H7P20   HPC     L7P20
+H7P21   HPC     L7P21
+H7P22   HPC     L7P22
+H7P23   HPC     L7P23
+H7P24   HPC     L7P24
+H7P25   HPC     L7P25
+H7P26   HPC     L7P26
+H7P27   HPC     L7P27
+H7P28   HPC     L7P28
+H7P29   HPC     L7P29
+H7P30   HPC     L7P30
+H7P31   HPC     L7P31
+H7P32   HPC     L7P32
+H7P33   HPC     L7P33
+H7P34   HPC     L7P34
+H7P35   HPC     L7P35
+H7P36   HPC     L7P36
+H7P37   HPC     L7P37
+H7P38   HPC     L7P38
+H7P39   HPC     L7P39
+H7P40   HPC     L7P40
+H7P41   HPC     L7P41
+H7P42   HPC     L7P42
+H7P43   HPC     L7P43
+H7P44   HPC     L7P44
+H7P45   HPC     L7P45
+H7P46   HPC     L7P46
+H7P47   HPC     L7P47
+H7P48   HPC     L7P48
+H7P49   HPC     L7P49
+H7P50   HPC     L7P50
+H7P51   HPC     L7P51
+H7P52   HPC     L7P52
+H7P53   HPC     L7P53
+H7P54   HPC     L7P54
+H7P54B  HPC     L7P54B
+H8P1    HPC     L8P1
 
 *       PROGRAM ENTRANCE.
 L1P1    CDSD    0,13
@@ -362,12 +431,588 @@ L6P17   CLA     H6P17
         SUB     =O731530654
         TNZ     L15P1K
 *       CHECK AND FOR CLEARING ACCUMULATOR.
-L6P18   TRA     L6P18
-
-
-
-
+L6P18   CLA     H6P18
+        STO     VAR1
+        CLA     H6P19
+        STO     VAR2
+        CLA     =O525252524
+        AND     =O252525252
+        TNZ     L15P1K
+*       CHECK FOR EVEN BITS.
+L6P19   CLA     H6P19
+        STO     VAR1
+        CLA     H6P20
+        STO     VAR2
+        CLA     =O252525252
+        AND     =O525252524
+        TNZ     L15P1K
+*       CHECK FOR ABILITY TO RETAIN ACCUMULATOR
+L6P20   CLA     H6P20
+        STO     VAR1
+        CLA     H6P21
+        STO     VAR2
+        CLA     =O777777776
+        AND     =O777777776
+        SUB     =O777777776
+        TNZ     L15P1K
+*       CHECK AND ZERO TO CHANGE ACCUMULATOR
+L6P21   CLA     H6P21
+        STO     VAR1
+        CLA     H6P22
+        STO     VAR2
+        CLA     =O000000000
+        AND     =O000000000
+        TNZ     L15P1K
+*       CHECK AND ZERO TO CLEAR ACCUMULATOR
+L6P22   CLA     H6P22
+        STO     VAR1
+        CLA     H6P23
+        STO     VAR2
+        CLA     =O777777776
+        AND     =O000000000
+        TNZ     L15P1K
+*       CHECK AND OF ALL BITS.
+L6P23   CLA     H6P23
+        STO     VAR1
+        CLA     H7P1
+        STO     VAR2
+        CLA     =O000000000
+        AND     =O777777776
+        TNZ     L15P1K
+        
+*       CHECK   XOR OF ALL BITS.
+L7P1    CLA     H7P1
+        STO     VAR1
+        CLA     H7P2
+        STO     VAR2
+        CLA     =O777777776
+        XOR     =O777777776
+        TNZ     L15P1K
+*       CHECK XOR WITH ALL ZEROS.
+L7P2    CLA     H7P2
+        STO     VAR1
+        CLA     H7P3
+        STO     VAR2
+        CLA     =O000000000
+        XOR     =O000000000
+        TNZ     L15P1K
+*       CHECK SIGN BITS.
+L7P3    CLA     H7P3
+        STO     VAR1
+        CLA     H7P4
+        STO     VAR2
+        CLA     =O400000000
+        XOR     =O400000000
+        TNZ     L15P1K
+*       CHECK ALL BUT SIGN BITS.
+L7P4    CLA     H7P4
+        STO     VAR1
+        CLA     H7P5
+        STO     VAR2
+        CLA     =O377777776
+        XOR     =O377777776
+        TNZ     L15P1K
+*       CHECK LOW ORDER BITS.
+L7P5    CLA     H7P5
+        STO     VAR1
+        CLA     H7P6
+        STO     VAR2
+        CLA     =O000000002
+        XOR     =O000000002
+        TNZ     L15P1K
+*       CHECK LOW ORDER BIT WITH ZEROS.
+L7P6    CLA     H7P6
+        STO     VAR1
+        CLA     H7P7
+        STO     VAR2
+        CLA     =O777777774
+        XOR     =O777777774
+        TNZ     L15P1K
+        TRA     L7P7
 L15P1K  TRA     L95P1
+*       CHECK   ALL ODD BITS
+L7P7    CLA     H7P7
+        STO     VAR1
+        CLA     H7P8
+        STO     VAR2
+        CLA     =O525252524
+        XOR     =O525252524
+        TNZ     L15P1K
+*       CHECK ALL EVEN BITS
+L7P8    CLA     H7P8
+        STO     VAR1
+        CLA     H7P9
+        STO     VAR2
+        CLA     =O252525252
+        XOR     =O252525252
+        TNZ     L15P1K
+*       FILL ACCUMULATOR WITH XOR.
+L7P9    CLA     H7P9
+        STO     VAR1
+        CLA     H7P10
+        STO     VAR2
+        CLA     =O777777776
+        XOR     =O000000000
+        SUB     =O777777776
+        TNZ     L15P1K
+*       SAME AS L7P9
+L7P10   CLA     H7P10
+        STO     VAR1
+        CLA     H7P11
+        STO     VAR2
+        CLA     =O000000000
+        XOR     =O777777776
+        SUB     =O777777776
+        TNZ     L15P1K
+*       SAME AS L7P9 WITH ODD BITS
+L7P11   CLA     H7P11
+        STO     VAR1
+        CLA     H7P12
+        STO     VAR2
+        CLA     =O525252524
+        XOR     =O252525252
+        SUB     =O777777776
+        TNZ     L15P1K
+*       SAME AS L7P9 WITH  EVEN BITS
+L7P12   CLA     H7P12
+        STO     VAR1
+        CLA     H7P13
+        STO     VAR2
+        CLA     =O252525252
+        XOR     =O525252524
+        SUB     =O777777776
+        TNZ     L15P1K
+*       CHECK RSU
+L7P13   CLA     H7P13
+        STO     VAR1
+        CLA     H7P14
+        STO     VAR2
+        CLA     =O777777776
+        RSU     =O777777774
+        SUB     =O777777776
+        TNZ     L15P1K
+*       CHECK   RSU
+L7P14   CLA     H7P14
+        STO     VAR1
+        CLA     H7P15
+        STO     VAR2
+        CLA     =O000000002
+        RSU     =O000000000
+        SUB     =O777777776
+        TNZ     L15P1K
+*       CHECK   RSU
+L7P15   CLA     H7P15
+        STO     VAR1
+        CLA     H7P16
+        STO     VAR2
+        CLA     =O777777776
+        RSU     =O777777776
+        TNZ     L15P1K
+*       CHECK   RSU
+L7P16   CLA     H7P16
+        STO     VAR1
+        CLA     H7P17
+        STO     VAR2
+        CLA     =O000000000
+        RSU     =O000000000
+        TNZ     L15P1K
+*       CHECK RSU TO FILL AND CLEAR ACC.
+L7P17   CLA     H7P17
+        STO     VAR1
+        CLA     H7P18
+        STO     VAR2
+        CLA     =O777777776
+        RSU     =O000000000
+        SUB     =O000000002
+        TNZ     L15P1K
+*       CHECK RSU
+L7P18   CLA     H7P18
+        STO     VAR1
+        CLA     H7P19
+        STO     VAR2
+        CLA     =O331033100
+        RSU     =O265026500
+        SUB     =O733773400
+        TNZ     L15P1K
+        
+*       BEGIN CHECK OF SHIFT INSTRUCTION.
+*       SHIFT OUT OF SIGN BIT.
+L7P19   CLA     H7P19
+        STO     VAR1
+        CLA     H7P20
+        STO     VAR2
+        CLA     =O400000000
+        SHL     1
+        TNZ     L15P1K
+*       SHIFT THROUGH SIGN BIT.
+L7P20   CLA     H7P20
+        STO     VAR1
+        CLA     H7P21
+        STO     VAR2
+        CLA     =O200000000
+        SHL     2
+        TNZ     L15P1K
+*       CHECK SHIFT LEFT ONE OF ALL ODD BITS.
+L7P21   CLA     H7P21
+        STO     VAR1
+        CLA     H7P22
+        STO     VAR2
+        CLA     =O525252524
+        SHL     1
+        SUB     =O252525250
+        TNZ     L15P1K
+*       CHECK
+L7P22   CLA     H7P22
+        STO     VAR1
+        CLA     H7P23
+        STO     VAR2
+        CLA     =O525252524
+        SHL     2
+        SUB     =O525252520
+        TNZ     L15P1K
+        TRA     L7P23
+*       CHECK SHIFT LEFT ONE OF ALL EVEN BITS.
+        ORGDD   0,1,0,3,0,13,0
+L7P23   CLA     H7P23
+        STO     VAR1
+        CLA     H7P24
+        STO     VAR2
+        CLA     =O252525252
+        SHL     1
+        SUB     =O525252524
+        TNZ     L15P1J
+*       CHECK SHIFT LEFT TWO OF ALL EVEN BITS.
+L7P24   CLA     H7P24
+        STO     VAR1
+        CLA     H7P25
+        STO     VAR2
+        CLA     =O252525252
+        SHL     2
+        SUB     =O252525250
+        TNZ     L15P1J
+*       CHECK SHIFT LEFT ONE OF ALL BITS.
+L7P25   CLA     H7P25
+        STO     VAR1
+        CLA     H7P26
+        STO     VAR2
+        CLA     =O777777776
+        SHL     1
+        SUB     =O777777774
+        TNZ     L15P1J
+*       CHECK SHIFT LEFT TWO OF ALL BITS.
+L7P26   CLA     H7P26
+        STO     VAR1
+        CLA     H7P27
+        STO     VAR2
+        CLA     =O777777776
+        SHL     2
+        SUB     =O777777770
+        TNZ     L15P1J
+*       CHECK CHECK SHIFT LEFT ONE OF ALL ZEROS.
+L7P27   CLA     H7P27
+        STO     VAR1
+        CLA     H7P28
+        STO     VAR2
+        CLA     =O000000000
+        SHL     1
+        TNZ     L15P1J
+*       CHECK SHIFT LEFT TWO OF ALL ZEROS.
+L7P28   CLA     H7P28
+        STO     VAR1
+        CLA     H7P29
+        STO     VAR2
+        CLA     =O000000000
+        SHL     2
+        TNZ     L15P1J
+
+*       CHECK SHIFT BIT LEFT THROUGH ALL POSITIONS
+L7P29   CLA     H7P29
+        STO     VAR1
+        CLA     H7P30
+        STO     VAR2
+        CLA     =O000000002
+        SHL     25
+        SUB     =O400000000
+        TNZ     L15P1J
+*       CHECK SHL3
+L7P30   CLA     H7P30
+        STO     VAR1
+        CLA     H7P31
+        STO     VAR2
+        CLA     =O042104212
+        SHL     3
+        XOR     =O421042120
+        TNZ     L15P1H
+*       CHECK SHL4
+L7P31   CLA     H7P31
+        STO     VAR1
+        CLA     H7P32
+        STO     VAR2
+        CLA     =O020410206
+        SHL     4
+        XOR     =O410204140
+        TNZ     L15P1H
+*       CHECK SHL5
+L7P32   CLA     H7P32
+        STO     VAR1
+        CLA     H7P33
+        STO     VAR2
+        CLA     =O010101012
+        SHL     5
+        XOR     =O404040500
+        TNZ     L15P1H
+*       CHECK SHL6
+L7P33   CLA     H7P33
+        STO     VAR1
+        CLA     H7P34
+        STO     VAR2
+        CLA     =O004020102
+        SHL     6
+        XOR     =O402010200
+        TNZ     L15P1H
+*       CHECK SHL6 EVEN BITS
+L7P34   CLA     H7P34
+        STO     VAR1
+        CLA     H7P35
+        STO     VAR2
+        CLA     =O252525252
+        SHL     6
+        SUB     =O252525200
+        TNZ     L15P1H
+*       CHECK SHL6 ODD BITS
+L7P35   CLA     H7P35
+        STO     VAR1
+        CLA     H7P36
+        STO     VAR2
+        CLA     =O525252524
+        SHL     6
+        SUB     =O525252400
+        TNZ     L15P1H
+*       SHIFT OUT OF LOW ORDER BIT.
+L7P36   CLA     H7P36
+        STO     VAR1
+        CLA     H7P37
+        STO     VAR2
+        CLA     =O000000002
+        SHR     1
+        TNZ     L15P1J
+*       SHIFT THROUGH LOW ORDER BIT.
+L7P37   CLA     H7P37
+        STO     VAR1
+        CLA     H7P38
+        STO     VAR2
+        CLA     =O000000004
+        SHR     2
+        TNZ     L15P1J
+*       CHECK SHIFT RIGHT ONE OF ALL ODD BITS.
+L7P38   CLA     H7P38
+        STO     VAR1
+        CLA     H7P39
+        STO     VAR2
+        CLA     =O525252524
+        SHR     1
+        SUB     =O652525252
+        TNZ     L15P1J
+*       CHECK SHIFT RIGHT TWO OF ALL ODD BITS.
+L7P39   CLA     H7P39
+        STO     VAR1
+        CLA     H7P40
+        STO     VAR2
+        CLA     =O525252524
+        SHR     2
+        SUB     =O725252524
+        TNZ     L15P1J
+*       CHECK SHIFT RIGHT ONE OF ALL EVEN BITS.
+L7P40   CLA     H7P40
+        STO     VAR1
+        CLA     H7P41
+        STO     VAR2
+        CLA     =O252525252
+        SHR     1
+        SUB     =O125252524
+        TNZ     L15P1J
+*       CHECK SHIFT RIGHT TWO OF ALL EVEN BITS.
+L7P41   CLA     H7P41
+        STO     VAR1
+        CLA     H7P42
+        STO     VAR2
+        CLA     =O252525252
+        SHR     2
+        SUB     =O052525252
+        TNZ     L15P1J
+        TRA     L7P42
+L15P1J  TRA     L95P1
+L15P1H  SYN     L15P1J
+
+*       CHECK SHIFT RIGHT ONE OF ALL BITS.
+L7P42   CLA     H7P42
+        STO     VAR1
+        CLA     H7P43
+        STO     VAR2
+        CLA     =O777777776
+        SHR     1
+        SUB     =O777777776
+        TNZ     L15P1J
+*       CHECK SHIFT RIGHT TWO OF ALL BITS.
+L7P43   CLA     H7P43
+        STO     VAR1
+        CLA     H7P44
+        STO     VAR2
+        CLA     =O777777776
+        SHR     2
+        SUB     =O777777776
+        TNZ     L15P1J
+*       CHECK SHIFT RIGHT ONE OF ALL ZEROS.
+L7P44   CLA     H7P44
+        STO     VAR1
+        CLA     H7P45
+        STO     VAR2
+        CLA     =O000000000
+        SHR     1
+        TNZ     L15P1J
+*       CHECK SHIFT RIGHT TWO OF ALL ZEROS.
+L7P45   CLA     H7P45
+        STO     VAR1
+        CLA     H7P46
+        STO     VAR2
+        CLA     =O000000000
+        SHR     2
+        TNZ     L15P1J
+*       SHIFT BIT RIGHT THROUGH ALL POSITIONS.
+L7P46   CLA     H7P46
+        STO     VAR1
+        CLA     H7P47
+        STO     VAR2
+        CLA     =O400000000
+        SHR     25
+        SUB     =O777777776
+        TNZ     L15P1J
+*       CHECK SHR3
+L7P47   CLA     H7P47
+        STO     VAR1
+        CLA     H7P48
+        STO     VAR2
+        CLA     =O210421042
+        SHR     3
+        XOR     =O021042104
+        TNZ     L15P1H
+*       CHECK SHR4
+L7P48   CLA     H7P48
+        STO     VAR1
+        CLA     H7P49
+        STO     VAR2
+        CLA     =O214102040
+        SHR     4
+        XOR     =O010604102
+        TNZ     L15P1H
+*       CHECK SHR5
+L7P49   CLA     H7P49
+        STO     VAR1
+        CLA     H7P50
+        STO     VAR2
+        CLA     =O202020200
+        SHR     5
+        XOR     =O004040404
+        TNZ     L15P1H
+        TRA     L7P50
+*       CHECK SHR6
+        ORGDD   0,1,1,2,0,13,0
+L7P50   CLA     H7P50
+        STO     VAR1
+        CLA     H7P51
+        STO     VAR2
+        CLA     =O201004220
+        SHR     6
+        XOR     =O002010042
+        TNZ     L15P1H
+*       CHECK SHR6 EVEN BITS
+L7P51   CLA     H7P51
+        STO     VAR1
+        CLA     H7P52
+        STO     VAR2
+        CLA     =O252525252
+        SHR     6
+        SUB     =O002525252
+        TNZ     L15P1H
+*       CHECK SHR6 ODD BITS
+L7P52   CLA     H7P52
+        STO     VAR1
+        CLA     H7P53
+        STO     VAR2
+        CLA     =O525252524
+        SHR     6
+        SUB     =O775252524
+        TNZ     L15P1H
+*       CHECK CDS
+L7P53   CLA     H7P53
+        STO     VAR1
+        CLA     H7P54
+        STO     VAR2
+        CLA     =O000000000
+        CDSD    2,07
+        CLA     KMA
+        CDSD    0,10
+        TMI     L15P1T
+        SHL     1
+        TMI     *+2
+L15P1T  TRA     L15P1H
+        CLA     KMB
+        TMI     *+2
+        TRA     L15P1T
+        SHL     2
+        TMI     *+2
+        TRA     L15P1T
+        SHL     1
+        TNZ     L15P1T
+        CDSD    0,0
+        CLA     KMR
+        CDSD    0,13
+        SHL     2
+        TMI     L15P1H
+        TNZ     *+2
+        TRA     L15P1H
+        SHL     2
+        TNZ     L15P1H
+
+*       CHECK HOP SAVE CONSTANT
+        TRA     L7P54
+        ORGDD   0,3,0,17,0,13,140
+L7P54   STO     776
+        CLA     H7P54
+        STO     VAR1
+        CLA     H7P54B
+H7P55B  HPC     L7P55
+L7P54A  STO     VAR2
+
+        CLA     776
+        XOR     H8P1A
+        
+        TNZ     L95P1A
+L7P54B  HOP     H7P55B
+L95P1A  HOP     H95P1
+        ORGDD   2,17,1,352,0,17,141
+L7P55   STO     777
+        CLA     H7P55
+        STO     VAR1
+        CLA     H8P1A
+        
+L7P55A  STO     VAR2
+
+        CLA     777
+        XOR     H95P1A
+H95P1A  HPC     L95P1A
+        TNZ     L15P1M
+        HOP     H8P1A
+H7P55   HPC     L7P55
+
+L15P1M  TRA     L95P1
+        ORGDD   0,1,1,76,0,13,0
+*       CHECK MPH
+L8P1    TRA     L8P1
+
+
+
+
 
         ORGDD   0,16,0,41,0,16,212
 L95P1   STO     TEMP1

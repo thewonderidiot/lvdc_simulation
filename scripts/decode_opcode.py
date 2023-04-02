@@ -73,10 +73,10 @@ while True:
         for i in range(1,5):
             opcode |= signals['OP%uV' % i] << (i+1)
 
-        # if opcode == 0b111000:
-        #     opcode |= signals['A9V'] << 1
-        #     if opcode == 0b111010:
-        #         opcode |= signals['A8V']
+        if opcode == 0b111000:
+            opcode |= signals['A9V'] << 1
+            if opcode == 0b111010:
+                opcode |= signals['A8V']
 
         op = op_map[opcode]
 

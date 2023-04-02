@@ -228,7 +228,7 @@ a a23d(.exp(na23c), .a1(OP4V), .y(na23d));
 i a23e(.a(na23d), .y(SAPO));
 
 a a25c(.clk(V1), .a1(OP3V), .y(na25c));
-a a25d(.exp(na25c), .a1(A8V), .y(na25d));
+a a25d(.exp(na25c), .a1(A9V), .y(na25d));
 i a25e(.a(na25d), .y(JBN));
 
 a a16d(.clk(V4MOD5), .a1(OP3V), .y(na16e));
