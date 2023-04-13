@@ -179,9 +179,9 @@ i a18c(.a(na18b), .y(IM1));
 a a13a(.clk(Z8), .a1(HOPV), .a2(PBV), .a3(G3V), .a4(G4VN), .y(na13a));
 a a20a(.exp(na13a), .y(na20b));
 a a20b(.clk(V1), .a1(IM2N), .y(na20b));
-i a20c(.a(na20b), .y(IM2));
+i #(0) a20c(.a(na20b), .y(IM2));
 i a21c(.a(na21a), .y(IM2N));
-a #(1) a21a(.clk(V1), .a1(IM2), .y(na21a));
+a a21a(.clk(V1), .a1(IM2), .y(na21a));
 a a21b(.exp(na14a), .y(na21a));
 a a14a(.clk(Z8), .a1(ISS), .a2(PBV), .a3(G4V), .a4(G5VN), .y(na14a));
 
@@ -209,9 +209,9 @@ i a25c(.a(na25b), .y(DUPIN));
 a a14b(.clk(Z8), .a1(HOPV), .a2(PBV), .a3(G4V), .a4(G5VN), .y(na14b));
 a a7a(.exp(na14b), .y(na7b));
 a a7b(.clk(V1), .a1(IM3N), .y(na7b));
-i a7c(.a(na7b), .y(IM3));
+i #(0) a7c(.a(na7b), .y(IM3));
 i a6c(.a(na6a), .y(IM3N));
-a #(1) a6a(.clk(V1), .a1(IM3), .y(na6a));
+a a6a(.clk(V1), .a1(IM3), .y(na6a));
 a a6b(.exp(na13b), .y(na6a));
 a a13b(.clk(Z8), .a1(ISS), .a2(PBV), .a3(G5V), .a4(G6VN), .y(na13b));
 
@@ -228,14 +228,14 @@ i a34c(.a(na34b), .y(MSSN));
 // 10-43
 a a16a(.clk(Z8), .a1(DSS), .a2(G1V), .a3(G7V), .y(na15b));
 a a15a(.a1(DUPDN), .y(na15a));
-a #(1) a15b(.clk(V1), .exp(na15a), .a1(DM1), .y(na15b));
-i a15c(.a(na15b), .y(DM0));
+a a15b(.clk(V1), .exp(na15a), .a1(DM1), .y(na15b));
+i #(0) a15c(.a(na15b), .y(DM0));
 
 a a3a(.clk(Z8), .exp(na10a), .a1(PAV), .a2(G1V), .a3(G2VN), .y(na11b));
 a a10a(.a1(ISS), .y(na10a));
 a a11a(.a1(IM1), .y(na11a));
-a #(1) a11b(.clk(V1), .exp(na11a), .a1(DUPIN), .y(na11b));
-i a11c(.a(na11b), .y(IM0));
+a a11b(.clk(V1), .exp(na11a), .a1(DUPIN), .y(na11b));
+i #(0) a11c(.a(na11b), .y(IM0));
 
 a a26a(.clk(V4MOD6), .a1(IM1), .y(na26a));
 a a26b(.exp(na26a), .a1(REI), .y(na26b));
@@ -247,16 +247,16 @@ i a27c(.a(na27b), .y(IMAN));
 
 a a16b(.clk(Z8), .a1(CDSV), .a2(G1V), .a3(G7V), .y(na23b));
 a a23b(.clk(V1), .a1(DM2N), .y(na23b));
-i a23c(.a(na23b), .y(DM2));
+i #(0) a23c(.a(na23b), .y(DM2));
 i a24c(.a(na24b), .y(DM2N));
-a #(1) a24b(.clk(V1), .a1(DM2), .y(na24b));
+a a24b(.clk(V1), .a1(DM2), .y(na24b));
 a a17a(.clk(Z8), .a1(DSS), .a2(G1VN), .a3(G2V), .y(na24b));
 
 a a17b(.clk(Z8), .a1(CDSV), .a2(G1VN), .a3(G2V), .y(na9b));
 a a9b(.clk(V1), .a1(DM3N), .y(na9b));
-i a9c(.a(na9b), .y(DM3));
+i #(0) a9c(.a(na9b), .y(DM3));
 i a10c(.a(na10b), .y(DM3N));
-a #(1) a10b(.clk(V1), .a1(DM3), .y(na10b));
+a a10b(.clk(V1), .a1(DM3), .y(na10b));
 a a3b(.clk(Z8), .a1(DSS), .a2(G2VN), .a3(G3V), .y(na10b));
 
 a a19a(.clk(V4MOD6), .a1(DM1), .a2(RED), .y(na19a));
@@ -280,8 +280,8 @@ a a10d(.clk(W5), .a1(DM1), .a2(PCV), .a3(G4V), .a4(G6VN), .y(na10d));
 a a9d(.exp(na10d), .a1(DM0), .y(na9e));
 a a9e(.clk(V1), .a1(HP1), .y(na9e));
 i a9f(.a(na9e), .y(HP1N));
-i a2e(.a(na2c), .y(HP1));
-a #(1) a2c(.clk(V1), .a1(HP1N), .y(na2c));
+i #(0) a2e(.a(na2c), .y(HP1));
+a a2c(.clk(V1), .a1(HP1N), .y(na2c));
 a a2d(.clk(X2), .a1(AV), .y(na2c));
 
 a a10e(.clk(W5), .exp(na16d), .a1(DM2), .a2(G1V), .a3(G6V), .y(na17d));
@@ -301,15 +301,15 @@ a a35a(.clk(Y7), .a1(HP1), .y(na28b));
 a a28a(.clk(Y7), .a1(OC), .y(na28b));
 a a28b(.clk(XN), .a1(HOPC1), .y(na28b));
 i a28c(.a(na28b), .y(HOPC1N));
-i a35c(.a(na35b), .y(HOPC1));
-a #(1) a35b(.clk(V4MOD6), .a1(HOPC1N), .y(na35b));
+i #(0) a35c(.a(na35b), .y(HOPC1));
+a a35b(.clk(V4MOD6), .a1(HOPC1N), .y(na35b));
 
 a a4a(.clk(X2), .exp(na5a), .a1(G1V), .a2(G6V), .a3(AVN), .y(na5b));
 a a5a(.a1(PAV), .y(na5a));
 a a5b(.clk(V1), .a1(REI), .y(na5b));
 i a5c(.a(na5b), .y(REIN));
-i a3e(.a(na3c), .y(REI));
-a #(1) a3c(.clk(V1), .a1(REIN), .y(na3c));
+i #(0) a3e(.a(na3c), .y(REI));
+a a3c(.clk(V1), .a1(REIN), .y(na3c));
 a a4b(.clk(X2), .exp(na3d), .a1(G5VN), .a2(AVN), .y(na3c));
 a a3d(.clk(X2), .y(na3d));
 
@@ -326,8 +326,8 @@ a a26d(.clk(W5), .exp(na25d), .a1(PCV), .a2(G2V), .a3(G7V), .y(na25e));
 a a25d(.a1(DM3), .y(na25d));
 a a25e(.clk(V1), .a1(OC), .y(na25e));
 i a25f(.a(na25e), .y(OCN));
-i a11f(.a(na11d), .y(OC));
-a #(1) a11d(.clk(V1), .a1(OCN), .y(na11d));
+i #(0) a11f(.a(na11d), .y(OC));
+a a11d(.clk(V1), .a1(OCN), .y(na11d));
 a a11e(.clk(X2), .a1(AVN), .y(na11d));
 
 a a26e(.clk(W5), .exp(na20d), .a1(DS2), .a2(PCV), .a3(G2VN), .y(na19e));
@@ -349,8 +349,8 @@ a a6e(.clk(X2), .exp(na14c), .a1(G5VN), .a2(G7V), .a3(AVN), .y(na14d));
 a a14c(.a1(PAV), .y(na14c));
 a a14d(.clk(V1), .a1(RED), .y(na14d));
 i a14e(.a(na14d), .y(REDN));
-i a7f(.a(na7d), .y(RED));
-a #(1) a7d(.clk(V1), .a1(REDN), .y(na7d));
+i #(0) a7f(.a(na7d), .y(RED));
+a a7d(.clk(V1), .a1(REDN), .y(na7d));
 a a13e(.clk(X2), .a1(G4V), .a2(AVN), .y(na13e));
 a a7e(.clk(X2), .exp(na13e), .y(na7d));
 

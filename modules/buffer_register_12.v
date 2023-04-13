@@ -129,8 +129,8 @@ a a22a(.exp(na23b), .a1(AnTR1V), .y(na29b));
 a a29a(.a1(AnCBRVN), .y(na29a));
 a a29b(.clk(V1), .exp(na29a), .a1(BRx1), .y(na29b));
 i a29c(.a(na29b), .y(BRx1N));
-i a22c(.a(na22b), .y(BRx1));
-a #(1) a22b(.clk(V1), .a1(BRx1N), .y(na22b));
+i #(0) a22c(.a(na22b), .y(BRx1));
+a a22b(.clk(V1), .a1(BRx1N), .y(na22b));
 
 a a23c(.clk(MaSA2), .y(na15b));
 a a16a(.clk(MbSA2), .y(na15b));
@@ -141,8 +141,8 @@ a a8a(.a1(AnTR2V), .a2(AnSBRZV), .y(na8a));
 a a15a(.a1(AnCBRVN), .y(na15a));
 a a15b(.clk(V1), .exp(na15a), .a1(BRx2), .y(na15b));
 i a15c(.a(na15b), .y(BRx2N));
-i a8c(.a(na8b), .y(BRx2));
-a #(1) a8b(.clk(V1), .a1(BRx2N), .y(na8b));
+i #(0) a8c(.a(na8b), .y(BRx2));
+a a8b(.clk(V1), .a1(BRx2N), .y(na8b));
 
 a a9b(.clk(MaSA4), .y(na10b));
 a a9c(.clk(MbSA4), .y(na10b));
@@ -153,8 +153,8 @@ a a17a(.exp(na11c), .a1(AnSBRZV), .y(na10b));
 a a10a(.a1(AnCBRVN), .y(na10a));
 a a10b(.clk(V1), .exp(na10a), .a1(BRx4), .y(na10b));
 i a10c(.a(na10b), .y(BRx4N));
-i a17c(.a(na17b), .y(BRx4));
-a #(1) a17b(.clk(V1), .a1(BRx4N), .y(na17b));
+i #(0) a17c(.a(na17b), .y(BRx4));
+a a17b(.clk(V1), .a1(BRx4N), .y(na17b));
 
 // 10-129, 10-133
 a a34a(.clk(MaSA7), .y(na35b));
@@ -166,8 +166,8 @@ a a28a(.exp(na27b), .a1(AnSBRZV), .y(na35b));
 a a35a(.a1(AnCBRVN), .y(na35a));
 a a35b(.clk(V1), .exp(na35a), .a1(BRx7), .y(na35b));
 i a35c(.a(na35b), .y(BRx7N));
-i a28c(.a(na28b), .y(BRx7));
-a #(1) a28b(.clk(V1), .a1(BRx7N), .y(na28b));
+i #(0) a28c(.a(na28b), .y(BRx7));
+a a28b(.clk(V1), .a1(BRx7N), .y(na28b));
 
 a a27c(.clk(MaSA10), .y(na21b));
 a a20a(.clk(MbSA10), .y(na21b));
@@ -178,8 +178,8 @@ a a14a(.exp(na13a), .a1(AnSBRZV), .y(na21b));
 a a21a(.a1(AnCBRVN), .y(na21a));
 a a21b(.clk(V1), .exp(na21a), .a1(BRx10), .y(na21b));
 i a21c(.a(na21b), .y(BRx10N));
-i a14c(.a(na14b), .y(BRx10));
-a #(1) a14b(.clk(V1), .a1(BRx10N), .y(na14b));
+i #(0) a14c(.a(na14b), .y(BRx10));
+a a14b(.clk(V1), .a1(BRx10N), .y(na14b));
 
 // 10-130, 10-134
 a a30d(.clk(MaSA3), .y(na29e));
@@ -191,8 +191,8 @@ a a22d(.exp(na23e), .a1(AnTR3V), .y(na29e));
 a a29d(.a1(AnCBRVN), .y(na29d));
 a a29e(.clk(V1), .exp(na29d), .a1(BRx3), .y(na29e));
 i a29f(.a(na29e), .y(BRx3N));
-i a22f(.a(na22e), .y(BRx3));
-a #(1) a22e(.clk(V1), .a1(BRx3N), .y(na22e));
+i #(0) a22f(.a(na22e), .y(BRx3));
+a a22e(.clk(V1), .a1(BRx3N), .y(na22e));
 
 a a23f(.clk(MaSA5), .y(na15e));
 a a16d(.clk(MbSA5), .y(na15e));
@@ -203,8 +203,8 @@ a a8d(.a1(AnTR5V), .a2(AnSBRYV), .y(na8d));
 a a15d(.a1(AnCBRVN), .y(na15d));
 a a15e(.clk(V1), .exp(na15d), .a1(BRx5), .y(na15e));
 i a15f(.a(na15e), .y(BRx5N));
-i a8f(.a(na8e), .y(BRx5));
-a #(1) a8e(.clk(V1), .a1(BRx5N), .y(na8e));
+i #(0) a8f(.a(na8e), .y(BRx5));
+a a8e(.clk(V1), .a1(BRx5N), .y(na8e));
 
 a a9e(.clk(MaSA8), .y(na10e));
 a afe(.clk(MbSA8), .y(na10e));
@@ -215,8 +215,8 @@ a a17d(.exp(na11f), .a1(AnSBRYV), .y(na10e));
 a a10d(.a1(AnCBRVN), .y(na10d));
 a a10e(.clk(V1), .exp(na10d), .a1(BRx8), .y(na10e));
 i a10f(.a(na10e), .y(BRx8N));
-i a17f(.a(na17e), .y(BRx8));
-a #(1) a17e(.clk(V1), .a1(BRx8N), .y(na17e));
+i #(0) a17f(.a(na17e), .y(BRx8));
+a a17e(.clk(V1), .a1(BRx8N), .y(na17e));
 
 // 10-131, 10-135
 a a34d(.clk(MaSA11), .y(na35e));
@@ -228,8 +228,8 @@ a a28d(.exp(na27e), .a1(AnSBRYV), .y(na35e));
 a a35d(.a1(AnCBRVN), .y(na35d));
 a a35e(.clk(V1), .exp(na35d), .a1(BRx11), .y(na35e));
 i a35f(.a(na35e), .y(BRx11N));
-i a28f(.a(na28e), .y(BRx11));
-a #(1) a28e(.clk(V1), .a1(BRx11N), .y(na28e));
+i #(0) a28f(.a(na28e), .y(BRx11));
+a a28e(.clk(V1), .a1(BRx11N), .y(na28e));
 
 a a27f(.clk(MaSA13), .y(na21e));
 a a20d(.clk(MbSA13), .y(na21e));
@@ -240,8 +240,8 @@ a a14d(.exp(na13d), .a1(AnSBRYV), .y(na21e));
 a a21d(.a1(AnCBRVN), .y(na21d));
 a a21e(.clk(V1), .exp(na21d), .a1(BRx13), .y(na21e));
 i a21f(.a(na21e), .y(BRx13N));
-i a14f(.a(na14e), .y(BRx13));
-a #(1) a14e(.clk(V1), .a1(BRx13N), .y(na14e));
+i #(0) a14f(.a(na14e), .y(BRx13));
+a a14e(.clk(V1), .a1(BRx13N), .y(na14e));
 
 endmodule
 `default_nettype wire
