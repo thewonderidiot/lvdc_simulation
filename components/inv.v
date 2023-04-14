@@ -1,9 +1,9 @@
 `timescale 1ns/1ps
 `default_nettype none
 
-module i(
-    input wire a,
-    output wire y
+module inv(
+    output wire y,
+    input wire a
 );
 parameter iv = 1;
 

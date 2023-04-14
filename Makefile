@@ -20,8 +20,7 @@ MODULES = add_reg_x_decode \
 	  transfer_reg_1 \
 	  transfer_reg_2 \
 
-COMPONENTS = a \
-	     bfr_pa \
+COMPONENTS = bfr_pa \
 	     bfr_shp \
 	     cef \
 	     cg1 \
@@ -30,7 +29,7 @@ COMPONENTS = a \
 	     dld \
 	     dsa \
 	     efl \
-	     i \
+	     inv \
 	     ia1 \
 	     ia2 \
 	     id \

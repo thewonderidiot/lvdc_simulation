@@ -81,7 +81,7 @@ cef cef_07(.a(WF), .y(W5));
 cef cef_08(.a(WF), .y(W6));
 cef cef_09(.a(WF), .y(W7));
 cef cef_10(.a(WF), .y(W8));
-i i_01(.a(WF), .y(WN));
+inv i_01(WN, WF);
 
 // 10-5
 cg2 cg2_02(.a1(BOP), .a2(CGPPN), .y(ncg2_02));
@@ -99,7 +99,7 @@ cef cef_17(.a(XF), .y(X5));
 cef cef_18(.a(XF), .y(X6));
 cef cef_19(.a(XF), .y(X7));
 cef cef_20(.a(XF), .y(X8));
-i i_02(.a(XF), .y(XN));
+inv i_02(XN, XF);
 
 // 10-6
 cg2 cg2_03(.a1(BOP), .a2(CGPP), .y(ncg2_03));
@@ -117,7 +117,7 @@ cef cef_27(.a(YF), .y(Y5));
 cef cef_28(.a(YF), .y(Y6));
 cef cef_29(.a(YF), .y(Y7));
 cef cef_30(.a(YF), .y(Y8));
-i i_03(.a(YF), .y(YN));
+inv i_03(YN, YF);
 
 // 10-7
 cg2 cg2_04(.a1(BOP), .a2(CGPPN), .y(ncg2_04));
@@ -135,7 +135,7 @@ cef cef_37(.a(ZF), .y(Z5));
 cef cef_38(.a(ZF), .y(Z6));
 cef cef_39(.a(ZF), .y(Z7));
 cef cef_40(.a(ZF), .y(Z8));
-i i_04(.a(ZF), .y(ZN));
+inv i_04(ZN, ZF);
 
 endmodule
 `default_nettype wire

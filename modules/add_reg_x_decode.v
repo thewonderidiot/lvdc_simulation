@@ -185,213 +185,213 @@ wire na35d;
 wire na35e;
 
 // 10-62
-a a4a(.clk(Z1), .a1(TR8V), .y(na4a));
-a a11a(.exp(na4a), .a1(TA), .y(na3a));
-a a3a(.clk(V1), .a1(A1), .y(na3a));
-i a3b(.a(na3a), .y(A1AN));
-i #(0) a10c(.a(na10a), .y(A1));
-a a10a(.clk(V4MOD6), .a1(A1AN), .y(na10a));
-a a3c(.clk(Y4), .a1(TA), .y(na10a));
-a a10b(.clk(Y4), .a1(EXMV), .y(na10a));
-a a4b(.clk(V1), .a1(A1), .y(na4b));
-i a4c(.a(na4b), .y(A1N));
+and a4a(na4a, Z1, TR8V);
+and a11a(na3a, na4a, TA);
+and a3a(na3a, V1, A1);
+inv a3b(A1AN, na3a);
+inv #(0) a10c(A1, na10a);
+and a10a(na10a, V4MOD6, A1AN);
+and a3c(na10a, Y4, TA);
+and a10b(na10a, Y4, EXMV);
+and a4b(na4b, V1, A1);
+inv a4c(A1N, na4b);
 
-a a13a(.clk(Z1), .a1(TR2V), .y(na13a));
-a a21a(.exp(na13a), .a1(TA), .y(na20a));
-a a20a(.clk(V1), .a1(A7), .y(na20a));
-i a20b(.a(na20a), .y(A7AN));
-i #(0) a19b(.a(na19a), .y(A7));
-a a19a(.clk(V4MOD6), .a1(A7AN), .y(na19a));
-a a20c(.clk(Y4), .a1(TA), .y(na19a));
-a a21b(.clk(V1), .a1(A7), .y(na21b));
-i a21c(.a(na21b), .y(A7N));
+and a13a(na13a, Z1, TR2V);
+and a21a(na20a, na13a, TA);
+and a20a(na20a, V1, A7);
+inv a20b(A7AN, na20a);
+inv #(0) a19b(A7, na19a);
+and a19a(na19a, V4MOD6, A7AN);
+and a20c(na19a, Y4, TA);
+and a21b(na21b, V1, A7);
+inv a21c(A7N, na21b);
 
-a a6a(.clk(Z1), .a1(TR7V), .a2(TA), .y(na5a));
-a a5a(.clk(V1), .a1(A2), .y(na5a));
-i a5b(.a(na5a), .y(A2AN));
-i #(0) a12c(.a(na12a), .y(A2));
-a a12a(.clk(V4MOD6), .a1(A2AN), .y(na12a));
-a a5c(.clk(Y4), .a1(TA), .y(na12a));
-a a12b(.clk(Y4), .a1(EXMV), .y(na12a));
-a a11b(.clk(V1), .a1(A2), .y(na11b));
-i a11c(.a(na11b), .y(A2N));
+and a6a(na5a, Z1, TR7V, TA);
+and a5a(na5a, V1, A2);
+inv a5b(A2AN, na5a);
+inv #(0) a12c(A2, na12a);
+and a12a(na12a, V4MOD6, A2AN);
+and a5c(na12a, Y4, TA);
+and a12b(na12a, Y4, EXMV);
+and a11b(na11b, V1, A2);
+inv a11c(A2N, na11b);
 
-a a33a(.clk(Z1), .a1(TR1V), .y(na33a));
-a a34a(.exp(na33a), .a1(TA), .y(na27a));
-a a27a(.clk(V1), .a1(A8), .y(na27a));
-i a27b(.a(na27a), .y(A8AN));
-i #(0) a26b(.a(na26a), .y(A8));
-a a26a(.clk(V4MOD6), .a1(A8AN), .y(na26a));
-a a19c(.clk(Y4), .a1(TA), .y(na26a));
-a a33b(.clk(V1), .a1(A8), .y(na33b));
-i a33c(.a(na33b), .y(A8N));
+and a33a(na33a, Z1, TR1V);
+and a34a(na27a, na33a, TA);
+and a27a(na27a, V1, A8);
+inv a27b(A8AN, na27a);
+inv #(0) a26b(A8, na26a);
+and a26a(na26a, V4MOD6, A8AN);
+and a19c(na26a, Y4, TA);
+and a33b(na33b, V1, A8);
+inv a33c(A8N, na33b);
 
-a a31a(.clk(Z1), .a1(TR9V), .a2(TA), .a3(G6VN), .y(na25b));
-a a25a(.a1(DS4), .y(na25a));
-a a31b(.clk(Z1), .exp(na25a), .a1(EXMDN), .a2(TA), .a3(G6VN), .y(na25b));
-a a32a(.clk(Z1), .a1(IS4), .a2(TA), .a3(G1V), .y(na25b));
-a a25b(.clk(V1), .a1(S4), .y(na25b));
-i a25c(.a(na25b), .y(S4N));
-i #(0) a24c(.a(na24a), .y(S4));
-a a24a(.clk(V1), .a1(S4N), .y(na24a));
-a a24b(.clk(Y4), .a1(TA), .y(na24a));
+and a31a(na25b, Z1, TR9V, TA, G6VN);
+and a25a(na25a, DS4);
+and a31b(na25b, Z1, na25a, EXMDN, TA, G6VN);
+and a32a(na25b, Z1, IS4, TA, G1V);
+and a25b(na25b, V1, S4);
+inv a25c(S4N, na25b);
+inv #(0) a24c(S4, na24a);
+and a24a(na24a, V1, S4N);
+and a24b(na24a, Y4, TA);
 
-a a29a(.clk(V4MOD6), .a1(A1N), .a2(A2N), .y(na29a));
-a a29b(.exp(na29a), .a1(A3N), .y(na29b));
-i a29c(.a(na29b), .y(AX0N));
+and a29a(na29a, V4MOD6, A1N, A2N);
+and a29b(na29b, na29a, A3N);
+inv a29c(AX0N, na29b);
 
-a a30a(.clk(V4MOD6), .a1(A1V), .a2(A2N), .y(na30a));
-a a30b(.exp(na30a), .a1(A3N), .y(na30b));
-i a30c(.a(na30b), .y(AX1N));
+and a30a(na30a, V4MOD6, A1V, A2N);
+and a30b(na30b, na30a, A3N);
+inv a30c(AX1N, na30b);
 
-a a22a(.clk(V4MOD6), .a1(A1N), .a2(A2V), .y(na22a));
-a a22b(.exp(na22a), .a1(A3N), .y(na22b));
-i a22c(.a(na22b), .y(AX2N));
+and a22a(na22a, V4MOD6, A1N, A2V);
+and a22b(na22b, na22a, A3N);
+inv a22c(AX2N, na22b);
 
-a a23a(.clk(V4MOD6), .a1(A1V), .a2(A2V), .y(na23a));
-a a23b(.exp(na23a), .a1(A3N), .y(na23b));
-i a23c(.a(na23b), .y(AX3N));
+and a23a(na23a, V4MOD6, A1V, A2V);
+and a23b(na23b, na23a, A3N);
+inv a23c(AX3N, na23b);
 
-a a15a(.clk(V4MOD6), .a1(A1N), .a2(A2N), .y(na15a));
-a a15b(.exp(na15a), .a1(A3V), .y(na15b));
-i a15c(.a(na15b), .y(AX4N));
+and a15a(na15a, V4MOD6, A1N, A2N);
+and a15b(na15b, na15a, A3V);
+inv a15c(AX4N, na15b);
 
-a a16a(.clk(V4MOD6), .a1(A1V), .a2(A2N), .y(na16a));
-a a16b(.exp(na16a), .a1(A3V), .y(na16b));
-i a16c(.a(na16b), .y(AX5N));
+and a16a(na16a, V4MOD6, A1V, A2N);
+and a16b(na16b, na16a, A3V);
+inv a16c(AX5N, na16b);
 
 // 10-63
-a a6b(.clk(Z1), .a1(TR6V), .a2(TA), .y(na7a));
-a a7a(.clk(V1), .a1(A3), .y(na7a));
-i a7b(.a(na7a), .y(A3AN));
-i #(0) a14c(.a(na14a), .y(A3));
-a a14a(.clk(V4MOD6), .a1(A3AN), .y(na14a));
-a a7c(.clk(Y4), .a1(TA), .y(na14a));
-a a14b(.clk(Y4), .a1(EXMV), .y(na14a));
-a a13b(.clk(V1), .a1(A3), .y(na13b));
-i a13c(.a(na13b), .y(A3N));
+and a6b(na7a, Z1, TR6V, TA);
+and a7a(na7a, V1, A3);
+inv a7b(A3AN, na7a);
+inv #(0) a14c(A3, na14a);
+and a14a(na14a, V4MOD6, A3AN);
+and a7c(na14a, Y4, TA);
+and a14b(na14a, Y4, EXMV);
+and a13b(na13b, V1, A3);
+inv a13c(A3N, na13b);
 
-a a27c(.clk(Z1), .a1(TR9V), .y(na27c));
-a a26c(.exp(na27c), .a1(TA), .y(na34b));
-a a34b(.clk(V1), .a1(A9), .y(na34b));
-i a34c(.a(na34b), .y(A9N));
-i #(0) a35c(.a(na35a), .y(A9));
-a a35a(.clk(V4MOD6), .a1(A9N), .y(na35a));
-a a35b(.clk(Y4), .a1(TA), .y(na35a));
+and a27c(na27c, Z1, TR9V);
+and a26c(na34b, na27c, TA);
+and a34b(na34b, V1, A9);
+inv a34c(A9N, na34b);
+inv #(0) a35c(A9, na35a);
+and a35a(na35a, V4MOD6, A9N);
+and a35b(na35a, Y4, TA);
 
-a a8a(.clk(V4MOD6), .a1(A1N), .a2(A2V), .y(na8a));
-a a8b(.exp(na8a), .a1(A3V), .y(na8b));
-i a8c(.a(na8b), .y(AX6N));
+and a8a(na8a, V4MOD6, A1N, A2V);
+and a8b(na8b, na8a, A3V);
+inv a8c(AX6N, na8b);
 
-a a9a(.clk(V4MOD6), .a1(A1V), .a2(A2V), .y(na9a));
-a a9b(.exp(na9a), .a1(A3V), .y(na9b));
-i a9c(.a(na9b), .y(AX7N));
+and a9a(na9a, V4MOD6, A1V, A2V);
+and a9b(na9b, na9a, A3V);
+inv a9c(AX7N, na9b);
 
 // 10-64
-a a3d(.clk(Z2), .a1(TR5V), .y(na3d));
-a a10d(.exp(na3d), .a1(TA), .y(na2a));
-a a2a(.clk(V1), .a1(A4), .y(na2a));
-i a2b(.a(na2a), .y(A4AN));
-i #(0) a1c(.a(na1a), .y(A4));
-a a1a(.clk(V4MOD6), .a1(A4AN), .y(na1a));
-a a2c(.clk(Y5), .a1(TA), .y(na1a));
-a a1b(.clk(Y5), .a1(EXMV), .y(na1a));
-a a3e(.clk(V1), .a1(A4), .y(na3e));
-i a3f(.a(na3e), .y(A4N));
+and a3d(na3d, Z2, TR5V);
+and a10d(na2a, na3d, TA);
+and a2a(na2a, V1, A4);
+inv a2b(A4AN, na2a);
+inv #(0) a1c(A4, na1a);
+and a1a(na1a, V4MOD6, A4AN);
+and a2c(na1a, Y5, TA);
+and a1b(na1a, Y5, EXMV);
+and a3e(na3e, V1, A4);
+inv a3f(A4N, na3e);
 
-a a11d(.clk(Z2), .a1(TR4V), .a2(TA), .y(na10e));
-a a10e(.clk(V1), .a1(A5), .y(na10e));
-i a10f(.a(na10e), .y(A5AN));
-i #(0) a17c(.a(na17a), .y(A5));
-a a17a(.clk(V4MOD6), .a1(A5AN), .y(na17a));
-a a17b(.clk(Y5), .a1(TA), .y(na17a));
-a a24d(.clk(Y5), .a1(EXMV), .y(na17a));
-a a24e(.clk(V1), .a1(A5), .y(na24e));
-i a24f(.a(na24e), .y(A5N));
+and a11d(na10e, Z2, TR4V, TA);
+and a10e(na10e, V1, A5);
+inv a10f(A5AN, na10e);
+inv #(0) a17c(A5, na17a);
+and a17a(na17a, V4MOD6, A5AN);
+and a17b(na17a, Y5, TA);
+and a24d(na17a, Y5, EXMV);
+and a24e(na24e, V1, A5);
+inv a24f(A5N, na24e);
 
-a a26d(.clk(X5), .a1(PAV), .y(na26d));
-a a33d(.exp(na26d), .a1(G5VN), .a2(G7V), .a3(AVN), .y(na26e));
-a a19d(.clk(X5), .a1(EXMVN), .a2(PAV), .y(na19d));
-a a33e(.exp(na19d), .a1(G1V), .a2(G6V), .a3(AVN), .y(na26e));
-a a26e(.clk(WN), .a1(TA), .y(na26e));
-i a26f(.a(na26e), .y(TAN));
-i #(0) a19f(.a(na19e), .y(TA));
-a a19e(.clk(V1), .a1(TAN), .y(na19e));
+and a26d(na26d, X5, PAV);
+and a33d(na26e, na26d, G5VN, G7V, AVN);
+and a19d(na19d, X5, EXMVN, PAV);
+and a33e(na26e, na19d, G1V, G6V, AVN);
+and a26e(na26e, WN, TA);
+inv a26f(TAN, na26e);
+inv #(0) a19f(TA, na19e);
+and a19e(na19e, V1, TAN);
 
-a a34d(.clk(V4MOD6), .a1(A7N), .a2(A8N), .y(na34d));
-a a34e(.exp(na34d), .a1(S4N), .y(na34e));
-i a34f(.a(na34e), .y(AX00N));
+and a34d(na34d, V4MOD6, A7N, A8N);
+and a34e(na34e, na34d, S4N);
+inv a34f(AX00N, na34e);
 
-a a28a(.clk(V4MOD6), .a1(A7V), .a2(A8V), .y(na28a));
-a a28b(.exp(na28a), .a1(S4N), .y(na28b));
-i a28c(.a(na28b), .y(AX30N));
+and a28a(na28a, V4MOD6, A7V, A8V);
+and a28b(na28b, na28a, S4N);
+inv a28c(AX30N, na28b);
 
-a a13d(.clk(V4MOD6), .a1(A7N), .a2(A8V), .y(na13d));
-a a13e(.exp(na13d), .a1(S4), .y(na13e));
-i a13f(.a(na13e), .y(AX60N));
+and a13d(na13d, V4MOD6, A7N, A8V);
+and a13e(na13e, na13d, S4);
+inv a13f(AX60N, na13e);
 
-a a29d(.clk(V4MOD6), .a1(A4N), .a2(A5N), .y(na29d));
-a a29e(.exp(na29d), .a1(A6N), .y(na29e));
-i a29f(.a(na29e), .y(AY0N));
+and a29d(na29d, V4MOD6, A4N, A5N);
+and a29e(na29e, na29d, A6N);
+inv a29f(AY0N, na29e);
 
-a a23d(.clk(V4MOD6), .a1(A4V), .a2(A5V), .y(na23d));
-a a23e(.exp(na23d), .a1(A6N), .y(na23e));
-i a23f(.a(na23e), .y(AY3N));
+and a23d(na23d, V4MOD6, A4V, A5V);
+and a23e(na23e, na23d, A6N);
+inv a23f(AY3N, na23e);
 
-a a8d(.clk(V4MOD6), .a1(A4N), .a2(A5V), .y(na8d));
-a a8e(.exp(na8d), .a1(A6V), .y(na8e));
-i a8f(.a(na8e), .y(AY6N));
+and a8d(na8d, V4MOD6, A4N, A5V);
+and a8e(na8e, na8d, A6V);
+inv a8f(AY6N, na8e);
 
-a a35d(.clk(V4MOD6), .a1(A7V), .a2(A8N), .y(na35d));
-a a35e(.exp(na35d), .a1(S4N), .y(na35e));
-i a35f(.a(na35e), .y(AX10N));
+and a35d(na35d, V4MOD6, A7V, A8N);
+and a35e(na35e, na35d, S4N);
+inv a35f(AX10N, na35e);
 
-a a20d(.clk(V4MOD6), .a1(A7N), .a2(A8N), .y(na20d));
-a a20e(.exp(na20d), .a1(S4), .y(na20e));
-i a20f(.a(na20e), .y(AX40N));
+and a20d(na20d, V4MOD6, A7N, A8N);
+and a20e(na20e, na20d, S4);
+inv a20f(AX40N, na20e);
 
-a a14d(.clk(V4MOD6), .a1(A7V), .a2(A8V), .y(na14d));
-a a14e(.exp(na14d), .a1(S4), .y(na14e));
-i a14f(.a(na14e), .y(AX70N));
+and a14d(na14d, V4MOD6, A7V, A8V);
+and a14e(na14e, na14d, S4);
+inv a14f(AX70N, na14e);
 
 // 10-65
-a a32b(.clk(Z2), .a1(TR3V), .y(na32b));
-a a25d(.exp(na32b), .a1(TA), .y(na32c));
-a a32c(.clk(V1), .a1(A6), .y(na32c));
-i a32d(.a(na32c), .y(A6AN));
-i #(0) a31e(.a(na31c), .y(A6));
-a a31c(.clk(V4MOD6), .a1(A6AN), .y(na31c));
-a a31d(.clk(Y5), .a1(TA), .y(na31c));
-a a25e(.clk(V1), .a1(A6), .y(na25e));
-i a25f(.a(na25e), .y(A6N));
+and a32b(na32b, Z2, TR3V);
+and a25d(na32c, na32b, TA);
+and a32c(na32c, V1, A6);
+inv a32d(A6AN, na32c);
+inv #(0) a31e(A6, na31c);
+and a31c(na31c, V4MOD6, A6AN);
+and a31d(na31c, Y5, TA);
+and a25e(na25e, V1, A6);
+inv a25f(A6N, na25e);
 
-a a30d(.clk(V4MOD6), .a1(A4V), .a2(A5N), .y(na30d));
-a a30e(.exp(na30d), .a1(A6N), .y(na30e));
-i a30f(.a(na30e), .y(AY1N));
+and a30d(na30d, V4MOD6, A4V, A5N);
+and a30e(na30e, na30d, A6N);
+inv a30f(AY1N, na30e);
 
-a a15d(.clk(V4MOD6), .a1(A4N), .a2(A5N), .y(na15d));
-a a15e(.exp(na15d), .a1(A6V), .y(na15e));
-i a15f(.a(na15e), .y(AY4N));
+and a15d(na15d, V4MOD6, A4N, A5N);
+and a15e(na15e, na15d, A6V);
+inv a15f(AY4N, na15e);
 
-a a9d(.clk(V4MOD6), .a1(A4V), .a2(A5V), .y(na9d));
-a a9e(.exp(na9d), .a1(A6V), .y(na9e));
-i a9f(.a(na9e), .y(AY7N));
+and a9d(na9d, V4MOD6, A4V, A5V);
+and a9e(na9e, na9d, A6V);
+inv a9f(AY7N, na9e);
 
-a a27d(.clk(V4MOD6), .a1(A7N), .a2(A8V), .y(na27d));
-a a27e(.exp(na27d), .a1(S4N), .y(na27e));
-i a27f(.a(na27e), .y(AX20N));
+and a27d(na27d, V4MOD6, A7N, A8V);
+and a27e(na27e, na27d, S4N);
+inv a27f(AX20N, na27e);
 
-a a21d(.clk(V4MOD6), .a1(A7V), .a2(A8N), .y(na21d));
-a a21e(.exp(na21d), .a1(S4), .y(na21e));
-i a21f(.a(na21e), .y(AX50N));
+and a21d(na21d, V4MOD6, A7V, A8N);
+and a21e(na21e, na21d, S4);
+inv a21f(AX50N, na21e);
 
-a a22d(.clk(V4MOD6), .a1(A4N), .a2(A5V), .y(na22d));
-a a22e(.exp(na22d), .a1(A6N), .y(na22e));
-i a22f(.a(na22e), .y(AY2N));
+and a22d(na22d, V4MOD6, A4N, A5V);
+and a22e(na22e, na22d, A6N);
+inv a22f(AY2N, na22e);
 
-a a16d(.clk(V4MOD6), .a1(A4V), .a2(A5N), .y(na16d));
-a a16e(.exp(na16d), .a1(A6V), .y(na16e));
-i a16f(.a(na16e), .y(AY5N));
+and a16d(na16d, V4MOD6, A4V, A5N);
+and a16e(na16e, na16d, A6V);
+inv a16f(AY5N, na16e);
 
 endmodule
 `default_nettype wire

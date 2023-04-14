@@ -157,206 +157,206 @@ wor na35b;
 wor na35e;
 
 // 10-50
-a a31a(.clk(W3), .a1(COC), .a2(FSAN), .a3(DMA), .y(na24b));
-a a31b(.clk(W3), .a1(CNC), .a2(FSA), .a3(DMA), .y(na24b));
-a a24a(.a1(EDAC), .y(na24a));
-a a24b(.clk(V1), .exp(na24a), .a1(RECN), .y(na24b));
-i a24c(.a(na24b), .y(EDACN));
-i #(0) a17b(.a(na17a), .y(EDAC));
-a a17a(.clk(V1), .a1(EDACN), .y(na17a));
-a a16a(.clk(Y3), .a1(SYNC), .a2(DMA), .y(na17a));
-a a16b(.clk(V1), .a1(HOPV), .a2(RUNVN), .y(na17a));
+and a31a(na24b, W3, COC, FSAN, DMA);
+and a31b(na24b, W3, CNC, FSA, DMA);
+and a24a(na24a, EDAC);
+and a24b(na24b, V1, na24a, RECN);
+inv a24c(EDACN, na24b);
+inv #(0) a17b(EDAC, na17a);
+and a17a(na17a, V1, EDACN);
+and a16a(na17a, Y3, SYNC, DMA);
+and a16b(na17a, V1, HOPV, RUNVN);
 
-a a6a(.clk(W3), .a1(EADM), .a2(DMA), .y(na13a));
-a a6b(.clk(W3), .a1(EAIM), .a2(IMA), .y(na13a));
-a a13a(.clk(V4MOD7), .a1(BRAON), .y(na13a));
-i #(0) a13b(.a(na13a), .y(BRAO));
-i a14c(.a(na14a), .y(BRAON));
-a a14a(.clk(V4MOD7), .a1(BRAO), .y(na14a));
-a a14b(.clk(W3), .exp(na13c), .a1(EADMN), .y(na14a));
-a a13c(.a1(DMA), .y(na13c));
-a a20a(.clk(W3), .exp(na21a), .a1(IMA), .y(na14a));
-a a21a(.a1(EAIMN), .y(na21a));
+and a6a(na13a, W3, EADM, DMA);
+and a6b(na13a, W3, EAIM, IMA);
+and a13a(na13a, V4MOD7, BRAON);
+inv #(0) a13b(BRAO, na13a);
+inv a14c(BRAON, na14a);
+and a14a(na14a, V4MOD7, BRAO);
+and a14b(na14a, W3, na13c, EADMN);
+and a13c(na13c, DMA);
+and a20a(na14a, W3, na21a, IMA);
+and a21a(na21a, EAIMN);
 
-a a34a(.clk(V4MOD7), .a1(DMAVN), .a2(IMAVN), .y(na26b));
-a a26a(.clk(V4MOD7), .a1(SYNCN), .y(na26b));
-a a26b(.clk(V4MOD7), .a1(MZOVN), .y(na26b));
-i #(0) a26c(.a(na26b), .y(M0SYNC));
+and a34a(na26b, V4MOD7, DMAVN, IMAVN);
+and a26a(na26b, V4MOD7, SYNCN);
+and a26b(na26b, V4MOD7, MZOVN);
+inv #(0) a26c(M0SYNC, na26b);
 
-a a32a(.clk(W3), .a1(COC), .a2(FSAN), .a3(IMA), .y(na25b));
-a a32b(.clk(W3), .a1(CNC), .a2(FSA), .a3(IMA), .y(na25b));
-a a25a(.a1(EIAC), .y(na25a));
-a a25b(.clk(V1), .exp(na25a), .a1(RECN), .y(na25b));
-i a25c(.a(na25b), .y(EIACN));
-i #(0) a18b(.a(na18a), .y(EIAC));
-a a18a(.clk(V1), .a1(EIACN), .y(na18a));
-a a19a(.clk(Y3), .a1(SYNC), .a2(IMA), .y(na18a));
-a a19b(.clk(V1), .a1(HOPV), .a2(RUNVN), .y(na18a));
+and a32a(na25b, W3, COC, FSAN, IMA);
+and a32b(na25b, W3, CNC, FSA, IMA);
+and a25a(na25a, EIAC);
+and a25b(na25b, V1, na25a, RECN);
+inv a25c(EIACN, na25b);
+inv #(0) a18b(EIAC, na18a);
+and a18a(na18a, V1, EIACN);
+and a19a(na18a, Y3, SYNC, IMA);
+and a19b(na18a, V1, HOPV, RUNVN);
 
-a a29a(.clk(Z7), .a1(ED0X), .a2(ED0Y), .a3(MZO), .y(na22a));
-a a29b(.clk(Z7), .a1(ED2X), .a2(ED2Y), .a3(MTT), .y(na22a));
-a a30a(.clk(Z7), .a1(ED4X), .a2(ED4Y), .a3(MFF), .y(na22a));
-a a30b(.clk(Z7), .a1(ED6X), .a2(ED6Y), .a3(MSS), .y(na22a));
-a a22a(.clk(YN), .a1(FSA), .y(na22a));
-i a22b(.a(na22a), .y(FSAN));
-i #(0) a23b(.a(na23a), .y(FSA));
-a a23a(.clk(V1), .a1(FSAN), .y(na23a));
+and a29a(na22a, Z7, ED0X, ED0Y, MZO);
+and a29b(na22a, Z7, ED2X, ED2Y, MTT);
+and a30a(na22a, Z7, ED4X, ED4Y, MFF);
+and a30b(na22a, Z7, ED6X, ED6Y, MSS);
+and a22a(na22a, YN, FSA);
+inv a22b(FSAN, na22a);
+inv #(0) a23b(FSA, na23a);
+and a23a(na23a, V1, FSAN);
 
-a a34b(.clk(V4MOD7), .a1(DMAVN), .a2(IMAVN), .y(na33b));
-a a33a(.clk(V4MOD7), .a1(SYNCN), .y(na33b));
-a a33b(.clk(V4MOD7), .a1(MTTVN), .y(na33b));
-i #(0) a33c(.a(na33b), .y(M2SYNC));
+and a34b(na33b, V4MOD7, DMAVN, IMAVN);
+and a33a(na33b, V4MOD7, SYNCN);
+and a33b(na33b, V4MOD7, MTTVN);
+inv #(0) a33c(M2SYNC, na33b);
 
 // 10-51
-a a9a(.clk(Z7), .a1(EAP), .a2(DMA), .a3(TIME), .y(na10b));
-a a17c(.clk(V1), .a1(EDAC), .y(na10b));
-a a10a(.a1(EADM), .y(na10a));
-a a10b(.clk(V1), .exp(na10a), .a1(RECN), .y(na10b));
-i a10c(.a(na10b), .y(EADMN));
-i #(0) a2c(.a(na2a), .y(EADM));
-a a2a(.clk(V1), .a1(EADMN), .y(na2a));
-a a2b(.exp(na9b), .a1(EAPN), .y(na2a));
-a a9b(.clk(Z7), .a1(EDACN), .a2(TIME), .a3(DMA), .y(na9b));
+and a9a(na10b, Z7, EAP, DMA, TIME);
+and a17c(na10b, V1, EDAC);
+and a10a(na10a, EADM);
+and a10b(na10b, V1, na10a, RECN);
+inv a10c(EADMN, na10b);
+inv #(0) a2c(EADM, na2a);
+and a2a(na2a, V1, EADMN);
+and a2b(na2a, na9b, EAPN);
+and a9b(na9b, Z7, EDACN, TIME, DMA);
 
-a a22c(.clk(V1), .a1(IMAVN), .y(na22c));
-a a23c(.exp(na22c), .a1(EDACN), .y(na15b));
-a a15a(.clk(V1), .a1(EIACN), .y(na15a));
-a a15b(.exp(na15a), .a1(DMAVN), .y(na15b));
-i #(0) a15c(.a(na15b), .y(EAC));
+and a22c(na22c, V1, IMAVN);
+and a23c(na15b, na22c, EDACN);
+and a15a(na15a, V1, EIACN);
+and a15b(na15b, na15a, DMAVN);
+inv #(0) a15c(EAC, na15b);
 
-a a27a(.clk(V4MOD7), .a1(DMAVN), .a2(IMAVN), .y(na28b));
-a a28a(.clk(V4MOD7), .a1(SYNCN), .y(na28b));
-a a28b(.clk(V4MOD7), .a1(MFFVN), .y(na28b));
-i #(0) a28c(.a(na28b), .y(M4SYNC));
+and a27a(na28b, V4MOD7, DMAVN, IMAVN);
+and a28a(na28b, V4MOD7, SYNCN);
+and a28b(na28b, V4MOD7, MFFVN);
+inv #(0) a28c(M4SYNC, na28b);
 
-a a27b(.clk(V4MOD7), .a1(DMAVN), .a2(IMAVN), .y(na35b));
-a a35a(.clk(V4MOD7), .a1(SYNCN), .y(na35b));
-a a35b(.clk(V4MOD7), .a1(MSSVN), .y(na35b));
-i #(0) a35c(.a(na35b), .y(M6SYNC));
+and a27b(na35b, V4MOD7, DMAVN, IMAVN);
+and a35a(na35b, V4MOD7, SYNCN);
+and a35b(na35b, V4MOD7, MSSVN);
+inv #(0) a35c(M6SYNC, na35b);
 
-a a12a(.clk(Z7), .a1(EAP), .a2(IMA), .a3(TIME), .y(na11b));
-a a18c(.clk(V1), .a1(EIAC), .y(na11b));
-a a11a(.a1(EAIM), .y(na11a));
-a a11b(.clk(V1), .exp(na11a), .a1(RECN), .y(na11b));
-i a11c(.a(na11b), .y(EAIMN));
-i #(0) a5c(.a(na5a), .y(EAIM));
-a a5a(.clk(V1), .a1(EAIMN), .y(na5a));
-a a5b(.exp(na12b), .a1(EAPN), .y(na5a));
-a a12b(.clk(Z7), .a1(EIACN), .a2(TIME), .a3(IMA), .y(na12b));
+and a12a(na11b, Z7, EAP, IMA, TIME);
+and a18c(na11b, V1, EIAC);
+and a11a(na11a, EAIM);
+and a11b(na11b, V1, na11a, RECN);
+inv a11c(EAIMN, na11b);
+inv #(0) a5c(EAIM, na5a);
+and a5a(na5a, V1, EAIMN);
+and a5b(na5a, na12b, EAPN);
+and a12b(na12b, Z7, EIACN, TIME, IMA);
 
-a a20b(.clk(V1), .a1(DMAVN), .y(na20b));
-i a20c(.a(na20b), .y(DMA));
+and a20b(na20b, V1, DMAVN);
+inv a20c(DMA, na20b);
 
-a a21b(.clk(V1), .a1(IMAVN), .y(na21b));
-i a21c(.a(na21b), .y(IMA));
+and a21b(na21b, V1, IMAVN);
+inv a21c(IMA, na21b);
 
-a a3a(.clk(V1), .a1(EAP), .y(na3a));
-i a3b(.a(na3a), .y(EAPN));
+and a3a(na3a, V1, EAP);
+inv a3b(EAPN, na3a);
 
-a a4a(.a1(EADMN), .a2(EAIMN), .y(na4a));
-a a4b(.clk(V4MOD7), .exp(na4a), .y(na4b));
-i a4c(.a(na4b), .y(EAM));
+and a4a(na4a, EADMN, EAIMN);
+and a4b(na4b, V4MOD7, na4a);
+inv a4c(EAM, na4b);
 
 // 10-52
-a a31c(.clk(W3), .a1(COC), .a2(FSBN), .a3(DMB), .y(na24e));
-a a31d(.clk(W3), .a1(CNC), .a2(FSB), .a3(DMB), .y(na24e));
-a a24d(.a1(EDBC), .y(na24d));
-a a24e(.clk(V1), .exp(na24d), .a1(RECN), .y(na24e));
-i a24f(.a(na24e), .y(EDBCN));
-i #(0) a17e(.a(na17d), .y(EDBC));
-a a17d(.clk(V1), .a1(EDBCN), .y(na17d));
-a a16c(.clk(Y3), .a1(SYNC), .a2(DMB), .y(na17d));
-a a16d(.clk(V1), .a1(HOPV), .a2(RUNVN), .y(na17d));
+and a31c(na24e, W3, COC, FSBN, DMB);
+and a31d(na24e, W3, CNC, FSB, DMB);
+and a24d(na24d, EDBC);
+and a24e(na24e, V1, na24d, RECN);
+inv a24f(EDBCN, na24e);
+inv #(0) a17e(EDBC, na17d);
+and a17d(na17d, V1, EDBCN);
+and a16c(na17d, Y3, SYNC, DMB);
+and a16d(na17d, V1, HOPV, RUNVN);
 
-a a6c(.clk(W3), .a1(EBDM), .a2(DMB), .y(na13d));
-a a6d(.clk(W3), .a1(EBIM), .a2(IMB), .y(na13d));
-a a13d(.clk(V4MOD7), .a1(BRBON), .y(na13d));
-i #(0) a13e(.a(na13d), .y(BRBO));
-i a14f(.a(na14d), .y(BRBON));
-a a14d(.clk(V4MOD7), .a1(BRBO), .y(na14d));
-a a14e(.clk(W3), .exp(na13f), .a1(EBDMN), .y(na14d));
-a a13f(.a1(DMB), .y(na13f));
-a a20d(.clk(W3), .exp(na21d), .a1(IMB), .y(na14d));
-a a21d(.a1(EBIMN), .y(na21d));
+and a6c(na13d, W3, EBDM, DMB);
+and a6d(na13d, W3, EBIM, IMB);
+and a13d(na13d, V4MOD7, BRBON);
+inv #(0) a13e(BRBO, na13d);
+inv a14f(BRBON, na14d);
+and a14d(na14d, V4MOD7, BRBO);
+and a14e(na14d, W3, na13f, EBDMN);
+and a13f(na13f, DMB);
+and a20d(na14d, W3, na21d, IMB);
+and a21d(na21d, EBIMN);
 
-a a34c(.clk(V4MOD7), .a1(DMBVN), .a2(IMBVN), .y(na26e));
-a a26d(.clk(V4MOD7), .a1(SYNCN), .y(na26e));
-a a26e(.clk(V4MOD7), .a1(MZOVN), .y(na26e));
-i #(0) a26f(.a(na26e), .y(M1SYNC));
+and a34c(na26e, V4MOD7, DMBVN, IMBVN);
+and a26d(na26e, V4MOD7, SYNCN);
+and a26e(na26e, V4MOD7, MZOVN);
+inv #(0) a26f(M1SYNC, na26e);
 
-a a32c(.clk(W3), .a1(COC), .a2(FSBN), .a3(IMB), .y(na25e));
-a a32d(.clk(W3), .a1(CNC), .a2(FSB), .a3(IMB), .y(na25e));
-a a25d(.a1(EIBC), .y(na25d));
-a a25e(.clk(V1), .exp(na25d), .a1(RECN), .y(na25e));
-i a25f(.a(na25e), .y(EIBCN));
-i #(0) a18e(.a(na18d), .y(EIBC));
-a a18d(.clk(V1), .a1(EIBCN), .y(na18d));
-a a19c(.clk(Y3), .a1(SYNC), .a2(IMB), .y(na18d));
-a a19d(.clk(V1), .a1(HOPV), .a2(RUNVN), .y(na18d));
+and a32c(na25e, W3, COC, FSBN, IMB);
+and a32d(na25e, W3, CNC, FSB, IMB);
+and a25d(na25d, EIBC);
+and a25e(na25e, V1, na25d, RECN);
+inv a25f(EIBCN, na25e);
+inv #(0) a18e(EIBC, na18d);
+and a18d(na18d, V1, EIBCN);
+and a19c(na18d, Y3, SYNC, IMB);
+and a19d(na18d, V1, HOPV, RUNVN);
 
-a a29c(.clk(Z7), .a1(ED1X), .a2(ED1Y), .a3(MZO), .y(na22d));
-a a29d(.clk(Z7), .a1(ED3X), .a2(ED3Y), .a3(MTT), .y(na22d));
-a a30c(.clk(Z7), .a1(ED5X), .a2(ED5Y), .a3(MFF), .y(na22d));
-a a30d(.clk(Z7), .a1(ED7X), .a2(ED7Y), .a3(MSS), .y(na22d));
-a a22d(.clk(YN), .a1(FSB), .y(na22d));
-i a22e(.a(na22d), .y(FSBN));
-i #(0) a23e(.a(na23d), .y(FSB));
-a a23d(.clk(V1), .a1(FSBN), .y(na23d));
+and a29c(na22d, Z7, ED1X, ED1Y, MZO);
+and a29d(na22d, Z7, ED3X, ED3Y, MTT);
+and a30c(na22d, Z7, ED5X, ED5Y, MFF);
+and a30d(na22d, Z7, ED7X, ED7Y, MSS);
+and a22d(na22d, YN, FSB);
+inv a22e(FSBN, na22d);
+inv #(0) a23e(FSB, na23d);
+and a23d(na23d, V1, FSBN);
 
-a a34d(.clk(V4MOD7), .a1(DMBVN), .a2(IMBVN), .y(na33e));
-a a33d(.clk(V4MOD7), .a1(SYNCN), .y(na33e));
-a a33e(.clk(V4MOD7), .a1(MTTVN), .y(na33e));
-i #(0) a33f(.a(na33e), .y(M3SYNC));
+and a34d(na33e, V4MOD7, DMBVN, IMBVN);
+and a33d(na33e, V4MOD7, SYNCN);
+and a33e(na33e, V4MOD7, MTTVN);
+inv #(0) a33f(M3SYNC, na33e);
 
 // 10-53
-a a9c(.clk(Z7), .a1(EBP), .a2(DMB), .a3(TIME), .y(na10e));
-a a17f(.clk(V1), .a1(EDBC), .y(na10e));
-a a10d(.a1(EBDM), .y(na10d));
-a a10e(.clk(V1), .exp(na10d), .a1(RECN), .y(na10e));
-i a10f(.a(na10e), .y(EBDMN));
-i #(0) a2f(.a(na2d), .y(EBDM));
-a a2d(.clk(V1), .a1(EBDMN), .y(na2d));
-a a2e(.exp(na9d), .a1(EBPN), .y(na2d));
-a a9d(.clk(Z7), .a1(EDBCN), .a2(TIME), .a3(DMB), .y(na9d));
+and a9c(na10e, Z7, EBP, DMB, TIME);
+and a17f(na10e, V1, EDBC);
+and a10d(na10d, EBDM);
+and a10e(na10e, V1, na10d, RECN);
+inv a10f(EBDMN, na10e);
+inv #(0) a2f(EBDM, na2d);
+and a2d(na2d, V1, EBDMN);
+and a2e(na2d, na9d, EBPN);
+and a9d(na9d, Z7, EDBCN, TIME, DMB);
 
-a a22f(.clk(V1), .a1(IMBVN), .y(na22f));
-a a23f(.exp(na22f), .a1(EDBCN), .y(na15e));
-a a15d(.clk(V1), .a1(EIBCN), .y(na15d));
-a a15e(.exp(na15d), .a1(DMBVN), .y(na15e));
-i a15f(.a(na15e), .y(EBC));
+and a22f(na22f, V1, IMBVN);
+and a23f(na15e, na22f, EDBCN);
+and a15d(na15d, V1, EIBCN);
+and a15e(na15e, na15d, DMBVN);
+inv a15f(EBC, na15e);
 
-a a27c(.clk(V4MOD7), .a1(DMBVN), .a2(IMBVN), .y(na28e));
-a a28d(.clk(V4MOD7), .a1(SYNCN), .y(na28e));
-a a28e(.clk(V4MOD7), .a1(MFFVN), .y(na28e));
-i #(0) a28f(.a(na28e), .y(M5SYNC));
+and a27c(na28e, V4MOD7, DMBVN, IMBVN);
+and a28d(na28e, V4MOD7, SYNCN);
+and a28e(na28e, V4MOD7, MFFVN);
+inv #(0) a28f(M5SYNC, na28e);
 
-a a27d(.clk(V4MOD7), .a1(DMBVN), .a2(IMBVN), .y(na35e));
-a a35d(.clk(V4MOD7), .a1(SYNCN), .y(na35e));
-a a35e(.clk(V4MOD7), .a1(MSSVN), .y(na35e));
-i #(0) a35f(.a(na35e), .y(M7SYNC));
+and a27d(na35e, V4MOD7, DMBVN, IMBVN);
+and a35d(na35e, V4MOD7, SYNCN);
+and a35e(na35e, V4MOD7, MSSVN);
+inv #(0) a35f(M7SYNC, na35e);
 
-a a12c(.clk(Z7), .a1(EBP), .a2(IMB), .a3(TIME), .y(na11e));
-a a18f(.clk(V1), .a1(EIBC), .y(na11e));
-a a11d(.a1(EBIM), .y(na11d));
-a a11e(.clk(V1), .exp(na11d), .a1(RECN), .y(na11e));
-i a11f(.a(na11e), .y(EBIMN));
-i #(0) a5f(.a(na5d), .y(EBIM));
-a a5d(.clk(V1), .a1(EBIMN), .y(na5d));
-a a5e(.exp(na12d), .a1(EBPN), .y(na5d));
-a a12d(.clk(Z7), .a1(EIBCN), .a2(TIME), .a3(IMB), .y(na12d));
+and a12c(na11e, Z7, EBP, IMB, TIME);
+and a18f(na11e, V1, EIBC);
+and a11d(na11d, EBIM);
+and a11e(na11e, V1, na11d, RECN);
+inv a11f(EBIMN, na11e);
+inv #(0) a5f(EBIM, na5d);
+and a5d(na5d, V1, EBIMN);
+and a5e(na5d, na12d, EBPN);
+and a12d(na12d, Z7, EIBCN, TIME, IMB);
 
-a a20e(.clk(V1), .a1(DMBVN), .y(na20e));
-i a20f(.a(na20e), .y(DMB));
+and a20e(na20e, V1, DMBVN);
+inv a20f(DMB, na20e);
 
-a a21e(.clk(V1), .a1(IMBVN), .y(na21e));
-i a21f(.a(na21e), .y(IMB));
+and a21e(na21e, V1, IMBVN);
+inv a21f(IMB, na21e);
 
-a a3c(.clk(V1), .a1(EBP), .y(na3c));
-i a3d(.a(na3c), .y(EBPN));
+and a3c(na3c, V1, EBP);
+inv a3d(EBPN, na3c);
 
-a a4d(.a1(EBDMN), .a2(EBIMN), .y(na4d));
-a a4e(.clk(V4MOD7), .exp(na4d), .y(na4e));
-i a4f(.a(na4e), .y(EBM));
+and a4d(na4d, EBDMN, EBIMN);
+and a4e(na4e, V4MOD7, na4d);
+inv a4f(EBM, na4e);
 
 endmodule
 `default_nettype wire
