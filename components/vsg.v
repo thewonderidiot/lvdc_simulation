@@ -2,9 +2,9 @@
 `default_nettype none
 
 module vsg(
+    output reg y,
     input wire a,
-    input wire b,
-    output reg y
+    input wire b
 );
 
 initial y = 1;

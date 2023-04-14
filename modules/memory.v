@@ -113,14 +113,14 @@ wire MmSTRP3;
 wire MmSTROB;
 
 // 10-154
-mcd1 mcd1a(.a1(AnRDMVN), .a2(MmSYNCV), .y(MmSTRP1));
-mcd2 #(2500) mcd2a(.a(MmSTRP1), .y(MmSTRP2));
-mcd2 #(1500) mcd2b(.a(MmSTRP2), .y(MmSTRP3));
+mcd1 mcd1a(MmSTRP1, AnRDMVN, MmSYNCV);
+mcd2 #(2500) mcd2a(MmSTRP2, MmSTRP1);
+mcd2 #(1500) mcd2b(MmSTRP3, MmSTRP2);
 
-mcd1 mcd1b(.a1(MmSYNCV), .a2(AnRDMV), .y(MmRDP1));
-mcd2 #(2500) mcd2c(.a(MmRDP1), .y(MmRDP2));
-mcd2 #(1500) mcd2d(.a(MmRDP2), .y(MmRDP3));
-vsg vsga(.a(MmRDP3), .b(AnINHBSV), .y(MmSTROB));
+mcd1 mcd1b(MmRDP1, MmSYNCV, AnRDMV);
+mcd2 #(2500) mcd2c(MmRDP2, MmRDP1);
+mcd2 #(1500) mcd2d(MmRDP3, MmRDP2);
+vsg vsga(MmSTROB, MmRDP3, AnINHBSV);
 
 // Address decoding
 reg [11:0] address;
@@ -187,20 +187,20 @@ initial begin
 end
 
 // Inhibit
-id id1(.a(BRA1), .b(AnBROVa), .c(BRB1), .d(AnBROVb), .clk2(MmSTRP2), .y(MmINH1));
-id id2(.a(BRA2), .b(AnBROVa), .c(BRB2), .d(AnBROVb), .clk2(MmSTRP2), .y(MmINH2));
-id id3(.a(BRA3), .b(AnBROVa), .c(BRB3), .d(AnBROVb), .clk2(MmSTRP2), .y(MmINH3));
-id id4(.a(BRA4), .b(AnBROVa), .c(BRB4), .d(AnBROVb), .clk2(MmSTRP2), .y(MmINH4));
-id id5(.a(BRA5), .b(AnBROVa), .c(BRB5), .d(AnBROVb), .clk2(MmSTRP2), .y(MmINH5));
-id id6(.a(BRA6), .b(AnBROVa), .c(BRB6), .d(AnBROVb), .clk2(MmSTRP2), .y(MmINH6));
-id id7(.a(BRA7), .b(AnBROVa), .c(BRB7), .d(AnBROVb), .clk2(MmSTRP2), .y(MmINH7));
-id id8(.a(BRA8), .b(AnBROVa), .c(BRB8), .d(AnBROVb), .clk2(MmSTRP2), .y(MmINH8));
-id id9(.a(BRA9), .b(AnBROVa), .c(BRB9), .d(AnBROVb), .clk2(MmSTRP2), .y(MmINH9));
-id id10(.a(BRA10), .b(AnBROVa), .c(BRB10), .d(AnBROVb), .clk2(MmSTRP2), .y(MmINH10));
-id id11(.a(BRA11), .b(AnBROVa), .c(BRB11), .d(AnBROVb), .clk2(MmSTRP2), .y(MmINH11));
-id id12(.a(BRA12), .b(AnBROVa), .c(BRB12), .d(AnBROVb), .clk2(MmSTRP2), .y(MmINH12));
-id id13(.a(BRA13), .b(AnBROVa), .c(BRB13), .d(AnBROVb), .clk2(MmSTRP2), .y(MmINH13));
-id id14(.a(BRA14), .b(AnBROVa), .c(BRB14), .d(AnBROVb), .clk2(MmSTRP2), .y(MmINH14));
+id id1(MmINH1, BRA1, AnBROVa, BRB1, AnBROVb, MmSTRP2);
+id id2(MmINH2, BRA2, AnBROVa, BRB2, AnBROVb, MmSTRP2);
+id id3(MmINH3, BRA3, AnBROVa, BRB3, AnBROVb, MmSTRP2);
+id id4(MmINH4, BRA4, AnBROVa, BRB4, AnBROVb, MmSTRP2);
+id id5(MmINH5, BRA5, AnBROVa, BRB5, AnBROVb, MmSTRP2);
+id id6(MmINH6, BRA6, AnBROVa, BRB6, AnBROVb, MmSTRP2);
+id id7(MmINH7, BRA7, AnBROVa, BRB7, AnBROVb, MmSTRP2);
+id id8(MmINH8, BRA8, AnBROVa, BRB8, AnBROVb, MmSTRP2);
+id id9(MmINH9, BRA9, AnBROVa, BRB9, AnBROVb, MmSTRP2);
+id id10(MmINH10, BRA10, AnBROVa, BRB10, AnBROVb, MmSTRP2);
+id id11(MmINH11, BRA11, AnBROVa, BRB11, AnBROVb, MmSTRP2);
+id id12(MmINH12, BRA12, AnBROVa, BRB12, AnBROVb, MmSTRP2);
+id id13(MmINH13, BRA13, AnBROVa, BRB13, AnBROVb, MmSTRP2);
+id id14(MmINH14, BRA14, AnBROVa, BRB14, AnBROVb, MmSTRP2);
 
 wire [14:1] inh;
 assign inh = {MmINH1, MmINH2, MmINH3, MmINH4, MmINH5, MmINH6, MmINH7, MmINH8, MmINH9, MmINH10, MmINH11, MmINH12, MmINH13, MmINH14};

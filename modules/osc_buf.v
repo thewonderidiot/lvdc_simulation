@@ -24,27 +24,27 @@ wire TP18;
 // 10-94
 osc osc1(CLK);
 
-bfr_shp bfr_shp1(CLK, TP16);
-ia1 ia11(TP16, BOT1);
+bfr_shp bfr_shp1(TP16, CLK);
+ia1 ia11(BOT1, TP16);
 
-bfr_shp bfr_shp2(CLK, TP6);
-ia1 ia12(TP6, BOT2);
+bfr_shp bfr_shp2(TP6, CLK);
+ia1 ia12(BOT2, TP6);
 
-bfr_shp bfr_shp3(CLK, TP18);
-ia1 ia13(TP18, BOT3);
+bfr_shp bfr_shp3(TP18, CLK);
+ia1 ia13(BOT3, TP18);
 
 // 10-95
-ia2 ia21(BOT1, TP9);
-bfr_pa bfr_pa1(TP9, BO1N);
-vi vi1(TP9, BO1);
+ia2 ia21(TP9, BOT1);
+bfr_pa bfr_pa1(BO1N, TP9);
+vi vi1(BO1, TP9);
 
-ia2 ia22(BOT2, TP15);
-bfr_pa bfr_pa2(TP15, BO2N);
-vi vi2(TP15, BO2);
+ia2 ia22(TP15, BOT2);
+bfr_pa bfr_pa2(BO2N, TP15);
+vi vi2(BO2, TP15);
 
-ia2 ia23(BOT3, TP4);
-bfr_pa bfr_pa3(TP4, BO3N);
-vi vi3(TP4, BO3);
+ia2 ia23(TP4, BOT3);
+bfr_pa bfr_pa3(BO3N, TP4);
+vi vi3(BO3, TP4);
 
 endmodule
 `default_nettype wire

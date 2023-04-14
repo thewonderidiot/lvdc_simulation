@@ -2,12 +2,12 @@
 `default_nettype none
 
 module cg2(
-    input wire a1,
-    input wire a2,
-    output wire y
+    output wire y,
+    input wire a,
+    input wire b
 );
 
-assign y = a1 & a2;
+assign y = a & b;
 
 endmodule
 `default_nettype wire

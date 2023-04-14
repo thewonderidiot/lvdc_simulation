@@ -2,13 +2,13 @@
 `default_nettype none
 
 module tmv(
+    output wire y,
     input wire en1,
     input wire en2,
     input wire en3,
     input wire a1,
     input wire a2,
-    input wire a3,
-    output wire y
+    input wire a3
 );
 
 wire int_a1;

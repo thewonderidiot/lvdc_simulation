@@ -2,10 +2,10 @@
 `default_nettype none
 
 module dld(
+    output wire y,
     input wire volt,
     input wire gate,
-    input wire clk,
-    output wire y
+    input wire clk
 );
 
 assign y = volt & gate & clk;

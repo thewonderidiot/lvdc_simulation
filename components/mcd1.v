@@ -2,9 +2,9 @@
 `default_nettype none
 
 module mcd1(
+    output reg y,
     input wire a1,
-    input wire a2,
-    output reg y
+    input wire a2
 );
 
 initial y = 0;

@@ -2,8 +2,8 @@
 `default_nettype none
 
 module mcd2(
-    input wire a,
-    output reg y
+    output reg y,
+    input wire a
 );
 parameter delay = 2500;
 

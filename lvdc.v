@@ -219,8 +219,14 @@ wire CNC;
 wire COC;
 wire CST;
 wire CSTV;
-wand DL31;
-wand DL44;
+wire DL31;
+wire DL31_a1a7;
+wire DL31_a1a10;
+assign DL31 = DL31_a1a7 & DL31_a1a10;
+wire DL44;
+wire DL44_a1a7;
+wire DL44_a1a10;
+assign DL44 = DL44_a1a7 & DL44_a1a10;
 wire DMA;
 wire DMAN;
 wire DMAVN;
@@ -992,8 +998,8 @@ mult_div_1 a1a7(
     .Y1(Y1),
     .Z6(Z6),
     .ZN(ZN),
-    .DL31(DL31),
-    .DL44(DL44),
+    .DL31(DL31_a1a7),
+    .DL44(DL44_a1a7),
     .DTM(DTM),
     .DTMN(DTMN),
     .HOY(HOY),
@@ -1233,8 +1239,8 @@ arithmetic a1a10(
     .AI2N(AI2N),
     .AI3(AI3),
     .AI3N(AI3N),
-    .DL31(DL31),
-    .DL44(DL44),
+    .DL31(DL31_a1a10),
+    .DL44(DL44_a1a10),
     .UTR(UTR)
 );
 

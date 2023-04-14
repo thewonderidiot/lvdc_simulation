@@ -218,8 +218,8 @@ and a30b(na30b, V1, A1P, BO1);
 and a29b(na29a_a29b, V1, na30b, A1QN);
 and a29a(na29a_a29a, V1, A1R);
 inv a29c(A1RN, na29a);
-efl a23a(.a(A1R), .y(A1RP));
-efl a23b(.a(A1RN), .y(A1RPN));
+efl a23a(A1RP, A1R);
+efl a23b(A1RPN, A1RN);
 
 and a11a(na11a, V1, A2P, BO2);
 and a9a(na9a_a9a, V1, na11a, A2Q);
@@ -229,8 +229,8 @@ and a11b(na11b, V1, A2P, BO2);
 and a10b(na10a_a10b, V1, na11b, A2QN);
 and a10a(na10a_a10a, V1, A2R);
 inv a10c(A2RN, na10a);
-efl a15a(.a(A2R), .y(A2RP));
-efl a15b(.a(A2RN), .y(A2RPN));
+efl a15a(A2RP, A2R);
+efl a15b(A2RPN, A2RN);
 
 and a2a(na2a, V1, A3P, BO3);
 and a8a(na8a_a8a, V1, na2a, A3Q);
@@ -241,19 +241,19 @@ and a1b(na1a_a1b, V1, na2b, A3QN);
 and a1a(na1a_a1a, V1, A3R);
 inv a1c(A3RN, na1a);
 
-tmv a26a(.en1(V5), .en2(V5), .en3(V5), .a1(A1R), .a2(A2R), .a3(A3R), .y(na26a));
-vi a28a(.a(na26a), .y(A1RV));
-tmv a19a(.en1(V5), .en2(V5), .en3(V5), .a1(A1R), .a2(A2R), .a3(A3R), .y(na19a));
-vi a21a(.a(na19a), .y(A2RV));
-tmv a12a(.en1(V5), .en2(V5), .en3(V5), .a1(A1R), .a2(A2R), .a3(A3R), .y(na12a));
-vi a14a(.a(na12a), .y(A3RV));
+tmv a26a(na26a, V5, V5, V5, A1R, A2R, A3R);
+vi a28a(A1RV, na26a);
+tmv a19a(na19a, V5, V5, V5, A1R, A2R, A3R);
+vi a21a(A2RV, na19a);
+tmv a12a(na12a, V5, V5, V5, A1R, A2R, A3R);
+vi a14a(A3RV, na12a);
 
-tmv a27a(.en1(V5), .en2(V5), .en3(V5), .a1(A1RN), .a2(A2RN), .a3(A3RN), .y(na27a));
-vi a28b(.a(na27a), .y(A1RVN));
-tmv a20a(.en1(V5), .en2(V5), .en3(V5), .a1(A1RN), .a2(A2RN), .a3(A3RN), .y(na20a));
-vi a21b(.a(na20a), .y(A2RVN));
-tmv a13a(.en1(V5), .en2(V5), .en3(V5), .a1(A1RN), .a2(A2RN), .a3(A3RN), .y(na13a));
-vi a14b(.a(na13a), .y(A3RVN));
+tmv a27a(na27a, V5, V5, V5, A1RN, A2RN, A3RN);
+vi a28b(A1RVN, na27a);
+tmv a20a(na20a, V5, V5, V5, A1RN, A2RN, A3RN);
+vi a21b(A2RVN, na20a);
+tmv a13a(na13a, V5, V5, V5, A1RN, A2RN, A3RN);
+vi a14b(A3RVN, na13a);
 
 // 10-97
 and a30c(na30c, V1, A1PN, BO1);
@@ -320,8 +320,8 @@ and a15e(na15e, V1, A1SV);
 and a9e(na9d_a9e, V1, na15e, A1P);
 and a9d(na9d_a9d, V1, BO1A, A1P);
 inv a9f(A1PN, na9d);
-efl a16d(.a(A1P), .y(A1PP));
-efl a16e(.a(A1PN), .y(A1PPN));
+efl a16d(A1PP, A1P);
+efl a16e(A1PPN, A1PN);
 
 and a29d(na29d, V1, A2SVN);
 and a22d(na22d_a22d, V1, na29d, A2PN);
@@ -332,8 +332,8 @@ and a29f(na29f, V1, A2SV);
 and a23d(na23c_a23d, V1, na29f, A2P);
 and a23c(na23c_a23c, V1, BO2A, A2P);
 inv a23e(A2PN, na23c);
-efl a30d(.a(A2P), .y(A2PP));
-efl a30e(.a(A2PN), .y(A2PPN));
+efl a30d(A2PP, A2P);
+efl a30e(A2PPN, A2PN);
 
 and a33d(na33d, V1, A3SVN);
 and a26b(na26b_a26b, V1, na33d, A3PN);
@@ -344,43 +344,43 @@ and a33f(na33f, V1, A3SV);
 and a27c(na27b_a27c, V1, na33f, A3P);
 and a27b(na27b_a27b, V1, BO3A, A3P);
 inv a27d(A3PN, na27b);
-efl a34d(.a(A3P), .y(A3PP));
-efl a34e(.a(A3PN), .y(A3PPN));
+efl a34d(A3PP, A3P);
+efl a34e(A3PPN, A3PN);
 
-efl a10d(.a(BO1), .y(BO1P));
-efl a24d(.a(BO2), .y(BO2P));
-efl a28c(.a(BO3), .y(BO3P));
+efl a10d(BO1P, BO1);
+efl a24d(BO2P, BO2);
+efl a28c(BO3P, BO3);
 
-tmv a5d(.en1(V5), .en2(V5), .en3(V5), .a1(A1S), .a2(A2S), .a3(A3S), .y(na5d));
-vi a12b(.a(na5d), .y(A1SV));
-tmv a6d(.en1(V5), .en2(V5), .en3(V5), .a1(A1S), .a2(A2S), .a3(A3S), .y(na6d));
-vi a13b(.a(na6d), .y(A2SV));
-tmv a7d(.en1(V5), .en2(V5), .en3(V5), .a1(A1S), .a2(A2S), .a3(A3S), .y(na7d));
-vi a14c(.a(na7d), .y(A3SV));
+tmv a5d(na5d, V5, V5, V5, A1S, A2S, A3S);
+vi a12b(A1SV, na5d);
+tmv a6d(na6d, V5, V5, V5, A1S, A2S, A3S);
+vi a13b(A2SV, na6d);
+tmv a7d(na7d, V5, V5, V5, A1S, A2S, A3S);
+vi a14c(A3SV, na7d);
 
-tmv a16f(.en1(V5), .en2(V5), .en3(V5), .a1(A1SN), .a2(A2SN), .a3(A3SN), .y(na16f));
-vi a12c(.a(na16f), .y(A1SVN));
-tmv a19b(.en1(V5), .en2(V5), .en3(V5), .a1(A1SN), .a2(A2SN), .a3(A3SN), .y(na19b));
-vi a13c(.a(na19b), .y(A2SVN));
-tmv a20b(.en1(V5), .en2(V5), .en3(V5), .a1(A1SN), .a2(A2SN), .a3(A3SN), .y(na20b));
-vi a14d(.a(na20b), .y(A3SVN));
+tmv a16f(na16f, V5, V5, V5, A1SN, A2SN, A3SN);
+vi a12c(A1SVN, na16f);
+tmv a19b(na19b, V5, V5, V5, A1SN, A2SN, A3SN);
+vi a13c(A2SVN, na19b);
+tmv a20b(na20b, V5, V5, V5, A1SN, A2SN, A3SN);
+vi a14d(A3SVN, na20b);
 
 // 10-99
-efl a10e(.a(BO1), .y(BO1A));
-efl a24e(.a(BO2), .y(BO2A));
-efl a28d(.a(BO3), .y(BO3A));
+efl a10e(BO1A, BO1);
+efl a24e(BO2A, BO2);
+efl a28d(BO3A, BO3);
 
-efl a1d(.a(A1Q), .y(A1QP));
-efl a1e(.a(A1QN), .y(A1QPN));
+efl a1d(A1QP, A1Q);
+efl a1e(A1QPN, A1QN);
 
-efl a2d(.a(A2Q), .y(A2QP));
-efl a2e(.a(A2QN), .y(A2QPN));
+efl a2d(A2QP, A2Q);
+efl a2e(A2QPN, A2QN);
 
-efl a3d(.a(A3Q), .y(A3QP));
-efl a3e(.a(A3QN), .y(A3QPN));
+efl a3d(A3QP, A3Q);
+efl a3e(A3QPN, A3QN);
 
-efl a4d(.a(A3R), .y(A3RP));
-efl a4e(.a(A3RN), .y(A3RPN));
+efl a4d(A3RP, A3R);
+efl a4e(A3RPN, A3RN);
 
 endmodule
 `default_nettype wire

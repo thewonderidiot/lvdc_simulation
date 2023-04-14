@@ -147,13 +147,13 @@ inv a33c(PQRN, na33b);
 and a33b(na33b, V1, PQR);
 
 // 10-13
-dld a2(.volt(V5), .gate(DL44), .clk(BON), .y(DLD44B));
-dl #(43390) dl1(.a(DLD44B), .y(TP3));
-dsa a15(.a(TP3), .y(DL44SA));
+dld a2(DLD44B, V5, DL44, BON);
+dl #(43390) dl1(TP3, DLD44B);
+dsa a15(DL44SA, TP3);
 
-dld a6(.volt(V5), .gate(DL31), .clk(BON), .y(DLD31B));
-dl #(30207) dl2(.a(DLD31B), .y(TP16));
-dsa a21(.a(TP16), .y(DL31SA));
+dld a6(DLD31B, V5, DL31, BON);
+dl #(30207) dl2(TP16, DLD31B);
+dsa a21(DL31SA, TP16);
 
 endmodule
 `default_nettype wire

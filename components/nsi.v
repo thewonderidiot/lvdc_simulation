@@ -2,8 +2,8 @@
 `default_nettype none
 
 module nsi(
-    input wire a,
-    output wire y
+    output wire y,
+    input wire a
 );
 
 assign y = ~a;

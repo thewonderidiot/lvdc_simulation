@@ -2,8 +2,8 @@
 `default_nettype none
 
 module bfr_pa(
-    input wire a,
-    output wire y
+    output wire y,
+    input wire a
 );
 
 assign y = a;

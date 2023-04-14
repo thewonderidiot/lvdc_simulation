@@ -2,8 +2,8 @@
 `default_nettype none
 
 module dl(
-    input wire a,
-    output reg y
+    output reg y,
+    input wire a
 );
 parameter delay = 31000;
 
