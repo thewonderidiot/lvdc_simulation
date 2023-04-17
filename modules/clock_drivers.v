@@ -2,6 +2,8 @@
 `default_nettype none
 
 module clock_drivers(
+    input wire SIM_CLK,
+    input wire SIM_RST,
     input wire BOP,
     input wire CGPP,
     input wire CGPPN,
@@ -101,7 +103,7 @@ cef cefwg(W5, WF);
 cef cefwh(W6, WF);
 cef cefwi(W7, WF);
 cef cefwj(W8, WF);
-inv iw(WN, WF);
+inv iw(WN, WF, SIM_CLK, SIM_RST);
 
 // 10-5
 cg2 cg2x(ncg2x_cg2x, BOP, CGPPN);
@@ -119,7 +121,7 @@ cef cefxg(X5, XF);
 cef cefxh(X6, XF);
 cef cefxi(X7, XF);
 cef cefxj(X8, XF);
-inv ix(XN, XF);
+inv ix(XN, XF, SIM_CLK, SIM_RST);
 
 // 10-6
 cg2 cg2y(ncg2y_cg2y, BOP, CGPP);
@@ -137,7 +139,7 @@ cef cefyg(Y5, YF);
 cef cefyh(Y6, YF);
 cef cefyi(Y7, YF);
 cef cefyj(Y8, YF);
-inv iy(YN, YF);
+inv iy(YN, YF, SIM_CLK, SIM_RST);
 
 // 10-7
 cg2 cg2z(ncg2z_cg2z, BOP, CGPPN);
@@ -155,7 +157,7 @@ cef cefzg(Z5, ZF);
 cef cefzh(Z6, ZF);
 cef cefzi(Z7, ZF);
 cef cefzj(Z8, ZF);
-inv iz(ZN, ZF);
+inv iz(ZN, ZF, SIM_CLK, SIM_RST);
 
 endmodule
 `default_nettype wire

@@ -2,6 +2,8 @@
 `default_nettype none
 
 module buffer_register_12(
+    input wire SIM_CLK,
+    input wire SIM_RST,
     input wire V1,
     input wire AnCBRVN,
     input wire AnSBRYV,
@@ -198,8 +200,8 @@ and a23b(na23b, V1, AnSBRZV);
 and a22a(na29b_a22a, na23b, AnTR1V);
 and a29a(na29a, AnCBRVN);
 and a29b(na29b_a29b, V1, na29a, BRx1);
-inv a29c(BRx1N, na29b);
-inv #(0) a22c(BRx1, na22b);
+inv a29c(BRx1N, na29b, SIM_CLK, SIM_RST);
+inv #(0) a22c(BRx1, na22b, SIM_CLK, SIM_RST);
 and a22b(na22b, V1, BRx1N);
 
 and a23c(na15b_a23c, MaSA2);
@@ -210,8 +212,8 @@ and a9a(na15b_a9a, V1, na8a);
 and a8a(na8a, AnTR2V, AnSBRZV);
 and a15a(na15a, AnCBRVN);
 and a15b(na15b_a15b, V1, na15a, BRx2);
-inv a15c(BRx2N, na15b);
-inv #(0) a8c(BRx2, na8b);
+inv a15c(BRx2N, na15b, SIM_CLK, SIM_RST);
+inv #(0) a8c(BRx2, na8b, SIM_CLK, SIM_RST);
 and a8b(na8b, V1, BRx2N);
 
 and a9b(na10b_a9b, MaSA4);
@@ -222,8 +224,8 @@ and a11c(na11c, V1, AnTR4V);
 and a17a(na10b_a17a, na11c, AnSBRZV);
 and a10a(na10a, AnCBRVN);
 and a10b(na10b_a10b, V1, na10a, BRx4);
-inv a10c(BRx4N, na10b);
-inv #(0) a17c(BRx4, na17b);
+inv a10c(BRx4N, na10b, SIM_CLK, SIM_RST);
+inv #(0) a17c(BRx4, na17b, SIM_CLK, SIM_RST);
 and a17b(na17b, V1, BRx4N);
 
 // 10-129, 10-133
@@ -235,8 +237,8 @@ and a27b(na27b, V1, AnTR7V);
 and a28a(na35b_a28a, na27b, AnSBRZV);
 and a35a(na35a, AnCBRVN);
 and a35b(na35b_a35b, V1, na35a, BRx7);
-inv a35c(BRx7N, na35b);
-inv #(0) a28c(BRx7, na28b);
+inv a35c(BRx7N, na35b, SIM_CLK, SIM_RST);
+inv #(0) a28c(BRx7, na28b, SIM_CLK, SIM_RST);
 and a28b(na28b, V1, BRx7N);
 
 and a27c(na21b_a27c, MaSA10);
@@ -247,8 +249,8 @@ and a13a(na13a, V1, AnTR10V);
 and a14a(na21b_a14a, na13a, AnSBRZV);
 and a21a(na21a, AnCBRVN);
 and a21b(na21b_a21b, V1, na21a, BRx10);
-inv a21c(BRx10N, na21b);
-inv #(0) a14c(BRx10, na14b);
+inv a21c(BRx10N, na21b, SIM_CLK, SIM_RST);
+inv #(0) a14c(BRx10, na14b, SIM_CLK, SIM_RST);
 and a14b(na14b, V1, BRx10N);
 
 // 10-130, 10-134
@@ -260,8 +262,8 @@ and a23e(na23e, V1, AnSBRYV);
 and a22d(na29e_a22d, na23e, AnTR3V);
 and a29d(na29d, AnCBRVN);
 and a29e(na29e_a29e, V1, na29d, BRx3);
-inv a29f(BRx3N, na29e);
-inv #(0) a22f(BRx3, na22e);
+inv a29f(BRx3N, na29e, SIM_CLK, SIM_RST);
+inv #(0) a22f(BRx3, na22e, SIM_CLK, SIM_RST);
 and a22e(na22e, V1, BRx3N);
 
 and a23f(na15e_a23f, MaSA5);
@@ -272,8 +274,8 @@ and a9d(na15e_a9d, V1, na8d);
 and a8d(na8d, AnTR5V, AnSBRYV);
 and a15d(na15d, AnCBRVN);
 and a15e(na15e_a15e, V1, na15d, BRx5);
-inv a15f(BRx5N, na15e);
-inv #(0) a8f(BRx5, na8e);
+inv a15f(BRx5N, na15e, SIM_CLK, SIM_RST);
+inv #(0) a8f(BRx5, na8e, SIM_CLK, SIM_RST);
 and a8e(na8e, V1, BRx5N);
 
 and a9e(na10e_a9e, MaSA8);
@@ -284,8 +286,8 @@ and a11f(na11f, V1, AnTR8V);
 and a17d(na10e_a17d, na11f, AnSBRYV);
 and a10d(na10d, AnCBRVN);
 and a10e(na10e_a10e, V1, na10d, BRx8);
-inv a10f(BRx8N, na10e);
-inv #(0) a17f(BRx8, na17e);
+inv a10f(BRx8N, na10e, SIM_CLK, SIM_RST);
+inv #(0) a17f(BRx8, na17e, SIM_CLK, SIM_RST);
 and a17e(na17e, V1, BRx8N);
 
 // 10-131, 10-135
@@ -297,8 +299,8 @@ and a27e(na27e, V1, AnTR11V);
 and a28d(na35e_a28d, na27e, AnSBRYV);
 and a35d(na35d, AnCBRVN);
 and a35e(na35e_a35e, V1, na35d, BRx11);
-inv a35f(BRx11N, na35e);
-inv #(0) a28f(BRx11, na28e);
+inv a35f(BRx11N, na35e, SIM_CLK, SIM_RST);
+inv #(0) a28f(BRx11, na28e, SIM_CLK, SIM_RST);
 and a28e(na28e, V1, BRx11N);
 
 and a27f(na21e_a27f, MaSA13);
@@ -309,8 +311,8 @@ and a13d(na13d, V1, AnTR13V);
 and a14d(na21e_a14d, na13d, AnSBRYV);
 and a21d(na21d, AnCBRVN);
 and a21e(na21e_a21e, V1, na21d, BRx13);
-inv a21f(BRx13N, na21e);
-inv #(0) a14f(BRx13, na14e);
+inv a21f(BRx13N, na21e, SIM_CLK, SIM_RST);
+inv #(0) a14f(BRx13, na14e, SIM_CLK, SIM_RST);
 and a14e(na14e, V1, BRx13N);
 
 endmodule

@@ -2,6 +2,8 @@
 `default_nettype none
 
 module memory(
+    input wire SIM_CLK,
+    input wire SIM_RST,
     input wire AnAX0VN,
     input wire AnAX1VN,
     input wire AnAX2VN,
@@ -113,14 +115,14 @@ wire MmSTRP3;
 wire MmSTROB;
 
 // 10-154
-mcd1 mcd1a(MmSTRP1, AnRDMVN, MmSYNCV);
-mcd2 #(2500) mcd2a(MmSTRP2, MmSTRP1);
-mcd2 #(1500) mcd2b(MmSTRP3, MmSTRP2);
+mcd1 mcd1a(MmSTRP1, AnRDMVN, MmSYNCV, SIM_CLK, SIM_RST);
+mcd2 #(2500) mcd2a(MmSTRP2, MmSTRP1, SIM_CLK, SIM_RST);
+mcd2 #(1500) mcd2b(MmSTRP3, MmSTRP2, SIM_CLK, SIM_RST);
 
-mcd1 mcd1b(MmRDP1, MmSYNCV, AnRDMV);
-mcd2 #(2500) mcd2c(MmRDP2, MmRDP1);
-mcd2 #(1500) mcd2d(MmRDP3, MmRDP2);
-vsg vsga(MmSTROB, MmRDP3, AnINHBSV);
+mcd1 mcd1b(MmRDP1, MmSYNCV, AnRDMV, SIM_CLK, SIM_RST);
+mcd2 #(2500) mcd2c(MmRDP2, MmRDP1, SIM_CLK, SIM_RST);
+mcd2 #(1500) mcd2d(MmRDP3, MmRDP2, SIM_CLK, SIM_RST);
+vsg vsga(MmSTROB, MmRDP3, AnINHBSV, SIM_CLK, SIM_RST);
 
 // Address decoding
 reg [11:0] address;

@@ -3,7 +3,18 @@
 
 module lvdc_sim;
 
-reg CSTN = 1; reg DATAV = 0;
+reg SIM_CLK;
+initial SIM_CLK = 0;
+
+`ifdef TARGET_FPGA
+always #12.20703125 SIM_CLK = !SIM_CLK;
+`endif
+
+reg SIM_RST = 0;
+
+
+reg CSTN = 1;
+reg DATAV = 0;
 reg DIN = 0;
 reg HALTV = 1;
 reg INTCV = 0;
@@ -37,6 +48,8 @@ always @(posedge WDA) begin
 end
 
 lvdc lvdc1(
+    .SIM_CLK(SIM_CLK),
+    .SIM_RST(SIM_RST),
     .CSTN(CSTN),
     .DATAV(DATAV),
     .DIN(DIN),
@@ -53,7 +66,8 @@ lvdc lvdc1(
 
 initial begin
     $dumpfile("lvdc.fst");
-    $dumpvars(3, lvdc_sim);
+    $dumpvars(4, lvdc_sim);
+    #100 SIM_RST = 1;
     #100000 HALTV = 0;
     #5000000 $finish;
 end

@@ -2,6 +2,8 @@
 `default_nettype none
 
 module mult_div_1(
+    input wire SIM_CLK,
+    input wire SIM_RST,
     input wire V1,
     input wire V4MOD4,
     input wire AI3V,
@@ -286,8 +288,8 @@ assign na35a = na35a_a35a | na35a_a35b;
 and a17a(na17a, Z6, OP2VN, PBV);
 and a16a(na17b_a16a, na17a, OP4VN, OP1V, G2V);
 and a17b(na17b_a17b, V4MOD4, HOY);
-inv a17c(HOYN, na17b);
-inv #(0) a18c(HOY, na18a);
+inv a17c(HOYN, na17b, SIM_CLK, SIM_RST);
+inv #(0) a18c(HOY, na18a, SIM_CLK, SIM_RST);
 and a18a(na18a_a18a, V4MOD4, HOYN);
 and a25a(na25a_a25a, Z6, PAV, P2VN);
 and a18b(na18a_a18b, na25a, TMVN);
@@ -296,15 +298,15 @@ and a33a(na25a_a33a, G2V);
 and a15a(na15b_a15a, Z6, na16b, OP4VN);
 and a16b(na16b, OP3VN, OP1V, PBV, G2V);
 and a15b(na15b_a15b, V4MOD4, VOY);
-inv a15c(VOYN, na15b);
-inv #(0) a22c(VOY, na22a);
+inv a15c(VOYN, na15b, SIM_CLK, SIM_RST);
+inv #(0) a22c(VOY, na22a, SIM_CLK, SIM_RST);
 and a22a(na22a_a22a, V4MOD4, VOYN);
 and a23a(na23a, G5V, P1VN, PCVN, P2VN);
 and a22b(na22a_a22b, Y1, na23a);
 
 and a4a(na4a, V1, Q9N);
-inv #(0) a4b(Q9, na4a);
-inv a11c(Q9N, na11a);
+inv #(0) a4b(Q9, na4a, SIM_CLK, SIM_RST);
+inv a11c(Q9N, na11a, SIM_CLK, SIM_RST);
 and a11a(na11a_a11a, ZN, Q9);
 and a11b(na11a_a11b, W2, Q8V);
 and a10a(na11a_a10a, W2, na10b, TBCV, OP1V, OP2V);
@@ -320,7 +322,7 @@ and a29b(na29b, X7, P3VN, HOYVN, VOYV);
 and a30b(na30b_a30b, na29b, Q9);
 and a24a(na30b_a24a, Z6, PR2V, P3N, HOYV);
 and a24b(na30b_a24b, Z6, PR10, P3N, HOYVN);
-inv a30c(DL44, na30b);
+inv a30c(DL44, na30b, SIM_CLK, SIM_RST);
 
 and a25b(na25b, Y1, HOYV, G4VN);
 and a32a(na31b_a32a, na25b, PBV, P2VN, G5V);
@@ -330,7 +332,7 @@ and a31a(na31a, Y1, P3VN);
 and a31b(na31b_a31b, na31a, STP);
 and a26a(na31b_a26a, X7, na33b, Q9);
 and a33b(na33b, TBCV);
-inv a31c(DL31, na31b);
+inv a31c(DL31, na31b, SIM_CLK, SIM_RST);
 
 // 10-15
 and a12a(na19b_a12a, Y1, HOYV, P2VN, PBV);
@@ -338,12 +340,12 @@ and a26b(na26b, Y1, VOYV);
 and a12b(na19b_a12b, na26b, G4VN, P2VN, PBV);
 and a19a(na19a, P2N, P3N);
 and a19b(na19b_a19b, V4MOD4, na19a, RUNV);
-inv a19c(P1N, na19b);
+inv a19c(P1N, na19b, SIM_CLK, SIM_RST);
 
 and a28a(na20a_a28a, Z6, PAV, P3VN);
 and a20a(na20a_a20a, V4MOD4, na20b, RUNV);
 and a20b(na20b, P1N, P3N);
-inv a20c(P2N, na20a);
+inv a20c(P2N, na20a, SIM_CLK, SIM_RST);
 
 and a26c(na26c, Y1, PCV);
 and a28b(na27b_a28b, na26c, STP, G5V, G6VN);
@@ -351,21 +353,21 @@ and a33c(na33c, Y1, PBV);
 and a21a(na27b_a21a, na33c, STP, G4V, G5VN);
 and a27a(na27a, P1N);
 and a27b(na27b_a27b, V4MOD4, na27a, P2N);
-inv a27c(P3N, na27b);
+inv a27c(P3N, na27b, SIM_CLK, SIM_RST);
 
 and a21b(na14a_a21b, Z6, HOYV, G4V, DTMVN);
 and a13a(na14a_a13a, Z6, VOYV, G7V, DTMVN);
 and a14a(na14a_a14a, V4MOD4, TM);
-inv a14b(TMN, na14a);
-inv #(0) a7c(TM, na7a);
+inv a14b(TMN, na14a, SIM_CLK, SIM_RST);
+inv #(0) a7c(TM, na7a, SIM_CLK, SIM_RST);
 and a7a(na7a_a7a, V4MOD4, TMN);
 and a7b(na7a_a7b, Z6, na14c, G1VN);
 and a14c(na14c, G7VN, DTMV);
 
 and a13b(na6a_a13b, Z6, G2V, G3VN, TMV);
 and a6a(na6a_a6a, V4MOD4, DTM);
-inv a6b(DTMN, na6a);
-inv #(0) a5c(DTM, na5a);
+inv a6b(DTMN, na6a, SIM_CLK, SIM_RST);
+inv #(0) a5c(DTM, na5a, SIM_CLK, SIM_RST);
 and a5a(na5a_a5a, V4MOD4, DTMN);
 and a6c(na5a_a6c, Z6, na5b, G2V);
 and a5b(na5b, TMVN);
@@ -374,8 +376,8 @@ and a5b(na5b, TMVN);
 and a3a(na10d_a3a, W2, HOYV, P2VN, TBCV);
 and a10c(na10d_a10c, Z6, MD0N);
 and a10d(na10d_a10d, V1, MD1N);
-inv #(0) a10e(MD1, na10d);
-inv a11f(MD1N, na11d);
+inv #(0) a10e(MD1, na10d, SIM_CLK, SIM_RST);
+inv a11f(MD1N, na11d, SIM_CLK, SIM_RST);
 and a11d(na11d_a11d, V1, MD1);
 and a11e(na11d_a11e, Z6, MD0);
 and a3b(na11d_a3b, na4c, HOYV, P2VN, P3VN);
@@ -384,8 +386,8 @@ and a4c(na4c, X7, TRSV);
 and a5d(na7e_a5d, W2, HOYVN, P2VN, TBCV);
 and a7d(na7e_a7d, Z6, MD4N);
 and a7e(na7e_a7e, V1, MD5N);
-inv #(0) a7f(MD5, na7e);
-inv a6f(MD5N, na6d);
+inv #(0) a7f(MD5, na7e, SIM_CLK, SIM_RST);
+inv a6f(MD5N, na6d, SIM_CLK, SIM_RST);
 and a6d(na6d_a6d, V1, MD5);
 and a6e(na6d_a6e, Z6, MD4);
 and a5e(na6d_a5e, na4d, HOYVN, P2VN, P3VN);
@@ -393,45 +395,45 @@ and a4d(na4d, X7, TRSV);
 
 and a18d(na18e_a18d, Y1, MD1N);
 and a18e(na18e_a18e, V4MOD4, MD2N);
-inv #(0) a18f(MD2, na18e);
-inv a17f(MD2N, na17d);
+inv #(0) a18f(MD2, na18e, SIM_CLK, SIM_RST);
+inv a17f(MD2N, na17d, SIM_CLK, SIM_RST);
 and a17d(na17d_a17d, V1, MD2);
 and a17e(na17d_a17e, Y1, MD1);
 
 and a14d(na14e_a14d, Y1, MD5N);
 and a14e(na14e_a14e, V1, MD6N);
-inv #(0) a14f(MD6, na14e);
-inv a21e(MD6N, na21c);
+inv #(0) a14f(MD6, na14e, SIM_CLK, SIM_RST);
+inv a21e(MD6N, na21c, SIM_CLK, SIM_RST);
 and a21c(na21c_a21c, V1, MD6);
 and a21d(na21c_a21d, Y1, MD5);
 
 and a28c(na28d_a28c, X7, MD6N);
 and a28d(na28d_a28d, V4MOD4, MD7N);
-inv #(0) a28e(MD7, na28d);
-inv a35c(MD7N, na35a);
+inv #(0) a28e(MD7, na28d, SIM_CLK, SIM_RST);
+inv a35c(MD7N, na35a, SIM_CLK, SIM_RST);
 and a35a(na35a_a35a, V1, MD7);
 and a35b(na35a_a35b, X7, MD6);
 
 // 10-17
 and a19d(na19e_a19d, X7, MD2N);
 and a19e(na19e_a19e, V1, MD3N);
-inv #(0) a19f(MD3, na19e);
-inv a12e(MD3N, na12c);
+inv #(0) a19f(MD3, na19e, SIM_CLK, SIM_RST);
+inv a12e(MD3N, na12c, SIM_CLK, SIM_RST);
 and a12c(na12c_a12c, V1, MD3);
 and a12d(na12c_a12d, X7, MD2);
 
 and a13c(na13d_a13c, W2, MD3N);
 and a13d(na13d_a13d, V1, MD4N);
-inv #(0) a13e(MD4, na13d);
-inv a20f(MD4N, na20d);
+inv #(0) a13e(MD4, na13d, SIM_CLK, SIM_RST);
+inv a20f(MD4N, na20d, SIM_CLK, SIM_RST);
 and a20d(na20d_a20d, V1, MD4);
 and a20e(na20d_a20e, W2, MD3);
 
 and a16c(na2a_a16c, X7, SG2N, PR0V, ESDV);
 and a16d(na2a_a16d, X7, SG2, PR0VN, ESDV);
 and a2a(na2a_a2a, V1, K1);
-inv a2b(K1N, na2a);
-inv #(0) a9e(K1, na9c);
+inv a2b(K1N, na2a, SIM_CLK, SIM_RST);
+inv #(0) a9e(K1, na9c, SIM_CLK, SIM_RST);
 and a9c(na9c_a9c, V1, K1N);
 and a23c(na9c_a23c, X7, SG2N, PR0VN, ESDVN);
 and a23d(na9c_a23d, X7, SG2, PR0V, ESDVN);
@@ -442,8 +444,8 @@ and a9d(na9d, G5V);
 and a15d(na1a_a15d, Y1, SG1N, PR1, TFDV);
 and a15e(na1a_a15e, Y1, SG1, PR1N, TFDV);
 and a1a(na1a_a1a, V1, K2);
-inv a1b(K2N, na1a);
-inv #(0) a8d(K2, na8b);
+inv a1b(K2N, na1a, SIM_CLK, SIM_RST);
+inv #(0) a8d(K2, na8b, SIM_CLK, SIM_RST);
 and a8b(na8b_a8b, V1, K2N);
 and a29c(na8b_a29c, Y1, SG1N, PR1N, TFDVN);
 and a29d(na8b_a29d, Y1, SG1, PR1, TFDVN);

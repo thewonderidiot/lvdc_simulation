@@ -2,6 +2,8 @@
 `default_nettype none
 
 module delay_line(
+    input wire SIM_CLK,
+    input wire SIM_RST,
     input wire V1,
     input wire V5,
     input wire BON,
@@ -93,66 +95,66 @@ wire na34b;
 and a9a(na9a, W7);
 and a8a(na5a_a8a, W7, na9a, DL44SA);
 and a5a(na5a_a5a, ZN, PRN);
-inv #(0) a8b(PR, na5a);
-inv a9c(PRN, na9b);
+inv #(0) a8b(PR, na5a, SIM_CLK, SIM_RST);
+inv a9c(PRN, na9b, SIM_CLK, SIM_RST);
 and a9b(na9b, V1, PR);
 
 and a17a(na17a, X3);
 and a16a(na16b_a16a, X3, na17a, DL44SA);
 and a16b(na16b_a16b, WN, MD0N);
-inv #(0) a16c(MD0, na16b);
-inv a17c(MD0N, na17b);
+inv #(0) a16c(MD0, na16b, SIM_CLK, SIM_RST);
+inv a17c(MD0N, na17b, SIM_CLK, SIM_RST);
 and a17b(na17b, V1, MD0);
 
 and a30a(na30a, Y8);
 and a23a(na23b_a23a, Y8, na30a, DL44SA);
 and a23b(na23b_a23b, XN, MR0N);
-inv #(0) a23c(MR0, na23b);
-inv a30c(MR0N, na30b);
+inv #(0) a23c(MR0, na23b, SIM_CLK, SIM_RST);
+inv a30c(MR0N, na30b, SIM_CLK, SIM_RST);
 and a30b(na30b, V1, MR0);
 
 and a25a(na25a, Z2);
 and a24a(na24b_a24a, Z2, na25a, DL44SA);
 and a24b(na24b_a24b, YN, ACC0N);
-inv #(0) a24c(ACC0, na24b);
-inv a25c(ACC0N, na25b);
+inv #(0) a24c(ACC0, na24b, SIM_CLK, SIM_RST);
+inv a25c(ACC0N, na25b, SIM_CLK, SIM_RST);
 and a25b(na25b, V1, ACC0);
 
 and a13a(na13a, W7);
 and a14a(na14b_a14a, W7, na13a, DL31SA);
 and a14b(na14b_a14b, ZN, STPN);
-inv #(0) a14c(STP, na14b);
-inv a13c(STPN, na13b);
+inv #(0) a14c(STP, na14b, SIM_CLK, SIM_RST);
+inv a13c(STPN, na13b, SIM_CLK, SIM_RST);
 and a13b(na13b, V1, STP);
 
 and a19a(na19a, X3);
 and a20a(na20b_a20a, X3, na19a, DL31SA);
 and a20b(na20b_a20b, WN, AI0N);
-inv #(0) a20c(AI0, na20b);
-inv a19c(AI0N, na19b);
+inv #(0) a20c(AI0, na20b, SIM_CLK, SIM_RST);
+inv a19c(AI0N, na19b, SIM_CLK, SIM_RST);
 and a19b(na19b, V1, AI0);
 
 and a34a(na34a, Y8);
 and a27a(na27b_a27a, Y8, na34a, DL31SA);
 and a27b(na27b_a27b, XN, NUN);
-inv #(0) a27c(NU, na27b);
-inv a34c(NUN, na34b);
+inv #(0) a27c(NU, na27b, SIM_CLK, SIM_RST);
+inv a34c(NUN, na34b, SIM_CLK, SIM_RST);
 and a34b(na34b, V1, NU);
 
 and a33a(na33a, Z2);
 and a26a(na26b_a26a, Z2, na33a, DL31SA);
 and a26b(na26b_a26b, YN, PQRN);
-inv #(0) a26c(PQR, na26b);
-inv a33c(PQRN, na33b);
+inv #(0) a26c(PQR, na26b, SIM_CLK, SIM_RST);
+inv a33c(PQRN, na33b, SIM_CLK, SIM_RST);
 and a33b(na33b, V1, PQR);
 
 // 10-13
 dld a2(DLD44B, V5, DL44, BON);
-dl #(43390) dl1(TP3, DLD44B);
+dl #(43383) dl1(TP3, DLD44B, SIM_CLK, SIM_RST);
 dsa a15(DL44SA, TP3);
 
 dld a6(DLD31B, V5, DL31, BON);
-dl #(30207) dl2(TP16, DLD31B);
+dl #(30200) dl2(TP16, DLD31B, SIM_CLK, SIM_RST);
 dsa a21(DL31SA, TP16);
 
 endmodule

@@ -3,17 +3,47 @@
 
 module inv(
     output wire y,
-    input wire a
+    input wire a,
+    input wire clk,
+    input wire rst
 );
+
 parameter iv = 1;
 
-reg rst = 1;
+`ifdef TARGET_FPGA
 
-assign #2 y = rst ? iv : ~a;
+reg yc;
+reg yp;
+reg yn;
 
-initial begin
-    #100 rst = 0;
+initial yc = iv;
+initial yp = iv;
+
+assign y = yc;
+
+always @(*) begin
+    if ((y != yp) & (y == iv)) begin
+        yn = iv;
+    end else begin
+        yn = ~a;
+    end
 end
+
+always @(posedge clk) begin
+    if (~rst) begin
+        yc <= iv;
+        yp <= iv;
+    end else begin
+        yp <= y;
+        yc <= yn;
+    end
+end
+
+`else
+
+assign #2 y = rst ? ~a : iv;
+
+`endif
 
 endmodule
 `default_nettype wire

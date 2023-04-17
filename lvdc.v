@@ -2,6 +2,8 @@
 `default_nettype none
 
 module lvdc(
+    input wire SIM_CLK,
+    input wire SIM_RST,
     input wire CSTN,
     input wire DATAV,
     input wire DIN,
@@ -858,6 +860,8 @@ assign VOYVN = VOYN;
 
 // Modules
 clock_drivers a1a3(
+    .SIM_CLK(SIM_CLK),
+    .SIM_RST(SIM_RST),
     .BOP(BOP),
     .CGPP(CGPP),
     .CGPPN(CGPPN),
@@ -905,6 +909,8 @@ clock_drivers a1a3(
 );
 
 delay_line a1a5(
+    .SIM_CLK(SIM_CLK),
+    .SIM_RST(SIM_RST),
     .V1(V1),
     .V5(V5),
     .BON(BO1N),
@@ -934,6 +940,8 @@ delay_line a1a5(
 );
 
 mult_div_1 a1a7(
+    .SIM_CLK(SIM_CLK),
+    .SIM_RST(SIM_RST),
     .V1(V1),
     .V4MOD4(V4MOD4),
     .AI3V(AI3V),
@@ -1030,6 +1038,8 @@ mult_div_1 a1a7(
 );
 
 mult_div_2 a1a8(
+    .SIM_CLK(SIM_CLK),
+    .SIM_RST(SIM_RST),
     .V1(V1),
     .V4MOD4(V4MOD4),
     .AV(AV),
@@ -1091,6 +1101,8 @@ mult_div_2 a1a8(
 );
 
 mult_div_3 a1a9(
+    .SIM_CLK(SIM_CLK),
+    .SIM_RST(SIM_RST),
     .V1(V1),
     .V4MOD4(V4MOD4),
     .AI2V(AI2V),
@@ -1167,6 +1179,8 @@ mult_div_3 a1a9(
 );
 
 arithmetic a1a10(
+    .SIM_CLK(SIM_CLK),
+    .SIM_RST(SIM_RST),
     .V1(V1),
     .V4MOD3(V4MOD3),
     .A1V(A1V),
@@ -1245,6 +1259,8 @@ arithmetic a1a10(
 );
 
 transfer_reg_2 a1a11(
+    .SIM_CLK(SIM_CLK),
+    .SIM_RST(SIM_RST),
     .V1(V1),
     .V4MOD2(V4MOD2),
     .AV(AV),
@@ -1321,6 +1337,8 @@ transfer_reg_2 a1a11(
 );
 
 op_code_reg a1a12(
+    .SIM_CLK(SIM_CLK),
+    .SIM_RST(SIM_RST),
     .V1(V1),
     .V4MOD5(V4MOD5),
     .A8V(A8V),
@@ -1382,6 +1400,8 @@ op_code_reg a1a12(
 );
 
 timing a1a13(
+    .SIM_CLK(SIM_CLK),
+    .SIM_RST(SIM_RST),
     .V1(V1),
     .V4MOD1(V4MOD1),
 
@@ -1437,6 +1457,8 @@ timing a1a13(
 );
 
 mem_mod_reg_sect_ser a1a14(
+    .SIM_CLK(SIM_CLK),
+    .SIM_RST(SIM_RST),
     .V1(V1),
     .V4MOD6(V4MOD6),
     .AV(AV),
@@ -1493,6 +1515,8 @@ mem_mod_reg_sect_ser a1a14(
 );
 
 mem_timing a1a15(
+    .SIM_CLK(SIM_CLK),
+    .SIM_RST(SIM_RST),
     .V1(V1),
     .V4MOD7(V4MOD7),
     .CSTN(CSTN),
@@ -1575,6 +1599,8 @@ mem_timing a1a15(
 );
 
 error_det_sw a1a16(
+    .SIM_CLK(SIM_CLK),
+    .SIM_RST(SIM_RST),
     .V1(V1),
     .V4MOD7(V4MOD7),
     .CNC(CNC),
@@ -1640,6 +1666,8 @@ error_det_sw a1a16(
 );
 
 mem_parity_check a1a17(
+    .SIM_CLK(SIM_CLK),
+    .SIM_RST(SIM_RST),
     .V1(V1),
     .BRA1(BRA1),
     .BRA1N(BRA1N),
@@ -1702,6 +1730,8 @@ mem_parity_check a1a17(
 );
 
 transfer_reg_1 a1a18(
+    .SIM_CLK(SIM_CLK),
+    .SIM_RST(SIM_RST),
     .V1(V1),
     .V4MOD2(V4MOD2),
     .AI1V(AI1V),
@@ -1766,6 +1796,8 @@ transfer_reg_1 a1a18(
 );
 
 add_reg_x_decode a1a19(
+    .SIM_CLK(SIM_CLK),
+    .SIM_RST(SIM_RST),
     .V1(V1),
     .V4MOD6(V4MOD6),
     .AVN(AVN),
@@ -1840,6 +1872,8 @@ add_reg_x_decode a1a19(
 );
 
 sect_reg_y_decode a1a20(
+    .SIM_CLK(SIM_CLK),
+    .SIM_RST(SIM_RST),
     .V1(V1),
     .V4MOD6(V4MOD6),
     .A9(A9),
@@ -1903,6 +1937,8 @@ sect_reg_y_decode a1a20(
 );
 
 osc_buf a4a11(
+    .SIM_CLK(SIM_CLK),
+    .SIM_RST(SIM_RST),
     .BO1(BO1),
     .BO1N(BO1N),
     .BO2(BO2),
@@ -1912,6 +1948,8 @@ osc_buf a4a11(
 );
 
 clock_logic a4a12(
+    .SIM_CLK(SIM_CLK),
+    .SIM_RST(SIM_RST),
     .V1(V1),
     .V5(V5),
     .BO1(BO1),
@@ -1928,6 +1966,8 @@ clock_logic a4a12(
 );
 
 buffer_register_12 a5a9(
+    .SIM_CLK(SIM_CLK),
+    .SIM_RST(SIM_RST),
     .V1(V1),
     .AnCBRVN(CBRVN),
     .AnSBRYV(SBRYV),
@@ -2005,6 +2045,8 @@ buffer_register_12 a5a9(
 );
 
 buffer_register_12 a5a10(
+    .SIM_CLK(SIM_CLK),
+    .SIM_RST(SIM_RST),
     .V1(V1),
     .AnCBRVN(CBRVN),
     .AnSBRYV(SBRYV),
@@ -2082,6 +2124,8 @@ buffer_register_12 a5a10(
 );
 
 buffer_register_3 a5a11(
+    .SIM_CLK(SIM_CLK),
+    .SIM_RST(SIM_RST),
     .V1(V1),
     .A1CBRVN(CBRVN),
     .A2CBRVN(CBRVN),
@@ -2146,6 +2190,8 @@ buffer_register_3 a5a11(
 );
 
 memory #(0) a6a0(
+    .SIM_CLK(SIM_CLK),
+    .SIM_RST(SIM_RST),
     .AnAX0VN(AX0VN),
     .AnAX1VN(AX1VN),
     .AnAX2VN(AX2VN),
@@ -2233,6 +2279,8 @@ memory #(0) a6a0(
 );
 
 memory #(1) a6a1(
+    .SIM_CLK(SIM_CLK),
+    .SIM_RST(SIM_RST),
     .AnAX0VN(AX0VN),
     .AnAX1VN(AX1VN),
     .AnAX2VN(AX2VN),
@@ -2320,6 +2368,8 @@ memory #(1) a6a1(
 );
 
 memory #(2) a6a2(
+    .SIM_CLK(SIM_CLK),
+    .SIM_RST(SIM_RST),
     .AnAX0VN(AX0VN),
     .AnAX1VN(AX1VN),
     .AnAX2VN(AX2VN),
@@ -2407,6 +2457,8 @@ memory #(2) a6a2(
 );
 
 memory #(3) a6a3(
+    .SIM_CLK(SIM_CLK),
+    .SIM_RST(SIM_RST),
     .AnAX0VN(AX0VN),
     .AnAX1VN(AX1VN),
     .AnAX2VN(AX2VN),
@@ -2494,6 +2546,8 @@ memory #(3) a6a3(
 );
 
 memory #(4) a6a4(
+    .SIM_CLK(SIM_CLK),
+    .SIM_RST(SIM_RST),
     .AnAX0VN(AX0VN),
     .AnAX1VN(AX1VN),
     .AnAX2VN(AX2VN),
@@ -2581,6 +2635,8 @@ memory #(4) a6a4(
 );
 
 memory #(5) a6a5(
+    .SIM_CLK(SIM_CLK),
+    .SIM_RST(SIM_RST),
     .AnAX0VN(AX0VN),
     .AnAX1VN(AX1VN),
     .AnAX2VN(AX2VN),
@@ -2668,6 +2724,8 @@ memory #(5) a6a5(
 );
 
 memory #(6) a6a6(
+    .SIM_CLK(SIM_CLK),
+    .SIM_RST(SIM_RST),
     .AnAX0VN(AX0VN),
     .AnAX1VN(AX1VN),
     .AnAX2VN(AX2VN),
@@ -2755,6 +2813,8 @@ memory #(6) a6a6(
 );
 
 memory #(7) a6a7(
+    .SIM_CLK(SIM_CLK),
+    .SIM_RST(SIM_RST),
     .AnAX0VN(AX0VN),
     .AnAX1VN(AX1VN),
     .AnAX2VN(AX2VN),

@@ -2,6 +2,8 @@
 `default_nettype none
 
 module osc_buf(
+    input wire SIM_CLK,
+    input wire SIM_RST,
     output wire BO1,
     output wire BO1N,
     output wire BO2,
@@ -22,7 +24,7 @@ wire TP16;
 wire TP18;
 
 // 10-94
-osc osc1(CLK);
+osc osc1(CLK, SIM_CLK, SIM_RST);
 
 bfr_shp bfr_shp1(TP16, CLK);
 ia1 ia11(BOT1, TP16);
