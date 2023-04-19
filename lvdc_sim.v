@@ -64,6 +64,15 @@ lvdc lvdc1(
     .ZDA(ZDA)
 );
 
+lvda lvda1(
+    .SIM_CLK(SIM_CLK),
+    .SIM_RST(SIM_RST),
+    .WDA(WDA),
+    .XDA(XDA),
+    .YDA(YDA),
+    .ZDA(ZDA)
+);
+
 initial begin
     $dumpfile("lvdc.fst");
     $dumpvars(4, lvdc_sim);

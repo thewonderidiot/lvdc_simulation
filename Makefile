@@ -20,8 +20,11 @@ LVDC_MODULES = add_reg_x_decode \
 	       transfer_reg_1 \
 	       transfer_reg_2 \
 
+LVDA_MODULES = timing_1 \
+
 COMPONENTS = bfr_pa \
 	     bfr_shp \
+	     cd4 \
 	     cef \
 	     cg1 \
 	     cg2 \
@@ -42,13 +45,16 @@ COMPONENTS = bfr_pa \
 	     vsg \
 
 LVDC_MODULE_SOURCES = $(addsuffix .v, $(addprefix lvdc/modules/, $(LVDC_MODULES)))
+LVDA_MODULE_SOURCES = $(addsuffix .v, $(addprefix lvda/modules/, $(LVDA_MODULES)))
 COMPONENT_SOURCES = $(addsuffix .v, $(addprefix components/, $(COMPONENTS)))
 
-SOURCES = $(LVDC_MODULE_SOURCES) \
+SOURCES = lvdc_sim.v \
 	  $(COMPONENT_SOURCES) \
 	  lvdc/lvdc.v \
-	  lvdc_sim.v
-
+	  $(LVDC_MODULE_SOURCES) \
+	  lvda/lvda.v \
+	  $(LVDA_MODULE_SOURCES) \
+	  
 .phony: all
 all: lvdc_sim
 
