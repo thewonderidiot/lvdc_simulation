@@ -1,24 +1,24 @@
-MODULES = add_reg_x_decode \
-	  arithmetic \
-	  buffer_register_12 \
-	  buffer_register_3 \
-	  clock_drivers \
-	  clock_logic \
-	  delay_line \
-	  error_det_sw \
-	  mem_mod_reg_sect_ser \
-	  mem_parity_check \
-	  mem_timing \
-	  memory \
-	  mult_div_1 \
-	  mult_div_2 \
-	  mult_div_3 \
-	  op_code_reg \
-	  osc_buf \
-	  sect_reg_y_decode \
-	  timing \
-	  transfer_reg_1 \
-	  transfer_reg_2 \
+LVDC_MODULES = add_reg_x_decode \
+	       arithmetic \
+	       buffer_register_12 \
+	       buffer_register_3 \
+	       clock_drivers \
+	       clock_logic \
+	       delay_line \
+	       error_det_sw \
+	       mem_mod_reg_sect_ser \
+	       mem_parity_check \
+	       mem_timing \
+	       memory \
+	       mult_div_1 \
+	       mult_div_2 \
+	       mult_div_3 \
+	       op_code_reg \
+	       osc_buf \
+	       sect_reg_y_decode \
+	       timing \
+	       transfer_reg_1 \
+	       transfer_reg_2 \
 
 COMPONENTS = bfr_pa \
 	     bfr_shp \
@@ -41,12 +41,12 @@ COMPONENTS = bfr_pa \
 	     vi \
 	     vsg \
 
-MODULE_SOURCES = $(addsuffix .v, $(addprefix modules/, $(MODULES)))
+LVDC_MODULE_SOURCES = $(addsuffix .v, $(addprefix lvdc/modules/, $(LVDC_MODULES)))
 COMPONENT_SOURCES = $(addsuffix .v, $(addprefix components/, $(COMPONENTS)))
 
-SOURCES = $(MODULE_SOURCES) \
+SOURCES = $(LVDC_MODULE_SOURCES) \
 	  $(COMPONENT_SOURCES) \
-	  lvdc.v \
+	  lvdc/lvdc.v \
 	  lvdc_sim.v
 
 .phony: all
