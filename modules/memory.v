@@ -207,16 +207,34 @@ id id14(MmINH14, BRA14, AnBROVa, BRB14, AnBROVb, MmSTRP2);
 wire [14:1] inh;
 assign inh = {MmINH1, MmINH2, MmINH3, MmINH4, MmINH5, MmINH6, MmINH7, MmINH8, MmINH9, MmINH10, MmINH11, MmINH12, MmINH13, MmINH14};
 
+reg [28:1] data;
+initial data = 28'b0;
+
+`ifdef TARGET_FPGA
+always @(posedge SIM_CLK) begin
+    if (MmSTRP3) begin
+        core[address] <= AnSYL0VN ? {data[28:15], inh} : {inh, data[14:1]};
+    end
+end
+`else
 always @(*) begin
     if (MmSTRP3) begin
         core[address] = AnSYL0VN ? {data[28:15], inh} : {inh, data[14:1]};
     end
 end
+`endif
 
 
 // Sense
-wire [28:1] data;
-assign data = core[address];
+`ifdef TARGET_FPGA
+always @(posedge SIM_CLK) begin
+    data <= core[address];
+end
+`else
+always @(*) begin
+    data = core[address];
+end
+`endif
 
 wire [14:1] syllable;
 assign syllable = AnSYL0VN ? data[14:1] : data[28:15];
