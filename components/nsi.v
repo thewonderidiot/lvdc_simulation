@@ -3,10 +3,14 @@
 
 module nsi(
     output wire y,
-    input wire a
+    input wire a,
+    input wire clk,
+    input wire rst
 );
 
-assign y = ~a;
+parameter iv = 0;
+
+inv #(iv) inv0(y, a, clk, rst);
 
 endmodule
 `default_nettype wire
