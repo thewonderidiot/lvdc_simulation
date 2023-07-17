@@ -98,6 +98,18 @@ H7P53  HPC     L7P53
 H7P54  HPC     L7P54
 H7P54B HPC     L7P54B
 H8P1   HPC     L8P1
+H8P2   HPC     L8P2
+H8P3   HPC     L8P3
+H8P4   HPC     L8P4
+H8P5   HPC     L8P5
+H8P6   HPC     L8P6
+H8P7   HPC     L8P7
+H8P8   HPC     L8P8
+H8P9   HPC     L8P9
+H8P10  HPC     L8P10
+H8P11  HPC     L8P11
+H8P12  HPC     L8P12
+H8P13  HPC     L8P13
 
 *      PROGRAM ENTRANCE.
 L1P1   CDSD    0,13
@@ -1008,60 +1020,112 @@ H7P55  HPC     L7P55
 L15P1M TRA     L95P1
        ORGDD   0,1,1,76,0,13,0
 *      CHECK MPH
-L8P1   CLA     =O044766134
+L8P1   CLA     H8P1
+       STO     VAR1
+       CLA     H8P2
+       STO     VAR2
+       CLA     =O044766134
        MPH     =O00002
        SUB     =O000002236
        TNZ     L15P1H
-L8P2   CLA     =(0.36)B0
+L8P2   CLA     H8P2
+       STO     VAR1
+       CLA     H8P3
+       STO     VAR2
+       CLA     =(0.36)B0
        MPH     =(0.74)B0
        SUB     =(0.2664)B0
        TNZ     L15P1H
-L8P3   CLA     =(-0.36)B0
+L8P3   CLA     H8P3
+       STO     VAR1
+       CLA     H8P4
+       STO     VAR2
+       CLA     =(-0.36)B0
        MPH     =(0.74)B0
        ADD     =(0.2664)B0
        ADD     =O000000002
        TNZ     L15P1H
-L8P4   CLA     =(.6)B0
+L8P4   CLA     H8P4
+       STO     VAR1
+       CLA     H8P5
+       STO     VAR2
+       CLA     =(.6)B0
        MPH     =(-.71)B0
        ADD     =(.426)B0
        SUB     =O000000002
        TNZ     L15P1H
-L8P5   CLA     =(.777)B0
+L8P5   CLA     H8P5
+       STO     VAR1
+       CLA     H8P6
+       STO     VAR2
+       CLA     =(.777)B0
        MPH     =(.222)B0
        SUB     =(.172494)B0
        ADD     =O000000002
        TNZ     L15P1H
-L8P6   CLA     =(-.981)B0
+L8P6   CLA     H8P6
+       STO     VAR1
+       CLA     H8P7
+       STO     VAR2
+       CLA     =(-.981)B0
        MPH     =(-.543)B0
        SUB     =(.532683)B0
        SUB     =O000000010
        TNZ     L15P1H
-L8P7   CLA     =(.123)B0
+L8P7   CLA     H8P7
+       STO     VAR1
+       CLA     H8P8
+       STO     VAR2
+       CLA     =(.123)B0
        MPH     =(-.456)B0
        ADD     =(.056088)B0
        SUB     =O000000002
        TNZ     L15P1H
-L8P8   CLA     =(-.404)B0
+L8P8   CLA     H8P8
+       STO     VAR1
+       CLA     H8P9
+       STO     VAR2
+       CLA     =(-.404)B0
        MPH     =(.303)B0
        ADD     =(.122412)B0
        ADD     =O000000002
        TNZ     L15P1H
-L8P9   CLA     =(-.862)B0
+L8P9   CLA     H8P9
+       STO     VAR1
+       CLA     H8P10
+       STO     VAR2
+       CLA     =(-.862)B0
        MPH     =(-.917)B0
        SUB     =(.790454)B0
        SUB     =O000000002
        TNZ     L15P1H
-L8P10  CLA     =(.551)B0
+L8P10  CLA     H8P10
+       STO     VAR1
+       CLA     H8P11
+       STO     VAR2
+       CLA     =(.551)B0
        MPH     =O000000002
        TNZ     L15P1H
-L8P11  CLA     =O000000002
+L8P11  CLA     H8P11
+       STO     VAR1
+       CLA     H8P12
+       STO     VAR2
+       CLA     =O000000002
        MPH     =(-.134)B0
        TNZ     L15P1H
-L8P12  CLA     =(.551)B0
+L8P12  CLA     H8P12
+       STO     VAR1
+       CLA     H8P13
+       STO     VAR2
+       CLA     =(.551)B0
        MPH     =O777777776
        ADD     =O000000006
        TNZ     L15P1H
-L8P13  CLA     =O777777776
+L8P13  CLA     H8P13
+       STO     VAR1
+       CLA     H8P13        FIXME UPDATE
+       STO     VAR2
+       CLA     =O777777776
        MPH     =(-.551)B0
        SUB     =O000000004
        TNZ     L15P1H
