@@ -110,6 +110,11 @@ H8P10  HPC     L8P10
 H8P11  HPC     L8P11
 H8P12  HPC     L8P12
 H8P13  HPC     L8P13
+H9P1   HPC     L9P1
+H9P2   HPC     L9P2
+H9P3   HPC     L9P3
+H9P4   HPC     L9P4
+H9P4A  HPC     L9P4A
 
 *      PROGRAM ENTRANCE.
 L1P1   CDSD    0,13
@@ -1123,16 +1128,69 @@ L8P12  CLA     H8P12
        TNZ     L15P1H
 L8P13  CLA     H8P13
        STO     VAR1
-       CLA     H8P13        FIXME UPDATE
+       CLA     H9P1
        STO     VAR2
        CLA     =O777777776
        MPH     =(-.551)B0
        SUB     =O000000004
        TNZ     L15P1H
-       TRA     L8P1
-
-
-
+*      CHECK STO PQR WITH ALL ONES.
+L9P1   CLA     H9P1
+       STO     VAR1
+       CLA     H9P2
+       STO     VAR1
+       CLA     =O777777776
+       STO     775
+       CLA     =O000000000
+       CLA     775
+       TNZ     L9P1A
+       TRA     L15P1H
+L9P1A  ADD     =O000000002
+       TNZ     L15P1H
+*      CHECK STO PQR WITH ALL ZEROS.
+L9P2   CLA     H9P2
+       STO     VAR1
+       CLA     H9P3
+       STO     VAR2
+       CLA     =O000000000
+       STO     775
+       CLA     =O777777776
+       CLA     775
+       TNZ     L15P1H
+*      CHECK STO PQR WITH DATA.
+L9P3   CLA     H9P3
+       STO     VAR1
+       CLA     H9P4
+       STO     VAR2
+       CLA     =O123456712
+       STO     775
+       CLA     =O000000000
+       STO     TEMP1
+       CLA     =O123456712
+       SUB     775
+       TNZ     L15P1H
+*      CHECK PQR ACROSS MODULES.
+L9P4   CLA     H9P4
+       STO     VAR1
+       CLA     H9P4
+       STO     VAR2
+       CLA     =O321123324
+       STO     775
+       CLA     =O000000000
+       HOP     H9P4A
+       ORGDD   2,16,1,1,2,16,101
+L9P4A  CLA     775
+       SUB     =O321123324
+       TNZ     L15P1N
+       STO     775
+       CLA     =O321123324
+       HOP     H9P4B
+H9P4B  HPC     L9P4B
+L15P1N TRA     L95P1
+       ORGDD   0,1,1,324,0,13,0
+L9P4B  CLA     775
+       TNZ     L15P1H
+       TRA     L9P4
 
 
        ORGDD   0,16,0,41,0,16,212
