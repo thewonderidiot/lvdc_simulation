@@ -1008,12 +1008,63 @@ H7P55  HPC     L7P55
 L15P1M TRA     L95P1
        ORGDD   0,1,1,76,0,13,0
 *      CHECK MPH
-L8P1   CLA     =(0.36)B0
+L8P1   CLA     =O044766134
+       MPH     =O00002
+       SUB     =O000002236
+       TNZ     L15P1H
+L8P2   CLA     =(0.36)B0
        MPH     =(0.74)B0
        SUB     =(0.2664)B0
-       CLA     =O044766134
-       MPH     =O00002
-       STO     VAR2
+       TNZ     L15P1H
+L8P3   CLA     =(-0.36)B0
+       MPH     =(0.74)B0
+       ADD     =(0.2664)B0
+       ADD     =O000000002
+       TNZ     L15P1H
+L8P4   CLA     =(.6)B0
+       MPH     =(-.71)B0
+       ADD     =(.426)B0
+       SUB     =O000000002
+       TNZ     L15P1H
+L8P5   CLA     =(.777)B0
+       MPH     =(.222)B0
+       SUB     =(.172494)B0
+       ADD     =O000000002
+       TNZ     L15P1H
+L8P6   CLA     =(-.981)B0
+       MPH     =(-.543)B0
+       SUB     =(.532683)B0
+       SUB     =O000000010
+       TNZ     L15P1H
+L8P7   CLA     =(.123)B0
+       MPH     =(-.456)B0
+       ADD     =(.056088)B0
+       SUB     =O000000002
+       TNZ     L15P1H
+L8P8   CLA     =(-.404)B0
+       MPH     =(.303)B0
+       ADD     =(.122412)B0
+       ADD     =O000000002
+       TNZ     L15P1H
+L8P9   CLA     =(-.862)B0
+       MPH     =(-.917)B0
+       SUB     =(.790454)B0
+       SUB     =O000000002
+       TNZ     L15P1H
+L8P10  CLA     =(.551)B0
+       MPH     =O000000002
+       TNZ     L15P1H
+L8P11  CLA     =O000000002
+       MPH     =(-.134)B0
+       TNZ     L15P1H
+L8P12  CLA     =(.551)B0
+       MPH     =O777777776
+       ADD     =O000000006
+       TNZ     L15P1H
+L8P13  CLA     =O777777776
+       MPH     =(-.551)B0
+       SUB     =O000000004
+       TNZ     L15P1H
        TRA     L8P1
 
 
