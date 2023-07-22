@@ -11,7 +11,9 @@ module lvdc(
     input wire INTCV,
     input wire TER,
     output wire AI3V,
+    output wire G5VN,
     output wire PBV,
+    output wire PBVN,
     output wire WDA,
     output wire XDA,
     output wire YDA,
@@ -295,7 +297,6 @@ wire G4VN;
 wire G5;
 wire G5N;
 wire G5V;
-wire G5VN;
 wire G6;
 wire G6N;
 wire G6V;
@@ -531,7 +532,6 @@ wire PAV;
 wire PAVN;
 wire PB;
 wire PBN;
-wire PBVN;
 wire PC;
 wire PCN;
 wire PCV;

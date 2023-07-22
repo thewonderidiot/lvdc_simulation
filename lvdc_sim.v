@@ -21,7 +21,9 @@ reg INTCV = 0;
 reg TER = 0;
 
 wire AI3V;
+wire G5VN;
 wire PBV;
+wire PBVN;
 wire WDA;
 wire XDA;
 wire YDA;
@@ -57,7 +59,9 @@ lvdc lvdc1(
     .INTCV(INTCV),
     .TER(TER),
     .AI3V(AI3V),
+    .G5VN(G5VN),
     .PBV(PBV),
+    .PBVN(PBVN),
     .WDA(WDA),
     .XDA(XDA),
     .YDA(YDA),
@@ -67,6 +71,8 @@ lvdc lvdc1(
 lvda lvda1(
     .SIM_CLK(SIM_CLK),
     .SIM_RST(SIM_RST),
+    .G5VN(G5VN),
+    .PBVN(PBVN),
     .WDA(WDA),
     .XDA(XDA),
     .YDA(YDA),
