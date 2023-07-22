@@ -20,10 +20,22 @@ reg HALTV = 1;
 reg INTCV = 0;
 reg TER = 0;
 
+wire A1V;
+wire A2V;
+wire A3V;
+wire A4V;
+wire A5V;
+wire A6V;
+wire A7V;
+wire A8V;
+wire A9V;
 wire AI3V;
+wire BO1N;
 wire G5VN;
 wire PBV;
 wire PBVN;
+wire PIOV;
+wire TRSV;
 wire WDA;
 wire XDA;
 wire YDA;
@@ -58,10 +70,22 @@ lvdc lvdc1(
     .HALTV(HALTV),
     .INTCV(INTCV),
     .TER(TER),
+    .A1V(A1V),
+    .A2V(A2V),
+    .A3V(A3V),
+    .A4V(A4V),
+    .A5V(A5V),
+    .A6V(A6V),
+    .A7V(A7V),
+    .A8V(A8V),
+    .A9V(A9V),
     .AI3V(AI3V),
+    .BO1N(BO1N),
     .G5VN(G5VN),
     .PBV(PBV),
     .PBVN(PBVN),
+    .PIOV(PIOV),
+    .TRSV(TRSV),
     .WDA(WDA),
     .XDA(XDA),
     .YDA(YDA),
@@ -71,8 +95,21 @@ lvdc lvdc1(
 lvda lvda1(
     .SIM_CLK(SIM_CLK),
     .SIM_RST(SIM_RST),
+    .A1V(A1V),
+    .A2V(A2V),
+    .A3V(A3V),
+    .A4V(A4V),
+    .A5V(A5V),
+    .A6V(A6V),
+    .A7V(A7V),
+    .A8V(A8V),
+    .A9V(A9V),
+    .AI3V(AI3V),
+    .BO1N(BO1N),
     .G5VN(G5VN),
     .PBVN(PBVN),
+    .PIOV(PIOV),
+    .TRSV(TRSV),
     .WDA(WDA),
     .XDA(XDA),
     .YDA(YDA),

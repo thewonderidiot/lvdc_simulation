@@ -67,6 +67,7 @@ module timing_2(
     output wire G7DN,
     output wire PAA,
     output wire PAAN,
+    output wire PABG1,
     output wire PBA,
     output wire PBAN,
     output wire PCA,
@@ -86,7 +87,6 @@ wire ABDN;
 wire CCFHC;
 wire CCFHCN;
 wire G5GC;
-wire PABG1;
 wire PABG1N;
 wire PBG2;
 wire PBG2N;

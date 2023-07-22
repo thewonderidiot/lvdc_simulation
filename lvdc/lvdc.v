@@ -10,10 +10,22 @@ module lvdc(
     input wire HALTV,
     input wire INTCV,
     input wire TER,
+    output wire A1V,
+    output wire A2V,
+    output wire A3V,
+    output wire A4V,
+    output wire A5V,
+    output wire A6V,
+    output wire A7V,
+    output wire A8V,
+    output wire A9V,
     output wire AI3V,
+    output wire BO1N,
     output wire G5VN,
     output wire PBV,
     output wire PBVN,
+    output wire PIOV,
+    output wire TRSV,
     output wire WDA,
     output wire XDA,
     output wire YDA,
@@ -37,23 +49,14 @@ wire AN;
 wire AV;
 wire AVN;
 wire A1;
-wire A1V;
 wire A2;
-wire A2V;
 wire A3;
-wire A3V;
 wire A4;
-wire A4V;
 wire A5;
-wire A5V;
 wire A6;
-wire A6V;
 wire A7;
-wire A7V;
 wire A8;
-wire A8V;
 wire A9;
-wire A9V;
 wire ACC0;
 wire ACC0N;
 wire ACC1;
@@ -138,7 +141,6 @@ wire AY60VN;
 wire AY70N;
 wire AY70VN;
 wire BO1;
-wire BO1N;
 wire BO2;
 wire BO2N;
 wire BO3;
@@ -537,7 +539,6 @@ wire PCN;
 wire PCV;
 wire PCVN;
 wire PIO;
-wire PIOV;
 wire PQR;
 wire PR;
 wire PRN;
@@ -643,7 +644,6 @@ wire TR13;
 wire TR13V;
 wire TRS;
 wire TRSN;
-wire TRSV;
 wire TRSVN;
 wire TTL;
 wire TTLV;
