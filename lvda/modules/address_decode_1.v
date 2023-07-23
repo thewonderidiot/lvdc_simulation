@@ -40,6 +40,7 @@ module address_decode_1(
     output wire A1D,
     output wire A1DN,
     output wire A2D,
+    output wire A3D,
     output wire A3DN,
     output wire A4D,
     output wire A4DN,
@@ -55,7 +56,6 @@ module address_decode_1(
 );
 
 wire A2DN;
-wire A3D;
 wire A5DN;
 wire A7D;
 wire A9D;

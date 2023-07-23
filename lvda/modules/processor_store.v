@@ -18,7 +18,7 @@ module processor_store(
     input wire ITS,
     input wire PAAV,
     input wire PAAVN,
-    input wire SINTA,
+    input wire SINT,
     input wire TC2A,
     input wire TC2AN,
     input wire TC3A,
@@ -29,6 +29,8 @@ module processor_store(
     input wire Y6,
     input wire Z4,
 
+    output wire C1RD,
+    output wire C1RDN,
     output wire C2R,
     output wire C2RN,
     output wire C3R,
@@ -37,8 +39,6 @@ module processor_store(
 
 wire C1R;
 wire C1RN;
-wire C1RD;
-wire C1RDN;
 wire C4R;
 wire C4RN;
 wire DINP;
@@ -106,10 +106,10 @@ assign na21a = na21a_a21a | na21a_a21b | na21a_a25c;
 wire na29a;
 
 // 10-184
-and a16a(na16a_a16a, na16b, SINTA);
+and a16a(na16a_a16a, na16b, SINT);
 and a16b(na16b, Z4, ITS, C2RDN);
 and a8a(na16a_a8a, Z4, C1RD, ITS, C2RDN);
-and a8b(na16a_a8b, W4, C2RD, SINTA, ITS);
+and a8b(na16a_a8b, W4, C2RD, SINT, ITS);
 and a15a(na16a_a15a, W4, ITSN, C2RD, TC2AN);
 and a15b(na16a_a15b, W4, DINFV, TC2A);
 and a23a(na16a_a23a, X4, C3RD, TC3AN);

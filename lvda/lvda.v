@@ -33,11 +33,21 @@ reg V5 = 1;
 // TEMPORARY UNDRIVEN
 reg C4RD = 0;
 reg C4RDV = 0;
+reg CRI1 = 0;
+reg CRI2 = 0;
+reg EM26N = 1;
+reg ICSDN = 1;
+reg INTR1 = 0;
+reg INTR2 = 0;
+reg INTR3 = 0;
+reg INTR4 = 0;
+reg INTR5 = 0;
+reg INTR6 = 0;
+reg INTR7 = 0;
 reg LGAV = 0;
 reg LPAG2N = 1;
-reg SINTA = 0;
-reg TC3A = 0;
-reg TC3AN = 1;
+reg LRR = 0;
+reg OCINT = 0;
 
 // Backplane wires
 wire A1D;
@@ -46,7 +56,9 @@ wire A1DV;
 wire A1DVN;
 wire A2D;
 wire A2DV;
+wire A3D;
 wire A3DN;
+wire A3DV;
 wire A3DVN;
 wire A4D;
 wire A4DN;
@@ -68,6 +80,8 @@ wire AD;
 wire ADN;
 wire ADV;
 wire ADVN;
+wire C1RD;
+wire C1RDN;
 wire C2R;
 wire C2RN;
 wire C2RD;
@@ -146,14 +160,20 @@ wire REXC;
 wire REXCN;
 wire REXCV;
 wire REXCVN;
+wire SINT;
+wire SSIT1;
 wire TC2A;
 wire TC2AN;
+wire TC3A;
+wire TC3AN;
+wire TIN;
 wire W3;
 wire W4;
 wire W7;
 wire X3;
 wire X4;
 wire Y3;
+wire Y4;
 wire Y5;
 wire Y6;
 wire Z1;
@@ -165,6 +185,7 @@ wire Z7;
 assign A1DV = A1D;
 assign A1DVN = A1DN;
 assign A2DV = A2D;
+assign A3DV = A3D;
 assign A3DVN = A3DN;
 assign A4DV = A4D;
 assign A4DVN = A4DN;
@@ -251,6 +272,7 @@ address_decode_1 a3a5(
     .A1D(A1D),
     .A1DN(A1DN),
     .A2D(A2D),
+    .A3D(A3D),
     .A3DN(A3DN),
     .A4D(A4D),
     .A4DN(A4DN),
@@ -358,6 +380,7 @@ timing_1 a3a11(
     .X3(X3),
     .X4(X4),
     .Y3(Y3),
+    .Y4(Y4),
     .Y5(Y5),
     .Y6(Y6),
     .Z1(Z1),
@@ -366,7 +389,7 @@ timing_1 a3a11(
     .Z7(Z7)
 );
 
-int_countdn_proc a4a5(
+int_countdn_proc_1 a4a5(
     .SIM_CLK(SIM_CLK),
     .SIM_RST(SIM_RST),
 
@@ -416,8 +439,10 @@ int_countdn_proc a4a5(
     .C3RD(C3RD),
     .ITS(ITS),
     .PAAVN(PAAVN),
+    .SSIT1(SSIT1),
     .TC2A(TC2A),
-    .TC2AN(TC2AN)
+    .TC2AN(TC2AN),
+    .TIN(TIN)
 );
 
 processor_store a4a12(
@@ -437,7 +462,7 @@ processor_store a4a12(
     .ITS(ITS),
     .PAAV(PAAV),
     .PAAVN(PAAVN),
-    .SINTA(SINTA),
+    .SINT(SINT),
     .TC2A(TC2A),
     .TC2AN(TC2AN),
     .TC3A(TC3A),
@@ -448,10 +473,80 @@ processor_store a4a12(
     .Y6(Y6),
     .Z4(Z4),
 
+    .C1RD(C1RD),
+    .C1RDN(C1RDN),
     .C2R(C2R),
     .C2RN(C2RN),
     .C3R(C3R),
     .C3RN(C3RN)
+);
+
+int_countdn_proc_2 a4a18(
+    .SIM_CLK(SIM_CLK),
+    .SIM_RST(SIM_RST),
+
+    .V1(V1),
+    .V4(V4),
+
+    .A1DVN(A1DVN),
+    .A2DV(A2DV),
+    .A3DV(A3DV),
+    .A3DVN(A3DVN),
+    .A4DV(A4DV),
+    .A5DV(A5DV),
+    .A6DV(A6DV),
+    .A7DVN(A7DVN),
+    .ADVN(ADVN),
+    .C1RD(C1RD),
+    .C1RDN(C1RDN),
+    .C2RDN(C2RDN),
+    .C3RN(C3RN),
+    .C3RD(C3RD),
+    .CRI1(CRI1),
+    .CRI2(CRI2),
+    .EM26N(EM26N),
+    .G1DV(G1DV),
+    .G1DVN(G1DVN),
+    .G2DV(G2DV),
+    .G2DVN(G2DVN),
+    .G3DV(G3DV),
+    .G3DVN(G3DVN),
+    .G4DV(G4DV),
+    .G4DVN(G4DVN),
+    .G5DV(G5DV),
+    .G5DVN(G5DVN),
+    .G6DV(G6DV),
+    .G6DVN(G6DVN),
+    .G7DV(G7DV),
+    .G7DVN(G7DVN),
+    .ICSDN(ICSDN),
+    .INTR1(INTR1),
+    .INTR2(INTR2),
+    .INTR3(INTR3),
+    .INTR4(INTR4),
+    .INTR5(INTR5),
+    .INTR6(INTR6),
+    .INTR7(INTR7),
+    .LGAV(LGAV),
+    .LRR(LRR),
+    .OCINT(OCINT),
+    .PAAV(PAAV),
+    .PABG1V(PABG1V),
+    .PBAV(PBAV),
+    .PBG2V(PBG2V),
+    .PCAV(PCAV),
+    .SSIT1(SSIT1),
+    .TC2A(TC2A),
+    .TIN(TIN),
+    .W4(W4),
+    .X4(X4),
+    .Y4(Y4),
+    .Y5(Y5),
+    .Z4(Z4),
+
+    .SINT(SINT),
+    .TC3A(TC3A),
+    .TC3AN(TC3AN)
 );
 
 endmodule

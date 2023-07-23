@@ -1,7 +1,7 @@
 `timescale 1ns/1ps
 `default_nettype none
 
-module int_countdn_proc(
+module int_countdn_proc_1(
     input wire SIM_CLK,
     input wire SIM_RST,
 
@@ -51,8 +51,10 @@ module int_countdn_proc(
     output wire C3RD,
     output wire ITS,
     output wire PAAVN,
+    output wire SSIT1,
     output wire TC2A,
-    output wire TC2AN
+    output wire TC2AN,
+    output wire TIN
 );
 
 wire BOR2;
@@ -61,11 +63,9 @@ wire BOR3;
 wire BOR3N;
 wire C3RDN;
 wire ITSN;
-wire SSIT1;
 wire SSIT2;
 wire SSIT3;
 wire TI;
-wire TIN;
 
 wire na1b;
 wire na1b_a1a;
