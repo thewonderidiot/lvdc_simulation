@@ -38,7 +38,15 @@ module address_decode_1(
     input wire Z7,
 
     output wire A1D,
+    output wire A1DN,
     output wire A2D,
+    output wire A3DN,
+    output wire A4D,
+    output wire A4DN,
+    output wire A5D,
+    output wire A6D,
+    output wire A6DN,
+    output wire A7DN,
     output wire A8D,
     output wire A8DN,
     output wire DINF,
@@ -46,18 +54,10 @@ module address_decode_1(
     output wire PIOD
 );
 
-wire A1DN;
 wire A2DN;
 wire A3D;
-wire A3DN;
-wire A4D;
-wire A4DN;
-wire A5D;
 wire A5DN;
-wire A6D;
-wire A6DN;
 wire A7D;
-wire A7DN;
 wire A9D;
 wire A9DN;
 wire DAINF;

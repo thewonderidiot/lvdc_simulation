@@ -66,10 +66,10 @@ module timing_2(
     output wire G7D,
     output wire G7DN,
     output wire PAA,
-    output wire PAAN,
     output wire PABG1,
     output wire PBA,
     output wire PBAN,
+    output wire PBG2,
     output wire PCA,
     output wire PCAN,
     output wire PCG2,
@@ -87,8 +87,8 @@ wire ABDN;
 wire CCFHC;
 wire CCFHCN;
 wire G5GC;
+wire PAAN;
 wire PABG1N;
-wire PBG2;
 wire PBG2N;
 wire PBGC;
 wire PCG2N;
@@ -434,8 +434,8 @@ inv #(0) a26c(G5GC, na26b, SIM_CLK, SIM_RST);
 and a23c(na23c, W3, PBAVN, PCAV, G7DVN, G2DVN);
 and a30c(na30d_a30c, na23c, ADVN);
 and a30d(na30d_a30d, V4, PAA);
-inv a30e(PAAN, na30d, SIM_CLK, SIM_RST);
-inv #(0) a31f(PAA, na31d, SIM_CLK, SIM_RST);
+inv #(0) a30e(PAAN, na30d, SIM_CLK, SIM_RST);
+inv a31f(PAA, na31d, SIM_CLK, SIM_RST);
 and a31d(na31d_a31d, V4, PAAN);
 and a31e(na31d_a31e, na25d);
 and a25d(na25d, Y3, G2DV, PBGC);

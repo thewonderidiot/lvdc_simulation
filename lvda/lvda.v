@@ -31,23 +31,35 @@ reg V4 = 1;
 reg V5 = 1;
 
 // TEMPORARY UNDRIVEN
-reg C2RD = 0;
-reg C2RDN = 1;
-reg C3RD = 0;
 reg C4RD = 0;
 reg C4RDV = 0;
-reg ITS = 0;
+reg LGAV = 0;
+reg LPAG2N = 1;
 reg SINTA = 0;
-reg TC2A = 0;
-reg TC2AN = 1;
 reg TC3A = 0;
 reg TC3AN = 1;
 
 // Backplane wires
 wire A1D;
+wire A1DN;
 wire A1DV;
+wire A1DVN;
 wire A2D;
 wire A2DV;
+wire A3DN;
+wire A3DVN;
+wire A4D;
+wire A4DN;
+wire A4DV;
+wire A4DVN;
+wire A5D;
+wire A5DV;
+wire A6D;
+wire A6DN;
+wire A6DV;
+wire A6DVN;
+wire A7DN;
+wire A7DVN;
 wire A8D;
 wire A8DN;
 wire A8DV;
@@ -56,6 +68,13 @@ wire AD;
 wire ADN;
 wire ADV;
 wire ADVN;
+wire C2R;
+wire C2RN;
+wire C2RD;
+wire C2RDN;
+wire C3R;
+wire C3RN;
+wire C3RD;
 wire CCFH;
 wire CCFHN;
 wire CCFHV;
@@ -90,6 +109,7 @@ wire G7D;
 wire G7DN;
 wire G7DV;
 wire G7DVN;
+wire ITS;
 wire PAA;
 wire PAAN;
 wire PAAV;
@@ -102,6 +122,8 @@ wire PBA;
 wire PBAN;
 wire PBAV;
 wire PBAVN;
+wire PBG2;
+wire PBG2V;
 wire PCA;
 wire PCAN;
 wire PCAV;
@@ -124,6 +146,8 @@ wire REXC;
 wire REXCN;
 wire REXCV;
 wire REXCVN;
+wire TC2A;
+wire TC2AN;
 wire W3;
 wire W4;
 wire W7;
@@ -134,11 +158,20 @@ wire Y5;
 wire Y6;
 wire Z1;
 wire Z4;
+wire Z5;
 wire Z7;
 
 // TMR bypass for breadboard LVDA
 assign A1DV = A1D;
+assign A1DVN = A1DN;
 assign A2DV = A2D;
+assign A3DVN = A3DN;
+assign A4DV = A4D;
+assign A4DVN = A4DN;
+assign A5DV = A5D;
+assign A6DV = A6D;
+assign A6DVN = A6DN;
+assign A7DVN = A7DN;
 assign A8DV = A8D;
 assign A8DVN = A8DN;
 assign ADV = AD;
@@ -161,11 +194,11 @@ assign G6DVN = G6DN;
 assign G7DV = G7D;
 assign G7DVN = G7DN;
 assign PAAV = PAA;
-assign PAAVN = PAAN;
 assign PABG1V = PABG1;
 assign PARSV = PARS;
 assign PBAV = PBA;
 assign PBAVN = PBAN;
+assign PBG2V = PBG2;
 assign PCAV = PCA;
 assign PCAVN = PCAN;
 assign PCG2V = PCG2;
@@ -216,7 +249,15 @@ address_decode_1 a3a5(
     .Z7(Z7),
 
     .A1D(A1D),
+    .A1DN(A1DN),
     .A2D(A2D),
+    .A3DN(A3DN),
+    .A4D(A4D),
+    .A4DN(A4DN),
+    .A5D(A5D),
+    .A6D(A6D),
+    .A6DN(A6DN),
+    .A7DN(A7DN),
     .A8D(A8D),
     .A8DN(A8DN),
     .DINF(DINF),
@@ -287,10 +328,10 @@ timing_2 a3a8(
     .G7D(G7D),
     .G7DN(G7DN),
     .PAA(PAA),
-    .PAAN(PAAN),
     .PABG1(PABG1),
     .PBA(PBA),
     .PBAN(PBAN),
+    .PBG2(PBG2),
     .PCA(PCA),
     .PCAN(PCAN),
     .PCG2(PCG2),
@@ -321,7 +362,62 @@ timing_1 a3a11(
     .Y6(Y6),
     .Z1(Z1),
     .Z4(Z4),
+    .Z5(Z5),
     .Z7(Z7)
+);
+
+int_countdn_proc a4a5(
+    .SIM_CLK(SIM_CLK),
+    .SIM_RST(SIM_RST),
+
+    .V1(V1),
+
+    .A1DVN(A1DVN),
+    .A2DV(A2DV),
+    .A3DVN(A3DVN),
+    .A4DV(A4DV),
+    .A4DVN(A4DVN),
+    .A5DV(A5DV),
+    .A6DV(A6DV),
+    .A6DVN(A6DVN),
+    .A7DVN(A7DVN),
+    .ADV(ADV),
+    .ADVN(ADVN),
+    .C2R(C2R),
+    .C2RN(C2RN),
+    .C3R(C3R),
+    .C3RN(C3RN),
+    .G1DV(G1DV),
+    .G1DVN(G1DVN),
+    .G2DV(G2DV),
+    .G3DV(G3DV),
+    .G3DVN(G3DVN),
+    .G4DV(G4DV),
+    .G4DVN(G4DVN),
+    .G5DV(G5DV),
+    .G5DVN(G5DVN),
+    .G6DVN(G6DVN),
+    .LGAV(LGAV),
+    .LPAG2N(LPAG2N),
+    .PABG1V(PABG1V),
+    .PAAV(PAAV),
+    .PBAV(PBAV),
+    .PBG2V(PBG2V),
+    .PCAV(PCAV),
+    .RECAV(RECAV),
+    .RECCV(RECCV),
+    .W4(W4),
+    .X4(X4),
+    .Y5(Y5),
+    .Z5(Z5),
+
+    .C2RD(C2RD),
+    .C2RDN(C2RDN),
+    .C3RD(C3RD),
+    .ITS(ITS),
+    .PAAVN(PAAVN),
+    .TC2A(TC2A),
+    .TC2AN(TC2AN)
 );
 
 processor_store a4a12(
@@ -350,7 +446,12 @@ processor_store a4a12(
     .X4(X4),
     .Y5(Y5),
     .Y6(Y6),
-    .Z4(Z4)
+    .Z4(Z4),
+
+    .C2R(C2R),
+    .C2RN(C2RN),
+    .C3R(C3R),
+    .C3RN(C3RN)
 );
 
 endmodule

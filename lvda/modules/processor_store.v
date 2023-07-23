@@ -27,17 +27,18 @@ module processor_store(
     input wire X4,
     input wire Y5,
     input wire Y6,
-    input wire Z4
+    input wire Z4,
+
+    output wire C2R,
+    output wire C2RN,
+    output wire C3R,
+    output wire C3RN
 );
 
 wire C1R;
 wire C1RN;
 wire C1RD;
 wire C1RDN;
-wire C2R;
-wire C2RN;
-wire C3R;
-wire C3RN;
 wire C4R;
 wire C4RN;
 wire DINP;

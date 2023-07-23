@@ -21,6 +21,7 @@ LVDC_MODULES = add_reg_x_decode \
 	       transfer_reg_2 \
 
 LVDA_MODULES = address_decode_1 \
+	       int_countdn_proc \
 	       processor_store \
 	       timing_1 \
 	       timing_2 \
