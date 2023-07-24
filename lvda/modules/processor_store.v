@@ -34,13 +34,13 @@ module processor_store(
     output wire C2R,
     output wire C2RN,
     output wire C3R,
-    output wire C3RN
+    output wire C3RN,
+    output wire C4R,
+    output wire C4RN
 );
 
 wire C1R;
 wire C1RN;
-wire C4R;
-wire C4RN;
 wire DINP;
 wire DLO;
 wire ITSN;

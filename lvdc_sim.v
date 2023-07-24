@@ -13,11 +13,12 @@ always #12.20703125 SIM_CLK = !SIM_CLK;
 reg SIM_RST = 0;
 
 
-reg CSTN = 1;
+reg CST = 0;
 reg DIN = 0;
-reg HALTV = 1;
+reg HLT = 1;
 reg INTCV = 0;
 reg TER = 0;
+reg TE1H = 0;
 
 wire A1V;
 wire A2V;
@@ -29,9 +30,11 @@ wire A7V;
 wire A8V;
 wire A9V;
 wire AI3V;
-wire DATAV;
 wire BO1N;
+wire CSTN;
+wire DATAV;
 wire G5VN;
+wire HALTV;
 wire PBV;
 wire PBVN;
 wire PIOV;
@@ -106,23 +109,28 @@ lvda lvda1(
     .A9V(A9V),
     .AI3V(AI3V),
     .BO1N(BO1N),
+    .CST(CST),
     .G5VN(G5VN),
+    .HLT(HLT),
     .PBVN(PBVN),
     .PIOV(PIOV),
+    .TE1H(TE1H),
     .TRSV(TRSV),
     .WDA(WDA),
     .XDA(XDA),
     .YDA(YDA),
     .ZDA(ZDA),
 
-    .DATAV(DATAV)
+    .CSTN(CSTN),
+    .DATAV(DATAV),
+    .HALTV(HALTV)
 );
 
 initial begin
     $dumpfile("lvdc.fst");
     $dumpvars(4, lvdc_sim);
     #100 SIM_RST = 1;
-    #100000 HALTV = 0;
+    #100000 HLT = 0;
     #5000000 $finish;
 end
 

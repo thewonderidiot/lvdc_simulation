@@ -16,9 +16,7 @@ module sd_sampler_1(
     input wire A6DVN,
     input wire A7DV,
     input wire C1RD,
-    input wire C4RDA,
-    input wire C4RDB,
-    input wire C4RDC,
+    input wire C4RD,
     input wire CCSL,
     input wire CODGV,
     input wire DARO,
@@ -205,21 +203,21 @@ and a23c(na16b_a23c, na30b);
 and a16b(na16b_a16b, V1, DATA);
 inv a16c(DATA2N, na16b, SIM_CLK, SIM_RST);
 
-and a3a(na10b_a3a, Y2, na3b, PAAVN, PCAV, C4RDA);
+and a3a(na10b_a3a, Y2, na3b, PAAVN, PCAV, C4RD);
 and a3b(na3b, MBYPD, A5DV, A4DVN);
-and a2a(na10b_a2a, Y2, na2b, PAAVN, PCAV, C4RDB);
+and a2a(na10b_a2a, Y2, na2b, PAAVN, PCAV, C4RD);
 and a2b(na2b, MBYPD, A5DVN, A4DV);
-and a17a(na17a_a17a, Y2, C4RDC, MBYPD);
+and a17a(na17a_a17a, Y2, C4RD, MBYPD);
 and a17b(na17a_a17b, A5DVN, A4DV);
 and a17c(na10b_a17c, na17a, PBAV); 
 and a11a(na11a_a11a, Y2, A5DV, A4DVN);
-and a11b(na11a_a11b, MBYPD, C4RDB);
+and a11b(na11a_a11b, MBYPD, C4RD);
 and a11c(na10b_a11c, na11a, PBAV);
 and a9a(na10b_a9a, na9b, MBYPD);
-and a9b(na9b_a9b, Y2, C4RDC, PCAV);
+and a9b(na9b_a9b, Y2, C4RD, PCAV);
 and a9c(na9b_a9c, PAAVN, A5DVN);
 and a10a(na9b_a10a, A4DVN);
-and a1a(na1a_a1a, Y2, C4RDA, MBYPD);
+and a1a(na1a_a1a, Y2, C4RD, MBYPD);
 and a1b(na1a_a1b, A5DVN, A4DVN);
 and a1c(na10b_a1c, na1a, PBAV);
 and a10b(na10b_a10b, V1, DATA);

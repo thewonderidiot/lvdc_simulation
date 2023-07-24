@@ -15,16 +15,21 @@ module lvda(
     input wire A9V,
     input wire AI3V,
     input wire BO1N,
+    input wire CST,
     input wire G5VN,
+    input wire HLT,
     input wire PBVN,
     input wire PIOV,
+    input wire TE1H,
     input wire TRSV,
     input wire WDA,
     input wire XDA,
     input wire YDA,
     input wire ZDA,
 
-    output wire DATAV
+    output wire CSTN,
+    output wire DATAV,
+    output wire HALTV
 );
 
 // Power rails
@@ -33,11 +38,6 @@ reg V4 = 1;
 reg V5 = 1;
 
 // TEMPORARY UNDRIVEN
-reg C4RD = 0;
-reg C4RDA = 0;
-reg C4RDB = 0;
-reg C4RDC = 0;
-reg C4RDV = 0;
 reg CCSL = 0;
 reg CODGV = 0;
 reg CRI1 = 0;
@@ -71,6 +71,10 @@ reg ML13 = 0;
 reg ML14 = 0;
 reg MLAV = 0;
 reg OCINT = 0;
+reg QBP = 0;
+reg QCP = 0;
+reg RBP = 0;
+reg RCP = 0;
 reg TAGS = 0;
 
 // Backplane wires
@@ -117,6 +121,10 @@ wire C2RDN;
 wire C3R;
 wire C3RN;
 wire C3RD;
+wire C4R;
+wire C4RN;
+wire C4RD;
+wire C4RDV;
 wire CCFH;
 wire CCFHN;
 wire CCFHV;
@@ -153,6 +161,7 @@ wire G7D;
 wire G7DN;
 wire G7DV;
 wire G7DVN;
+wire HALT;
 wire ITS;
 wire PAA;
 wire PAAN;
@@ -231,6 +240,7 @@ assign A8DV = A8D;
 assign A8DVN = A8DN;
 assign ADV = AD;
 assign ADVN = ADN;
+assign C4RDV = C4RD;
 assign CCFHV = CCFH;
 assign CCFHVN = CCFHN;
 assign DATAV = DATA;
@@ -249,6 +259,7 @@ assign G6DV = G6D;
 assign G6DVN = G6DN;
 assign G7DV = G7D;
 assign G7DVN = G7DN;
+assign HALTV = HALT;
 assign PAAV = PAA;
 assign PABG1V = PABG1;
 assign PARSV = PARS;
@@ -283,9 +294,7 @@ sd_sampler_1 a2a5(
     .A6DVN(A6DVN),
     .A7DV(A7DV),
     .C1RD(C1RD),
-    .C4RDA(C4RDA),
-    .C4RDB(C4RDB),
-    .C4RDC(C4RDC),
+    .C4RD(C4RD),
     .CCSL(CCSL),
     .CODGV(CODGV),
     .DARO(DARO),
@@ -582,7 +591,9 @@ processor_store a4a12(
     .C2R(C2R),
     .C2RN(C2RN),
     .C3R(C3R),
-    .C3RN(C3RN)
+    .C3RN(C3RN),
+    .C4R(C4R),
+    .C4RN(C4RN)
 );
 
 int_countdn_proc_2 a4a18(
@@ -651,6 +662,45 @@ int_countdn_proc_2 a4a18(
     .SINT(SINT),
     .TC3A(TC3A),
     .TC3AN(TC3AN)
+);
+
+accel_time_proc_1 a4a24(
+    .SIM_CLK(SIM_CLK),
+    .SIM_RST(SIM_RST),
+
+    .V1(V1),
+    .V4(V4),
+
+    .ADV(ADV),
+    .ADVN(ADVN),
+    .C4R(C4R),
+    .C4RN(C4RN),
+    .CST(CST),
+    .G2DV(G2DV),
+    .G3DVN(G3DVN),
+    .G4DV(G4DV),
+    .HLT(HLT),
+    .PAAVN(PAAVN),
+    .PABG1V(PABG1V),
+    .PBG2V(PBG2V),
+    .PCAV(PCAV),
+    .QBP(QBP),
+    .QCP(QCP),
+    .RBP(RBP),
+    .RCP(RCP),
+    .RECAV(RECAV),
+    .RECAVN(RECAVN),
+    .RECCV(RECCV),
+    .RECCVN(RECCVN),
+    .TE1H(TE1H),
+    .W4(W4),
+    .X4(X4),
+    .Y5(Y5),
+    .Z5(Z5),
+
+    .C4RD(C4RD),
+    .CSTN(CSTN),
+    .HALT(HALT)
 );
 
 endmodule
