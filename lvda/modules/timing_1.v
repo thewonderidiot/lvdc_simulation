@@ -13,8 +13,10 @@ module timing_1(
     output wire W3,
     output wire W4,
     output wire W7,
+    output wire X2,
     output wire X3,
     output wire X4,
+    output wire Y2,
     output wire Y3,
     output wire Y4,
     output wire Y5,
@@ -31,13 +33,11 @@ wire W5;
 wire W6;
 wire W8;
 wire X1;
-wire X2;
 wire X5;
 wire X6;
 wire X7;
 wire X8;
 wire Y1;
-wire Y2;
 wire Y7;
 wire Y8;
 wire Z2;

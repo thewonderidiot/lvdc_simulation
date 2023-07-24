@@ -22,7 +22,9 @@ module lvda(
     input wire WDA,
     input wire XDA,
     input wire YDA,
-    input wire ZDA
+    input wire ZDA,
+
+    output wire DATAV
 );
 
 // Power rails
@@ -32,10 +34,17 @@ reg V5 = 1;
 
 // TEMPORARY UNDRIVEN
 reg C4RD = 0;
+reg C4RDA = 0;
+reg C4RDB = 0;
+reg C4RDC = 0;
 reg C4RDV = 0;
+reg CCSL = 0;
+reg CODGV = 0;
 reg CRI1 = 0;
 reg CRI2 = 0;
+reg DOMS = 0;
 reg EM26N = 1;
+reg EMA = 0;
 reg ICSDN = 1;
 reg INTR1 = 0;
 reg INTR2 = 0;
@@ -47,7 +56,22 @@ reg INTR7 = 0;
 reg LGAV = 0;
 reg LPAG2N = 1;
 reg LRR = 0;
+reg ML1_2 = 0;
+reg ML3 = 0;
+reg ML4 = 0;
+reg ML5 = 0;
+reg ML6 = 0;
+reg ML7 = 0;
+reg ML8 = 0;
+reg ML9 = 0;
+reg ML10 = 0;
+reg ML11 = 0;
+reg ML12 = 0;
+reg ML13 = 0;
+reg ML14 = 0;
+reg MLAV = 0;
 reg OCINT = 0;
+reg TAGS = 0;
 
 // Backplane wires
 wire A1D;
@@ -65,12 +89,16 @@ wire A4DN;
 wire A4DV;
 wire A4DVN;
 wire A5D;
+wire A5DN;
 wire A5DV;
+wire A5DVN;
 wire A6D;
 wire A6DN;
 wire A6DV;
 wire A6DVN;
+wire A7D;
 wire A7DN;
+wire A7DV;
 wire A7DVN;
 wire A8D;
 wire A8DN;
@@ -93,6 +121,8 @@ wire CCFH;
 wire CCFHN;
 wire CCFHV;
 wire CCFHVN;
+wire DARO;
+wire DATA;
 wire DINF;
 wire DINFV;
 wire G1D;
@@ -170,8 +200,10 @@ wire TIN;
 wire W3;
 wire W4;
 wire W7;
+wire X2;
 wire X3;
 wire X4;
+wire Y2;
 wire Y3;
 wire Y4;
 wire Y5;
@@ -190,8 +222,10 @@ assign A3DVN = A3DN;
 assign A4DV = A4D;
 assign A4DVN = A4DN;
 assign A5DV = A5D;
+assign A5DVN = A5DN;
 assign A6DV = A6D;
 assign A6DVN = A6DN;
+assign A7DV = A7D;
 assign A7DVN = A7DN;
 assign A8DV = A8D;
 assign A8DVN = A8DN;
@@ -199,6 +233,7 @@ assign ADV = AD;
 assign ADVN = ADN;
 assign CCFHV = CCFH;
 assign CCFHVN = CCFHN;
+assign DATAV = DATA;
 assign DINFV = DINF;
 assign G1DV = G1D;
 assign G1DVN = G1DN;
@@ -233,6 +268,70 @@ assign REXCV = REXC;
 assign REXCVN = REXCN;
 
 // Modules
+sd_sampler_1 a2a5(
+    .SIM_CLK(SIM_CLK),
+    .SIM_RST(SIM_RST),
+
+    .V1(V1),
+    .V4(V4),
+
+    .A3DV(A3DV),
+    .A4DV(A4DV),
+    .A4DVN(A4DVN),
+    .A5DV(A5DV),
+    .A5DVN(A5DVN),
+    .A6DVN(A6DVN),
+    .A7DV(A7DV),
+    .C1RD(C1RD),
+    .C4RDA(C4RDA),
+    .C4RDB(C4RDB),
+    .C4RDC(C4RDC),
+    .CCSL(CCSL),
+    .CODGV(CODGV),
+    .DARO(DARO),
+    .DOMS(DOMS),
+    .EMA(EMA),
+    .G1DV(G1DV),
+    .G1DVN(G1DVN),
+    .G2DV(G2DV),
+    .G2DVN(G2DVN),
+    .G3DV(G3DV),
+    .G3DVN(G3DVN),
+    .G4DV(G4DV),
+    .G4DVN(G4DVN),
+    .G5DV(G5DV),
+    .G5DVN(G5DVN),
+    .G6DV(G6DV),
+    .G6DVN(G6DVN),
+    .G7DV(G7DV),
+    .G7DVN(G7DVN),
+    .ITS(ITS),
+    .ML1_2(ML1_2),
+    .ML3(ML3),
+    .ML4(ML4),
+    .ML5(ML5),
+    .ML6(ML6),
+    .ML7(ML7),
+    .ML8(ML8),
+    .ML9(ML9),
+    .ML10(ML10),
+    .ML11(ML11),
+    .ML12(ML12),
+    .ML13(ML13),
+    .ML14(ML14),
+    .MLAV(MLAV),
+    .PAAV(PAAV),
+    .PAAVN(PAAVN),
+    .PARSV(PARSV),
+    .PBAV(PBAV),
+    .PCAV(PCAV),
+    .TAGS(TAGS),
+    .X2(X2),
+    .Y2(Y2),
+
+    .DATA(DATA)
+);
+
 address_decode_1 a3a5(
     .SIM_CLK(SIM_CLK),
     .SIM_RST(SIM_RST),
@@ -277,11 +376,14 @@ address_decode_1 a3a5(
     .A4D(A4D),
     .A4DN(A4DN),
     .A5D(A5D),
+    .A5DN(A5DN),
     .A6D(A6D),
     .A6DN(A6DN),
+    .A7D(A7D),
     .A7DN(A7DN),
     .A8D(A8D),
     .A8DN(A8DN),
+    .DARO(DARO),
     .DINF(DINF),
     .PARS(PARS),
     .PIOD(PIOD)
@@ -377,8 +479,10 @@ timing_1 a3a11(
     .W3(W3),
     .W4(W4),
     .W7(W7),
+    .X2(X2),
     .X3(X3),
     .X4(X4),
+    .Y2(Y2),
     .Y3(Y3),
     .Y4(Y4),
     .Y5(Y5),

@@ -24,6 +24,7 @@ LVDA_MODULES = address_decode_1 \
 	       int_countdn_proc_1 \
 	       int_countdn_proc_2 \
 	       processor_store \
+	       sd_sampler_1 \
 	       timing_1 \
 	       timing_2 \
 

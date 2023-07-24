@@ -45,24 +45,24 @@ module address_decode_1(
     output wire A4D,
     output wire A4DN,
     output wire A5D,
+    output wire A5DN,
     output wire A6D,
     output wire A6DN,
+    output wire A7D,
     output wire A7DN,
     output wire A8D,
     output wire A8DN,
+    output wire DARO,
     output wire DINF,
     output wire PARS,
     output wire PIOD
 );
 
 wire A2DN;
-wire A5DN;
-wire A7D;
 wire A9D;
 wire A9DN;
 wire DAINF;
 wire DAINFN;
-wire DARO;
 wire DARON;
 wire DINFN;
 wire PIODN;
