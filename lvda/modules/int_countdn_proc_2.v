@@ -64,6 +64,7 @@ module int_countdn_proc_2(
     input wire Y5,
     input wire Z4,
 
+    output wire LPAG2N,
     output wire SINT,
     output wire TC3A,
     output wire TC3AN
@@ -80,7 +81,6 @@ wire INTR4N;
 wire INTR5N;
 wire INTR6N;
 wire INTR7N;
-wire LPAG2N;
 wire LRRP;
 wire LRRPN;
 wire MCFT1;

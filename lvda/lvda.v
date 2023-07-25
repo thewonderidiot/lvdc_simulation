@@ -39,12 +39,14 @@ reg V5 = 1;
 
 // TEMPORARY UNDRIVEN
 reg CCSL = 0;
-reg CODGV = 0;
 reg CRI1 = 0;
 reg CRI2 = 0;
 reg DOMS = 0;
+reg DOMD = 0;
+reg DOMDN = 1;
 reg EM26N = 1;
 reg EMA = 0;
+reg ICR9 = 0;
 reg ICSDN = 1;
 reg INTR1 = 0;
 reg INTR2 = 0;
@@ -54,8 +56,8 @@ reg INTR5 = 0;
 reg INTR6 = 0;
 reg INTR7 = 0;
 reg LGAV = 0;
-reg LPAG2N = 1;
 reg LRR = 0;
+reg LTRDN = 1;
 reg ML1_2 = 0;
 reg ML3 = 0;
 reg ML4 = 0;
@@ -69,13 +71,13 @@ reg ML11 = 0;
 reg ML12 = 0;
 reg ML13 = 0;
 reg ML14 = 0;
-reg MLAV = 0;
 reg OCINT = 0;
 reg QBP = 0;
 reg QCP = 0;
 reg RBP = 0;
 reg RCP = 0;
 reg TAGS = 0;
+reg TCWN = 1;
 
 // Backplane wires
 wire A1D;
@@ -83,7 +85,9 @@ wire A1DN;
 wire A1DV;
 wire A1DVN;
 wire A2D;
+wire A2DN;
 wire A2DV;
+wire A2DVN;
 wire A3D;
 wire A3DN;
 wire A3DV;
@@ -129,10 +133,14 @@ wire CCFH;
 wire CCFHN;
 wire CCFHV;
 wire CCFHVN;
+wire CODG;
+wire CODGV;
 wire DARO;
 wire DATA;
 wire DINF;
+wire DINFN;
 wire DINFV;
+wire DINFVN;
 wire G1D;
 wire G1DN;
 wire G1DV;
@@ -163,6 +171,9 @@ wire G7DV;
 wire G7DVN;
 wire HALT;
 wire ITS;
+wire LPAG2N;
+wire MLA;
+wire MLAV;
 wire PAA;
 wire PAAN;
 wire PAAV;
@@ -226,6 +237,7 @@ wire Z7;
 assign A1DV = A1D;
 assign A1DVN = A1DN;
 assign A2DV = A2D;
+assign A2DVN = A2DN;
 assign A3DV = A3D;
 assign A3DVN = A3DN;
 assign A4DV = A4D;
@@ -243,8 +255,10 @@ assign ADVN = ADN;
 assign C4RDV = C4RD;
 assign CCFHV = CCFH;
 assign CCFHVN = CCFHN;
+assign CODGV = CODG;
 assign DATAV = DATA;
 assign DINFV = DINF;
+assign DINFVN = DINFN;
 assign G1DV = G1D;
 assign G1DVN = G1DN;
 assign G2DV = G2D;
@@ -260,6 +274,7 @@ assign G6DVN = G6DN;
 assign G7DV = G7D;
 assign G7DVN = G7DN;
 assign HALTV = HALT;
+assign MLAV = MLA;
 assign PAAV = PAA;
 assign PABG1V = PABG1;
 assign PARSV = PARS;
@@ -348,13 +363,22 @@ address_decode_1 a3a5(
     .V4(V4),
     .A1V(A1V),
     .A1DV(A1DV),
+    .A1DVN(A1DVN),
     .A2V(A2V),
     .A2DV(A2DV),
+    .A2DVN(A2DVN),
     .A3V(A3V),
+    .A3DVN(A3DVN),
     .A4V(A4V),
+    .A4DVN(A4DVN),
     .A5V(A5V),
+    .A5DVN(A5DVN),
     .A6V(A6V),
+    .A6DV(A6DV),
+    .A6DVN(A6DVN),
     .A7V(A7V),
+    .A7DV(A7DV),
+    .A7DVN(A7DVN),
     .A8V(A8V),
     .A8DV(A8DV),
     .A8DVN(A8DVN),
@@ -362,15 +386,33 @@ address_decode_1 a3a5(
     .ADV(ADV),
     .ADVN(ADVN),
     .AI3V(AI3V),
+    .DINFV(DINFV),
+    .DINFVN(DINFVN),
+    .DOMD(DOMD),
+    .DOMDN(DOMDN),
     .G1DVN(G1DVN),
+    .G2DVN(G2DVN),
+    .G3DV(G3DV),
     .G3DVN(G3DVN),
+    .G4DVN(G4DVN),
+    .G5DVN(G5DVN),
     .G6DV(G6DV),
     .G6DVN(G6DVN),
+    .G7DVN(G7DVN),
+    .ICR9(ICR9),
+    .LTRDN(LTRDN),
     .PAAV(PAAV),
     .PABG1V(PABG1V),
     .PARSV(PARSV),
+    .PBAV(PBAV),
+    .PBG2V(PBG2V),
+    .PCAV(PCAV),
+    .PCAVN(PCAVN),
     .PIOV(PIOV),
     .PIODV(PIODV),
+    .RESMV(RESMV),
+    .SINT(SINT),
+    .TCWN(TCWN),
     .TRSV(TRSV),
     .W7(W7),
     .X3(X3),
@@ -380,6 +422,7 @@ address_decode_1 a3a5(
     .A1D(A1D),
     .A1DN(A1DN),
     .A2D(A2D),
+    .A2DN(A2DN),
     .A3D(A3D),
     .A3DN(A3DN),
     .A4D(A4D),
@@ -392,8 +435,11 @@ address_decode_1 a3a5(
     .A7DN(A7DN),
     .A8D(A8D),
     .A8DN(A8DN),
+    .CODG(CODG),
     .DARO(DARO),
     .DINF(DINF),
+    .DINFN(DINFN),
+    .MLA(MLA),
     .PARS(PARS),
     .PIOD(PIOD)
 );
@@ -659,6 +705,7 @@ int_countdn_proc_2 a4a18(
     .Y5(Y5),
     .Z4(Z4),
 
+    .LPAG2N(LPAG2N),
     .SINT(SINT),
     .TC3A(TC3A),
     .TC3AN(TC3AN)
