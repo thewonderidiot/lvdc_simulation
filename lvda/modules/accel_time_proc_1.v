@@ -36,6 +36,7 @@ module accel_time_proc_1(
     input wire Z5,
 
     output wire C4RD,
+    output wire C4RDN,
     output wire CSTN,
     output wire HALT
 );
@@ -46,7 +47,6 @@ wire AR;
 wire ARN;
 wire BGTF1;
 wire BGTF1N;
-wire C4RDN;
 wire HALTN;
 wire QB;
 wire QC;

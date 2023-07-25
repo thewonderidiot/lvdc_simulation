@@ -17,9 +17,16 @@ module sd_sampler_1(
     input wire A7DV,
     input wire C1RD,
     input wire C4RD,
+    input wire C4RDN,
     input wire CCSL,
     input wire CODGV,
+    input wire CR3,
+    input wire CR4,
+    input wire CRCAV,
     input wire DARO,
+    input wire DIAD,
+    input wire DIN13,
+    input wire DIN14,
     input wire DOMS,
     input wire EMA,
     input wire G1DV,
@@ -36,10 +43,12 @@ module sd_sampler_1(
     input wire G6DVN,
     input wire G7DV,
     input wire G7DVN,
+    input wire GC3,
+    input wire GC4,
+    input wire ICSD,
+    input wire ICSDN,
     input wire ITS,
     input wire ML1_2,
-    input wire ML3,
-    input wire ML4,
     input wire ML5,
     input wire ML6,
     input wire ML7,
@@ -56,19 +65,37 @@ module sd_sampler_1(
     input wire PARSV,
     input wire PBAV,
     input wire PCAV,
+    input wire PCG2V,
+    input wire RESMV,
+    input wire SSA,
+    input wire SSFB4,
+    input wire SSFB5,
     input wire TAGS,
     input wire X2,
     input wire Y2,
+    input wire Z2,
 
     output wire DATA
 );
 
+wire CR3N;
+wire CR4N;
 wire DATA1N;
 wire DATA2N;
 wire DATA3N;
 wire DATA4N;
+wire DIN13N;
+wire DIN14N;
+wire GC3N;
+wire GC4N;
 wire MBYPD;
 wire MBYPDN;
+wire ML3;
+wire ML3N;
+wire ML4;
+wire ML4N;
+wire SSFB4N;
+wire SSFB5N;
 
 wire na1b;
 wire na1b_a1b;
@@ -76,6 +103,19 @@ wire na1b_a1c;
 assign na1b = na1b_a1b & na1b_a1c;
 wire na2b;
 wire na3c;
+wire na6a;
+wire na6a_a6a;
+wire na6a_a12a;
+wire na6a_a12b;
+wire na6a_a13a;
+wire na6a_a13b;
+wire na6a_a20a;
+assign na6a = na6a_a6a | na6a_a12a | na6a_a12b | na6a_a13a | na6a_a13b | na6a_a20a;
+wire na6b;
+wire na7a;
+wire na7a_a7a;
+wire na7a_a7b;
+assign na7a = na7a_a7a | na7a_a7b;
 wire na9b;
 wire na9b_a9b;
 wire na9b_a9c;
@@ -90,6 +130,10 @@ wire na10b_a10b;
 wire na10b_a11f;
 wire na10b_a17e;
 assign na10b = na10b_a1d | na10b_a2a | na10b_a3b | na10b_a9a | na10b_a10b | na10b_a11f | na10b_a17e;
+wire na11a;
+wire na11a_a11a;
+wire na11a_a11b;
+assign na11a = na11a_a11a | na11a_a11b;
 wire na11d;
 wire na11d_a11d;
 wire na11d_a11e;
@@ -114,9 +158,21 @@ wire na17c;
 wire na17c_a17c;
 wire na17c_a17d;
 assign na17c = na17c_a17c & na17c_a17d;
+wire na18a;
+wire na18a_a17a;
+wire na18a_a17b;
+wire na18a_a18a;
+wire na18a_a19a;
+wire na18a_a25a;
+wire na18a_a25b;
+assign na18a = na18a_a17a | na18a_a17b | na18a_a18a | na18a_a19a | na18a_a25a | na18a_a25b;
+wire na18b;
+wire na19b;
 wire na19c;
 wire na19d;
 wire na19e;
+wire na20b;
+wire na20c;
 wire na20d;
 wire na20d_a18d;
 wire na20d_a18e;
@@ -136,6 +192,9 @@ wire na21b_a21c;
 assign na21b = na21b_a21b & na21b_a21c;
 wire na22a;
 wire na22b;
+wire na24a;
+wire na24b;
+wire na24c;
 wire na24d;
 wire na24d_a24d;
 wire na24d_a24e;
@@ -165,6 +224,47 @@ wire na32c_a33b;
 assign na32c = na32c_a24f | na32c_a25e | na32c_a31a | na32c_a31b | na32c_a32c | na32c_a33a | na32c_a33b;
 wire na35b;
 wire na35c;
+
+// 10-104
+dia a29a(GC3N, GC3, SIM_CLK, SIM_RST);
+dia a15a(CR3N, CR3, SIM_CLK, SIM_RST);
+dia a8a(DIN13N, DIN13, SIM_CLK, SIM_RST);
+dia a32a(SSFB4N, SSFB4, SIM_CLK, SIM_RST);
+dia a35a(GC4N, GC4, SIM_CLK, SIM_RST);
+dia a14a(CR4N, CR4, SIM_CLK, SIM_RST);
+dia a3a(DIN14N, DIN14, SIM_CLK, SIM_RST);
+dia a1a(SSFB5N, SSFB5, SIM_CLK, SIM_RST);
+
+and a25a(na18a_a25a, Y2, na24a, C4RDN, PAAV, G2DV);
+and a24a(na24a, G3DVN);
+and a25b(na18a_a25b, X2, na24b, GC3N, PCG2V, ICSDN);
+and a24b(na24b, CRCAV);
+and a17a(na18a_a17a, X2, na24c, CR3N, PCG2V, ICSD);
+and a24c(na24c, CRCAV);
+and a17b(na18a_a17b, X2, DIN13N, PCG2V, DIAD);
+and a19a(na18a_a19a, X2, SSA, SSFB4N, PCG2V);
+and a18a(na18a_a18a, V1, ML3N);
+inv #(0) a18c(ML3, na18a, SIM_CLK, SIM_RST);
+inv a11c(ML3N, na11a, SIM_CLK, SIM_RST);
+and a11a(na11a_a11a, V1, ML3);
+and a11b(na11a_a11b, Z2, na18b, RESMV);
+and a18b(na18b, MLAV);
+
+// 10-105
+and a19b(na19b, Y2, C4RDN, PAAV, G3DV, G4DVN);
+and a20a(na6a_a20a, na19b);
+and a13a(na6a_a13a, X2, na20b, GC4N, PCG2V, ICSDN);
+and a20b(na20b, CRCAV);
+and a13b(na6a_a13b, X2, na20c, PCG2V, ICSD, CR4N);
+and a20c(na20c, CRCAV);
+and a12a(na6a_a12a, X2, DIN14N, DIAD, PCG2V);
+and a12b(na6a_a12b, X2, SSA, PCG2V, SSFB5N);
+and a6a(na6a_a6a, V1, ML4N);
+inv #(0) a6c(ML4, na6a, SIM_CLK, SIM_RST);
+inv a7c(ML4N, na7a, SIM_CLK, SIM_RST);
+and a7a(na7a_a7a, V1, ML4);
+and a7b(na7a_a7b, Z2, na6b, RESMV);
+and a6b(na6b, MLAV);
 
 // 10-127
 and a18d(na20d_a18d, Y2, na19c, ML3, G3DV, G4DVN);

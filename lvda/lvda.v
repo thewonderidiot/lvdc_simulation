@@ -39,14 +39,29 @@ reg V5 = 1;
 
 // TEMPORARY UNDRIVEN
 reg CCSL = 0;
+reg CR1 = 0;
+reg CR2 = 0;
+reg CR3 = 0;
+reg CR4 = 0;
+reg CRCAV = 0;
 reg CRI1 = 0;
 reg CRI2 = 0;
+reg DIAD = 0;
+reg DIN11 = 0;
+reg DIN12 = 0;
+reg DIN13 = 0;
+reg DIN14 = 0;
 reg DOMS = 0;
 reg DOMD = 0;
 reg DOMDN = 1;
 reg EM26N = 1;
 reg EMA = 0;
+reg GC1 = 0;
+reg GC2 = 0;
+reg GC3 = 0;
+reg GC4 = 0;
 reg ICR9 = 0;
+reg ICSD = 0;
 reg ICSDN = 1;
 reg INTR1 = 0;
 reg INTR2 = 0;
@@ -58,9 +73,6 @@ reg INTR7 = 0;
 reg LGAV = 0;
 reg LRR = 0;
 reg LTRDN = 1;
-reg ML1_2 = 0;
-reg ML3 = 0;
-reg ML4 = 0;
 reg ML5 = 0;
 reg ML6 = 0;
 reg ML7 = 0;
@@ -76,6 +88,11 @@ reg QBP = 0;
 reg QCP = 0;
 reg RBP = 0;
 reg RCP = 0;
+reg SSA = 0;
+reg SSFB2 = 0;
+reg SSFB3 = 0;
+reg SSFB4 = 0;
+reg SSFB5 = 0;
 reg TAGS = 0;
 reg TCWN = 1;
 
@@ -128,6 +145,7 @@ wire C3RD;
 wire C4R;
 wire C4RN;
 wire C4RD;
+wire C4RDN;
 wire C4RDV;
 wire CCFH;
 wire CCFHN;
@@ -174,6 +192,7 @@ wire ITS;
 wire LPAG2N;
 wire MLA;
 wire MLAV;
+wire ML1_2;
 wire PAA;
 wire PAAN;
 wire PAAV;
@@ -217,9 +236,11 @@ wire TC2AN;
 wire TC3A;
 wire TC3AN;
 wire TIN;
+wire W2;
 wire W3;
 wire W4;
 wire W7;
+wire X1;
 wire X2;
 wire X3;
 wire X4;
@@ -228,7 +249,9 @@ wire Y3;
 wire Y4;
 wire Y5;
 wire Y6;
+wire Y7;
 wire Z1;
+wire Z2;
 wire Z4;
 wire Z5;
 wire Z7;
@@ -310,9 +333,16 @@ sd_sampler_1 a2a5(
     .A7DV(A7DV),
     .C1RD(C1RD),
     .C4RD(C4RD),
+    .C4RDN(C4RDN),
     .CCSL(CCSL),
     .CODGV(CODGV),
+    .CR3(CR3),
+    .CR4(CR4),
+    .CRCAV(CRCAV),
     .DARO(DARO),
+    .DIAD(DIAD),
+    .DIN13(DIN13),
+    .DIN14(DIN14),
     .DOMS(DOMS),
     .EMA(EMA),
     .G1DV(G1DV),
@@ -329,10 +359,12 @@ sd_sampler_1 a2a5(
     .G6DVN(G6DVN),
     .G7DV(G7DV),
     .G7DVN(G7DVN),
+    .GC3(GC3),
+    .GC4(GC4),
+    .ICSD(ICSD),
+    .ICSDN(ICSDN),
     .ITS(ITS),
     .ML1_2(ML1_2),
-    .ML3(ML3),
-    .ML4(ML4),
     .ML5(ML5),
     .ML6(ML6),
     .ML7(ML7),
@@ -349,11 +381,52 @@ sd_sampler_1 a2a5(
     .PARSV(PARSV),
     .PBAV(PBAV),
     .PCAV(PCAV),
+    .PCG2V(PCG2V),
+    .RESMV(RESMV),
+    .SSA(SSA),
+    .SSFB4(SSFB4),
+    .SSFB5(SSFB5),
     .TAGS(TAGS),
     .X2(X2),
     .Y2(Y2),
+    .Z2(Z2),
 
     .DATA(DATA)
+);
+
+sd_sampler_2 a2a24(
+    .SIM_CLK(SIM_CLK),
+    .SIM_RST(SIM_RST),
+
+    .V1(V1),
+
+    .C4RDN(C4RDN),
+    .CR1(CR1),
+    .CR2(CR2),
+    .CRCAV(CRCAV),
+    .DIAD(DIAD),
+    .DIN11(DIN11),
+    .DIN12(DIN12),
+    .G1DVN(G1DVN),
+    .G7DVN(G7DVN),
+    .GC1(GC1),
+    .GC2(GC2),
+    .ICSD(ICSD),
+    .ICSDN(ICSDN),
+    .MLAV(MLAV),
+    .PAAV(PAAV),
+    .PBG2V(PBG2V),
+    .PCG2V(PCG2V),
+    .RESMV(RESMV),
+    .SSA(SSA),
+    .SSFB2(SSFB2),
+    .SSFB3(SSFB3),
+    .W2(W2),
+    .X1(X1),
+    .Y7(Y7),
+    .Z2(Z2),
+
+    .ML1_2(ML1_2)
 );
 
 address_decode_1 a3a5(
@@ -531,9 +604,11 @@ timing_1 a3a11(
     .YDA(YDA),
     .ZDA(ZDA),
 
+    .W2(W2),
     .W3(W3),
     .W4(W4),
     .W7(W7),
+    .X1(X1),
     .X2(X2),
     .X3(X3),
     .X4(X4),
@@ -542,7 +617,9 @@ timing_1 a3a11(
     .Y4(Y4),
     .Y5(Y5),
     .Y6(Y6),
+    .Y7(Y7),
     .Z1(Z1),
+    .Z2(Z2),
     .Z4(Z4),
     .Z5(Z5),
     .Z7(Z7)
@@ -746,6 +823,7 @@ accel_time_proc_1 a4a24(
     .Z5(Z5),
 
     .C4RD(C4RD),
+    .C4RDN(C4RDN),
     .CSTN(CSTN),
     .HALT(HALT)
 );
