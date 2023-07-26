@@ -77,8 +77,7 @@ wire na16a_a23a;
 wire na16a_a23b;
 wire na16a_a24a;
 wire na16a_a24b;
-assign na16a = na16a_a8a | na16a_a8b | na16a_a15a | na16a_a15b | na16a_a16a |
-               na16a_a23a | na16a_a23b | na16a_a24a | na16a_a24b;
+assign na16a = na16a_a8a | na16a_a8b | na16a_a15a | na16a_a15b | na16a_a16a | na16a_a23a | na16a_a23b | na16a_a24a | na16a_a24b;
 wire na16b;
 wire na17b;
 wire na17b_a17a;

@@ -64,8 +64,7 @@ wire na25a_a25a;
 wire na25a_a31a;
 wire na25a_a32a;
 wire na25a_a32b;
-assign na25a = na25a_a17a | na25a_a17b | na25a_a18a | na25a_a18b | na25a_a19a |
-               na25a_a19b | na25a_a25a | na25a_a31a | na25a_a32a | na25a_a32b;
+assign na25a = na25a_a17a | na25a_a17b | na25a_a18a | na25a_a18b | na25a_a19a | na25a_a19b | na25a_a25a | na25a_a31a | na25a_a32a | na25a_a32b;
 wire na25b;
 wire na26a;
 wire na26b;

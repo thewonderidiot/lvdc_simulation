@@ -95,8 +95,7 @@ wire na25d_a25d;
 wire na25d_a31b;
 wire na25d_a32b;
 wire na25d_a32c;
-assign na25d = na25d_a17b | na25d_a17c | na25d_a18c | na25d_a18d | na25d_a19c |
-               na25d_a25d | na25d_a31b | na25d_a32b | na25d_a32c;
+assign na25d = na25d_a17b | na25d_a17c | na25d_a18c | na25d_a18d | na25d_a19c | na25d_a25d | na25d_a31b | na25d_a32b | na25d_a32c;
 wire na25e;
 wire na26a;
 wire na26b;

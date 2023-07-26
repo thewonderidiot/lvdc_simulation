@@ -153,7 +153,7 @@ wire na16b_a16b;
 wire na16b_a23a;
 wire na16b_a23b;
 wire na16b_a23c;
-assign na16b = na16b_a8b | na16b_a8b | na16b_a15d | na16b_a16b | na16b_a23a | na16b_a23b | na16b_a23c;
+assign na16b = na16b_a8b | na16b_a8c | na16b_a15d | na16b_a16b | na16b_a23a | na16b_a23b | na16b_a23c;
 wire na17c;
 wire na17c_a17c;
 wire na17c_a17d;
