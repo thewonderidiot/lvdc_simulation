@@ -181,7 +181,7 @@ wire na20d_a26a;
 wire na20d_a26b;
 wire na20d_a34a;
 wire na20d_a34b;
-assign na20d = na20d_a18d | na20d_a18e | na20d_a20d | na20d_a26a | na20d_a26a | na20d_a34a | na20d_a34b;
+assign na20d = na20d_a18d | na20d_a18e | na20d_a20d | na20d_a26a | na20d_a26b | na20d_a34a | na20d_a34b;
 wire na20e;
 wire na20e_a20e;
 wire na20e_a21a;

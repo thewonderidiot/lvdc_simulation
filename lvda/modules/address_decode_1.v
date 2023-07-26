@@ -304,7 +304,7 @@ wire na30a;
 wire na31b;
 wire na31b_a31a;
 wire na31b_a31b;
-assign na31b = na31b_a31a | na31b_a31b;;
+assign na31b = na31b_a31a | na31b_a31b;
 wire na30b;
 wire na30d;
 wire na30d_a23c;

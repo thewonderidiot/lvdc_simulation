@@ -27,6 +27,7 @@ LVDA_MODULES = accel_time_proc_1 \
 	       processor_store \
 	       sd_sampler_1 \
 	       sd_sampler_2 \
+	       sd_sampler_3 \
 	       timing_1 \
 	       timing_2 \
 
@@ -37,6 +38,7 @@ COMPONENTS = bfr_pa \
 	     cg1 \
 	     cg2 \
 	     dia \
+	     dib \
 	     dl \
 	     dld \
 	     dsa \
