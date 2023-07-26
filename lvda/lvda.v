@@ -51,6 +51,8 @@ reg CR9 = 0;
 reg CR10 = 0;
 reg CR11 = 0;
 reg CR12 = 0;
+reg CR13 = 0;
+reg CR14 = 0;
 reg CRCAV = 0;
 reg CRI1 = 0;
 reg CRI2 = 0;
@@ -64,6 +66,8 @@ reg DIN5 = 0;
 reg DIN6 = 0;
 reg DIN7 = 0;
 reg DIN8 = 0;
+reg DIN9 = 0;
+reg DIN10 = 0;
 reg DIN11 = 0;
 reg DIN12 = 0;
 reg DIN13 = 0;
@@ -76,12 +80,16 @@ reg DIN19 = 0;
 reg DIN20 = 0;
 reg DIN21 = 0;
 reg DIN22 = 0;
+reg DIN23 = 0;
+reg DIN24 = 0;
 reg DIS1 = 0;
 reg DIS2 = 0;
 reg DIS3 = 0;
 reg DIS4 = 0;
 reg DIS5 = 0;
 reg DIS6 = 0;
+reg DIS7 = 0;
+reg DIS8 = 0;
 reg DISA = 0;
 reg DOMS = 0;
 reg DOMD = 0;
@@ -100,6 +108,8 @@ reg GC9 = 0;
 reg GC10 = 0;
 reg GC11 = 0;
 reg GC12 = 0;
+reg GC13 = 0;
+reg GC14 = 0;
 reg ICR9 = 0;
 reg ICSN = 1;
 reg INTR1 = 0;
@@ -112,14 +122,13 @@ reg INTR7 = 0;
 reg LGAV = 0;
 reg LRR = 0;
 reg LTRDN = 1;
-reg ML13 = 0;
-reg ML14 = 0;
 reg OCINT = 0;
 reg QBP = 0;
 reg QCP = 0;
 reg RBP = 0;
 reg RCP = 0;
 reg SSA = 0;
+reg SSFB1 = 0;
 reg SSFB2 = 0;
 reg SSFB3 = 0;
 reg SSFB4 = 0;
@@ -137,6 +146,8 @@ reg TS5 = 0;
 reg TS6 = 0;
 reg TS7 = 0;
 reg TS8 = 0;
+reg TS9 = 0;
+reg TS10 = 0;
 reg TSA = 0;
 
 // Backplane wires
@@ -246,6 +257,8 @@ wire ML9;
 wire ML10;
 wire ML11;
 wire ML12;
+wire ML13;
+wire ML14;
 wire PAA;
 wire PAAN;
 wire PAAV;
@@ -621,6 +634,51 @@ sd_sampler_6 a2a6(
     .ICSDN(ICSDN),
     .ML11(ML11),
     .ML12(ML12)
+);
+
+sd_sampler_7 a2a7(
+    .SIM_CLK(SIM_CLK),
+    .SIM_RST(SIM_RST),
+
+    .V1(V1),
+
+    .C4RDN(C4RDN),
+    .CR13(CR13),
+    .CR14(CR14),
+    .CRCAV(CRCAV),
+    .DIAD(DIAD),
+    .DIN9(DIN9),
+    .DIN10(DIN10),
+    .DIN23(DIN23),
+    .DIN24(DIN24),
+    .DIS7(DIS7),
+    .DIS8(DIS8),
+    .DISA(DISA),
+    .G5DVN(G5DVN),
+    .G6DV(G6DV),
+    .G6DVN(G6DVN),
+    .G7DV(G7DV),
+    .GC13(GC13),
+    .GC14(GC14),
+    .ICSD(ICSD),
+    .ICSDN(ICSDN),
+    .MLAV(MLAV),
+    .PAAV(PAAV),
+    .PBG2V(PBG2V),
+    .PCG2V(PCG2V),
+    .RESMV(RESMV),
+    .SSA(SSA),
+    .SSFB1(SSFB1),
+    .TS9(TS9),
+    .TS10(TS10),
+    .TSA(TSA),
+    .W2(W2),
+    .X1(X1),
+    .Y7(Y7),
+    .Z2(Z2),
+
+    .ML13(ML13),
+    .ML14(ML14)
 );
 
 sd_sampler_2 a2a24(

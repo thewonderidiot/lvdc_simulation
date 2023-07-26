@@ -31,6 +31,7 @@ LVDA_MODULES = accel_time_proc_1 \
 	       sd_sampler_4 \
 	       sd_sampler_5 \
 	       sd_sampler_6 \
+	       sd_sampler_7 \
 	       timing_1 \
 	       timing_2 \
 
