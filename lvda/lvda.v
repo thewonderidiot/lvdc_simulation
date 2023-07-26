@@ -47,6 +47,8 @@ reg CR5 = 0;
 reg CR6 = 0;
 reg CR7 = 0;
 reg CR8 = 0;
+reg CR9 = 0;
+reg CR10 = 0;
 reg CRCAV = 0;
 reg CRI1 = 0;
 reg CRI2 = 0;
@@ -56,6 +58,8 @@ reg DIN2A = 0;
 reg DIN2B = 0;
 reg DIN3 = 0;
 reg DIN4 = 0;
+reg DIN5 = 0;
+reg DIN6 = 0;
 reg DIN11 = 0;
 reg DIN12 = 0;
 reg DIN13 = 0;
@@ -64,8 +68,12 @@ reg DIN15 = 0;
 reg DIN16 = 0;
 reg DIN17 = 0;
 reg DIN18 = 0;
+reg DIN19 = 0;
+reg DIN20 = 0;
 reg DIS1 = 0;
 reg DIS2 = 0;
+reg DIS3 = 0;
+reg DIS4 = 0;
 reg DISA = 0;
 reg DOMS = 0;
 reg DOMD = 0;
@@ -80,6 +88,8 @@ reg GC5 = 0;
 reg GC6 = 0;
 reg GC7 = 0;
 reg GC8 = 0;
+reg GC9 = 0;
+reg GC10 = 0;
 reg ICR9 = 0;
 reg ICSD = 0;
 reg ICSDN = 1;
@@ -93,8 +103,6 @@ reg INTR7 = 0;
 reg LGAV = 0;
 reg LRR = 0;
 reg LTRDN = 1;
-reg ML9 = 0;
-reg ML10 = 0;
 reg ML11 = 0;
 reg ML12 = 0;
 reg ML13 = 0;
@@ -118,6 +126,8 @@ reg TS1 = 0;
 reg TS2 = 0;
 reg TS3 = 0;
 reg TS4 = 0;
+reg TS5 = 0;
+reg TS6 = 0;
 reg TSA = 0;
 
 // Backplane wires
@@ -221,6 +231,8 @@ wire ML5;
 wire ML6;
 wire ML7;
 wire ML8;
+wire ML9;
+wire ML10;
 wire PAA;
 wire PAAN;
 wire PAAV;
@@ -432,6 +444,49 @@ sd_sampler_4 a2a3(
     
     .ML7(ML7),
     .ML8(ML8)
+);
+
+sd_sampler_5 a2a4(
+    .SIM_CLK(SIM_CLK),
+    .SIM_RST(SIM_RST),
+
+    .V1(V1),
+
+    .C4RDN(C4RDN),
+    .CR9(CR9),
+    .CR10(CR10),
+    .CRCAV(CRCAV),
+    .DIAD(DIAD),
+    .DIN5(DIN5),
+    .DIN6(DIN6),
+    .DIN19(DIN19),
+    .DIN20(DIN20),
+    .DIS3(DIS3),
+    .DIS4(DIS4),
+    .DISA(DISA),
+    .G1DVN(G1DVN),
+    .G2DV(G2DV),
+    .G2DVN(G2DVN),
+    .G3DV(G3DV),
+    .GC9(GC9),
+    .GC10(GC10),
+    .ICSD(ICSD),
+    .ICSDN(ICSDN),
+    .MLAV(MLAV),
+    .PAAV(PAAV),
+    .PBG2V(PBG2V),
+    .PCG2V(PCG2V),
+    .RESMV(RESMV),
+    .TS5(TS5),
+    .TS6(TS6),
+    .TSA(TSA),
+    .W2(W2),
+    .X1(X1),
+    .Y7(Y7),
+    .Z2(Z2),
+
+    .ML9(ML9),
+    .ML10(ML10)
 );
 
 sd_sampler_1 a2a5(
