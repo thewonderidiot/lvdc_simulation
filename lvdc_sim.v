@@ -16,7 +16,6 @@ reg SIM_RST = 0;
 reg CST = 0;
 reg DIN = 0;
 reg HLT = 1;
-reg INTCV = 0;
 reg TER = 0;
 reg TE1H = 0;
 
@@ -35,6 +34,7 @@ wire CSTN;
 wire DATAV;
 wire G5VN;
 wire HALTV;
+wire INTCV;
 wire PBV;
 wire PBVN;
 wire PIOV;
@@ -123,7 +123,8 @@ lvda lvda1(
 
     .CSTN(CSTN),
     .DATAV(DATAV),
-    .HALTV(HALTV)
+    .HALTV(HALTV),
+    .INTCV(INTCV)
 );
 
 initial begin

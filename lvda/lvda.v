@@ -29,7 +29,8 @@ module lvda(
 
     output wire CSTN,
     output wire DATAV,
-    output wire HALTV
+    output wire HALTV,
+    output wire INTCV
 );
 
 // Power rails
@@ -244,6 +245,7 @@ wire G7DVN;
 wire HALT;
 wire ICSD;
 wire ICSDN;
+wire INTC;
 wire ITS;
 wire LPAG2N;
 wire MLA;
@@ -363,6 +365,7 @@ assign G6DVN = G6DN;
 assign G7DV = G7D;
 assign G7DVN = G7DN;
 assign HALTV = HALT;
+assign INTCV = INTC;
 assign MLAV = MLA;
 assign PAAV = PAA;
 assign PABG1V = PABG1;
@@ -1069,6 +1072,7 @@ int_countdn_proc_2 a4a18(
     .Y5(Y5),
     .Z4(Z4),
 
+    .INTC(INTC),
     .LPAG2N(LPAG2N),
     .SINT(SINT),
     .TC3A(TC3A),
