@@ -115,6 +115,9 @@ H9P2   HPC     L9P2
 H9P3   HPC     L9P3
 H9P4   HPC     L9P4
 H9P4A  HPC     L9P4A
+H10P1  HPC     L10P1
+H10P2  HPC     L10P2
+H11P1  HPC     L11P1
 
 *      PROGRAM ENTRANCE.
 L1P1   CDSD    0,13
@@ -1172,7 +1175,7 @@ L9P3   CLA     H9P3
 *      CHECK PQR ACROSS MODULES.
 L9P4   CLA     H9P4
        STO     VAR1
-       CLA     H9P4
+       CLA     H10P1
        STO     VAR2
        CLA     =O321123324
        STO     775
@@ -1190,7 +1193,56 @@ L15P1N TRA     L95P1
        ORGDD   0,1,1,324,0,13,0
 L9P4B  CLA     775
        TNZ     L15P1H
-       TRA     L9P4
+*      CHECK NORMAL MPY.
+L10P1  CLA     H10P1
+       STO     VAR1
+       CLA     H10P2
+       STO     VAR2
+       CLA     =(.36)B0
+       MPY     =(.74)B0
+       CLA     =O0
+       CLA     =O0
+       CLA     =O0
+       CLA     775
+       SUB     =(0.2664)B0
+       TNZ     L15P1H
+*      CHECK PRODUCT OF LOW 12 BITS OF ACC
+L10P2  CLA     H10P2
+       STO     VAR1
+       CLA     H11P1
+       STO     VAR2
+       CLA     =(.000083)B0
+       MPY     =(.682)B0
+       CLA     =O0
+       CLA     775
+       STO     VAR1
+       CLA     775
+       SUB     =(.2317734)B0
+       TNZ     L15P1H
+       HOP     H11P1
+       ORGDD   0,2,0,2,0,13,
+*      CHECK NORMAL OPERATION OF DIV
+L11P1  CLA     H11P1
+       STO     VAR1
+       CLA     H11P1
+       STO     VAR2
+       CLA     =(.36)B0
+       DIV     =(.8)B0
+       CLA     =O0
+       CLA     =O0
+       CLA     =O0
+       CLA     =O0
+       CLA     =O0
+       CLA     =O0
+       CLA     =O0
+       CLA     =O0
+       CLA     775
+       SUB     =(.45)B0
+       ADD     =O000000004
+       TNZ     *+2
+       TRA     *+2
+L15P1P TRA     L95P1
+       TRA     *
 
 
        ORGDD   0,16,0,41,0,16,212
