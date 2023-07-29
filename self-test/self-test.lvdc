@@ -118,6 +118,13 @@ H9P4A  HPC     L9P4A
 H10P1  HPC     L10P1
 H10P2  HPC     L10P2
 H11P1  HPC     L11P1
+H11P2  HPC     L11P2
+H11P3  HPC     L11P3
+H11P4  HPC     L11P4
+H11P5  HPC     L11P5
+H11P6  HPC     L11P6
+H11P7  HPC     L11P7
+H11P8  HPC     L11P8
 
 *      PROGRAM ENTRANCE.
 L1P1   CDSD    0,13
@@ -1224,24 +1231,105 @@ L10P2  CLA     H10P2
 *      CHECK NORMAL OPERATION OF DIV
 L11P1  CLA     H11P1
        STO     VAR1
-       CLA     H11P1
+       CLA     H11P2
        STO     VAR2
        CLA     =(.36)B0
        DIV     =(.8)B0
-       CLA     =O0
-       CLA     =O0
-       CLA     =O0
-       CLA     =O0
-       CLA     =O0
-       CLA     =O0
-       CLA     =O0
-       CLA     =O0
+       CLA     =O000000006
+       SUB     =O000000002
+       TNZ     *-1
        CLA     775
        SUB     =(.45)B0
        ADD     =O000000004
        TNZ     *+2
        TRA     *+2
 L15P1P TRA     L95P1
+L11P2  CLA     H11P2
+       STO     VAR1
+       CLA     H11P3
+       STO     VAR2
+       CLA     =(-.64)B0
+       DIV     =(.9)B0
+       CLA     =O000000006
+       SUB     =O000000002
+       TNZ     *-1
+       CLA     775
+       ADD     =(.71111111111)B0
+       ADD     =O000000006
+       TNZ     L15P1P
+L11P3  CLA     H11P3
+       STO     VAR1
+       CLA     H11P4
+       STO     VAR2
+       CLA     =(.3)B0
+       DIV     =(-.4)B0
+       CLA     =O000000006
+       SUB     =O000000002
+       TNZ     *-1
+       CLA     775
+       ADD     =(.75)B0
+       ADD     =O000000010
+       TNZ     L15P1P
+L11P4  CLA     H11P4
+       STO     VAR1
+       CLA     H11P5
+       STO     VAR2
+       CLA     =(-.184)B0
+       DIV     =(-.315)B0
+       CLA     =O000000006
+       SUB     =O000000002
+       TNZ     *-1
+       CLA     775
+       SUB     =(.58412682)B0
+       TNZ     L15P1P
+L11P5  CLA     H11P5
+       STO     VAR1
+       CLA     H11P6
+       STO     VAR2
+       CLA     =(.284)B0
+       DIV     =(.922)B0
+       CLA     =O000000006
+       SUB     =O000000002
+       TNZ     *-1
+       CLA     775
+       SUB     =(.308026)B0
+       ADD     =O000000002
+       TNZ     L15P1P
+L11P6  CLA     H11P6
+       STO     VAR1
+       CLA     H11P7
+       STO     VAR2
+       CLA     =(.415)B0
+       DIV     =(-.525)B0
+       CLA     =O000000006
+       SUB     =O000000002
+       TNZ     *-1
+       CLA     775
+       ADD     =(.7904762)B0
+       TNZ     L15P1P
+L11P7  CLA     H11P7
+       STO     VAR1
+       CLA     H11P8
+       STO     VAR2
+       CLA     =O0
+       DIV     =(.413)B0
+       CLA     =O000000006
+       SUB     =O000000002
+       TNZ     *-1
+       CLA     775
+       TNZ     L15P1P
+L11P8  CLA     H11P8
+       STO     VAR1
+       CLA     H11P8
+       STO     VAR2
+       CLA     =O0
+       DIV     =(-.896)B0
+       CLA     =O000000006
+       SUB     =O000000002
+       TNZ     *-1
+       CLA     775
+       XOR     =O777777770
+       TNZ     L15P1P
        TRA     *
 
 
