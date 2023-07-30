@@ -33,6 +33,14 @@ X05.5  OCT     444333222
 X05.6  OCT     331033100
 X05.7  OCT     731530654
 X05.8  OCT     252525252
+X05.9  OCT     414141414
+X05.10 OCT     761276120
+X05.11 OCT     000111000
+X05.12 OCT     444000444
+X05.13 OCT     555566666
+X05.14 OCT     757575222
+X05.15 OCT     333622200
+X05.16 OCT     010102020
        DOGD    0,15,360
 X15.1  OCT     255612510
        DOGD    0,6,360
@@ -45,7 +53,7 @@ X07.1  OCT     545454542
 X17.1  OCT     761724512
 
        ORGDD   0,0,0,0,0,13,
-H5P2   HPC     L12P7
+H5P2   HPC     L5P2
 H5P3   HPC     L5P3
 H5P4   HPC     L5P4
 H5P5   HPC     L5P5
@@ -165,6 +173,7 @@ H12P5  HPC     L12P5
 H12P6  HPC     L12P6
 H12P7  HPC     L12P7
 H12P8  HPC     L12P8
+H12P9  HPC     L12P9
 
 *      PROGRAM ENTRANCE.
 L1P1   CDSD    0,13
@@ -1454,8 +1463,8 @@ L12P6  CLA     H12P6
        EXM     0,1,0
        SUB     =O255612510
        TNZ     L15P1P
-       EXM     0,0,0
-       XOR     =O212121212
+       EXM     0,0,13
+       XOR     =O444000444
        TNZ     L15P1P
 * TEST EXM WITH DATA SECTORS 06 AND 16
 L12P7A DFW     XOR,X06.1,CLA,X16.1
@@ -1476,13 +1485,34 @@ L12P7  CLA     H12P7
 L12P8A DFW     MPH,X17.1,CLA,X07.1
 L12P8  CLA     H12P8
        STO     VAR1
-       CLA     H12P8
+       CLA     H12P9
        STO     VAR2
        CLA     L12P8A
        STO     EXML1
        EXM     0,0,0
        EXM     0,1,0
        SUB     =O010375552
+       TNZ     L15P1P
+* TEST EXM ADDRESS BITS A1-A4
+L12P9A DFW     CLA,X05.9,SUB,X05.5
+L12P9  CLA     H12P9
+       STO     VAR1
+       CLA     H12P9
+       STO     VAR2
+       CLA     L12P9A
+       STO     EXML1
+       EXM     0,1,5
+       EXM     0,0,11
+       TNZ     L15P1P
+       EXM     0,1,10
+       EXM     0,0,3
+       SUB     =O141414142
+       TNZ     L15P1P
+       EXM     0,1,7
+       EXM     0,0,13
+       TNZ     L15P1P
+       EXM     0,1,17
+       EXM     0,0,17
        TNZ     L15P1P
        TRA     *
        
