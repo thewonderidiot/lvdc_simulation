@@ -20,15 +20,32 @@ EXML2  BSS     1
 EXML3  BSS     1
        DOGD    0,17,340
 EXML4  BSS     1
-       DOGD    0,5,370
-EXMV1  OCT     212121212
-EXMV2  OCT     303030302
-EXMV3  OCT     123443210
-EXMV4  OCT     567765676
-EXMV5  OCT     444333222
+       DOGD    0,4,360
+X04.1  OCT     472151724
+       DOGD    0,14,360
+X14.1  OCT     631576170
+       DOGD    0,5,360
+X05.1  OCT     212121212
+X05.2  OCT     303030302
+X05.3  OCT     123443210
+X05.4  OCT     567765676
+X05.5  OCT     444333222
+X05.6  OCT     331033100
+X05.7  OCT     731530654
+X05.8  OCT     252525252
+       DOGD    0,15,360
+X15.1  OCT     255612510
+       DOGD    0,6,360
+X06.1  OCT     632612412
+       DOGD    0,16,360
+X16.1  OCT     242424242
+       DOGD    0,7,360
+X07.1  OCT     545454542
+       DOGD    0,17,360
+X17.1  OCT     761724512
 
        ORGDD   0,0,0,0,0,13,
-H5P2   HPC     L12P1
+H5P2   HPC     L12P7
 H5P3   HPC     L5P3
 H5P4   HPC     L5P4
 H5P5   HPC     L5P5
@@ -140,6 +157,14 @@ H11P5  HPC     L11P5
 H11P6  HPC     L11P6
 H11P7  HPC     L11P7
 H11P8  HPC     L11P8
+H12P1  HPC     L12P1
+H12P2  HPC     L12P2
+H12P3  HPC     L12P3
+H12P4  HPC     L12P4
+H12P5  HPC     L12P5
+H12P6  HPC     L12P6
+H12P7  HPC     L12P7
+H12P8  HPC     L12P8
 
 *      PROGRAM ENTRANCE.
 L1P1   CDSD    0,13
@@ -1335,7 +1360,7 @@ L11P7  CLA     H11P7
        TNZ     L15P1P
 L11P8  CLA     H11P8
        STO     VAR1
-       CLA     H11P8
+       CLA     H12P1
        STO     VAR2
        CLA     =O0
        DIV     =(-.896)B0
@@ -1345,14 +1370,119 @@ L11P8  CLA     H11P8
        CLA     775
        XOR     =O777777770
        TNZ     L15P1P
-L12P1A DFW     CLA,EXMV1,XOR,EXMV2
-L12P1  CLA     L12P1A
+* TEST FIRST EXM LOCATION
+L12P1A DFW     CLA,X05.1,XOR,X05.2
+L12P1  CLA     H12P1
+       STO     VAR1
+       CLA     H12P2
+       STO     VAR2
+       CLA     L12P1A
        STO     EXML1
        EXM     0,1,0
        SUB     =O212121212
        TNZ     L15P1P
        EXM     0,0,1
        SUB     =O303030302
+       TNZ     L15P1P
+* TEST SECOND EXM LOCATION
+L12P2  CLA     H12P2
+       STO     VAR1
+       CLA     H12P3
+       STO     VAR2
+       CLA     =O0
+       STO     EXML1
+       CLA     L12P1A
+       STO     EXML2
+       EXM     1,1,2
+       SUB     =O123443210
+       TNZ     L15P1P
+       EXM     1,0,3
+       SUB     =O567765676
+       TNZ     L15P1P
+* TEST THIRD EXM LOCATION
+L12P3  CLA     H12P3
+       STO     VAR1
+       CLA     H12P4
+       STO     VAR2
+       CLA     =O0
+       STO     EXML2
+       CLA     L12P1A
+       STO     EXML3
+       EXM     2,1,4
+       SUB     =O444333222
+       TNZ     L15P1P
+       EXM     2,0,5
+       SUB     =O331033100
+* TEST FOURTH EXM LOCATION
+L12P4  CLA     H12P4
+       STO     VAR1
+       CLA     H12P5
+       STO     VAR2
+       CLA     =O0
+       STO     EXML3
+       CLA     L12P1A
+       STO     EXML4
+       EXM     3,1,6
+       SUB     =O731530654
+       TNZ     L15P1P
+       EXM     3,0,7
+       SUB     =O252525252
+       TNZ     L15P1P
+* TEST EXM WITH DATA SECTORS 04 AND 14
+L12P5A DFW     SUB,X04.1,CLA,X14.1
+L12P5  CLA     H12P5
+       STO     VAR1
+       CLA     H12P6
+       STO     VAR2
+       CLA     L12P5A
+       STO     EXML1
+       EXM     0,0,0
+       SUB     =O631576170
+       TNZ     L15P1P
+       EXM     0,1,0
+       ADD     =O472151724
+       TNZ     L15P1P
+* TEST EXM WITH DATA SECTORS 05 AND 15
+L12P6A DFW     AND,X15.1,RSU,X05.1
+L12P6  CLA     H12P6
+       STO     VAR1
+       CLA     H12P7
+       STO     VAR2
+       CLA     L12P6A
+       STO     EXML1
+       CLA     =O777777776
+       EXM     0,1,0
+       SUB     =O255612510
+       TNZ     L15P1P
+       EXM     0,0,0
+       XOR     =O212121212
+       TNZ     L15P1P
+* TEST EXM WITH DATA SECTORS 06 AND 16
+L12P7A DFW     XOR,X06.1,CLA,X16.1
+L12P7  CLA     H12P7
+       STO     VAR1
+       CLA     H12P8
+       STO     VAR2
+       CLA     L12P7A
+       STO     EXML1
+       CLA     =O777777776
+       EXM     0,1,0
+       ADD     =O632612414
+       TNZ     L15P1P
+       EXM     0,0,0
+       RSU     =O242424242
+       TNZ     L15P1P
+* TEST EXM WITH DATA SECTORS 07 AND 17
+L12P8A DFW     MPH,X17.1,CLA,X07.1
+L12P8  CLA     H12P8
+       STO     VAR1
+       CLA     H12P8
+       STO     VAR2
+       CLA     L12P8A
+       STO     EXML1
+       EXM     0,0,0
+       EXM     0,1,0
+       SUB     =O010375552
        TNZ     L15P1P
        TRA     *
        
