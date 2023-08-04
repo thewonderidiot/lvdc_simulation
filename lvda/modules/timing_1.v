@@ -30,6 +30,7 @@ module timing_1(
     output wire Z2,
     output wire Z4,
     output wire Z5,
+    output wire Z6,
     output wire Z7
 );
 
@@ -42,7 +43,6 @@ wire X7;
 wire X8;
 wire Y1;
 wire Z3;
-wire Z6;
 wire Z8;
 
 // 10-4

@@ -22,6 +22,7 @@ LVDC_MODULES = add_reg_x_decode \
 
 LVDA_MODULES = accel_time_proc_1 \
 	       address_decode_1 \
+	       address_decode_2 \
 	       int_countdn_proc_1 \
 	       int_countdn_proc_2 \
 	       processor_store \
@@ -32,6 +33,7 @@ LVDA_MODULES = accel_time_proc_1 \
 	       sd_sampler_5 \
 	       sd_sampler_6 \
 	       sd_sampler_7 \
+	       tag_real_tm_regs \
 	       timing_1 \
 	       timing_2 \
 

@@ -119,6 +119,9 @@ reg INTR6 = 0;
 reg INTR7 = 0;
 reg LRR = 0;
 reg LTRDN = 1;
+reg MODR1 = 0;
+reg MODR2 = 0;
+reg MODR3 = 0;
 reg OCINT = 0;
 reg QBP = 0;
 reg QCP = 0;
@@ -178,6 +181,8 @@ wire A8D;
 wire A8DN;
 wire A8DV;
 wire A8DVN;
+wire A9D;
+wire A9DV;
 wire AD;
 wire ADN;
 wire ADV;
@@ -245,11 +250,15 @@ wire G7DVN;
 wire HALT;
 wire ICSD;
 wire ICSDN;
+wire INFO;
+wire INFOV;
 wire INTC;
 wire ITS;
 wire LGA;
 wire LGAV;
 wire LPAG2N;
+wire LTR;
+wire LTRV;
 wire MLA;
 wire MLAV;
 wire ML1_2;
@@ -307,6 +316,7 @@ wire TC2AN;
 wire TC3A;
 wire TC3AN;
 wire TIN;
+wire TLM;
 wire TSA;
 wire W2;
 wire W3;
@@ -328,6 +338,7 @@ wire Z1;
 wire Z2;
 wire Z4;
 wire Z5;
+wire Z6;
 wire Z7;
 
 // TMR bypass for breadboard LVDA
@@ -347,6 +358,7 @@ assign A7DV = A7D;
 assign A7DVN = A7DN;
 assign A8DV = A8D;
 assign A8DVN = A8DN;
+assign A9DV = A9D;
 assign ADV = AD;
 assign ADVN = ADN;
 assign C4RDV = C4RD;
@@ -373,8 +385,10 @@ assign G6DVN = G6DN;
 assign G7DV = G7D;
 assign G7DVN = G7DN;
 assign HALTV = HALT;
+assign INFOV = INFO;
 assign INTCV = INTC;
 assign LGAV = LGA;
+assign LTRV = LTR;
 assign MLAV = MLA;
 assign PAAV = PAA;
 assign PABG1V = PABG1;
@@ -846,13 +860,17 @@ address_decode_1 a3a5(
     .A7DN(A7DN),
     .A8D(A8D),
     .A8DN(A8DN),
+    .A9D(A9D),
     .CODG(CODG),
     .DARO(DARO),
     .DINF(DINF),
     .DINFN(DINFN),
+    .INFO(INFO),
+    .LTR(LTR),
     .MLA(MLA),
     .PARS(PARS),
-    .PIOD(PIOD)
+    .PIOD(PIOD),
+    .TLM(TLM)
 );
 
 timing_2 a3a8(
@@ -962,7 +980,55 @@ timing_1 a3a11(
     .Z2(Z2),
     .Z4(Z4),
     .Z5(Z5),
+    .Z6(Z6),
     .Z7(Z7)
+);
+
+tag_real_tm_regs a4a4(
+    .SIM_CLK(SIM_CLK),
+    .SIM_RST(SIM_RST),
+
+    .V1(V1),
+
+    .A1DV(A1DV),
+    .A3DV(A3DV),
+    .A4DV(A4DV),
+    .A5DV(A5DV),
+    .A6DV(A6DV),
+    .A7DV(A7DV),
+    .A8DV(A8DV),
+    .A9DV(A9DV),
+    .G1DV(G1DV),
+    .G1DVN(G1DVN),
+    .G2DV(G2DV),
+    .G2DVN(G2DVN),
+    .G3DV(G3DV),
+    .G3DVN(G3DVN),
+    .G4DV(G4DV),
+    .G4DVN(G4DVN),
+    .G5DV(G5DV),
+    .G5DVN(G5DVN),
+    .G6DV(G6DV),
+    .G6DVN(G6DVN),
+    .G7DV(G7DV),
+    .G7DVN(G7DVN),
+    .INFOV(INFOV),
+    .LTRV(LTRV),
+    .MODR1(MODR1),
+    .MODR2(MODR2),
+    .MODR3(MODR3),
+    .PAAV(PAAV),
+    .PBAV(PBAV),
+    .PBG2V(PBG2V),
+    .PCAVN(PCAVN),
+    .PCG2V(PCG2V),
+    .TCWN(TCWN),
+    .TLM(TLM),
+    .W4(W4),
+    .X4(X4),
+    .Y6(Y6),
+    .Z4(Z4),
+    .Z6(Z6)
 );
 
 int_countdn_proc_1 a4a5(
