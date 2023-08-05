@@ -82,12 +82,14 @@ module address_decode_1(
     output wire A8DN,
     output wire A9D,
     output wire CODG,
+    output wire DAINF,
     output wire DARO,
     output wire DINF,
     output wire DINFN,
     output wire INFO,
     output wire LTR,
     output wire MLA,
+    output wire OCR,
     output wire PARS,
     output wire PIOD,
     output wire TLM
@@ -95,7 +97,6 @@ module address_decode_1(
 
 wire A9DN;
 wire CODGN;
-wire DAINF;
 wire DAINFN;
 wire DARON;
 wire INFLA;
@@ -103,7 +104,6 @@ wire INFLAN;
 wire INFON;
 wire LTRN;
 wire MLAN;
-wire OCR;
 wire OCRN;
 wire PCINF;
 wire PCINFN;

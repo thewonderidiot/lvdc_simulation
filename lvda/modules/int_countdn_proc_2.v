@@ -66,6 +66,9 @@ module int_countdn_proc_2(
 
     output wire INTC,
     output wire LPAG2N,
+    output wire MCFT1,
+    output wire MCFT2,
+    output wire MCFT3,
     output wire SINT,
     output wire TC3A,
     output wire TC3AN
@@ -83,9 +86,6 @@ wire INTR6N;
 wire INTR7N;
 wire LRRP;
 wire LRRPN;
-wire MCFT1;
-wire MCFT2;
-wire MCFT3;
 wire OCINTN;
 wire SINT_a17b;
 wire SINT_a17d;

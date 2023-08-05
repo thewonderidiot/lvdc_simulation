@@ -75,7 +75,8 @@ module sd_sampler_1(
     input wire Y2,
     input wire Z2,
 
-    output wire DATA
+    output wire DATA,
+    output wire MBYPD
 );
 
 wire CR3N;
@@ -88,7 +89,6 @@ wire DIN13N;
 wire DIN14N;
 wire GC3N;
 wire GC4N;
-wire MBYPD;
 wire MBYPDN;
 wire ML3;
 wire ML3N;

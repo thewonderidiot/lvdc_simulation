@@ -56,6 +56,10 @@ reg CR13 = 0;
 reg CR14 = 0;
 reg CRI1 = 0;
 reg CRI2 = 0;
+reg DC1S = 0;
+reg DC2S = 0;
+reg DC3S = 0;
+reg DC4S = 0;
 reg DCALN = 1;
 reg DIN1 = 0;
 reg DIN2A = 0;
@@ -90,12 +94,20 @@ reg DIS5 = 0;
 reg DIS6 = 0;
 reg DIS7 = 0;
 reg DIS8 = 0;
+reg DLS = 0;
+reg DOMC1 = 0;
+reg DOMC1N = 1;
+reg DOMC2 = 0;
+reg DOMC2N = 1;
 reg DOMS = 0;
 reg DOMD = 0;
 reg DOMDN = 1;
+reg DSD = 0;
 reg EM26N = 1;
 reg ETCC = 0;
 reg ETCCN = 1;
+reg ETCR = 0;
+reg ETCRN = 1;
 reg ETTS = 0;
 reg ETTSN = 1;
 reg GC1 = 0;
@@ -112,6 +124,9 @@ reg GC11 = 0;
 reg GC12 = 0;
 reg GC13 = 0;
 reg GC14 = 0;
+reg GCSYNC = 0;
+reg ICR1 = 0;
+reg ICR1N = 1;
 reg ICR9 = 0;
 reg ICSN = 1;
 reg INTR1 = 0;
@@ -139,8 +154,6 @@ reg SSFB6 = 0;
 reg SSFB7 = 0;
 reg SSFB8 = 0;
 reg TAGS = 0;
-reg TCWN = 1;
-reg TRP = 0;
 reg TS1 = 0;
 reg TS2 = 0;
 reg TS3 = 0;
@@ -151,6 +164,7 @@ reg TS7 = 0;
 reg TS8 = 0;
 reg TS9 = 0;
 reg TS10 = 0;
+reg TSYNC = 0;
 
 // Backplane wires
 wire A1D;
@@ -209,10 +223,12 @@ wire CCFH;
 wire CCFHN;
 wire CCFHV;
 wire CCFHVN;
+wire CODE;
 wire CODG;
 wire CODGV;
 wire CRCA;
 wire CRCAV;
+wire DAINF;
 wire DARA;
 wire DARAV;
 wire DARO;
@@ -223,6 +239,7 @@ wire DINFN;
 wire DINFV;
 wire DINFVN;
 wire DISA;
+wire DOR;
 wire EMA;
 wire G1D;
 wire G1DN;
@@ -253,6 +270,8 @@ wire G7DN;
 wire G7DV;
 wire G7DVN;
 wire HALT;
+wire ICR;
+wire ICRV;
 wire ICSD;
 wire ICSDN;
 wire INFO;
@@ -265,6 +284,10 @@ wire LPAG2N;
 wire LTR;
 wire LTRV;
 wire LTRDN;
+wire MBYPD;
+wire MCFT1;
+wire MCFT2;
+wire MCFT3;
 wire MLA;
 wire MLAV;
 wire ML1_2;
@@ -278,6 +301,7 @@ wire ML11;
 wire ML12;
 wire ML13;
 wire ML14;
+wire OCR;
 wire PAA;
 wire PAAN;
 wire PAAV;
@@ -316,14 +340,20 @@ wire REXCV;
 wire REXCVN;
 wire SINT;
 wire SSA;
+wire SSDO;
+wire SSR;
+wire SSRV;
 wire SSIT1;
 wire TC2A;
 wire TC2AN;
 wire TC3A;
 wire TC3AN;
+wire TCWN;
 wire TIN;
 wire TLM;
+wire TRP;
 wire TSA;
+wire W1;
 wire W2;
 wire W3;
 wire W4;
@@ -333,6 +363,7 @@ wire X1;
 wire X2;
 wire X3;
 wire X4;
+wire X8;
 wire Y2;
 wire Y3;
 wire Y4;
@@ -391,6 +422,7 @@ assign G6DVN = G6DN;
 assign G7DV = G7D;
 assign G7DVN = G7DN;
 assign HALTV = HALT;
+assign ICRV = ICR;
 assign INFOV = INFO;
 assign INTCV = INTC;
 assign LGAV = LGA;
@@ -413,6 +445,7 @@ assign RECCVN = RECCN;
 assign RESMV = RESM;
 assign REXCV = REXC;
 assign REXCVN = REXCN;
+assign SSRV = SSR;
 
 // Modules
 sd_sampler_3 a2a1(
@@ -621,7 +654,8 @@ sd_sampler_1 a2a5(
     .Y2(Y2),
     .Z2(Z2),
 
-    .DATA(DATA)
+    .DATA(DATA),
+    .MBYPD(MBYPD)
 );
 
 sd_sampler_6 a2a6(
@@ -713,6 +747,70 @@ sd_sampler_7 a2a7(
     .ML14(ML14)
 );
 
+telem_control a2a9(
+    .SIM_CLK(SIM_CLK),
+    .SIM_RST(SIM_RST),
+
+    .V1(V1),
+
+    .A4DV(A4DV),
+    .A5DV(A5DV),
+    .C1RD(C1RD),
+    .C3RN(C3RN),
+    .CODE(CODE),
+    .CODGV(CODGV),
+    .DAINF(DAINF),
+    .DATAV(DATAV),
+    .DC1S(DC1S),
+    .DC2S(DC2S),
+    .DC3S(DC3S),
+    .DC4S(DC4S),
+    .DLS(DLS),
+    .DOMC1(DOMC1),
+    .DOMC1N(DOMC1N),
+    .DOMC2(DOMC2),
+    .DOMC2N(DOMC2N),
+    .DOR(DOR),
+    .DSD(DSD),
+    .ETCR(ETCR),
+    .ETCRN(ETCRN),
+    .G2DV(G2DV),
+    .G3DVN(G3DVN),
+    .G5DVN(G5DVN),
+    .G6DV(G6DV),
+    .G6DVN(G6DVN),
+    .G7DV(G7DV),
+    .GCSYNC(GCSYNC),
+    .ICRV(ICRV),
+    .ICR1(ICR1),
+    .ICR1N(ICR1N),
+    .LGAV(LGAV),
+    .MBYPD(MBYPD),
+    .MCFT1(MCFT1),
+    .MCFT2(MCFT2),
+    .MCFT3(MCFT3),
+    .OCR(OCR),
+    .PAAV(PAAV),
+    .PABG1V(PABG1V),
+    .PBAV(PBAV),
+    .PBG2V(PBG2V),
+    .PCAV(PCAV),
+    .PCG2V(PCG2V),
+    .RESMV(RESMV),
+    .SSDO(SSDO),
+    .SSRV(SSRV),
+    .TLM(TLM),
+    .TSYNC(TSYNC),
+    .W1(W1),
+    .X8(X8),
+    .Y8(Y8),
+    .Z1(Z1),
+
+    .TCWN(TCWN),
+    .TRP(TRP)
+);
+
+
 sd_sampler_2 a2a24(
     .SIM_CLK(SIM_CLK),
     .SIM_RST(SIM_RST),
@@ -782,8 +880,11 @@ address_decode_2 a3a3(
     .DARA(DARA),
     .DIAD(DIAD),
     .DISA(DISA),
+    .DOR(DOR),
+    .ICR(ICR),
     .LGA(LGA),
     .SSA(SSA),
+    .SSR(SSR),
     .TSA(TSA)
 );
 
@@ -868,12 +969,14 @@ address_decode_1 a3a5(
     .A8DN(A8DN),
     .A9D(A9D),
     .CODG(CODG),
+    .DAINF(DAINF),
     .DARO(DARO),
     .DINF(DINF),
     .DINFN(DINFN),
     .INFO(INFO),
     .LTR(LTR),
     .MLA(MLA),
+    .OCR(OCR),
     .PARS(PARS),
     .PIOD(PIOD),
     .TLM(TLM)
@@ -966,6 +1069,7 @@ timing_1 a3a11(
     .YDA(YDA),
     .ZDA(ZDA),
 
+    .W1(W1),
     .W2(W2),
     .W3(W3),
     .W4(W4),
@@ -975,6 +1079,7 @@ timing_1 a3a11(
     .X2(X2),
     .X3(X3),
     .X4(X4),
+    .X8(X8),
     .Y2(Y2),
     .Y3(Y3),
     .Y4(Y4),
@@ -1027,8 +1132,10 @@ address_decode_3 a3a24(
     .X3(X3),
     .Y8(Y8),
 
+    .CODE(CODE),
     .EMA(EMA),
-    .LTRDN(LTRDN)
+    .LTRDN(LTRDN),
+    .SSDO(SSDO)
 );
 
 tag_real_tm_regs a4a4(
@@ -1237,6 +1344,9 @@ int_countdn_proc_2 a4a18(
 
     .INTC(INTC),
     .LPAG2N(LPAG2N),
+    .MCFT1(MCFT1),
+    .MCFT2(MCFT2),
+    .MCFT3(MCFT3),
     .SINT(SINT),
     .TC3A(TC3A),
     .TC3AN(TC3AN)
