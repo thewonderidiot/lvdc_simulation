@@ -56,6 +56,7 @@ reg CR13 = 0;
 reg CR14 = 0;
 reg CRI1 = 0;
 reg CRI2 = 0;
+reg DCALN = 1;
 reg DIN1 = 0;
 reg DIN2A = 0;
 reg DIN2B = 0;
@@ -93,7 +94,10 @@ reg DOMS = 0;
 reg DOMD = 0;
 reg DOMDN = 1;
 reg EM26N = 1;
-reg EMA = 0;
+reg ETCC = 0;
+reg ETCCN = 1;
+reg ETTS = 0;
+reg ETTSN = 1;
 reg GC1 = 0;
 reg GC2 = 0;
 reg GC3 = 0;
@@ -118,7 +122,6 @@ reg INTR5 = 0;
 reg INTR6 = 0;
 reg INTR7 = 0;
 reg LRR = 0;
-reg LTRDN = 1;
 reg MODR1 = 0;
 reg MODR2 = 0;
 reg MODR3 = 0;
@@ -137,6 +140,7 @@ reg SSFB7 = 0;
 reg SSFB8 = 0;
 reg TAGS = 0;
 reg TCWN = 1;
+reg TRP = 0;
 reg TS1 = 0;
 reg TS2 = 0;
 reg TS3 = 0;
@@ -219,6 +223,7 @@ wire DINFN;
 wire DINFV;
 wire DINFVN;
 wire DISA;
+wire EMA;
 wire G1D;
 wire G1DN;
 wire G1DV;
@@ -259,6 +264,7 @@ wire LGAV;
 wire LPAG2N;
 wire LTR;
 wire LTRV;
+wire LTRDN;
 wire MLA;
 wire MLAV;
 wire ML1_2;
@@ -982,6 +988,47 @@ timing_1 a3a11(
     .Z5(Z5),
     .Z6(Z6),
     .Z7(Z7)
+);
+
+address_decode_3 a3a24(
+    .SIM_CLK(SIM_CLK),
+    .SIM_RST(SIM_RST),
+
+    .V1(V1),
+
+    .A3DV(A3DV),
+    .A3DVN(A3DVN),
+    .A4DV(A4DV),
+    .A4DVN(A4DVN),
+    .A5DV(A5DV),
+    .A5DVN(A5DVN),
+    .A6DV(A6DV),
+    .A6DVN(A6DVN),
+    .A7DVN(A7DVN),
+    .ADV(ADV),
+    .DARA(DARA),
+    .DARO(DARO),
+    .DCALN(DCALN),
+    .ETCC(ETCC),
+    .ETCCN(ETCCN),
+    .ETTS(ETTS),
+    .ETTSN(ETTSN),
+    .G1DV(G1DV),
+    .G3DVN(G3DVN),
+    .LGAV(LGAV),
+    .LRR(LRR),
+    .LTRV(LTRV),
+    .PARSV(PARSV),
+    .PBAV(PBAV),
+    .PCG2V(PCG2V),
+    .RESMV(RESMV),
+    .TRP(TRP),
+    .W8(W8),
+    .X3(X3),
+    .Y8(Y8),
+
+    .EMA(EMA),
+    .LTRDN(LTRDN)
 );
 
 tag_real_tm_regs a4a4(

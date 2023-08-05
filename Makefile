@@ -23,6 +23,7 @@ LVDC_MODULES = add_reg_x_decode \
 LVDA_MODULES = accel_time_proc_1 \
 	       address_decode_1 \
 	       address_decode_2 \
+	       address_decode_3 \
 	       int_countdn_proc_1 \
 	       int_countdn_proc_2 \
 	       processor_store \
@@ -49,6 +50,7 @@ COMPONENTS = bfr_pa \
 	     dld \
 	     dsa \
 	     efl \
+	     hci \
 	     inv \
 	     ia1 \
 	     ia2 \
