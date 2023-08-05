@@ -38,6 +38,7 @@ LVDA_MODULES = accel_time_proc_1 \
 	       telem_control \
 	       timing_1 \
 	       timing_2 \
+	       transient_prot \
 
 COMPONENTS = bfr_pa \
 	     bfr_shp \
@@ -50,6 +51,7 @@ COMPONENTS = bfr_pa \
 	     dl \
 	     dld \
 	     dsa \
+	     dtp \
 	     efl \
 	     hci \
 	     inv \

@@ -15,13 +15,73 @@ module lvda(
     input wire A9V,
     input wire AI3V,
     input wire BO1N,
+    input wire CR1,
+    input wire CR2,
+    input wire CR3,
+    input wire CR4,
+    input wire CR5,
+    input wire CR6,
+    input wire CR7,
+    input wire CR8,
+    input wire CR9,
+    input wire CR10,
+    input wire CR11,
+    input wire CR12,
+    input wire CR13,
+    input wire CR14,
+    input wire CRI1X,
+    input wire CRI2X,
     input wire CST,
+    input wire DIN1X,
+    input wire DIN2AX,
+    input wire DIN2BX,
+    input wire DIN3X,
+    input wire DIN10X,
+    input wire DIN11X,
+    input wire DIN12X,
+    input wire DIN13X,
+    input wire DIN14X,
+    input wire DIN15X,
+    input wire DIN16X,
+    input wire DIN17X,
+    input wire DIN18X,
+    input wire DIN19X,
+    input wire DIN20X,
+    input wire DIN21X,
+    input wire DIN22X,
+    input wire DIN23X,
+    input wire DIN24X,
+    input wire GC1,
+    input wire GC2,
+    input wire GC3,
+    input wire GC4,
+    input wire GC5,
+    input wire GC6,
+    input wire GC7,
+    input wire GC8,
+    input wire GC9,
+    input wire GC10,
+    input wire GC11,
+    input wire GC12,
+    input wire GC13,
+    input wire GC14,
     input wire G5VN,
     input wire HLT,
     input wire PBVN,
     input wire PIOV,
     input wire TE1H,
     input wire TRSV,
+    input wire TS1,
+    input wire TS2,
+    input wire TS3,
+    input wire TS4,
+    input wire TS5,
+    input wire TS6,
+    input wire TS7,
+    input wire TS8,
+    input wire TS9,
+    input wire TS10,
+    input wire TSYNC,
     input wire WDA,
     input wire XDA,
     input wire YDA,
@@ -40,52 +100,17 @@ reg V5 = 1;
 
 // TEMPORARY UNDRIVEN
 reg CCSL = 0;
-reg CR1 = 0;
-reg CR2 = 0;
-reg CR3 = 0;
-reg CR4 = 0;
-reg CR5 = 0;
-reg CR6 = 0;
-reg CR7 = 0;
-reg CR8 = 0;
-reg CR9 = 0;
-reg CR10 = 0;
-reg CR11 = 0;
-reg CR12 = 0;
-reg CR13 = 0;
-reg CR14 = 0;
-reg CRI1 = 0;
-reg CRI2 = 0;
 reg DC1S = 0;
 reg DC2S = 0;
 reg DC3S = 0;
 reg DC4S = 0;
 reg DCALN = 1;
-reg DIN1 = 0;
-reg DIN2A = 0;
-reg DIN2B = 0;
-reg DIN3 = 0;
 reg DIN4 = 0;
 reg DIN5 = 0;
 reg DIN6 = 0;
 reg DIN7 = 0;
 reg DIN8 = 0;
 reg DIN9 = 0;
-reg DIN10 = 0;
-reg DIN11 = 0;
-reg DIN12 = 0;
-reg DIN13 = 0;
-reg DIN14 = 0;
-reg DIN15 = 0;
-reg DIN16 = 0;
-reg DIN17 = 0;
-reg DIN18 = 0;
-reg DIN19 = 0;
-reg DIN20 = 0;
-reg DIN21 = 0;
-reg DIN22 = 0;
-reg DIN23 = 0;
-reg DIN24 = 0;
 reg DIS1 = 0;
 reg DIS2 = 0;
 reg DIS3 = 0;
@@ -110,20 +135,6 @@ reg ETCR = 0;
 reg ETCRN = 1;
 reg ETTS = 0;
 reg ETTSN = 1;
-reg GC1 = 0;
-reg GC2 = 0;
-reg GC3 = 0;
-reg GC4 = 0;
-reg GC5 = 0;
-reg GC6 = 0;
-reg GC7 = 0;
-reg GC8 = 0;
-reg GC9 = 0;
-reg GC10 = 0;
-reg GC11 = 0;
-reg GC12 = 0;
-reg GC13 = 0;
-reg GC14 = 0;
 reg GCSYNC = 0;
 reg ICR1 = 0;
 reg ICR1N = 1;
@@ -154,17 +165,6 @@ reg SSFB6 = 0;
 reg SSFB7 = 0;
 reg SSFB8 = 0;
 reg TAGS = 0;
-reg TS1 = 0;
-reg TS2 = 0;
-reg TS3 = 0;
-reg TS4 = 0;
-reg TS5 = 0;
-reg TS6 = 0;
-reg TS7 = 0;
-reg TS8 = 0;
-reg TS9 = 0;
-reg TS10 = 0;
-reg TSYNC = 0;
 
 // Backplane wires
 wire A1D;
@@ -228,12 +228,33 @@ wire CODG;
 wire CODGV;
 wire CRCA;
 wire CRCAV;
+wire CRI1;
+wire CRI2;
 wire DAINF;
 wire DARA;
 wire DARAV;
 wire DARO;
 wire DATA;
 wire DIAD;
+wire DIN1;
+wire DIN2A;
+wire DIN2B;
+wire DIN3;
+wire DIN10;
+wire DIN11;
+wire DIN12;
+wire DIN13;
+wire DIN14;
+wire DIN15;
+wire DIN16;
+wire DIN17;
+wire DIN18;
+wire DIN19;
+wire DIN20;
+wire DIN21;
+wire DIN22;
+wire DIN23;
+wire DIN24;
 wire DINF;
 wire DINFN;
 wire DINFV;
@@ -448,6 +469,55 @@ assign REXCVN = REXCN;
 assign SSRV = SSR;
 
 // Modules
+transient_prot a1a19(
+    .SIM_CLK(SIM_CLK),
+    .SIM_RST(SIM_RST),
+
+    .CRI1X(CRI1X),
+    .CRI2X(CRI2X),
+    .DIN1X(DIN1X),
+    .DIN2AX(DIN2AX),
+    .DIN2BX(DIN2BX),
+    .DIN3X(DIN3X),
+    .DIN10X(DIN10X),
+    .DIN11X(DIN11X),
+    .DIN12X(DIN12X),
+    .DIN13X(DIN13X),
+    .DIN14X(DIN14X),
+    .DIN15X(DIN15X),
+    .DIN16X(DIN16X),
+    .DIN17X(DIN17X),
+    .DIN18X(DIN18X),
+    .DIN19X(DIN19X),
+    .DIN20X(DIN20X),
+    .DIN21X(DIN21X),
+    .DIN22X(DIN22X),
+    .DIN23X(DIN23X),
+    .DIN24X(DIN24X),
+
+    .CRI1(CRI1),
+    .CRI2(CRI2),
+    .DIN1(DIN1),
+    .DIN2A(DIN2A),
+    .DIN2B(DIN2B),
+    .DIN3(DIN3),
+    .DIN10(DIN10),
+    .DIN11(DIN11),
+    .DIN12(DIN12),
+    .DIN13(DIN13),
+    .DIN14(DIN14),
+    .DIN15(DIN15),
+    .DIN16(DIN16),
+    .DIN17(DIN17),
+    .DIN18(DIN18),
+    .DIN19(DIN19),
+    .DIN20(DIN20),
+    .DIN21(DIN21),
+    .DIN22(DIN22),
+    .DIN23(DIN23),
+    .DIN24(DIN24)
+);
+
 sd_sampler_3 a2a1(
     .SIM_CLK(SIM_CLK),
     .SIM_RST(SIM_RST),

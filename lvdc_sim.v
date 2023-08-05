@@ -12,12 +12,71 @@ always #12.20703125 SIM_CLK = !SIM_CLK;
 
 reg SIM_RST = 0;
 
-
+reg CR1 = 0;
+reg CR2 = 0;
+reg CR3 = 0;
+reg CR4 = 0;
+reg CR5 = 0;
+reg CR6 = 0;
+reg CR7 = 0;
+reg CR8 = 0;
+reg CR9 = 0;
+reg CR10 = 0;
+reg CR11 = 0;
+reg CR12 = 0;
+reg CR13 = 0;
+reg CR14 = 0;
+reg CRI1X = 0;
+reg CRI2X = 0;
 reg CST = 0;
 reg DIN = 0;
+reg DIN1X = 0;
+reg DIN2AX = 0;
+reg DIN2BX = 0;
+reg DIN3X = 0;
+reg DIN10X = 0;
+reg DIN11X = 0;
+reg DIN12X = 0;
+reg DIN13X = 0;
+reg DIN14X = 0;
+reg DIN15X = 0;
+reg DIN16X = 0;
+reg DIN17X = 0;
+reg DIN18X = 0;
+reg DIN19X = 0;
+reg DIN20X = 0;
+reg DIN21X = 0;
+reg DIN22X = 0;
+reg DIN23X = 0;
+reg DIN24X = 0;
+reg GC1 = 0;
+reg GC2 = 0;
+reg GC3 = 0;
+reg GC4 = 0;
+reg GC5 = 0;
+reg GC6 = 0;
+reg GC7 = 0;
+reg GC8 = 0;
+reg GC9 = 0;
+reg GC10 = 0;
+reg GC11 = 0;
+reg GC12 = 0;
+reg GC13 = 0;
+reg GC14 = 0;
 reg HLT = 1;
 reg TER = 0;
 reg TE1H = 0;
+reg TS1 = 0;
+reg TS2 = 0;
+reg TS3 = 0;
+reg TS4 = 0;
+reg TS5 = 0;
+reg TS6 = 0;
+reg TS7 = 0;
+reg TS8 = 0;
+reg TS9 = 0;
+reg TS10 = 0;
+reg TSYNC = 0;
 
 wire A1V;
 wire A2V;
@@ -109,13 +168,73 @@ lvda lvda1(
     .A9V(A9V),
     .AI3V(AI3V),
     .BO1N(BO1N),
+    .CR1(CR1),
+    .CR2(CR2),
+    .CR3(CR3),
+    .CR4(CR4),
+    .CR5(CR5),
+    .CR6(CR6),
+    .CR7(CR7),
+    .CR8(CR8),
+    .CR9(CR9),
+    .CR10(CR10),
+    .CR11(CR11),
+    .CR12(CR12),
+    .CR13(CR13),
+    .CR14(CR14),
+    .CRI1X(CRI1X),
+    .CRI2X(CRI2X),
     .CST(CST),
+    .DIN1X(DIN1X),
+    .DIN2AX(DIN2AX),
+    .DIN2BX(DIN2BX),
+    .DIN3X(DIN3X),
+    .DIN10X(DIN10X),
+    .DIN11X(DIN11X),
+    .DIN12X(DIN12X),
+    .DIN13X(DIN13X),
+    .DIN14X(DIN14X),
+    .DIN15X(DIN15X),
+    .DIN16X(DIN16X),
+    .DIN17X(DIN17X),
+    .DIN18X(DIN18X),
+    .DIN19X(DIN19X),
+    .DIN20X(DIN20X),
+    .DIN21X(DIN21X),
+    .DIN22X(DIN22X),
+    .DIN23X(DIN23X),
+    .DIN24X(DIN24X),
+    .GC1(GC1),
+    .GC2(GC2),
+    .GC3(GC3),
+    .GC4(GC4),
+    .GC5(GC5),
+    .GC6(GC6),
+    .GC7(GC7),
+    .GC8(GC8),
+    .GC9(GC9),
+    .GC10(GC10),
+    .GC11(GC11),
+    .GC12(GC12),
+    .GC13(GC13),
+    .GC14(GC14),
     .G5VN(G5VN),
     .HLT(HLT),
     .PBVN(PBVN),
     .PIOV(PIOV),
     .TE1H(TE1H),
     .TRSV(TRSV),
+    .TS1(TS1),
+    .TS2(TS2),
+    .TS3(TS3),
+    .TS4(TS4),
+    .TS5(TS5),
+    .TS6(TS6),
+    .TS7(TS7),
+    .TS8(TS8),
+    .TS9(TS9),
+    .TS10(TS10),
+    .TSYNC(TSYNC),
     .WDA(WDA),
     .XDA(XDA),
     .YDA(YDA),
