@@ -158,7 +158,6 @@ reg ICSN = 1;
 reg LRR = 0;
 reg MODR1 = 0;
 reg MODR2 = 0;
-reg MODR3 = 0;
 reg OCINT = 0;
 reg QBP = 0;
 reg QCP = 0;
@@ -205,6 +204,7 @@ wire AD;
 wire ADN;
 wire ADV;
 wire ADVN;
+wire BRR1;
 wire C1RD;
 wire C1RDN;
 wire C2R;
@@ -346,6 +346,8 @@ wire ML12;
 wire ML13;
 wire ML14;
 wire MODA;
+wire MODR3;
+wire MODRR;
 wire OCR;
 wire PAA;
 wire PAAN;
@@ -1560,7 +1562,35 @@ mode_buff_regs a4a19(
     .PCINFV(PCINFV),
     .Y4(Y4),
     .Y6(Y6),
-    .Z4(Z4)
+    .Z4(Z4),
+
+    .BRR1(BRR1),
+    .MODRR(MODRR)
+);
+
+buff_regs_1 a4a20(
+    .SIM_CLK(SIM_CLK),
+    .SIM_RST(SIM_RST),
+
+    .V1(V1),
+
+    .BRR1(BRR1),
+    .G1DV(G1DV),
+    .G1DVN(G1DVN),
+    .G2DV(G2DV),
+    .G6DVN(G6DVN),
+    .G7DV(G7DV),
+    .G7DVN(G7DVN),
+    .INFOV(INFOV),
+    .LTRV(LTRV),
+    .MODA(MODA),
+    .MODRR(MODRR),
+    .PBAV(PBAV),
+    .PCAV(PCAV),
+    .Y6(Y6),
+    .Z4(Z4),
+
+    .MODR3(MODR3)
 );
 
 accel_time_proc_1 a4a24(

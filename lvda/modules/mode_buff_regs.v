@@ -33,7 +33,10 @@ module mode_buff_regs(
     input wire PCINFV,
     input wire Y4,
     input wire Y6,
-    input wire Z4
+    input wire Z4,
+
+    output wire BRR1,
+    output wire MODRR
 );
 
 wire BRD5;
@@ -72,13 +75,11 @@ wire BRD25;
 wire BRD25N;
 wire BRD26;
 wire BRD26N;
-wire BRR1;
 wire BRR2;
 wire MODR5;
 wire MODR5N;
 wire MODR6;
 wire MODR6N;
-wire MODRR;
 
 wire na1a;
 wire na1b;
@@ -400,24 +401,6 @@ and a26e(na26e_a26e, V1, na26d, MODR5);
 inv a26f(MODR5N, na26e, SIM_CLK, SIM_RST);
 inv #(0) a33f(MODR5, na33e, SIM_CLK, SIM_RST);
 and a33e(na33e, V1, MODR5N);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 endmodule
 `default_nettype wire
