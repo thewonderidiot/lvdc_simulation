@@ -41,6 +41,7 @@ module address_decode_3(
     output wire CODE,
     output wire EMA,
     output wire LTRDN,
+    output wire MODA,
     output wire SSDO
 );
 
@@ -57,7 +58,6 @@ wire L4AN;
 wire L5A;
 wire L5AN;
 wire LTRD;
-wire MODA;
 wire MODAN;
 wire SSDON;
 

@@ -91,6 +91,7 @@ module address_decode_1(
     output wire MLA,
     output wire OCR,
     output wire PARS,
+    output wire PCINF,
     output wire PIOD,
     output wire TLM
 );
@@ -105,7 +106,6 @@ wire INFON;
 wire LTRN;
 wire MLAN;
 wire OCRN;
-wire PCINF;
 wire PCINFN;
 wire PIODN;
 wire TLMN;

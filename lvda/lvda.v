@@ -345,6 +345,7 @@ wire ML11;
 wire ML12;
 wire ML13;
 wire ML14;
+wire MODA;
 wire OCR;
 wire PAA;
 wire PAAN;
@@ -366,6 +367,8 @@ wire PCAV;
 wire PCAVN;
 wire PCG2;
 wire PCG2V;
+wire PCINF;
+wire PCINFV;
 wire PIOD;
 wire PIODV;
 wire RECA;
@@ -489,6 +492,7 @@ assign PBG2V = PBG2;
 assign PCAV = PCA;
 assign PCAVN = PCAN;
 assign PCG2V = PCG2;
+assign PCINFV = PCINF;
 assign PIODV = PIOD;
 assign RECAV = RECA;
 assign RECAVN = RECAN;
@@ -1148,6 +1152,7 @@ address_decode_1 a3a5(
     .MLA(MLA),
     .OCR(OCR),
     .PARS(PARS),
+    .PCINF(PCINF),
     .PIOD(PIOD),
     .TLM(TLM)
 );
@@ -1305,6 +1310,7 @@ address_decode_3 a3a24(
     .CODE(CODE),
     .EMA(EMA),
     .LTRDN(LTRDN),
+    .MODA(MODA),
     .SSDO(SSDO)
 );
 
@@ -1520,6 +1526,41 @@ int_countdn_proc_2 a4a18(
     .SINT(SINT),
     .TC3A(TC3A),
     .TC3AN(TC3AN)
+);
+
+mode_buff_regs a4a19(
+    .SIM_CLK(SIM_CLK),
+    .SIM_RST(SIM_RST),
+
+    .V1(V1),
+
+    .G1DV(G1DV),
+    .G1DVN(G1DVN),
+    .G2DV(G2DV),
+    .G2DVN(G2DVN),
+    .G3DV(G3DV),
+    .G3DVN(G3DVN),
+    .G4DV(G4DV),
+    .G4DVN(G4DVN),
+    .G5DV(G5DV),
+    .G5DVN(G5DVN),
+    .G6DV(G6DV),
+    .G6DVN(G6DVN),
+    .G7DV(G7DV),
+    .G7DVN(G7DVN),
+    .INFOV(INFOV),
+    .LTRV(LTRV),
+    .MODA(MODA),
+    .PAAV(PAAV),
+    .PAAVN(PAAVN),
+    .PABG1V(PABG1V),
+    .PBAV(PBAV),
+    .PBG2V(PBG2V),
+    .PCAV(PCAV),
+    .PCINFV(PCINFV),
+    .Y4(Y4),
+    .Y6(Y6),
+    .Z4(Z4)
 );
 
 accel_time_proc_1 a4a24(
