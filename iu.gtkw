@@ -1,0 +1,185 @@
+[*]
+[*] GTKWave Analyzer v3.3.113 (w)1999-2022 BSI
+[*] Tue Mar 14 04:13:04 2023
+[*]
+[dumpfile] "/home/mike/iu_simulation/lvdc.fst"
+[dumpfile_mtime] "Tue Mar 14 03:56:01 2023"
+[dumpfile_size] 80192
+[savefile] "/home/mike/iu_simulation/lvdc.gtkw"
+[timestart] 0
+[size] 1920 1032
+[pos] -1 -1
+*-27.032167 299100000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] iu_sim.
+[treeopen] iu_sim.lvdc1.
+[sst_width] 209
+[signals_width] 282
+[sst_expanded] 1
+[sst_vpaned_height] 482
+@10c00028
+[color] 7
+[transaction_args] ""
+^<1 /home/mike/iu_simulation/scripts/decode_phase.py
+#{phase} iu_sim.lvdc1.a1a13.PCV iu_sim.lvdc1.a1a13.PBV iu_sim.lvdc1.a1a13.PAV
+@28
+iu_sim.lvdc1.a1a13.PAV
+iu_sim.lvdc1.a1a13.PBV
+iu_sim.lvdc1.a1a13.PCV
+@1401200
+-group_end
+@10c00022
+[color] 6
+[transaction_args] ""
+^<2 /home/mike/iu_simulation/scripts/decode_bit_time.py
+#{bit time} iu_sim.lvdc1.a1a13.G7V iu_sim.lvdc1.a1a13.G6V iu_sim.lvdc1.a1a13.G5V iu_sim.lvdc1.a1a13.G4V iu_sim.lvdc1.a1a13.G3V iu_sim.lvdc1.a1a13.G2V iu_sim.lvdc1.a1a13.G1V
+@28
+iu_sim.lvdc1.a1a13.G1V
+iu_sim.lvdc1.a1a13.G2V
+iu_sim.lvdc1.a1a13.G3V
+iu_sim.lvdc1.a1a13.G4V
+iu_sim.lvdc1.a1a13.G5V
+iu_sim.lvdc1.a1a13.G6V
+iu_sim.lvdc1.a1a13.G7V
+@1401200
+-group_end
+@10c00022
+[color] 5
+[transaction_args] ""
+^<3 /home/mike/iu_simulation/scripts/decode_clock.py
+#{Clock} iu_sim.lvdc1.a1a3.ZF iu_sim.lvdc1.a1a3.YF iu_sim.lvdc1.a1a3.XF iu_sim.lvdc1.a1a3.WF
+@28
+iu_sim.lvdc1.a1a3.WF
+iu_sim.lvdc1.a1a3.XF
+iu_sim.lvdc1.a1a3.YF
+iu_sim.lvdc1.a1a3.ZF
+@1401200
+-group_end
+@10c00022
+[transaction_args] ""
+^<4 /home/mike/iu_simulation/scripts/decode_opcode.py
+#{Opcode} iu_sim.lvdc1.OP4V iu_sim.lvdc1.OP3V iu_sim.lvdc1.OP2V iu_sim.lvdc1.OP1V iu_sim.lvdc1.A9V iu_sim.lvdc1.A8V
+@28
+iu_sim.lvdc1.A8V
+iu_sim.lvdc1.A9V
+iu_sim.lvdc1.OP1V
+iu_sim.lvdc1.OP2V
+iu_sim.lvdc1.OP3V
+iu_sim.lvdc1.OP4V
+@1401200
+-group_end
+@b0
++{Acc} iu_sim.Acc[26:1]
+@10c00022
+[transaction_args] ""
+^<5 /home/mike/iu_simulation/scripts/decode_module.py
+#{IM} iu_sim.lvdc1.a1a14.IM3 iu_sim.lvdc1.a1a14.IM2 iu_sim.lvdc1.a1a14.IM1 iu_sim.lvdc1.a1a14.IM0
+@28
+iu_sim.lvdc1.a1a14.IM0
+iu_sim.lvdc1.a1a14.IM1
+iu_sim.lvdc1.a1a14.IM2
+iu_sim.lvdc1.a1a14.IM3
+@1401200
+-group_end
+@c00030
+#{IS} iu_sim.lvdc1.IS4 iu_sim.lvdc1.IS3 iu_sim.lvdc1.IS2 iu_sim.lvdc1.IS1
+@28
+iu_sim.lvdc1.IS1
+iu_sim.lvdc1.IS2
+iu_sim.lvdc1.IS3
+iu_sim.lvdc1.IS4
+@1401200
+-group_end
+@24
++{S} iu_sim.lvdc1.SYLC1V
+@10c00022
+[transaction_args] ""
+^<5 /home/mike/iu_simulation/scripts/decode_module.py
+#{DM} iu_sim.lvdc1.a1a14.DM3 iu_sim.lvdc1.a1a14.DM2 iu_sim.lvdc1.a1a14.DM1 iu_sim.lvdc1.a1a14.DM0
+@28
+iu_sim.lvdc1.a1a14.DM0
+iu_sim.lvdc1.a1a14.DM1
+iu_sim.lvdc1.a1a14.DM2
+iu_sim.lvdc1.a1a14.DM3
+@1401200
+-group_end
+@c00030
+#{DS} iu_sim.lvdc1.DS4 iu_sim.lvdc1.DS3 iu_sim.lvdc1.DS2 iu_sim.lvdc1.DS1
+@28
+iu_sim.lvdc1.DS1
+iu_sim.lvdc1.DS2
+iu_sim.lvdc1.DS3
+iu_sim.lvdc1.DS4
+@1401200
+-group_end
+@c00030
+#{A} iu_sim.lvdc1.A9V iu_sim.lvdc1.A8V iu_sim.lvdc1.A7V iu_sim.lvdc1.A6V iu_sim.lvdc1.A5V iu_sim.lvdc1.A4V iu_sim.lvdc1.A3V iu_sim.lvdc1.A2V iu_sim.lvdc1.A1V
+@28
+iu_sim.lvdc1.A1V
+iu_sim.lvdc1.A2V
+iu_sim.lvdc1.A3V
+iu_sim.lvdc1.A4V
+iu_sim.lvdc1.A5V
+iu_sim.lvdc1.A6V
+iu_sim.lvdc1.A7V
+iu_sim.lvdc1.A8V
+iu_sim.lvdc1.A9V
+@1401200
+-group_end
+@c00030
+#{TR} iu_sim.lvdc1.TR13V iu_sim.lvdc1.TR12V iu_sim.lvdc1.TR11V iu_sim.lvdc1.TR10V iu_sim.lvdc1.TR9V iu_sim.lvdc1.TR8V iu_sim.lvdc1.TR7V iu_sim.lvdc1.TR6V iu_sim.lvdc1.TR5V iu_sim.lvdc1.TR4V iu_sim.lvdc1.TR3V iu_sim.lvdc1.TR2V iu_sim.lvdc1.TR1V
+@28
+iu_sim.lvdc1.TR1V
+iu_sim.lvdc1.TR2V
+iu_sim.lvdc1.TR3V
+iu_sim.lvdc1.TR4V
+iu_sim.lvdc1.TR5V
+iu_sim.lvdc1.TR6V
+iu_sim.lvdc1.TR7V
+iu_sim.lvdc1.TR8V
+iu_sim.lvdc1.TR9V
+iu_sim.lvdc1.TR10V
+iu_sim.lvdc1.TR11V
+iu_sim.lvdc1.TR12V
+iu_sim.lvdc1.TR13V
+@1401200
+-group_end
+@c000b0
+#{BRA} iu_sim.lvdc1.BRA14 iu_sim.lvdc1.BRA13 iu_sim.lvdc1.BRA12 iu_sim.lvdc1.BRA11 iu_sim.lvdc1.BRA10 iu_sim.lvdc1.BRA9 iu_sim.lvdc1.BRA8 iu_sim.lvdc1.BRA7 iu_sim.lvdc1.BRA6 iu_sim.lvdc1.BRA5 iu_sim.lvdc1.BRA4 iu_sim.lvdc1.BRA3 iu_sim.lvdc1.BRA2 iu_sim.lvdc1.BRA1
+@28
+iu_sim.lvdc1.BRA1
+iu_sim.lvdc1.BRA2
+iu_sim.lvdc1.BRA3
+iu_sim.lvdc1.BRA4
+iu_sim.lvdc1.BRA5
+iu_sim.lvdc1.BRA6
+iu_sim.lvdc1.BRA7
+iu_sim.lvdc1.BRA8
+iu_sim.lvdc1.BRA9
+iu_sim.lvdc1.BRA10
+iu_sim.lvdc1.BRA11
+iu_sim.lvdc1.BRA12
+iu_sim.lvdc1.BRA13
+iu_sim.lvdc1.BRA14
+@1401200
+-group_end
+@c000b0
+#{BRB} iu_sim.lvdc1.BRB14 iu_sim.lvdc1.BRB13 iu_sim.lvdc1.BRB12 iu_sim.lvdc1.BRB11 iu_sim.lvdc1.BRB10 iu_sim.lvdc1.BRB9 iu_sim.lvdc1.BRB8 iu_sim.lvdc1.BRB7 iu_sim.lvdc1.BRB6 iu_sim.lvdc1.BRB5 iu_sim.lvdc1.BRB4 iu_sim.lvdc1.BRB3 iu_sim.lvdc1.BRB2 iu_sim.lvdc1.BRB1
+@28
+iu_sim.lvdc1.BRB1
+iu_sim.lvdc1.BRB2
+iu_sim.lvdc1.BRB3
+iu_sim.lvdc1.BRB4
+iu_sim.lvdc1.BRB5
+iu_sim.lvdc1.BRB6
+iu_sim.lvdc1.BRB7
+iu_sim.lvdc1.BRB8
+iu_sim.lvdc1.BRB9
+iu_sim.lvdc1.BRB10
+iu_sim.lvdc1.BRB11
+iu_sim.lvdc1.BRB12
+iu_sim.lvdc1.BRB13
+iu_sim.lvdc1.BRB14
+@1401200
+-group_end
+[pattern_trace] 1
+[pattern_trace] 0

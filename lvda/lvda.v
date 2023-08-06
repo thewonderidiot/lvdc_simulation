@@ -36,6 +36,12 @@ module lvda(
     input wire DIN2AX,
     input wire DIN2BX,
     input wire DIN3X,
+    input wire DIN4X,
+    input wire DIN5X,
+    input wire DIN6X,
+    input wire DIN7X,
+    input wire DIN8X,
+    input wire DIN9X,
     input wire DIN10X,
     input wire DIN11X,
     input wire DIN12X,
@@ -51,6 +57,15 @@ module lvda(
     input wire DIN22X,
     input wire DIN23X,
     input wire DIN24X,
+    input wire DIS1X,
+    input wire DIS2X,
+    input wire DIS3X,
+    input wire DIS4X,
+    input wire DIS5X,
+    input wire DIS6X,
+    input wire DIS7X,
+    input wire DIS8X,
+    input wire G5VN,
     input wire GC1,
     input wire GC2,
     input wire GC3,
@@ -65,10 +80,25 @@ module lvda(
     input wire GC12,
     input wire GC13,
     input wire GC14,
-    input wire G5VN,
-    input wire HLT,
+    input wire GCSYNCX,
+    input wire HLTX,
+    input wire INTR1X,
+    input wire INTR2X,
+    input wire INTR3X,
+    input wire INTR4X,
+    input wire INTR5X,
+    input wire INTR6X,
+    input wire INTR7X,
     input wire PBVN,
     input wire PIOV,
+    input wire SSFB1X,
+    input wire SSFB2X,
+    input wire SSFB3X,
+    input wire SSFB4X,
+    input wire SSFB5X,
+    input wire SSFB6X,
+    input wire SSFB7X,
+    input wire SSFB8X,
     input wire TE1H,
     input wire TRSV,
     input wire TS1,
@@ -105,20 +135,6 @@ reg DC2S = 0;
 reg DC3S = 0;
 reg DC4S = 0;
 reg DCALN = 1;
-reg DIN4 = 0;
-reg DIN5 = 0;
-reg DIN6 = 0;
-reg DIN7 = 0;
-reg DIN8 = 0;
-reg DIN9 = 0;
-reg DIS1 = 0;
-reg DIS2 = 0;
-reg DIS3 = 0;
-reg DIS4 = 0;
-reg DIS5 = 0;
-reg DIS6 = 0;
-reg DIS7 = 0;
-reg DIS8 = 0;
 reg DLS = 0;
 reg DOMC1 = 0;
 reg DOMC1N = 1;
@@ -135,18 +151,10 @@ reg ETCR = 0;
 reg ETCRN = 1;
 reg ETTS = 0;
 reg ETTSN = 1;
-reg GCSYNC = 0;
 reg ICR1 = 0;
 reg ICR1N = 1;
 reg ICR9 = 0;
 reg ICSN = 1;
-reg INTR1 = 0;
-reg INTR2 = 0;
-reg INTR3 = 0;
-reg INTR4 = 0;
-reg INTR5 = 0;
-reg INTR6 = 0;
-reg INTR7 = 0;
 reg LRR = 0;
 reg MODR1 = 0;
 reg MODR2 = 0;
@@ -156,14 +164,6 @@ reg QBP = 0;
 reg QCP = 0;
 reg RBP = 0;
 reg RCP = 0;
-reg SSFB1 = 0;
-reg SSFB2 = 0;
-reg SSFB3 = 0;
-reg SSFB4 = 0;
-reg SSFB5 = 0;
-reg SSFB6 = 0;
-reg SSFB7 = 0;
-reg SSFB8 = 0;
 reg TAGS = 0;
 
 // Backplane wires
@@ -240,6 +240,12 @@ wire DIN1;
 wire DIN2A;
 wire DIN2B;
 wire DIN3;
+wire DIN4;
+wire DIN5;
+wire DIN6;
+wire DIN7;
+wire DIN8;
+wire DIN9;
 wire DIN10;
 wire DIN11;
 wire DIN12;
@@ -259,6 +265,14 @@ wire DINF;
 wire DINFN;
 wire DINFV;
 wire DINFVN;
+wire DIS1;
+wire DIS2;
+wire DIS3;
+wire DIS4;
+wire DIS5;
+wire DIS6;
+wire DIS7;
+wire DIS8;
 wire DISA;
 wire DOR;
 wire EMA;
@@ -290,7 +304,9 @@ wire G7D;
 wire G7DN;
 wire G7DV;
 wire G7DVN;
+wire GCSYNC;
 wire HALT;
+wire HLT;
 wire ICR;
 wire ICRV;
 wire ICSD;
@@ -298,6 +314,13 @@ wire ICSDN;
 wire INFO;
 wire INFOV;
 wire INTC;
+wire INTR1;
+wire INTR2;
+wire INTR3;
+wire INTR4;
+wire INTR5;
+wire INTR6;
+wire INTR7;
 wire ITS;
 wire LGA;
 wire LGAV;
@@ -362,6 +385,14 @@ wire REXCVN;
 wire SINT;
 wire SSA;
 wire SSDO;
+wire SSFB1;
+wire SSFB2;
+wire SSFB3;
+wire SSFB4;
+wire SSFB5;
+wire SSFB6;
+wire SSFB7;
+wire SSFB8;
 wire SSR;
 wire SSRV;
 wire SSIT1;
@@ -516,6 +547,75 @@ transient_prot a1a19(
     .DIN22(DIN22),
     .DIN23(DIN23),
     .DIN24(DIN24)
+);
+
+dis_tran_prot a1a23(
+    .SIM_CLK(SIM_CLK),
+    .SIM_RST(SIM_RST),
+
+    .DIN4X(DIN4X),
+    .DIN5X(DIN5X),
+    .DIN6X(DIN6X),
+    .DIN7X(DIN7X),
+    .DIN8X(DIN8X),
+    .DIN9X(DIN9X),
+    .DIS1X(DIS1X),
+    .DIS2X(DIS2X),
+    .DIS3X(DIS3X),
+    .DIS4X(DIS4X),
+    .DIS5X(DIS5X),
+    .DIS6X(DIS6X),
+    .DIS7X(DIS7X),
+    .DIS8X(DIS8X),
+    .GCSYNCX(GCSYNCX),
+    .HLTX(HLTX),
+    .INTR1X(INTR1X),
+    .INTR2X(INTR2X),
+    .INTR3X(INTR3X),
+    .INTR4X(INTR4X),
+    .INTR5X(INTR5X),
+    .INTR6X(INTR6X),
+    .INTR7X(INTR7X),
+    .SSFB1X(SSFB1X),
+    .SSFB2X(SSFB2X),
+    .SSFB3X(SSFB3X),
+    .SSFB4X(SSFB4X),
+    .SSFB5X(SSFB5X),
+    .SSFB6X(SSFB6X),
+    .SSFB7X(SSFB7X),
+    .SSFB8X(SSFB8X),
+
+    .DIN4(DIN4),
+    .DIN5(DIN5),
+    .DIN6(DIN6),
+    .DIN7(DIN7),
+    .DIN8(DIN8),
+    .DIN9(DIN9),
+    .DIS1(DIS1),
+    .DIS2(DIS2),
+    .DIS3(DIS3),
+    .DIS4(DIS4),
+    .DIS5(DIS5),
+    .DIS6(DIS6),
+    .DIS7(DIS7),
+    .DIS8(DIS8),
+    .GCSYNC(GCSYNC),
+    .HLT(HLT),
+    .INTR1(INTR1),
+    .INTR2(INTR2),
+    .INTR3(INTR3),
+    .INTR4(INTR4),
+    .INTR5(INTR5),
+    .INTR6(INTR6),
+    .INTR7(INTR7),
+    .SSFB1(SSFB1),
+    .SSFB2(SSFB2),
+    .SSFB3(SSFB3),
+    .SSFB4(SSFB4),
+    .SSFB5(SSFB5),
+    .SSFB6(SSFB6),
+    .SSFB7(SSFB7),
+    .SSFB8(SSFB8)
 );
 
 sd_sampler_3 a2a1(

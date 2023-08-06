@@ -1,7 +1,7 @@
 `timescale 1ns/1ps
 `default_nettype none
 
-module lvdc_sim;
+module iu_sim;
 
 reg SIM_CLK;
 initial SIM_CLK = 0;
@@ -34,6 +34,12 @@ reg DIN1X = 0;
 reg DIN2AX = 0;
 reg DIN2BX = 0;
 reg DIN3X = 0;
+reg DIN4X = 0;
+reg DIN5X = 0;
+reg DIN6X = 0;
+reg DIN7X = 0;
+reg DIN8X = 0;
+reg DIN9X = 0;
 reg DIN10X = 0;
 reg DIN11X = 0;
 reg DIN12X = 0;
@@ -49,6 +55,14 @@ reg DIN21X = 0;
 reg DIN22X = 0;
 reg DIN23X = 0;
 reg DIN24X = 0;
+reg DIS1X = 0;
+reg DIS2X = 0;
+reg DIS3X = 0;
+reg DIS4X = 0;
+reg DIS5X = 0;
+reg DIS6X = 0;
+reg DIS7X = 0;
+reg DIS8X = 0;
 reg GC1 = 0;
 reg GC2 = 0;
 reg GC3 = 0;
@@ -63,7 +77,23 @@ reg GC11 = 0;
 reg GC12 = 0;
 reg GC13 = 0;
 reg GC14 = 0;
-reg HLT = 1;
+reg GCSYNCX = 0;
+reg HLTX = 1;
+reg INTR1X = 0;
+reg INTR2X = 0;
+reg INTR3X = 0;
+reg INTR4X = 0;
+reg INTR5X = 0;
+reg INTR6X = 0;
+reg INTR7X = 0;
+reg SSFB1X = 0;
+reg SSFB2X = 0;
+reg SSFB3X = 0;
+reg SSFB4X = 0;
+reg SSFB5X = 0;
+reg SSFB6X = 0;
+reg SSFB7X = 0;
+reg SSFB8X = 0;
 reg TER = 0;
 reg TE1H = 0;
 reg TS1 = 0;
@@ -189,6 +219,12 @@ lvda lvda1(
     .DIN2AX(DIN2AX),
     .DIN2BX(DIN2BX),
     .DIN3X(DIN3X),
+    .DIN4X(DIN4X),
+    .DIN5X(DIN5X),
+    .DIN6X(DIN6X),
+    .DIN7X(DIN7X),
+    .DIN8X(DIN8X),
+    .DIN9X(DIN9X),
     .DIN10X(DIN10X),
     .DIN11X(DIN11X),
     .DIN12X(DIN12X),
@@ -204,6 +240,15 @@ lvda lvda1(
     .DIN22X(DIN22X),
     .DIN23X(DIN23X),
     .DIN24X(DIN24X),
+    .DIS1X(DIS1X),
+    .DIS2X(DIS2X),
+    .DIS3X(DIS3X),
+    .DIS4X(DIS4X),
+    .DIS5X(DIS5X),
+    .DIS6X(DIS6X),
+    .DIS7X(DIS7X),
+    .DIS8X(DIS8X),
+    .G5VN(G5VN),
     .GC1(GC1),
     .GC2(GC2),
     .GC3(GC3),
@@ -218,10 +263,25 @@ lvda lvda1(
     .GC12(GC12),
     .GC13(GC13),
     .GC14(GC14),
-    .G5VN(G5VN),
-    .HLT(HLT),
+    .GCSYNCX(GCSYNCX),
+    .HLTX(HLTX),
+    .INTR1X(INTR1X),
+    .INTR2X(INTR2X),
+    .INTR3X(INTR3X),
+    .INTR4X(INTR4X),
+    .INTR5X(INTR5X),
+    .INTR6X(INTR6X),
+    .INTR7X(INTR7X),
     .PBVN(PBVN),
     .PIOV(PIOV),
+    .SSFB1X(SSFB1X),
+    .SSFB2X(SSFB2X),
+    .SSFB3X(SSFB3X),
+    .SSFB4X(SSFB4X),
+    .SSFB5X(SSFB5X),
+    .SSFB6X(SSFB6X),
+    .SSFB7X(SSFB7X),
+    .SSFB8X(SSFB8X),
     .TE1H(TE1H),
     .TRSV(TRSV),
     .TS1(TS1),
@@ -247,10 +307,10 @@ lvda lvda1(
 );
 
 initial begin
-    $dumpfile("lvdc.fst");
-    $dumpvars(4, lvdc_sim);
+    $dumpfile("iu.fst");
+    $dumpvars(4, iu_sim);
     #100 SIM_RST = 1;
-    #100000 HLT = 0;
+    #100000 HLTX = 0;
     #5000000 $finish;
 end
 

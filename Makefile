@@ -24,6 +24,7 @@ LVDA_MODULES = accel_time_proc_1 \
 	       address_decode_1 \
 	       address_decode_2 \
 	       address_decode_3 \
+	       dis_tran_prot \
 	       int_countdn_proc_1 \
 	       int_countdn_proc_2 \
 	       processor_store \
@@ -71,7 +72,7 @@ LVDC_MODULE_SOURCES = $(addsuffix .v, $(addprefix lvdc/modules/, $(LVDC_MODULES)
 LVDA_MODULE_SOURCES = $(addsuffix .v, $(addprefix lvda/modules/, $(LVDA_MODULES)))
 COMPONENT_SOURCES = $(addsuffix .v, $(addprefix components/, $(COMPONENTS)))
 
-SOURCES = lvdc_sim.v \
+SOURCES = iu_sim.v \
 	  $(COMPONENT_SOURCES) \
 	  lvdc/lvdc.v \
 	  $(LVDC_MODULE_SOURCES) \
@@ -79,15 +80,15 @@ SOURCES = lvdc_sim.v \
 	  $(LVDA_MODULE_SOURCES) \
 	  
 .phony: all
-all: lvdc_sim
+all: iu_sim
 
-lvdc_sim: $(SOURCES)
+iu_sim: $(SOURCES)
 	iverilog -o $@ $^
 
 .phony: run
-run: lvdc_sim
-	vvp lvdc_sim -fst -n
+run: iu_sim
+	vvp iu_sim -fst -n
 
 .phony: clean
 clean:
-	rm -f lvdc_sim
+	rm -f iu_sim
