@@ -156,8 +156,6 @@ reg ICR1N = 1;
 reg ICR9 = 0;
 reg ICSN = 1;
 reg LRR = 0;
-reg MODR1 = 0;
-reg MODR2 = 0;
 reg OCINT = 0;
 reg QBP = 0;
 reg QCP = 0;
@@ -346,6 +344,8 @@ wire ML12;
 wire ML13;
 wire ML14;
 wire MODA;
+wire MODR1;
+wire MODR2;
 wire MODR3;
 wire MODRR;
 wire OCR;
@@ -430,6 +430,7 @@ wire Y7;
 wire Y8;
 wire Z1;
 wire Z2;
+wire Z3;
 wire Z4;
 wire Z5;
 wire Z6;
@@ -1266,6 +1267,7 @@ timing_1 a3a11(
     .Y8(Y8),
     .Z1(Z1),
     .Z2(Z2),
+    .Z3(Z3),
     .Z4(Z4),
     .Z5(Z5),
     .Z6(Z6),
@@ -1591,6 +1593,33 @@ buff_regs_1 a4a20(
     .Z4(Z4),
 
     .MODR3(MODR3)
+);
+
+buff_regs_2 a4a21(
+    .SIM_CLK(SIM_CLK),
+    .SIM_RST(SIM_RST),
+
+    .V1(V1),
+
+    .BRR1(BRR1),
+    .G4DVN(G4DVN),
+    .G5DV(G5DV),
+    .G5DVN(G5DVN),
+    .G6DV(G6DV),
+    .G6DVN(G6DVN),
+    .G7DVN(G7DVN),
+    .INFOV(INFOV),
+    .LTRV(LTRV),
+    .MODA(MODA),
+    .MODRR(MODRR),
+    .PBAV(PBAV),
+    .PCAV(PCAV),
+    .Y6(Y6),
+    .Z3(Z3),
+    .Z4(Z4),
+
+    .MODR1(MODR1),
+    .MODR2(MODR2)
 );
 
 accel_time_proc_1 a4a24(

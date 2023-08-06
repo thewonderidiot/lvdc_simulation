@@ -25,6 +25,7 @@ LVDA_MODULES = accel_time_proc_1 \
 	       address_decode_2 \
 	       address_decode_3 \
 	       buff_regs_1 \
+	       buff_regs_2 \
 	       dis_tran_prot \
 	       int_countdn_proc_1 \
 	       int_countdn_proc_2 \
