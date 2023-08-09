@@ -1472,6 +1472,8 @@ mem_mod_reg_sect_ser a1a14(
     .DS2M(DS2M),
     .DSS(DSS),
     .DSSN(DSSN),
+    .EXMV(EXMV),
+    .EXMVN(EXMVN),
     .G1V(G1V),
     .G1VN(G1VN),
     .G2V(G2V),

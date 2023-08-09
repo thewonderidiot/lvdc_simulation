@@ -17,6 +17,8 @@ module mem_mod_reg_sect_ser(
     input wire DS2M,
     input wire DSS,
     input wire DSSN,
+    input wire EXMV,    // Non-original input (see below)
+    input wire EXMVN,   // Non-original input (see below)
     input wire G1V,
     input wire G1VN,
     input wire G2V,
@@ -171,7 +173,8 @@ wire na14d_a12e;
 wire na14d_a6d;
 wire na14d_a6e;
 wire na14d_a14d;
-assign na14d = na14d_a12e | na14d_a6d | na14d_a6e | na14d_a14d;
+wire na14d_a99a;
+assign na14d = na14d_a12e | na14d_a6d | na14d_a6e | na14d_a14d | na14d_a99a;
 wire na15a;
 wire na15b;
 wire na15b_a16a;
@@ -275,6 +278,7 @@ wire na34b_a33b;
 wire na34b_a34b;
 assign na34b = na34b_a33b | na34b_a34b;
 wire na35b;
+wire na99b;
 
 // 10-42
 and a2a(na8b_a2a, Z8, na9a, CDSV, DSSN, G6V);
@@ -418,7 +422,7 @@ inv #(0) a35c(HOPC1, na35b, SIM_CLK, SIM_RST);
 and a35b(na35b, V4MOD6, HOPC1N);
 
 and a4a(na5b_a4a, X2, na5a, G1V, G6V, AVN);
-and a5a(na5a, PAV);
+and a5a(na5a, PAV, EXMVN); // EXMVN is a non-original input.
 and a5b(na5b_a5b, V1, REI);
 inv a5c(REIN, na5b, SIM_CLK, SIM_RST);
 inv #(0) a3e(REI, na3c, SIM_CLK, SIM_RST);
@@ -454,6 +458,14 @@ and a19d(na19e_a19d, na12d);
 and a19e(na19e_a19e, V1, OC);
 inv a19f(OCN_a19f, na19e, SIM_CLK, SIM_RST);
 
+// The following two gates are modern additions to work around
+// apparently outdated schematics. Without them (and the other
+// input changes in this module), EXM instructions will load
+// their instructions-to-be-modified from the current instruction
+// module instead of the current data module. The available
+// software all requires the data module to be used.
+and a99a(na14d_a99a, X2, na99b, G1V, G6V, AVN);
+and a99b(na99b, PAV, EXMV);
 and a12e(na14d_a12e, X2, na13c, OP1V, G4VN, G6V);
 and a13c(na13c, REIN, AV);
 and a6d(na14d_a6d, X2, na13d, PBV, G4VN, AV);
@@ -464,7 +476,7 @@ and a14d(na14d_a14d, V1, RED);
 inv a14e(REDN, na14d, SIM_CLK, SIM_RST);
 inv #(0) a7f(RED, na7d, SIM_CLK, SIM_RST);
 and a7d(na7d_a7d, V1, REDN);
-and a13e(na13e, X2, G4V, AVN);
+and a13e(na13e, X2, G4V, G6VN, AVN); // G6VN is a non-original input.
 and a7e(na7d_a7e, X2, na13e);
 
 endmodule
