@@ -5,6 +5,7 @@ module iu_sim;
 
 reg SIM_CLK;
 initial SIM_CLK = 0;
+wire SIM_UART_TX;
 
 `ifdef TARGET_FPGA
 always #12.20703125 SIM_CLK = !SIM_CLK;
@@ -106,7 +107,6 @@ reg TS7 = 0;
 reg TS8 = 0;
 reg TS9 = 0;
 reg TS10 = 0;
-reg TSYNC = 0;
 
 wire A1V;
 wire A2V;
@@ -119,6 +119,32 @@ wire A8V;
 wire A9V;
 wire AI3V;
 wire BO1N;
+wire BRD1;
+wire BRD2;
+wire BRD3;
+wire BRD4;
+wire BRD5;
+wire BRD6;
+wire BRD7;
+wire BRD8;
+wire BRD9;
+wire BRD10;
+wire BRD11;
+wire BRD12;
+wire BRD13;
+wire BRD14;
+wire BRD15;
+wire BRD16;
+wire BRD17;
+wire BRD18;
+wire BRD19;
+wire BRD20;
+wire BRD21;
+wire BRD22;
+wire BRD23;
+wire BRD24;
+wire BRD25;
+wire BRD26;
 wire CSTN;
 wire DATAV;
 wire G5VN;
@@ -127,7 +153,21 @@ wire INTCV;
 wire PBV;
 wire PBVN;
 wire PIOV;
+wire RTR1;
+wire RTR2;
+wire RTR3;
+wire RTR4;
+wire RTR5;
+wire TAGR1;
+wire TAGR2;
+wire TAGR3;
+wire TAGR4;
+wire TAGR5;
+wire TAGR6;
+wire TAGR7;
+wire TAGR8;
 wire TRSV;
+wire TSYNC;
 wire WDA;
 wire XDA;
 wire YDA;
@@ -300,10 +340,97 @@ lvda lvda1(
     .YDA(YDA),
     .ZDA(ZDA),
 
+    .BRD1(BRD1),
+    .BRD2(BRD2),
+    .BRD3(BRD3),
+    .BRD4(BRD4),
+    .BRD5(BRD5),
+    .BRD6(BRD6),
+    .BRD7(BRD7),
+    .BRD8(BRD8),
+    .BRD9(BRD9),
+    .BRD10(BRD10),
+    .BRD11(BRD11),
+    .BRD12(BRD12),
+    .BRD13(BRD13),
+    .BRD14(BRD14),
+    .BRD15(BRD15),
+    .BRD16(BRD16),
+    .BRD17(BRD17),
+    .BRD18(BRD18),
+    .BRD19(BRD19),
+    .BRD20(BRD20),
+    .BRD21(BRD21),
+    .BRD22(BRD22),
+    .BRD23(BRD23),
+    .BRD24(BRD24),
+    .BRD25(BRD25),
+    .BRD26(BRD26),
     .CSTN(CSTN),
     .DATAV(DATAV),
     .HALTV(HALTV),
-    .INTCV(INTCV)
+    .INTCV(INTCV),
+    .RTR1(RTR1),
+    .RTR2(RTR2),
+    .RTR3(RTR3),
+    .RTR4(RTR4),
+    .RTR5(RTR5),
+    .TAGR1(TAGR1),
+    .TAGR2(TAGR2),
+    .TAGR3(TAGR3),
+    .TAGR4(TAGR4),
+    .TAGR5(TAGR5),
+    .TAGR6(TAGR6),
+    .TAGR7(TAGR7),
+    .TAGR8(TAGR8)
+);
+
+mod410 mod410a(
+    .SIM_CLK(SIM_CLK),
+    .SIM_RST(SIM_RST),
+    .SIM_UART_TX(SIM_UART_TX),
+
+    .BRD1(BRD1),
+    .BRD2(BRD2),
+    .BRD3(BRD3),
+    .BRD4(BRD4),
+    .BRD5(BRD5),
+    .BRD6(BRD6),
+    .BRD7(BRD7),
+    .BRD8(BRD8),
+    .BRD9(BRD9),
+    .BRD10(BRD10),
+    .BRD11(BRD11),
+    .BRD12(BRD12),
+    .BRD13(BRD13),
+    .BRD14(BRD14),
+    .BRD15(BRD15),
+    .BRD16(BRD16),
+    .BRD17(BRD17),
+    .BRD18(BRD18),
+    .BRD19(BRD19),
+    .BRD20(BRD20),
+    .BRD21(BRD21),
+    .BRD22(BRD22),
+    .BRD23(BRD23),
+    .BRD24(BRD24),
+    .BRD25(BRD25),
+    .BRD26(BRD26),
+    .RTR1(RTR1),
+    .RTR2(RTR2),
+    .RTR3(RTR3),
+    .RTR4(RTR4),
+    .RTR5(RTR5),
+    .TAGR1(TAGR1),
+    .TAGR2(TAGR2),
+    .TAGR3(TAGR3),
+    .TAGR4(TAGR4),
+    .TAGR5(TAGR5),
+    .TAGR6(TAGR6),
+    .TAGR7(TAGR7),
+    .TAGR8(TAGR8),
+
+    .TSYNC(TSYNC)
 );
 
 initial begin

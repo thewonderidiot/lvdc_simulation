@@ -81,6 +81,8 @@ SOURCES = iu_sim.v \
 	  $(LVDC_MODULE_SOURCES) \
 	  lvda/lvda.v \
 	  $(LVDA_MODULE_SOURCES) \
+	  mod410/mod410.v \
+	  mod410/uart/uart_tx.v
 	  
 .phony: all
 all: iu_sim
