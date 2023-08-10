@@ -117,10 +117,49 @@ module lvda(
     input wire YDA,
     input wire ZDA,
 
+    output wire BRD1,
+    output wire BRD2,
+    output wire BRD3,
+    output wire BRD4,
+    output wire BRD5,
+    output wire BRD6,
+    output wire BRD7,
+    output wire BRD8,
+    output wire BRD9,
+    output wire BRD10,
+    output wire BRD11,
+    output wire BRD12,
+    output wire BRD13,
+    output wire BRD14,
+    output wire BRD15,
+    output wire BRD16,
+    output wire BRD17,
+    output wire BRD18,
+    output wire BRD19,
+    output wire BRD20,
+    output wire BRD21,
+    output wire BRD22,
+    output wire BRD23,
+    output wire BRD24,
+    output wire BRD25,
+    output wire BRD26,
     output wire CSTN,
     output wire DATAV,
     output wire HALTV,
-    output wire INTCV
+    output wire INTCV,
+    output wire RTR1,
+    output wire RTR2,
+    output wire RTR3,
+    output wire RTR4,
+    output wire RTR5,
+    output wire TAGR1,
+    output wire TAGR2,
+    output wire TAGR3,
+    output wire TAGR4,
+    output wire TAGR5,
+    output wire TAGR6,
+    output wire TAGR7,
+    output wire TAGR8
 );
 
 // Power rails
@@ -1362,7 +1401,21 @@ tag_real_tm_regs a4a4(
     .X4(X4),
     .Y6(Y6),
     .Z4(Z4),
-    .Z6(Z6)
+    .Z6(Z6),
+
+    .RTR1(RTR1),
+    .RTR2(RTR2),
+    .RTR3(RTR3),
+    .RTR4(RTR4),
+    .RTR5(RTR5),
+    .TAGR1(TAGR1),
+    .TAGR2(TAGR2),
+    .TAGR3(TAGR3),
+    .TAGR4(TAGR4),
+    .TAGR5(TAGR5),
+    .TAGR6(TAGR6),
+    .TAGR7(TAGR7),
+    .TAGR8(TAGR8)
 );
 
 int_countdn_proc_1 a4a5(
@@ -1566,6 +1619,24 @@ mode_buff_regs a4a19(
     .Y6(Y6),
     .Z4(Z4),
 
+    .BRD5(BRD5),
+    .BRD6(BRD6),
+    .BRD11(BRD11),
+    .BRD12(BRD12),
+    .BRD13(BRD13),
+    .BRD14(BRD14),
+    .BRD15(BRD15),
+    .BRD16(BRD16),
+    .BRD17(BRD17),
+    .BRD18(BRD18),
+    .BRD19(BRD19),
+    .BRD20(BRD20),
+    .BRD21(BRD21),
+    .BRD22(BRD22),
+    .BRD23(BRD23),
+    .BRD24(BRD24),
+    .BRD25(BRD25),
+    .BRD26(BRD26),
     .BRR1(BRR1),
     .MODRR(MODRR)
 );
@@ -1592,6 +1663,10 @@ buff_regs_1 a4a20(
     .Y6(Y6),
     .Z4(Z4),
 
+    .BRD3(BRD3),
+    .BRD4(BRD4),
+    .BRD9(BRD9),
+    .BRD10(BRD10),
     .MODR3(MODR3)
 );
 
@@ -1618,6 +1693,10 @@ buff_regs_2 a4a21(
     .Z3(Z3),
     .Z4(Z4),
 
+    .BRD1(BRD1),
+    .BRD2(BRD2),
+    .BRD7(BRD7),
+    .BRD8(BRD8),
     .MODR1(MODR1),
     .MODR2(MODR2)
 );

@@ -24,6 +24,10 @@ module buff_regs_2(
     input wire Z3,
     input wire Z4,
 
+    output wire BRD1,
+    output wire BRD2,
+    output wire BRD7,
+    output wire BRD8,
     output wire MODR1,
     output wire MODR2
 );
@@ -71,13 +75,9 @@ wire na33b;
 wire na33d;
 wire na33e;
 
-wire BRD1;
 wire BRD1N;
-wire BRD2;
 wire BRD2N;
-wire BRD7;
 wire BRD7N;
-wire BRD8;
 wire BRD8N;
 wire MODR1N;
 wire MODR2N;

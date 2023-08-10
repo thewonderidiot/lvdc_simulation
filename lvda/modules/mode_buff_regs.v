@@ -35,45 +35,45 @@ module mode_buff_regs(
     input wire Y6,
     input wire Z4,
 
+    output wire BRD5,
+    output wire BRD6,
+    output wire BRD11,
+    output wire BRD12,
+    output wire BRD13,
+    output wire BRD14,
+    output wire BRD15,
+    output wire BRD16,
+    output wire BRD17,
+    output wire BRD18,
+    output wire BRD19,
+    output wire BRD20,
+    output wire BRD21,
+    output wire BRD22,
+    output wire BRD23,
+    output wire BRD24,
+    output wire BRD25,
+    output wire BRD26,
     output wire BRR1,
     output wire MODRR
 );
 
-wire BRD5;
 wire BRD5N;
-wire BRD6;
 wire BRD6N;
-wire BRD11;
 wire BRD11N;
-wire BRD12;
 wire BRD12N;
-wire BRD13;
 wire BRD13N;
-wire BRD14;
 wire BRD14N;
-wire BRD15;
 wire BRD15N;
-wire BRD16;
 wire BRD16N;
-wire BRD17;
 wire BRD17N;
-wire BRD18;
 wire BRD18N;
-wire BRD19;
 wire BRD19N;
-wire BRD20;
 wire BRD20N;
-wire BRD21;
 wire BRD21N;
-wire BRD22;
 wire BRD22N;
-wire BRD23;
 wire BRD23N;
-wire BRD24;
 wire BRD24N;
-wire BRD25;
 wire BRD25N;
-wire BRD26;
 wire BRD26N;
 wire BRR2;
 wire MODR5;

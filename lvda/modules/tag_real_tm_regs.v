@@ -45,37 +45,38 @@ module tag_real_tm_regs(
     input wire X4,
     input wire Y6,
     input wire Z4,
-    input wire Z6
+    input wire Z6,
+
+    output wire RTR1,
+    output wire RTR2,
+    output wire RTR3,
+    output wire RTR4,
+    output wire RTR5,
+    output wire TAGR1,
+    output wire TAGR2,
+    output wire TAGR3,
+    output wire TAGR4,
+    output wire TAGR5,
+    output wire TAGR6,
+    output wire TAGR7,
+    output wire TAGR8
 );
 
 wire ADI;
 wire BDI;
-wire RTR1;
 wire RTR1N;
-wire RTR2;
 wire RTR2N;
-wire RTR3;
 wire RTR3N;
-wire RTR4;
 wire RTR4N;
-wire RTR5;
 wire RTR5N;
 wire RTRR;
-wire TAGR1;
 wire TAGR1N;
-wire TAGR2;
 wire TAGR2N;
-wire TAGR3;
 wire TAGR3N;
-wire TAGR4;
 wire TAGR4N;
-wire TAGR5;
 wire TAGR5N;
-wire TAGR6;
 wire TAGR6N;
-wire TAGR7;
 wire TAGR7N;
-wire TAGR8;
 wire TAGR8N;
 wire TAGRR;
 
@@ -341,7 +342,7 @@ inv #(0) a31f(RTR2, na31e, SIM_CLK, SIM_RST);
 and a31e(na31e, V1, RTR2N);
 
 and a15c(na8e_a15c, W4, MODR2, PCG2V, TLM);
-and a15d(na8e_a15d, na23f, TCWN, PAAV);
+and a15d(na8e_a15d, na23f, LTRV, G6DV);
 and a23f(na23f_a23f, TCWN, PAAV);
 and a16d(na23f_a16d, Y6, INFOV, G5DVN);
 and a8d(na8d, RTR3);

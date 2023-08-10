@@ -23,16 +23,16 @@ module buff_regs_1(
     input wire Y6,
     input wire Z4,
 
+    output wire BRD3,
+    output wire BRD4,
+    output wire BRD9,
+    output wire BRD10,
     output wire MODR3
 );
 
-wire BRD3;
 wire BRD3N;
-wire BRD4;
 wire BRD4N;
-wire BRD9;
 wire BRD9N;
-wire BRD10;
 wire BRD10N;
 wire MODR3N;
 wire MODR4;
