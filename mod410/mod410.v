@@ -109,6 +109,7 @@ assign lvdc_word_next = {
     BRD17
 };
 
+`ifdef TARGET_FPGA
 always @(posedge SIM_CLK) begin
     if (~SIM_RST) begin
         lvdc_word <= 40'b0;
@@ -201,6 +202,15 @@ uart_tx #(
     .uart_tx_busy(uart_tx_busy),
     .uart_tx_data(lvdc_word[47:40]) 
 );
+
+`else
+reg tsync_r = 0;
+always begin
+    #800000 tsync_r = 1;
+    #10000  tsync_r = 0;
+end
+assign TSYNC = tsync_r;
+`endif
 
 endmodule
 `default_nettype wire
