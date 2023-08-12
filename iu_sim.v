@@ -147,6 +147,8 @@ wire BRD25;
 wire BRD26;
 wire CSTN;
 wire DATAV;
+wire EAMV;
+wire EBMV;
 wire G5VN;
 wire HALTV;
 wire INTCV;
@@ -166,6 +168,7 @@ wire TAGR5;
 wire TAGR6;
 wire TAGR7;
 wire TAGR8;
+wire TLCV;
 wire TRSV;
 wire TSYNC;
 wire WDA;
@@ -196,12 +199,14 @@ end
 lvdc lvdc1(
     .SIM_CLK(SIM_CLK),
     .SIM_RST(SIM_RST),
+
     .CSTN(CSTN),
     .DATAV(DATAV),
     .DIN(DIN),
     .HALTV(HALTV),
     .INTCV(INTCV),
     .TER(TER),
+
     .A1V(A1V),
     .A2V(A2V),
     .A3V(A3V),
@@ -213,10 +218,13 @@ lvdc lvdc1(
     .A9V(A9V),
     .AI3V(AI3V),
     .BO1N(BO1N),
+    .EAMV(EAMV),
+    .EBMV(EBMV),
     .G5VN(G5VN),
     .PBV(PBV),
     .PBVN(PBVN),
     .PIOV(PIOV),
+    .TLCV(TLCV),
     .TRSV(TRSV),
     .WDA(WDA),
     .XDA(XDA),
@@ -288,6 +296,8 @@ lvda lvda1(
     .DIS6X(DIS6X),
     .DIS7X(DIS7X),
     .DIS8X(DIS8X),
+    .EAMV(EAMV),
+    .EBMV(EBMV),
     .G5VN(G5VN),
     .GC1(GC1),
     .GC2(GC2),
@@ -323,6 +333,7 @@ lvda lvda1(
     .SSFB7X(SSFB7X),
     .SSFB8X(SSFB8X),
     .TE1H(TE1H),
+    .TLCV(TLCV),
     .TRSV(TRSV),
     .TS1(TS1),
     .TS2(TS2),
@@ -438,7 +449,8 @@ initial begin
     $dumpvars(4, iu_sim);
     #100 SIM_RST = 1;
     #100000 HLTX = 0;
-    #5000000 $finish;
+    //#2000000 INTR7X = 1;
+    #10000000 $finish;
 end
 
 endmodule

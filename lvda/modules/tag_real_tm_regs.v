@@ -47,6 +47,7 @@ module tag_real_tm_regs(
     input wire Z4,
     input wire Z6,
 
+    output wire BDI,
     output wire RTR1,
     output wire RTR2,
     output wire RTR3,
@@ -63,7 +64,6 @@ module tag_real_tm_regs(
 );
 
 wire ADI;
-wire BDI;
 wire RTR1N;
 wire RTR2N;
 wire RTR3N;

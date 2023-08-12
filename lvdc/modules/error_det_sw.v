@@ -4,8 +4,10 @@
 module error_det_sw(
     input wire SIM_CLK,
     input wire SIM_RST,
+
     input wire V1,
     input wire V4MOD7,
+
     input wire CNC,
     input wire COC,
     input wire DMAVN,
@@ -48,6 +50,7 @@ module error_det_sw(
     input wire Y3,
     input wire YN,
     input wire Z7,
+
     output wire BRAO,
     output wire BRAON,
     output wire BRBO,
@@ -55,7 +58,9 @@ module error_det_sw(
     output wire DMA,
     output wire DMB,
     output wire EAC,
+    output wire EAM,
     output wire EBC,
+    output wire EBM,
     output wire IMA,
     output wire IMB,
     output wire M0SYNC,
@@ -72,13 +77,11 @@ wire EADM;
 wire EADMN;
 wire EAIM;
 wire EAIMN;
-wire EAM;
 wire EAPN;
 wire EBDM;
 wire EBDMN;
 wire EBIM;
 wire EBIMN;
-wire EBM;
 wire EBPN;
 wire EDAC;
 wire EDACN;
@@ -383,7 +386,7 @@ inv a3b(EAPN, na3a, SIM_CLK, SIM_RST);
 
 and a4a(na4a, EADMN, EAIMN);
 and a4b(na4b, V4MOD7, na4a);
-inv a4c(EAM, na4b, SIM_CLK, SIM_RST);
+inv #(0) a4c(EAM, na4b, SIM_CLK, SIM_RST);
 
 // 10-52
 and a31c(na24e_a31c, W3, COC, FSBN, DMB);
@@ -484,7 +487,7 @@ inv a3d(EBPN, na3c, SIM_CLK, SIM_RST);
 
 and a4d(na4d, EBDMN, EBIMN);
 and a4e(na4e, V4MOD7, na4d);
-inv a4f(EBM, na4e, SIM_CLK, SIM_RST);
+inv #(0) a4f(EBM, na4e, SIM_CLK, SIM_RST);
 
 endmodule
 `default_nettype wire

@@ -82,7 +82,8 @@ module mem_timing(
     output wire SYLC1,
     output wire SYNC,
     output wire SYNCN,
-    output wire TIME
+    output wire TIME,
+    output wire TLC
 );
 
 wire COCN;
@@ -94,7 +95,6 @@ wire SLD;
 wire SLDN;
 wire SYLC1N;
 wire TIMEN;
-wire TLC;
 wire TLCN;
 
 wire na1a;

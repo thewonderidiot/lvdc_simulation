@@ -21,10 +21,13 @@ module lvdc(
     output wire A9V,
     output wire AI3V,
     output wire BO1N,
+    output wire EAMV,
+    output wire EBMV,
     output wire G5VN,
     output wire PBV,
     output wire PBVN,
     output wire PIOV,
+    output wire TLCV,
     output wire TRSV,
     output wire WDA,
     output wire XDA,
@@ -252,8 +255,10 @@ wire DTMN;
 wire DTMV;
 wire DTMVN;
 wire EAC;
+wire EAM;
 wire EAP;
 wire EBC;
+wire EBM;
 wire EBP;
 wire ED0X;
 wire ED0Y;
@@ -609,6 +614,7 @@ wire TFDN;
 wire TFDV;
 wire TFDVN;
 wire TIME;
+wire TLC;
 wire TM;
 wire TMN;
 wire TMV;
@@ -750,6 +756,8 @@ assign DMAVN = DMAN;
 assign DMBVN = DMBN;
 assign DTMV = DTM;
 assign DTMVN = DTMN;
+assign EAMV = EAM;
+assign EBMV = EBM;
 assign ESDV = ESD;
 assign ESDVN = ESDN;
 assign EXMV = EXM;
@@ -836,6 +844,7 @@ assign TBCVN = TBCN;
 assign TBRV = TBR;
 assign TFDV = TFD;
 assign TFDVN = TFDN;
+assign TLCV = TLC;
 assign TMV = TM;
 assign TMVN = TMN;
 assign TR1V = TR1;
@@ -1597,7 +1606,8 @@ mem_timing a1a15(
     .SYLC1(SYLC1),
     .SYNC(SYNC),
     .SYNCN(SYNCN),
-    .TIME(TIME)
+    .TIME(TIME),
+    .TLC(TLC)
 );
 
 error_det_sw a1a16(
@@ -1654,7 +1664,9 @@ error_det_sw a1a16(
     .DMA(DMA),
     .DMB(DMB),
     .EAC(EAC),
+    .EAM(EAM),
     .EBC(EBC),
+    .EBM(EBM),
     .IMA(IMA),
     .IMB(IMB),
     .M0SYNC(M0SYNC),

@@ -65,6 +65,8 @@ module lvda(
     input wire DIS6X,
     input wire DIS7X,
     input wire DIS8X,
+    input wire EAMV,
+    input wire EBMV,
     input wire G5VN,
     input wire GC1,
     input wire GC2,
@@ -100,6 +102,7 @@ module lvda(
     input wire SSFB7X,
     input wire SSFB8X,
     input wire TE1H,
+    input wire TLCV,
     input wire TRSV,
     input wire TS1,
     input wire TS2,
@@ -174,6 +177,13 @@ reg DC2S = 0;
 reg DC3S = 0;
 reg DC4S = 0;
 reg DCALN = 1;
+reg DDI1A = 0;
+reg DDI1B = 0;
+reg DDI1C = 0;
+reg DDI2A = 0;
+reg DDI2B = 0;
+reg DDI3B = 0;
+reg DDI4 = 0;
 reg DLS = 0;
 reg DOMC1 = 0;
 reg DOMC1N = 1;
@@ -183,7 +193,6 @@ reg DOMS = 0;
 reg DOMD = 0;
 reg DOMDN = 1;
 reg DSD = 0;
-reg EM26N = 1;
 reg ETCC = 0;
 reg ETCCN = 1;
 reg ETCR = 0;
@@ -200,6 +209,7 @@ reg QBP = 0;
 reg QCP = 0;
 reg RBP = 0;
 reg RCP = 0;
+reg SCB = 0;
 reg TAGS = 0;
 
 // Backplane wires
@@ -241,6 +251,7 @@ wire AD;
 wire ADN;
 wire ADV;
 wire ADVN;
+wire BDI;
 wire BRR1;
 wire C1RD;
 wire C1RDN;
@@ -312,6 +323,7 @@ wire DIS7;
 wire DIS8;
 wire DISA;
 wire DOR;
+wire EM26N;
 wire EMA;
 wire G1D;
 wire G1DN;
@@ -1403,6 +1415,7 @@ tag_real_tm_regs a4a4(
     .Z4(Z4),
     .Z6(Z6),
 
+    .BDI(BDI),
     .RTR1(RTR1),
     .RTR2(RTR2),
     .RTR3(RTR3),
@@ -1472,6 +1485,32 @@ int_countdn_proc_1 a4a5(
     .TC2A(TC2A),
     .TC2AN(TC2AN),
     .TIN(TIN)
+);
+
+error_proc a4a7(
+    .SIM_CLK(SIM_CLK),
+    .SIM_RST(SIM_RST),
+
+    .V1(V1),
+
+    .BDI(BDI),
+    .DDI1A(DDI1A),
+    .DDI1B(DDI1B),
+    .DDI1C(DDI1C),
+    .DDI2A(DDI2A),
+    .DDI2B(DDI2B),
+    .DDI3B(DDI3B),
+    .DDI4(DDI4),
+    .EAMV(EAMV),
+    .EBMV(EBMV),
+    .EMA(EMA),
+    .G3DV(G3DV),
+    .G4DVN(G4DVN),
+    .PBAV(PBAV),
+    .SCB(SCB),
+    .TLCV(TLCV),
+
+    .EM26N(EM26N)
 );
 
 processor_store a4a12(
