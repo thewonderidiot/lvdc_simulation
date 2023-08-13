@@ -24,7 +24,11 @@ module error_proc(
     input wire SCB,
     input wire TLCV,
 
-    output wire EM26N
+    output wire EM26N,
+    output wire EMRG1,
+    output wire EMRG2,
+    output wire EMRG3,
+    output wire EMRG4
 );
 
 wire EM1;
@@ -78,10 +82,6 @@ wire EM24N;
 wire EM25;
 wire EM25N;
 wire EM26;
-wire EMRG1;
-wire EMRG2;
-wire EMRG3;
-wire EMRG4;
 wire EMRS1;
 wire EMRS2;
 
