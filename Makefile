@@ -42,6 +42,7 @@ LVDA_MODULES = accel_time_proc_1 \
 	       sd_sampler_7 \
 	       tag_real_tm_regs \
 	       telem_control \
+	       telem_storage \
 	       timing_1 \
 	       timing_2 \
 	       transient_prot \

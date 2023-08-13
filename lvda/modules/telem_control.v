@@ -60,6 +60,9 @@ module telem_control(
     input wire Y8,
     input wire Z1,
 
+    output wire DIN,
+    output wire DINN,
+    output wire DT1,
     output wire TCWN,
     output wire TRP
 );
@@ -76,9 +79,6 @@ wire C3GT3;
 wire C4GT1;
 wire C4GT2;
 wire C4GT3;
-wire DIN;
-wire DINN;
-wire DT1;
 wire DT2;
 wire DT3;
 wire GCSYN;

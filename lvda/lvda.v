@@ -178,9 +178,13 @@ reg A6CR = 0;
 reg A7CR = 0;
 reg CCSL = 0;
 reg DC1S = 0;
+reg DC1SN = 1;
 reg DC2S = 0;
+reg DC2SN = 1;
 reg DC3S = 0;
+reg DC3SN = 1;
 reg DC4S = 0;
+reg DC4SN = 1;
 reg DCALN = 1;
 reg DDI1A = 0;
 reg DDI1B = 0;
@@ -189,7 +193,6 @@ reg DDI2A = 0;
 reg DDI2B = 0;
 reg DDI3B = 0;
 reg DDI4 = 0;
-reg DLS = 0;
 reg DOMC1 = 0;
 reg DOMC1N = 1;
 reg DOMC2 = 0;
@@ -283,6 +286,8 @@ wire DARAV;
 wire DARO;
 wire DATA;
 wire DIAD;
+wire DIN;
+wire DINN;
 wire DIN1;
 wire DIN2A;
 wire DIN2B;
@@ -321,7 +326,9 @@ wire DIS6;
 wire DIS7;
 wire DIS8;
 wire DISA;
+wire DLS;
 wire DOR;
+wire DT1;
 wire EM26N;
 wire EMA;
 wire EMRG1;
@@ -483,6 +490,7 @@ wire X2;
 wire X3;
 wire X4;
 wire X6;
+wire X7;
 wire X8;
 wire Y2;
 wire Y3;
@@ -1046,10 +1054,56 @@ telem_control a2a9(
     .Y8(Y8),
     .Z1(Z1),
 
+    .DIN(DIN),
+    .DINN(DINN),
+    .DT1(DT1),
     .TCWN(TCWN),
     .TRP(TRP)
 );
 
+telem_storage a2a20(
+    .SIM_CLK(SIM_CLK),
+    .SIM_RST(SIM_RST),
+
+    .V1(V1),
+    .V5(V5),
+
+    .A1DV(A1DV),
+    .A2DV(A2DV),
+    .ADVN(ADVN),
+    .BON(BO1N),
+    .CODGV(CODGV),
+    .DC1S(DC1S),
+    .DC1SN(DC1SN),
+    .DC2S(DC2S),
+    .DC2SN(DC2SN),
+    .DC3S(DC3S),
+    .DC3SN(DC3SN),
+    .DC4S(DC4S),
+    .DC4SN(DC4SN),
+    .DIN(DIN),
+    .DINN(DINN),
+    .DT1(DT1),
+    .ETCR(ETCR),
+    .G1DV(G1DV),
+    .G2DV(G2DV),
+    .G2DVN(G2DVN),
+    .G3DV(G3DV),
+    .G4DVN(G4DVN),
+    .MCFT1(MCFT1),
+    .PAAV(PAAV),
+    .PAAVN(PAAVN),
+    .PBAV(PBAV),
+    .PBG2V(PBG2V),
+    .PCAV(PCAV),
+    .W4(W4),
+    .X7(X7),
+    .Y8(Y8),
+    .Z6(Z6),
+    .Z7(Z7),
+
+    .DLS(DLS)
+);
 
 sd_sampler_2 a2a24(
     .SIM_CLK(SIM_CLK),
@@ -1323,6 +1377,7 @@ timing_1 a3a11(
     .X3(X3),
     .X4(X4),
     .X6(X6),
+    .X7(X7),
     .X8(X8),
     .Y2(Y2),
     .Y3(Y3),
