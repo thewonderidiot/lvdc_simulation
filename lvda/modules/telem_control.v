@@ -60,6 +60,18 @@ module telem_control(
     input wire Y8,
     input wire Z1,
 
+    output wire C1GT1,
+    output wire C1GT2,
+    output wire C1GT3,
+    output wire C2GT1,
+    output wire C2GT2,
+    output wire C2GT3,
+    output wire C3GT1,
+    output wire C3GT2,
+    output wire C3GT3,
+    output wire C4GT1,
+    output wire C4GT2,
+    output wire C4GT3,
     output wire DIN,
     output wire DINN,
     output wire DT1,
@@ -67,18 +79,6 @@ module telem_control(
     output wire TRP
 );
 
-wire C1GT1;
-wire C1GT2;
-wire C1GT3;
-wire C2GT1;
-wire C2GT2;
-wire C2GT3;
-wire C3GT1;
-wire C3GT2;
-wire C3GT3;
-wire C4GT1;
-wire C4GT2;
-wire C4GT3;
 wire DT2;
 wire DT3;
 wire GCSYN;

@@ -38,6 +38,7 @@ module address_decode_2(
     output wire DOR,
     output wire ICR,
     output wire LGA,
+    output wire LGAN,
     output wire SSA,
     output wire SSR,
     output wire TSA
@@ -51,7 +52,6 @@ wire DORN;
 wire DOS;
 wire DOSN;
 wire ICRN;
-wire LGAN;
 wire PCAX;
 wire SSAN;
 wire SSRN;

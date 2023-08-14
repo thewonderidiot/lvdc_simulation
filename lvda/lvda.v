@@ -177,14 +177,6 @@ reg A5CR = 0;
 reg A6CR = 0;
 reg A7CR = 0;
 reg CCSL = 0;
-reg DC1S = 0;
-reg DC1SN = 1;
-reg DC2S = 0;
-reg DC2SN = 1;
-reg DC3S = 0;
-reg DC3SN = 1;
-reg DC4S = 0;
-reg DC4SN = 1;
 reg DCALN = 1;
 reg DDI1A = 0;
 reg DDI1B = 0;
@@ -254,15 +246,27 @@ wire ADV;
 wire ADVN;
 wire BDI;
 wire BRR1;
+wire C1GT1;
+wire C1GT2;
+wire C1GT3;
 wire C1RD;
 wire C1RDN;
+wire C2GT1;
+wire C2GT2;
+wire C2GT3;
 wire C2R;
 wire C2RN;
 wire C2RD;
 wire C2RDN;
+wire C3GT1;
+wire C3GT2;
+wire C3GT3;
 wire C3R;
 wire C3RN;
 wire C3RD;
+wire C4GT1;
+wire C4GT2;
+wire C4GT3;
 wire C4R;
 wire C4RN;
 wire C4RD;
@@ -285,6 +289,14 @@ wire DARA;
 wire DARAV;
 wire DARO;
 wire DATA;
+wire DC1S;
+wire DC1SN;
+wire DC2S;
+wire DC2SN;
+wire DC3S;
+wire DC3SN;
+wire DC4S;
+wire DC4SN;
 wire DIAD;
 wire DIN;
 wire DINN;
@@ -388,6 +400,7 @@ wire INTR6;
 wire INTR7;
 wire ITS;
 wire LGA;
+wire LGAN;
 wire LGAV;
 wire LPAG2N;
 wire LTR;
@@ -995,6 +1008,76 @@ sd_sampler_7 a2a7(
     .ML14(ML14)
 );
 
+sd_sampler_2 a2a8(
+    .SIM_CLK(SIM_CLK),
+    .SIM_RST(SIM_RST),
+
+    .V1(V1),
+
+    .C1GT1(C1GT1),
+    .C1GT2(C1GT2),
+    .C1GT3(C1GT3),
+    .C2GT1(C2GT1),
+    .C2GT2(C2GT2),
+    .C2GT3(C2GT3),
+    .C3GT1(C3GT1),
+    .C3GT2(C3GT2),
+    .C3GT3(C3GT3),
+    .C4GT1(C4GT1),
+    .C4GT2(C4GT2),
+    .C4GT3(C4GT3),
+    .C4RDN(C4RDN),
+    .CR1(CR1),
+    .CR2(CR2),
+    .CRCAV(CRCAV),
+    .DIAD(DIAD),
+    .DIN11(DIN11),
+    .DIN12(DIN12),
+    .DLS(DLS),
+    .DOMC1(DOMC1),
+    .DOMC1N(DOMC1N),
+    .ETCR(ETCR),
+    .ETCRN(ETCRN),
+    .G1DVN(G1DVN),
+    .G2DV(G2DV),
+    .G3DVN(G3DVN),
+    .G6DVN(G6DVN),
+    .G7DV(G7DV),
+    .G7DVN(G7DVN),
+    .GC1(GC1),
+    .GC2(GC2),
+    .ICSD(ICSD),
+    .ICSDN(ICSDN),
+    .LGAV(LGAV),
+    .LGAN(LGAN),
+    .MLAV(MLAV),
+    .PAAV(PAAV),
+    .PBG2V(PBG2V),
+    .PCAV(PCAV),
+    .PCG2V(PCG2V),
+    .RESMV(RESMV),
+    .SSA(SSA),
+    .SSFB2(SSFB2),
+    .SSFB3(SSFB3),
+    .W2(W2),
+    .X1(X1),
+    .X7(X7),
+    .Y6(Y6),
+    .Y7(Y7),
+    .Z2(Z2),
+    .Z6(Z6),
+
+    .DC1S(DC1S),
+    .DC1SN(DC1SN),
+    .DC2S(DC2S),
+    .DC2SN(DC2SN),
+    .DC3S(DC3S),
+    .DC3SN(DC3SN),
+    .DC4S(DC4S),
+    .DC4SN(DC4SN),
+    .ML1_2(ML1_2)
+);
+
 telem_control a2a9(
     .SIM_CLK(SIM_CLK),
     .SIM_RST(SIM_RST),
@@ -1054,6 +1137,18 @@ telem_control a2a9(
     .Y8(Y8),
     .Z1(Z1),
 
+    .C1GT1(C1GT1),
+    .C1GT2(C1GT2),
+    .C1GT3(C1GT3),
+    .C2GT1(C2GT1),
+    .C2GT2(C2GT2),
+    .C2GT3(C2GT3),
+    .C3GT1(C3GT1),
+    .C3GT2(C3GT2),
+    .C3GT3(C3GT3),
+    .C4GT1(C4GT1),
+    .C4GT2(C4GT2),
+    .C4GT3(C4GT3),
     .DIN(DIN),
     .DINN(DINN),
     .DT1(DT1),
@@ -1105,41 +1200,6 @@ telem_storage a2a20(
     .DLS(DLS)
 );
 
-sd_sampler_2 a2a24(
-    .SIM_CLK(SIM_CLK),
-    .SIM_RST(SIM_RST),
-
-    .V1(V1),
-
-    .C4RDN(C4RDN),
-    .CR1(CR1),
-    .CR2(CR2),
-    .CRCAV(CRCAV),
-    .DIAD(DIAD),
-    .DIN11(DIN11),
-    .DIN12(DIN12),
-    .G1DVN(G1DVN),
-    .G7DVN(G7DVN),
-    .GC1(GC1),
-    .GC2(GC2),
-    .ICSD(ICSD),
-    .ICSDN(ICSDN),
-    .MLAV(MLAV),
-    .PAAV(PAAV),
-    .PBG2V(PBG2V),
-    .PCG2V(PCG2V),
-    .RESMV(RESMV),
-    .SSA(SSA),
-    .SSFB2(SSFB2),
-    .SSFB3(SSFB3),
-    .W2(W2),
-    .X1(X1),
-    .Y7(Y7),
-    .Z2(Z2),
-
-    .ML1_2(ML1_2)
-);
-
 address_decode_2 a3a3(
     .SIM_CLK(SIM_CLK),
     .SIM_RST(SIM_RST),
@@ -1177,6 +1237,7 @@ address_decode_2 a3a3(
     .DOR(DOR),
     .ICR(ICR),
     .LGA(LGA),
+    .LGAN(LGAN),
     .SSA(SSA),
     .SSR(SSR),
     .TSA(TSA)
