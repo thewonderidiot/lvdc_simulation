@@ -28,10 +28,17 @@ module error_proc(
     output wire EM2N,
     output wire EM3N,
     output wire EM4N,
+    output wire EM9N,
+    output wire EM10N,
+    output wire EM11N,
+    output wire EM12N,
     output wire EM15N,
     output wire EM16N,
     output wire EM17N,
     output wire EM18N,
+    output wire EM23N,
+    output wire EM24N,
+    output wire EM25N,
     output wire EM26N,
     output wire EMRG1,
     output wire EMRG2,
@@ -52,13 +59,9 @@ wire EM7N;
 wire EM8;
 wire EM8N;
 wire EM9;
-wire EM9N;
 wire EM10;
-wire EM10N;
 wire EM11;
-wire EM11N;
 wire EM12;
-wire EM12N;
 wire EM13;
 wire EM13N;
 wire EM14;
@@ -76,11 +79,8 @@ wire EM21N;
 wire EM22;
 wire EM22N;
 wire EM23;
-wire EM23N;
 wire EM24;
-wire EM24N;
 wire EM25;
-wire EM25N;
 wire EM26;
 wire EMRS1;
 wire EMRS2;

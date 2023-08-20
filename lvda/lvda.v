@@ -181,8 +181,13 @@ reg CES1 = 0;
 reg CES2 = 0;
 reg CES3 = 0;
 reg CES4 = 0;
+reg CES9 = 0;
+reg CES10 = 0;
+reg CES11 = 0;
+reg CES12 = 0;
 reg CES15 = 0;
 reg CES16 = 0;
+reg CES19 = 0;
 reg DCALN = 1;
 reg DDI1A = 0;
 reg DDI1B = 0;
@@ -195,6 +200,10 @@ reg DO2 = 0;
 reg DO3 = 0;
 reg DO4 = 0;
 reg DO5 = 0;
+reg DO10 = 0;
+reg DO11 = 0;
+reg DO12 = 0;
+reg DO13 = 0;
 reg DOMC1 = 0;
 reg DOMC1N = 1;
 reg DOMC2 = 0;
@@ -210,6 +219,10 @@ reg ICR3N = 1;
 reg ICR4N = 1;
 reg ICR5N = 1;
 reg ICR9 = 0;
+reg ICR10N = 1;
+reg ICR11N = 1;
+reg ICR12N = 1;
+reg ICR13N = 1;
 reg ICSN = 1;
 reg LRR = 0;
 reg OCINT = 0;
@@ -217,6 +230,10 @@ reg PS1A = 0;
 reg PS1B = 0;
 reg PS2A = 0;
 reg PS2B = 0;
+reg PS5A = 0;
+reg PS5B = 0;
+reg PS6A = 0;
+reg PS6B = 0;
 reg QBP = 0;
 reg QCP = 0;
 reg RBP = 0;
@@ -226,6 +243,10 @@ reg SS1 = 0;
 reg SS2 = 0;
 reg SS3 = 0;
 reg SS4 = 0;
+reg SS9 = 0;
+reg SS10 = 0;
+reg SS11 = 0;
+reg SS12 = 0;
 
 // Backplane wires
 wire A1D;
@@ -367,10 +388,17 @@ wire EM1N;
 wire EM2N;
 wire EM3N;
 wire EM4N;
+wire EM9N;
+wire EM10N;
+wire EM11N;
+wire EM12N;
 wire EM15N;
 wire EM16N;
 wire EM17N;
 wire EM18N;
+wire EM23N;
+wire EM24N;
+wire EM25N;
 wire EM26N;
 wire EMA;
 wire EMRG1;
@@ -1301,6 +1329,68 @@ id_sampler_1 a2a22(
     .Z8(Z8)
 );
 
+id_sampler_2 a2a32(
+    .SIM_CLK(SIM_CLK),
+    .SIM_RST(SIM_RST),
+
+    .V1(V1),
+
+    .A3DVN(A3DVN),
+    .A4DVN(A4DVN),
+    .A5DVN(A5DVN),
+    .CES9(CES9),
+    .CES10(CES10),
+    .CES11(CES11),
+    .CES12(CES12),
+    .CES19(CES19),
+    .CODE(CODE),
+    .DO10(DO10),
+    .DO11(DO11),
+    .DO12(DO12),
+    .DO13(DO13),
+    .EM9N(EM9N),
+    .EM10N(EM10N),
+    .EM11N(EM11N),
+    .EM12N(EM12N),
+    .EM23N(EM23N),
+    .EM24N(EM24N),
+    .EM25N(EM25N),
+    .EM26N(EM26N),
+    .EMA(EMA),
+    .ETCCN(ETCCN),
+    .ETTS(ETTS),
+    .G1DVN(G1DVN),
+    .G2DVN(G2DVN),
+    .G3DVN(G3DVN),
+    .G4DV(G4DV),
+    .G4DVN(G4DVN),
+    .ICRV(ICRV),
+    .ICR10N(ICR10N),
+    .ICR11N(ICR11N),
+    .ICR12N(ICR12N),
+    .ICR13N(ICR13N),
+    .LGAV(LGAV),
+    .PAAV(PAAV),
+    .PBAV(PBAV),
+    .PBG2V(PBG2V),
+    .PCAV(PCAV),
+    .PCG2V(PCG2V),
+    .PS5A(PS5A),
+    .PS5B(PS5B),
+    .PS6A(PS6A),
+    .PS6B(PS6B),
+    .RESMV(RESMV),
+    .SS9(SS9),
+    .SS10(SS10),
+    .SS11(SS11),
+    .SS12(SS12),
+    .SSDO(SSDO),
+    .W5(W5),
+    .X5(X5),
+    .Y6(Y6),
+    .Z8(Z8)
+);
+
 address_decode_2 a3a3(
     .SIM_CLK(SIM_CLK),
     .SIM_RST(SIM_RST),
@@ -1830,10 +1920,17 @@ error_proc a4a7(
     .EM2N(EM2N),
     .EM3N(EM3N),
     .EM4N(EM4N),
+    .EM9N(EM9N),
+    .EM10N(EM10N),
+    .EM11N(EM11N),
+    .EM12N(EM12N),
     .EM15N(EM15N),
     .EM16N(EM16N),
     .EM17N(EM17N),
     .EM18N(EM18N),
+    .EM23N(EM23N),
+    .EM24N(EM24N),
+    .EM25N(EM25N),
     .EM26N(EM26N),
     .EMRG1(EMRG1),
     .EMRG2(EMRG2),
