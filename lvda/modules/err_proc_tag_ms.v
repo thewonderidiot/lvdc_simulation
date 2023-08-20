@@ -73,6 +73,8 @@ module err_proc_tag_ms(
     input wire Z4,
     input wire Z6,
 
+    output wire ECSA,
+    output wire ECSB,
     output wire ETCC,
     output wire ETCCN,
     output wire ETCR,
@@ -86,9 +88,7 @@ wire DPBR;
 wire DPBRN;
 wire DTPB;
 wire DTPBN;
-wire ECSA;
 wire ECSAN;
-wire ECSB;
 wire ECSBN;
 wire ERRS;
 wire ERRSN;

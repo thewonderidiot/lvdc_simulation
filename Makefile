@@ -31,6 +31,7 @@ LVDA_MODULES = accel_time_proc_1 \
 	       error_proc \
 	       id_sampler_1 \
 	       id_sampler_2 \
+	       id_sampler_3 \
 	       int_countdn_proc_1 \
 	       int_countdn_proc_2 \
 	       mode_buff_regs \

@@ -26,6 +26,7 @@ module timing_1(
     output wire X6,
     output wire X7,
     output wire X8,
+    output wire Y1,
     output wire Y2,
     output wire Y3,
     output wire Y4,
@@ -42,8 +43,6 @@ module timing_1(
     output wire Z7,
     output wire Z8
 );
-
-wire Y1;
 
 // 10-4
 cd4 a2a(W1, WDA);

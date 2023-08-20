@@ -181,12 +181,18 @@ reg CES1 = 0;
 reg CES2 = 0;
 reg CES3 = 0;
 reg CES4 = 0;
+reg CES5 = 0;
+reg CES6 = 0;
+reg CES7 = 0;
+reg CES8 = 0;
 reg CES9 = 0;
 reg CES10 = 0;
 reg CES11 = 0;
 reg CES12 = 0;
 reg CES15 = 0;
 reg CES16 = 0;
+reg CES17 = 0;
+reg CES18 = 0;
 reg CES19 = 0;
 reg DCALN = 1;
 reg DDI1A = 0;
@@ -200,6 +206,10 @@ reg DO2 = 0;
 reg DO3 = 0;
 reg DO4 = 0;
 reg DO5 = 0;
+reg DO6 = 0;
+reg DO7 = 0;
+reg DO8 = 0;
+reg DO9 = 0;
 reg DO10 = 0;
 reg DO11 = 0;
 reg DO12 = 0;
@@ -218,7 +228,11 @@ reg ICR2N = 1;
 reg ICR3N = 1;
 reg ICR4N = 1;
 reg ICR5N = 1;
+reg ICR6N = 1;
+reg ICR7N = 1;
+reg ICR8N = 1;
 reg ICR9 = 0;
+reg ICR9N = 1;
 reg ICR10N = 1;
 reg ICR11N = 1;
 reg ICR12N = 1;
@@ -230,6 +244,10 @@ reg PS1A = 0;
 reg PS1B = 0;
 reg PS2A = 0;
 reg PS2B = 0;
+reg PS3A = 0;
+reg PS3B = 0;
+reg PS4A = 0;
+reg PS4B = 0;
 reg PS5A = 0;
 reg PS5B = 0;
 reg PS6A = 0;
@@ -243,6 +261,10 @@ reg SS1 = 0;
 reg SS2 = 0;
 reg SS3 = 0;
 reg SS4 = 0;
+reg SS5 = 0;
+reg SS6 = 0;
+reg SS7 = 0;
+reg SS8 = 0;
 reg SS9 = 0;
 reg SS10 = 0;
 reg SS11 = 0;
@@ -384,10 +406,16 @@ wire DISA;
 wire DLS;
 wire DOR;
 wire DT1;
+wire ECSA;
+wire ECSB;
 wire EM1N;
 wire EM2N;
 wire EM3N;
 wire EM4N;
+wire EM5N;
+wire EM6N;
+wire EM7N;
+wire EM8N;
 wire EM9N;
 wire EM10N;
 wire EM11N;
@@ -396,6 +424,10 @@ wire EM15N;
 wire EM16N;
 wire EM17N;
 wire EM18N;
+wire EM19N;
+wire EM20N;
+wire EM21N;
+wire EM22N;
 wire EM23N;
 wire EM24N;
 wire EM25N;
@@ -565,6 +597,7 @@ wire X5;
 wire X6;
 wire X7;
 wire X8;
+wire Y1;
 wire Y2;
 wire Y3;
 wire Y4;
@@ -1391,6 +1424,75 @@ id_sampler_2 a2a32(
     .Z8(Z8)
 );
 
+id_sampler_3 a2a33(
+    .SIM_CLK(SIM_CLK),
+    .SIM_RST(SIM_RST),
+
+    .V1(V1),
+
+    .ADV(ADV),
+    .ADVN(ADVN),
+    .CES5(CES5),
+    .CES6(CES6),
+    .CES7(CES7),
+    .CES8(CES8),
+    .CES17(CES17),
+    .CES18(CES18),
+    .CODE(CODE),
+    .DINFVN(DINFVN),
+    .DO6(DO6),
+    .DO7(DO7),
+    .DO8(DO8),
+    .DO9(DO9),
+    .ECSA(ECSA),
+    .ECSB(ECSB),
+    .EM5N(EM5N),
+    .EM6N(EM6N),
+    .EM7N(EM7N),
+    .EM8N(EM8N),
+    .EM19N(EM19N),
+    .EM20N(EM20N),
+    .EM21N(EM21N),
+    .EM22N(EM22N),
+    .EMA(EMA),
+    .ETCRN(ETCRN),
+    .ETTS(ETTS),
+    .G1DV(G1DV),
+    .G2DV(G2DV),
+    .G1DVN(G1DVN),
+    .G2DVN(G2DVN),
+    .G3DV(G3DV),
+    .G4DV(G4DV),
+    .G6DV(G6DV),
+    .G7DV(G7DV),
+    .ICRV(ICRV),
+    .ICR6N(ICR6N),
+    .ICR7N(ICR7N),
+    .ICR8N(ICR8N),
+    .ICR9N(ICR9N),
+    .PAAV(PAAV),
+    .PBG2V(PBG2V),
+    .PCAV(PCAV),
+    .PCG2V(PCG2V),
+    .PS3A(PS3A),
+    .PS3B(PS3B),
+    .PS4A(PS4A),
+    .PS4B(PS4B),
+    .RESMV(RESMV),
+    .SS5(SS5),
+    .SS6(SS6),
+    .SS7(SS7),
+    .SS8(SS8),
+    .SSDO(SSDO),
+    .W5(W5),
+    .X5(X5),
+    .X8(X8),
+    .Y1(Y1),
+    .Y7(Y7),
+    .Z4(Z4),
+    .Z8(Z8)
+);
+
 address_decode_2 a3a3(
     .SIM_CLK(SIM_CLK),
     .SIM_RST(SIM_RST),
@@ -1633,6 +1735,7 @@ timing_1 a3a11(
     .X6(X6),
     .X7(X7),
     .X8(X8),
+    .Y1(Y1),
     .Y2(Y2),
     .Y3(Y3),
     .Y4(Y4),
@@ -1766,6 +1869,8 @@ err_proc_tag_ms a4a3(
     .Z4(Z4),
     .Z6(Z6),
 
+    .ECSA(ECSA),
+    .ECSB(ECSB),
     .ETCC(ETCC),
     .ETCCN(ETCCN),
     .ETCR(ETCR),
@@ -1920,6 +2025,10 @@ error_proc a4a7(
     .EM2N(EM2N),
     .EM3N(EM3N),
     .EM4N(EM4N),
+    .EM5N(EM5N),
+    .EM6N(EM6N),
+    .EM7N(EM7N),
+    .EM8N(EM8N),
     .EM9N(EM9N),
     .EM10N(EM10N),
     .EM11N(EM11N),
@@ -1928,6 +2037,10 @@ error_proc a4a7(
     .EM16N(EM16N),
     .EM17N(EM17N),
     .EM18N(EM18N),
+    .EM19N(EM19N),
+    .EM20N(EM20N),
+    .EM21N(EM21N),
+    .EM22N(EM22N),
     .EM23N(EM23N),
     .EM24N(EM24N),
     .EM25N(EM25N),
