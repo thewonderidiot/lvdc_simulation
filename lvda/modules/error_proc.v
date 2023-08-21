@@ -36,6 +36,8 @@ module error_proc(
     output wire EM10N,
     output wire EM11N,
     output wire EM12N,
+    output wire EM13N,
+    output wire EM14N,
     output wire EM15N,
     output wire EM16N,
     output wire EM17N,
@@ -67,9 +69,7 @@ wire EM10;
 wire EM11;
 wire EM12;
 wire EM13;
-wire EM13N;
 wire EM14;
-wire EM14N;
 wire EM15;
 wire EM16;
 wire EM17;

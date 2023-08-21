@@ -255,7 +255,7 @@ inv #(0) a28b(DC4S, na28a, SIM_CLK, SIM_RST);
 and a28a(na28a_a28a, V1, DC4SN);
 and a35a(na28a_a35a, Y6, PAAV, G1DVN, G7DVN);
 and a27b(na27b, LGAV, PCAV);
-and a35b(na28a_a35b, Y6, G2DV, G3DVN, ETCRN);
+and a35b(na28a_a35b, Y6, na27b, G2DV, G3DVN, ETCRN);
 
 endmodule
 `default_nettype wire

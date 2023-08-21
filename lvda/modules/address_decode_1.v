@@ -266,7 +266,7 @@ assign na24e = na24e_a24e & na24e_a25d;
 wire na24f;
 wire na24f_a18d;
 wire na24f_a24f;
-assign na24f = na24f_a18d | na24f_a24f;
+assign na24f = na24f_a18d & na24f_a24f;
 wire na25a;
 wire na25c;
 wire na25e;

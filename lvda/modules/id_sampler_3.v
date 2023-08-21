@@ -67,20 +67,21 @@ module id_sampler_3(
     input wire Y1,
     input wire Y7,
     input wire Z4,
-    input wire Z8
+    input wire Z8,
+
+    output wire DM4B,
+    output wire DM5B,
+    output wire DM7A,
+    output wire DM8A,
+    output wire DM9A,
+    output wire DM10A
 );
 
-wire DM4B;
 wire DM4BN;
-wire DM5B;
 wire DM5BN;
-wire DM7A;
 wire DM7AN;
-wire DM8A;
 wire DM8AN;
-wire DM9A;
 wire DM9AN;
-wire DM10A;
 wire DM10AN;
 wire DO6N;
 wire DO7N;

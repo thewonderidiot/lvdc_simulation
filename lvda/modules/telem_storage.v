@@ -42,6 +42,10 @@ module telem_storage(
     input wire Z6,
     input wire Z7,
 
+    output wire DC3R,
+    output wire DC4R,
+    output wire DDC1R,
+    output wire DDC2R,
     output wire DLS
 );
 
@@ -49,13 +53,9 @@ wire DC1R;
 wire DC1RN;
 wire DC2R;
 wire DC2RN;
-wire DC3R;
 wire DC3RN;
-wire DC4R;
 wire DC4RN;
-wire DDC1R;
 wire DDC1RN;
-wire DDC2R;
 wire DDC2RN;
 wire DDC3R;
 wire DDC3RN;

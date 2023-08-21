@@ -60,20 +60,21 @@ module id_sampler_2(
     input wire W5,
     input wire X5,
     input wire Y6,
-    input wire Z8
+    input wire Z8,
+
+    output wire DM6B,
+    output wire DM7B,
+    output wire DM11A,
+    output wire DM12A,
+    output wire DM13A,
+    output wire DM14A
 );
 
-wire DM6B;
 wire DM6BN;
-wire DM7B;
 wire DM7BN;
-wire DM11A;
 wire DM11AN;
-wire DM12A;
 wire DM12AN;
-wire DM13A;
 wire DM13AN;
-wire DM14A;
 wire DM14AN;
 wire DO10N;
 wire DO11N;
