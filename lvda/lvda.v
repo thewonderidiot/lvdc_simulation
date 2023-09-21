@@ -216,21 +216,6 @@ reg DO10 = 0;
 reg DO11 = 0;
 reg DO12 = 0;
 reg DO13 = 0;
-reg ICR1 = 0;
-reg ICR1N = 1;
-reg ICR2N = 1;
-reg ICR3N = 1;
-reg ICR4N = 1;
-reg ICR5N = 1;
-reg ICR6N = 1;
-reg ICR7N = 1;
-reg ICR8N = 1;
-reg ICR9 = 0;
-reg ICR9N = 1;
-reg ICR10N = 1;
-reg ICR11N = 1;
-reg ICR12N = 1;
-reg ICR13N = 1;
 reg ICSN = 1;
 reg LRR = 0;
 reg OCINT = 0;
@@ -504,6 +489,21 @@ wire HALT;
 wire HLT;
 wire ICR;
 wire ICRV;
+wire ICR1;
+wire ICR1N;
+wire ICR2N;
+wire ICR3N;
+wire ICR4N;
+wire ICR5N;
+wire ICR6N;
+wire ICR7N;
+wire ICR8N;
+wire ICR9;
+wire ICR9N;
+wire ICR10N;
+wire ICR11N;
+wire ICR12N;
+wire ICR13N;
 wire ICSD;
 wire ICSDN;
 wire INFO;
@@ -1399,6 +1399,53 @@ id_sampler_1 a2a22(
     .DM4A(DM4A),
     .DM5A(DM5A),
     .DM6A(DM6A)
+);
+
+int_cont_regs a2a23(
+    .SIM_CLK(SIM_CLK),
+    .SIM_RST(SIM_RST),
+
+    .V1(V1),
+
+    .A3DV(A3DV),
+    .A3DVN(A3DVN),
+    .G1DV(G1DV),
+    .G1DVN(G1DVN),
+    .G2DV(G2DV),
+    .G2DVN(G2DVN),
+    .G3DV(G3DV),
+    .G3DVN(G3DVN),
+    .G4DV(G4DV),
+    .G4DVN(G4DVN),
+    .G5DV(G5DV),
+    .G5DVN(G5DVN),
+    .G6DV(G6DV),
+    .G6DVN(G6DVN),
+    .G7DV(G7DV),
+    .G7DVN(G7DVN),
+    .ICRV(ICRV),
+    .INFOV(INFOV),
+    .PAAVN(PAAVN),
+    .PBAV(PBAV),
+    .PCAV(PCAV),
+    .PCINFV(PCINFV),
+    .Z3(Z3),
+
+    .ICR1(ICR1),
+    .ICR1N(ICR1N),
+    .ICR2N(ICR2N),
+    .ICR3N(ICR3N),
+    .ICR4N(ICR4N),
+    .ICR5N(ICR5N),
+    .ICR6N(ICR6N),
+    .ICR7N(ICR7N),
+    .ICR8N(ICR8N),
+    .ICR9(ICR9),
+    .ICR9N(ICR9N),
+    .ICR10N(ICR10N),
+    .ICR11N(ICR11N),
+    .ICR12N(ICR12N),
+    .ICR13N(ICR13N)
 );
 
 id_sampler_4 a2a31(
