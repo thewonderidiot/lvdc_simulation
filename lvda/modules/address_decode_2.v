@@ -36,6 +36,7 @@ module address_decode_2(
     output wire DIAD,
     output wire DISA,
     output wire DOR,
+    output wire DOS,
     output wire ICR,
     output wire LGA,
     output wire LGAN,
@@ -49,7 +50,6 @@ wire DARAN;
 wire DIADN;
 wire DISAN;
 wire DORN;
-wire DOS;
 wire DOSN;
 wire ICRN;
 wire PCAX;

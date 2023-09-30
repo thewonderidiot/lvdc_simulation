@@ -80,6 +80,7 @@ reg GC13 = 0;
 reg GC14 = 0;
 reg GCSYNCX = 0;
 reg HLTX = 1;
+reg ICSN = 1;
 reg INTR1X = 0;
 reg INTR2X = 0;
 reg INTR3X = 0;
@@ -87,6 +88,7 @@ reg INTR4X = 0;
 reg INTR5X = 0;
 reg INTR6X = 0;
 reg INTR7X = 0;
+reg OCINT = 0;
 reg SSFB1X = 0;
 reg SSFB2X = 0;
 reg SSFB3X = 0;
@@ -315,6 +317,7 @@ lvda lvda1(
     .GC14(GC14),
     .GCSYNCX(GCSYNCX),
     .HLTX(HLTX),
+    .ICSN(ICSN),
     .INTR1X(INTR1X),
     .INTR2X(INTR2X),
     .INTR3X(INTR3X),
@@ -322,6 +325,7 @@ lvda lvda1(
     .INTR5X(INTR5X),
     .INTR6X(INTR6X),
     .INTR7X(INTR7X),
+    .OCINT(OCINT),
     .PBVN(PBVN),
     .PIOV(PIOV),
     .SSFB1X(SSFB1X),

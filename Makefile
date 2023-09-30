@@ -27,6 +27,7 @@ LVDA_MODULES = accel_time_proc_1 \
 	       buff_regs_1 \
 	       buff_regs_2 \
 	       dis_tran_prot \
+	       disc_op_regs \
 	       err_proc_tag_ms \
 	       error_proc \
 	       id_sampler_1 \
@@ -66,6 +67,7 @@ COMPONENTS = bfr_pa \
 	     dtp \
 	     efl \
 	     hci \
+	     idh \
 	     inv \
 	     ia1 \
 	     ia2 \

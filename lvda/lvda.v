@@ -84,6 +84,7 @@ module lvda(
     input wire GC14,
     input wire GCSYNCX,
     input wire HLTX,
+    input wire ICSN,
     input wire INTR1X,
     input wire INTR2X,
     input wire INTR3X,
@@ -91,6 +92,7 @@ module lvda(
     input wire INTR5X,
     input wire INTR6X,
     input wire INTR7X,
+    input wire OCINT,
     input wire PBVN,
     input wire PIOV,
     input wire SSFB1X,
@@ -165,12 +167,66 @@ module lvda(
     output wire TAGR8
 );
 
-// Power rails
+// Power supplies
 reg V1 = 1;
 reg V4 = 1;
 reg V5 = 1;
 
+reg PS1A = 0;
+reg PS1B = 0;
+reg PS2A = 0;
+reg PS2B = 0;
+reg PS3A = 0;
+reg PS3B = 0;
+reg PS4A = 0;
+reg PS4B = 0;
+reg PS5A = 0;
+reg PS5B = 0;
+reg PS6A = 0;
+reg PS6B = 0;
+
 // TEMPORARY UNDRIVEN
+reg DDI1A = 0;
+reg DDI1B = 0;
+reg DDI1C = 0;
+reg DDI2A = 0;
+reg DDI2B = 0;
+reg DDI3B = 0;
+reg DDI4 = 0;
+reg DO1 = 0;
+reg DO2 = 0;
+reg DO3 = 0;
+reg DO4 = 0;
+reg DO5 = 0;
+reg DO6 = 0;
+reg DO7 = 0;
+reg DO8 = 0;
+reg DO9 = 0;
+reg DO10 = 0;
+reg DO11 = 0;
+reg DO12 = 0;
+reg DO13 = 0;
+reg LRR = 0;
+reg QBP = 0;
+reg QCP = 0;
+reg RBP = 0;
+reg RCP = 0;
+reg SCB = 0;
+reg SS1 = 0;
+reg SS2 = 0;
+reg SS3 = 0;
+reg SS4 = 0;
+reg SS5 = 0;
+reg SS6 = 0;
+reg SS7 = 0;
+reg SS8 = 0;
+reg SS9 = 0;
+reg SS10 = 0;
+reg SS11 = 0;
+reg SS12 = 0;
+reg SS13 = 0;
+
+// Resolver Processor
 reg A3CR = 0;
 reg A4CR = 0;
 reg A5CR = 0;
@@ -196,59 +252,6 @@ reg CES16 = 0;
 reg CES17 = 0;
 reg CES18 = 0;
 reg CES19 = 0;
-reg DDI1A = 0;
-reg DDI1B = 0;
-reg DDI1C = 0;
-reg DDI2A = 0;
-reg DDI2B = 0;
-reg DDI3B = 0;
-reg DDI4 = 0;
-reg DO1 = 0;
-reg DO2 = 0;
-reg DO3 = 0;
-reg DO4 = 0;
-reg DO5 = 0;
-reg DO6 = 0;
-reg DO7 = 0;
-reg DO8 = 0;
-reg DO9 = 0;
-reg DO10 = 0;
-reg DO11 = 0;
-reg DO12 = 0;
-reg DO13 = 0;
-reg ICSN = 1;
-reg LRR = 0;
-reg OCINT = 0;
-reg PS1A = 0;
-reg PS1B = 0;
-reg PS2A = 0;
-reg PS2B = 0;
-reg PS3A = 0;
-reg PS3B = 0;
-reg PS4A = 0;
-reg PS4B = 0;
-reg PS5A = 0;
-reg PS5B = 0;
-reg PS6A = 0;
-reg PS6B = 0;
-reg QBP = 0;
-reg QCP = 0;
-reg RBP = 0;
-reg RCP = 0;
-reg SCB = 0;
-reg SS1 = 0;
-reg SS2 = 0;
-reg SS3 = 0;
-reg SS4 = 0;
-reg SS5 = 0;
-reg SS6 = 0;
-reg SS7 = 0;
-reg SS8 = 0;
-reg SS9 = 0;
-reg SS10 = 0;
-reg SS11 = 0;
-reg SS12 = 0;
-reg SS13 = 0;
 
 // Backplane wires
 wire A1D;
@@ -415,6 +418,20 @@ wire DOMS;
 wire DOMD;
 wire DOMDN;
 wire DOR;
+wire DOR1H;
+wire DOR2H;
+wire DOR3H;
+wire DOR4H;
+wire DOR5H;
+wire DOR6H;
+wire DOR7H;
+wire DOR8H;
+wire DOR9H;
+wire DOR10H;
+wire DOR11H;
+wire DOR12H;
+wire DOR13H;
+wire DOS;
 wire DSD;
 wire DT1;
 wire ECSA;
@@ -713,6 +730,49 @@ assign REXCVN = REXCN;
 assign SSRV = SSR;
 
 // Modules
+disc_op_regs a1a4(
+    .SIM_CLK(SIM_CLK),
+    .SIM_RST(SIM_RST),
+
+    .V1(V1),
+
+    .DOR(DOR),
+    .DOS(DOS),
+    .G1DV(G1DV),
+    .G1DVN(G1DVN),
+    .G2DV(G2DV),
+    .G2DVN(G2DVN),
+    .G3DV(G3DV),
+    .G3DVN(G3DVN),
+    .G4DV(G4DV),
+    .G4DVN(G4DVN),
+    .G5DV(G5DV),
+    .G5DVN(G5DVN),
+    .G6DV(G6DV),
+    .G6DVN(G6DVN),
+    .G7DV(G7DV),
+    .G7DVN(G7DVN),
+    .INFOV(INFOV),
+    .PAAV(PAAV),
+    .PABG1V(PABG1V),
+    .PCINFV(PCINFV),
+    .Y1(Y1),
+
+    .DOR1H(DOR1H),
+    .DOR2H(DOR2H),
+    .DOR3H(DOR3H),
+    .DOR4H(DOR4H),
+    .DOR5H(DOR5H),
+    .DOR6H(DOR6H),
+    .DOR7H(DOR7H),
+    .DOR8H(DOR8H),
+    .DOR9H(DOR9H),
+    .DOR10H(DOR10H),
+    .DOR11H(DOR11H),
+    .DOR12H(DOR12H),
+    .DOR13H(DOR13H)
+);
+
 transient_prot a1a19(
     .SIM_CLK(SIM_CLK),
     .SIM_RST(SIM_RST),
@@ -1724,6 +1784,7 @@ address_decode_2 a3a3(
     .DIAD(DIAD),
     .DISA(DISA),
     .DOR(DOR),
+    .DOS(DOS),
     .ICR(ICR),
     .LGA(LGA),
     .LGAN(LGAN),
