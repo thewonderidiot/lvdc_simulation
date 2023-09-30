@@ -185,6 +185,7 @@ wire na26a;
 wire na26b;
 wire na26b_a26b;
 wire na26b_a33a;
+assign na26b = na26b_a26b | na26b_a33a;
 wire na26d;
 wire na26e;
 wire na26e_a26e;

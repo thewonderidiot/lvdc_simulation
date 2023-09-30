@@ -150,6 +150,19 @@ module lvda(
     output wire BRD26,
     output wire CSTN,
     output wire DATAV,
+    output wire DO1,
+    output wire DO2,
+    output wire DO3,
+    output wire DO4,
+    output wire DO5,
+    output wire DO6,
+    output wire DO7,
+    output wire DO8,
+    output wire DO9,
+    output wire DO10,
+    output wire DO11,
+    output wire DO12,
+    output wire DO13,
     output wire HALTV,
     output wire INTCV,
     output wire RTR1,
@@ -193,19 +206,6 @@ reg DDI2A = 0;
 reg DDI2B = 0;
 reg DDI3B = 0;
 reg DDI4 = 0;
-reg DO1 = 0;
-reg DO2 = 0;
-reg DO3 = 0;
-reg DO4 = 0;
-reg DO5 = 0;
-reg DO6 = 0;
-reg DO7 = 0;
-reg DO8 = 0;
-reg DO9 = 0;
-reg DO10 = 0;
-reg DO11 = 0;
-reg DO12 = 0;
-reg DO13 = 0;
 reg LRR = 0;
 reg QBP = 0;
 reg QCP = 0;
@@ -730,6 +730,21 @@ assign REXCVN = REXCN;
 assign SSRV = SSR;
 
 // Modules
+tmr_drivers_1 a1a3(
+    .SIM_CLK(SIM_CLK),
+    .SIM_RST(SIM_RST),
+
+    .DOR6H(DOR6H),
+    .DOR8H(DOR8H),
+    .DOR9H(DOR9H),
+    .DOR10H(DOR10H),
+
+    .DO6(DO6),
+    .DO8(DO8),
+    .DO9(DO9),
+    .DO10(DO10)
+);
+
 disc_op_regs a1a4(
     .SIM_CLK(SIM_CLK),
     .SIM_RST(SIM_RST),
@@ -771,6 +786,38 @@ disc_op_regs a1a4(
     .DOR11H(DOR11H),
     .DOR12H(DOR12H),
     .DOR13H(DOR13H)
+);
+
+tmr_drivers_2 a1a9(
+    .SIM_CLK(SIM_CLK),
+    .SIM_RST(SIM_RST),
+
+    .DOR3H(DOR3H),
+    .DOR4H(DOR4H),
+    .DOR5H(DOR5H),
+    .DOR7H(DOR7H),
+
+    .DO3(DO3),
+    .DO4(DO4),
+    .DO5(DO5),
+    .DO7(DO7)
+);
+
+tmr_drivers_3 a1a12(
+    .SIM_CLK(SIM_CLK),
+    .SIM_RST(SIM_RST),
+
+    .DOR1H(DOR1H),
+    .DOR2H(DOR2H),
+    .DOR11H(DOR11H),
+    .DOR12H(DOR12H),
+    .DOR13H(DOR13H),
+
+    .DO1(DO1),
+    .DO2(DO2),
+    .DO11(DO11),
+    .DO12(DO12),
+    .DO13(DO13)
 );
 
 transient_prot a1a19(
