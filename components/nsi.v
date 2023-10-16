@@ -8,7 +8,7 @@ module nsi(
     input wire rst
 );
 
-parameter iv = 0;
+parameter iv = 1;
 
 inv #(iv) inv0(y, a, clk, rst);
 
