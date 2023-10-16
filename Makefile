@@ -46,6 +46,8 @@ LVDA_MODULES = accel_time_proc_1 \
 	       sd_sampler_5 \
 	       sd_sampler_6 \
 	       sd_sampler_7 \
+	       simp_drivers \
+	       sw_sel_regs \
 	       tag_real_tm_regs \
 	       telem_control \
 	       telem_storage \
@@ -54,6 +56,7 @@ LVDA_MODULES = accel_time_proc_1 \
 	       tmr_drivers_1 \
 	       tmr_drivers_2 \
 	       tmr_drivers_3 \
+	       tmr_drivers_4 \
 	       transient_prot \
 
 COMPONENTS = bfr_pa \
@@ -71,6 +74,7 @@ COMPONENTS = bfr_pa \
 	     efl \
 	     hci \
 	     idh \
+	     idl \
 	     inv \
 	     ia1 \
 	     ia2 \
@@ -80,6 +84,8 @@ COMPONENTS = bfr_pa \
 	     mcd2 \
 	     nsi \
 	     osc \
+	     sdh \
+	     tdh \
 	     tdl \
 	     tdm \
 	     tmv \

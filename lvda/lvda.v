@@ -170,6 +170,21 @@ module lvda(
     output wire RTR3,
     output wire RTR4,
     output wire RTR5,
+    output wire SS1,
+    output wire SS2,
+    output wire SS3,
+    output wire SS4,
+    output wire SS5,
+    output wire SS6,
+    output wire SS7,
+    output wire SS8,
+    output wire SS9,
+    output wire SS10,
+    output wire SS11,
+    output wire SS12,
+    output wire SS13,
+    output wire SS14,
+    output wire SS15,
     output wire TAGR1,
     output wire TAGR2,
     output wire TAGR3,
@@ -212,19 +227,6 @@ reg QCP = 0;
 reg RBP = 0;
 reg RCP = 0;
 reg SCB = 0;
-reg SS1 = 0;
-reg SS2 = 0;
-reg SS3 = 0;
-reg SS4 = 0;
-reg SS5 = 0;
-reg SS6 = 0;
-reg SS7 = 0;
-reg SS8 = 0;
-reg SS9 = 0;
-reg SS10 = 0;
-reg SS11 = 0;
-reg SS12 = 0;
-reg SS13 = 0;
 
 // Resolver Processor
 reg A3CR = 0;
@@ -613,9 +615,24 @@ wire SSFB5;
 wire SSFB6;
 wire SSFB7;
 wire SSFB8;
+wire SSIT1;
 wire SSR;
 wire SSRV;
-wire SSIT1;
+wire SSR1H;
+wire SSR2H;
+wire SSR3H;
+wire SSR4H;
+wire SSR5H;
+wire SSR6H;
+wire SSR7H;
+wire SSR8H;
+wire SSR9H;
+wire SSR10H;
+wire SSR11H;
+wire SSR12H;
+wire SSR13H;
+wire SSR14H;
+wire SSR15H;
 wire TAGS;
 wire TC2A;
 wire TC2AN;
@@ -820,6 +837,68 @@ tmr_drivers_3 a1a12(
     .DO13(DO13)
 );
 
+tmr_drivers_4 a1a16(
+    .SIM_CLK(SIM_CLK),
+    .SIM_RST(SIM_RST),
+
+    .SSR9H(SSR9H),
+    .SSR10H(SSR10H),
+    .SSR11H(SSR11H),
+    .SSR12H(SSR12H),
+    .SSR13H(SSR13H),
+
+    .SS9(SS9),
+    .SS10(SS10),
+    .SS11(SS11),
+    .SS12(SS12),
+    .SS13(SS13)
+);
+
+sw_sel_regs a1a18(
+    .SIM_CLK(SIM_CLK),
+    .SIM_RST(SIM_RST),
+
+    .V1(V1),
+
+    .G1DV(G1DV),
+    .G1DVN(G1DVN),
+    .G2DV(G2DV),
+    .G2DVN(G2DVN),
+    .G3DV(G3DV),
+    .G3DVN(G3DVN),
+    .G4DV(G4DV),
+    .G4DVN(G4DVN),
+    .G5DV(G5DV),
+    .G5DVN(G5DVN),
+    .G6DV(G6DV),
+    .G6DVN(G6DVN),
+    .G7DV(G7DV),
+    .G7DVN(G7DVN),
+    .INFOV(INFOV),
+    .PAAV(PAAV),
+    .PABG1V(PABG1V),
+    .PBG2V(PBG2V),
+    .PCINFV(PCINFV),
+    .SSRV(SSRV),
+    .Z1(Z1),
+
+    .SSR1H(SSR1H),
+    .SSR2H(SSR2H),
+    .SSR3H(SSR3H),
+    .SSR4H(SSR4H),
+    .SSR5H(SSR5H),
+    .SSR6H(SSR6H),
+    .SSR7H(SSR7H),
+    .SSR8H(SSR8H),
+    .SSR9H(SSR9H),
+    .SSR10H(SSR10H),
+    .SSR11H(SSR11H),
+    .SSR12H(SSR12H),
+    .SSR13H(SSR13H),
+    .SSR14H(SSR14H),
+    .SSR15H(SSR15H)
+);
+
 transient_prot a1a19(
     .SIM_CLK(SIM_CLK),
     .SIM_RST(SIM_RST),
@@ -936,6 +1015,33 @@ dis_tran_prot a1a23(
     .SSFB6(SSFB6),
     .SSFB7(SSFB7),
     .SSFB8(SSFB8)
+);
+
+simp_drivers a1a27(
+    .SIM_CLK(SIM_CLK),
+    .SIM_RST(SIM_RST),
+
+    .SSR1H(SSR1H),
+    .SSR2H(SSR2H),
+    .SSR3H(SSR3H),
+    .SSR4H(SSR4H),
+    .SSR5H(SSR5H),
+    .SSR6H(SSR6H),
+    .SSR7H(SSR7H),
+    .SSR8H(SSR8H),
+    .SSR14H(SSR14H),
+    .SSR15H(SSR15H),
+
+    .SS1(SS1),
+    .SS2(SS2),
+    .SS3(SS3),
+    .SS4(SS4),
+    .SS5(SS5),
+    .SS6(SS6),
+    .SS7(SS7),
+    .SS8(SS8),
+    .SS14(SS14),
+    .SS15(SS15)
 );
 
 sd_sampler_3 a2a1(
