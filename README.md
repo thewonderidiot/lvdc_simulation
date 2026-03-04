@@ -55,3 +55,9 @@ For now, I am operating under the assumption that the switch from `IM` to `DM` f
 <img width="691" height="775" alt="image" src="https://github.com/user-attachments/assets/7c47e056-32ae-45f0-a073-06c4efaadf11" />
 
 Adding `EXMVN` to gate A5 of A1A14A prevents the `REI` (Read Instruction Latch) from being set if the current instruction is `EXM`. On card A1A14B, the new A99 gates will set the `RED` (Read Data Latch) during phase A of bit time 7 if the current instruction is `EXM`. The new `G6VN` input to gate A13 restricts `RED` from resetting outside of bit time 5.
+
+## Self-test software
+
+To date, no original LVDC self-test software has come down to us. What _has_ survived is [a listing of self-test software for the Programmable Test Controller (PTC)](http://ibiblio.org/apollo/Documents/19730064346_1973064346.pdf#page=434), an LVDC derivative built by IBM for test automation. The PTC deletes unnecessary instructions, replacing them with expanded I/O instructions capable of interfacing with many peripherals, including a typewriter, a printer, a plotter, etc.
+
+The `self-test` folder in this repository contains an ongoing effort to modify this PTC self-test software back into LVDC self-test software. All of the PTC-specific tests have been removed, and new LVDC-specific tests have been added. Unfortunately, the PTC lacks the three most complex instructions -- `EXM`, `MPY`, and `DIV` -- and so for these instructions, I am very much drinking my own kool-aid. The `EXM` tests were written based off of what made AS-512 repeatable simulation happy; and the `MPY` and `DIV` results are checked against what I observed the simulator producing. These instructions are at least sufficiently correct that repeatable simulations result in good orbits; but precision errors may nevertheless be present. If you have a similar project and get different results for `MPY` and `DIV`, please let me know.
