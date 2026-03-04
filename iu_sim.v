@@ -453,8 +453,7 @@ initial begin
     $dumpvars(4, iu_sim);
     #100 SIM_RST = 1;
     #100000 HLTX = 0;
-    //#2000000 INTR7X = 1;
-    #10000000 $finish;
+    #102000000 $finish;
 end
 
 endmodule
