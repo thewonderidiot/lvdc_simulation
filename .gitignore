@@ -2,3 +2,4 @@ iu_sim
 *.fst
 *.swp
 yaASM*
+build/

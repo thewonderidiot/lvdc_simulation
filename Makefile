@@ -1,3 +1,6 @@
+BUILD_DIR=$(shell pwd)/build/
+SRC_DIR = $(shell pwd)
+
 LVDC_MODULES = add_reg_x_decode \
 	       arithmetic \
 	       buffer_register_12 \
@@ -92,29 +95,51 @@ COMPONENTS = bfr_pa \
 	     vi \
 	     vsg \
 
-LVDC_MODULE_SOURCES = $(addsuffix .v, $(addprefix lvdc/modules/, $(LVDC_MODULES)))
-LVDA_MODULE_SOURCES = $(addsuffix .v, $(addprefix lvda/modules/, $(LVDA_MODULES)))
-COMPONENT_SOURCES = $(addsuffix .v, $(addprefix components/, $(COMPONENTS)))
+LVDC_MODULE_SOURCES = $(addsuffix .v, $(addprefix $(SRC_DIR)/lvdc/modules/, $(LVDC_MODULES)))
+LVDA_MODULE_SOURCES = $(addsuffix .v, $(addprefix $(SRC_DIR)/lvda/modules/, $(LVDA_MODULES)))
+COMPONENT_SOURCES = $(addsuffix .v, $(addprefix $(SRC_DIR)/components/, $(COMPONENTS)))
 
-SOURCES = iu_sim.v \
-	  $(COMPONENT_SOURCES) \
-	  lvdc/lvdc.v \
-	  $(LVDC_MODULE_SOURCES) \
-	  lvda/lvda.v \
-	  $(LVDA_MODULE_SOURCES) \
-	  mod410/mod410.v \
-	  mod410/uart/uart_tx.v
+IU_SOURCES = $(COMPONENT_SOURCES) \
+	     $(SRC_DIR)/lvdc/lvdc.v \
+	     $(LVDC_MODULE_SOURCES) \
+	     $(SRC_DIR)/lvda/lvda.v \
+	     $(LVDA_MODULE_SOURCES) \
+	     $(SRC_DIR)/mod410/mod410.v \
+	     $(SRC_DIR)/mod410/uart/uart_tx.v
+
+SIM_SOURCES = $(SRC_DIR)/iu_sim.v \
+	      $(IU_SOURCES)
+
+FPGA_SOURCES = $(SRC_DIR)/fpga/hdl/lvdc_fpga.v \
+	       $(IU_SOURCES)
 	  
 .phony: all
 all: iu_sim
 
-iu_sim: $(SOURCES)
+iu_sim: $(SIM_SOURCES)
 	iverilog -o $@ $^
 
 .phony: run
 run: iu_sim
 	vvp iu_sim -fst -n
 
+
+.phony: fpga
+fpga: $(BUILD_DIR)/lvdc_fpga.bit
+
+$(BUILD_DIR):
+	mkdir -p $(BUILD_DIR)
+
+$(BUILD_DIR)/lvdc_fpga.bit : $(SRC_DIR)/fpga/impl.tcl $(SRC_DIR)/fpga/constr/lvdc_fpga.xdc $(BUILD_DIR)/post_synth.dcp | $(BUILD_DIR)
+	cd $(BUILD_DIR) && vivado -mode batch -source $(SRC_DIR)/fpga/impl.tcl
+
+$(BUILD_DIR)/post_synth.dcp : $(SRC_DIR)/fpga/synth.tcl $(FPGA_SOURCES) | $(BUILD_DIR)
+	cd $(BUILD_DIR) && vivado -mode batch -source $(SRC_DIR)/fpga/synth.tcl
+
+.phony: load
+load: $(BUILD_DIR)/lvdc_fpga.bit
+	openFPGALoader -b cmoda7_35t -f $(BUILD_DIR)/lvdc_fpga.bit
+
 .phony: clean
 clean:
-	rm -f iu_sim
+	rm -rf build iu_sim

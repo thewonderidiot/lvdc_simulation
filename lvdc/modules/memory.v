@@ -1,6 +1,12 @@
 `timescale 1ns/1ps
 `default_nettype none
 
+`ifdef TARGET_FPGA
+`define CORE_PATH ""
+`else
+`define CORE_PATH "core/"
+`endif
+
 module memory(
     input wire SIM_CLK,
     input wire SIM_RST,
@@ -185,7 +191,7 @@ end
 // Data
 reg [28:1] core[0:4095];
 initial begin
-    $readmemh($sformatf("core/module%0d.mem", mod), core);
+    $readmemh($sformatf({`CORE_PATH, "module%0d.mem"}, mod), core);
 end
 
 // Inhibit
