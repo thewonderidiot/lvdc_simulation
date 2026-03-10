@@ -15,7 +15,7 @@ def translate_tsv(input_tsv, output_dir):
     sector = 0
     loc = 0
 
-    data = [[0]*4096 for i in range(8)]
+    data = [[0o0040001]*4096 for i in range(8)]
     with open(input_tsv, newline='') as tsv:
         reader = csv.reader(tsv, delimiter='\t')
         for row in reader:
@@ -32,28 +32,28 @@ def translate_tsv(input_tsv, output_dir):
                 duplex = row[2+2*i] == 'D'
 
                 if not syls.strip():
-                    continue
+                    syl1 = 0
+                    syl0 = 0
 
                 elif syls[5] == ' ':
                     syl1 = syls[:5].strip()
                     syl0 = syls[6:].strip()
                     if syl1:
-                        syl1 = add_parity(int(syl1, 8) >> 1)
+                        syl1 = int(syl1, 8) >> 1
                     else:
                         syl1 = 0
 
                     if syl0:
-                        syl0 = add_parity(int(syl0, 8))
+                        syl0 = int(syl0, 8)
                     else:
                         syl0 = 0
-                    word = (syl0 << 14) | syl1
 
                 else:
                     word = int(syls, 8)
-                    w1 = add_parity(word & 0o37776)
-                    w2 = add_parity((word >> 13) & 0o37776)
-                    word = (w1 << 14) | w2
+                    syl1 = (word >> 13) & 0o37776
+                    syl0 = word & 0o37776
 
+                word = (add_parity(syl0) << 14) | add_parity(syl1)
                 addr = sector*256 + loc + i
                 data[mod][addr] = word
                 if duplex:
