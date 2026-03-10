@@ -147,6 +147,19 @@ wire BRD23;
 wire BRD24;
 wire BRD25;
 wire BRD26;
+wire DO1;
+wire DO2;
+wire DO3;
+wire DO4;
+wire DO5;
+wire DO6;
+wire DO7;
+wire DO8;
+wire DO9;
+wire DO10;
+wire DO11;
+wire DO12;
+wire DO13;
 wire CSTN;
 wire DATAV;
 wire EAMV;
@@ -162,6 +175,21 @@ wire RTR2;
 wire RTR3;
 wire RTR4;
 wire RTR5;
+wire SS1;
+wire SS2;
+wire SS3;
+wire SS4;
+wire SS5;
+wire SS6;
+wire SS7;
+wire SS8;
+wire SS9;
+wire SS10;
+wire SS11;
+wire SS12;
+wire SS13;
+wire SS14;
+wire SS15;
 wire TAGR1;
 wire TAGR2;
 wire TAGR3;
@@ -383,6 +411,19 @@ lvda lvda1(
     .BRD26(BRD26),
     .CSTN(CSTN),
     .DATAV(DATAV),
+    .DO1(DO1),
+    .DO2(DO2),
+    .DO3(DO3),
+    .DO4(DO4),
+    .DO5(DO5),
+    .DO6(DO6),
+    .DO7(DO7),
+    .DO8(DO8),
+    .DO9(DO9),
+    .DO10(DO10),
+    .DO11(DO11),
+    .DO12(DO12),
+    .DO13(DO13),
     .HALTV(HALTV),
     .INTCV(INTCV),
     .RTR1(RTR1),
@@ -390,6 +431,21 @@ lvda lvda1(
     .RTR3(RTR3),
     .RTR4(RTR4),
     .RTR5(RTR5),
+    .SS1(SS1),
+    .SS2(SS2),
+    .SS3(SS3),
+    .SS4(SS4),
+    .SS5(SS5),
+    .SS6(SS6),
+    .SS7(SS7),
+    .SS8(SS8),
+    .SS9(SS9),
+    .SS10(SS10),
+    .SS11(SS11),
+    .SS12(SS12),
+    .SS13(SS13),
+    .SS14(SS14),
+    .SS15(SS15),
     .TAGR1(TAGR1),
     .TAGR2(TAGR2),
     .TAGR3(TAGR3),
