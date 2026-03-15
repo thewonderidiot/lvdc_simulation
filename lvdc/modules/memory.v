@@ -1,12 +1,6 @@
 `timescale 1ns/1ps
 `default_nettype none
 
-`ifdef TARGET_FPGA
-`define CORE_PATH ""
-`else
-`define CORE_PATH "core/"
-`endif
-
 module memory(
     input wire SIM_CLK,
     input wire SIM_RST,

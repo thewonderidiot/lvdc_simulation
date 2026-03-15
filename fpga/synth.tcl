@@ -10,7 +10,7 @@ read_verilog -sv \
     $src_dir/mod410/mod410.v \
     [glob $src_dir/mod410/uart/*.v]
 
-set_property verilog_define {TARGET_FPGA=1} [current_fileset]
+set_property verilog_define {TARGET_FPGA=1 CORE_PATH=""} [current_fileset]
 
 add_files [glob ${src_dir}/core/module*.mem]
 

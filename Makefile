@@ -117,7 +117,7 @@ FPGA_SOURCES = $(SRC_DIR)/fpga/hdl/lvdc_fpga.v \
 all: iu_sim
 
 iu_sim: $(SIM_SOURCES)
-	iverilog -o $@ $^
+	iverilog -o $@ $^ -DCORE_PATH='"core/"'
 
 .phony: run
 run: iu_sim
