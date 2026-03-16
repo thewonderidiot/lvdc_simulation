@@ -112,6 +112,15 @@ SIM_SOURCES = $(SRC_DIR)/iu_sim.v \
 
 FPGA_SOURCES = $(SRC_DIR)/fpga/hdl/lvdc_fpga.v \
 	       $(IU_SOURCES)
+
+CORE_FILES = core/module0.mem \
+	     core/module1.mem \
+	     core/module2.mem \
+	     core/module3.mem \
+	     core/module4.mem \
+	     core/module5.mem \
+	     core/module6.mem \
+	     core/module7.mem
 	  
 .phony: all
 all: iu_sim
@@ -133,7 +142,7 @@ $(BUILD_DIR):
 $(BUILD_DIR)/lvdc_fpga.bit : $(SRC_DIR)/fpga/impl.tcl $(SRC_DIR)/fpga/constr/lvdc_fpga.xdc $(BUILD_DIR)/post_synth.dcp | $(BUILD_DIR)
 	cd $(BUILD_DIR) && vivado -mode batch -source $(SRC_DIR)/fpga/impl.tcl
 
-$(BUILD_DIR)/post_synth.dcp : $(SRC_DIR)/fpga/synth.tcl $(FPGA_SOURCES) | $(BUILD_DIR)
+$(BUILD_DIR)/post_synth.dcp : $(SRC_DIR)/fpga/synth.tcl $(FPGA_SOURCES) $(CORE_FILES) | $(BUILD_DIR)
 	cd $(BUILD_DIR) && vivado -mode batch -source $(SRC_DIR)/fpga/synth.tcl
 
 .phony: load
