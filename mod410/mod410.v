@@ -45,6 +45,7 @@ module mod410(
     input wire TAGR6,
     input wire TAGR7,
     input wire TAGR8,
+    input wire TPB,
 
     output wire TSYNC
 );
@@ -70,7 +71,7 @@ assign lvdc_word_next = {
     RTR3,
     RTR2,
     RTR1,
-    1'b0, // PARITY
+    TPB,
     BRD6,
     BRD5,
     BRD4,
@@ -146,7 +147,7 @@ always @(*) begin
     state_next = state;
     case (state)
     `STATE_IDLE: begin
-        if (count == 18'd0 && lvdc_word_next[39:0] != 40'b0) begin
+        if (count == 18'd0 && !(lvdc_word_next[39:37] == 3'b0 && lvdc_word_next[35:0] == 36'b0)) begin
             state_next = `STATE_SAMPLE;
         end
     end

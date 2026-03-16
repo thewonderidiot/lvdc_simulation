@@ -192,7 +192,8 @@ module lvda(
     output wire TAGR5,
     output wire TAGR6,
     output wire TAGR7,
-    output wire TAGR8
+    output wire TAGR8,
+    output wire TPB
 );
 
 // Power supplies
@@ -2287,7 +2288,8 @@ err_proc_tag_ms a4a3(
     .ETCRN(ETCRN),
     .ETTS(ETTS),
     .ETTSN(ETTSN),
-    .TAGS(TAGS)
+    .TAGS(TAGS),
+    .TPB(TPB)
 );
 
 tag_real_tm_regs a4a4(

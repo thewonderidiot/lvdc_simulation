@@ -81,7 +81,8 @@ module err_proc_tag_ms(
     output wire ETCRN,
     output wire ETTS,
     output wire ETTSN,
-    output wire TAGS
+    output wire TAGS,
+    output wire TPB
 );
 
 wire DPBR;
@@ -98,7 +99,6 @@ wire PBR;
 wire PBRN;
 wire TG1N;
 wire TG2N;
-wire TPB;
 wire TPBN;
 
 wire na2a;

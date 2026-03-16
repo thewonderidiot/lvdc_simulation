@@ -199,6 +199,7 @@ wire TAGR6;
 wire TAGR7;
 wire TAGR8;
 wire TLCV;
+wire TPB;
 wire TRSV;
 wire TSYNC;
 wire WDA;
@@ -453,7 +454,8 @@ lvda lvda1(
     .TAGR5(TAGR5),
     .TAGR6(TAGR6),
     .TAGR7(TAGR7),
-    .TAGR8(TAGR8)
+    .TAGR8(TAGR8),
+    .TPB(TPB)
 );
 
 mod410 mod410a(
@@ -500,6 +502,7 @@ mod410 mod410a(
     .TAGR6(TAGR6),
     .TAGR7(TAGR7),
     .TAGR8(TAGR8),
+    .TPB(TPB),
 
     .TSYNC(TSYNC)
 );
