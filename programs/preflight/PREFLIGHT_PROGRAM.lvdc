@@ -1,0 +1,94 @@
+**********************************************************************
+*                                                                    *
+*                                                                    *
+*      SIMPLE PREFLIGHT PROGRAM                                      *J
+*                                                                    *
+*                                                                    *
+**********************************************************************
+
+
+* FUNCTION          THE FUNCTION OF THE SQUARE ROOT ROUTINE
+*                   IS TO COMPUTE THE SQUARE ROOT OF AN INPUT
+*                   ARGUMENT.
+
+* ENTRIES           START    LOCATED AT 0-00-0-000 AND ENTERED BY
+*                            LVDC RESTART. THE PRFLIGHT PROGRAM
+*                            TELEMETERS EXEUCTION TIME AND MONITORS
+*                            FOR GRR, AT WHICH POINT THE FLIGHT
+*                            PROGRAM IS INITIATED THRU E.GP0.
+
+       ORGDD   0,0,0,000,0,17,0
+       
+       BSS     1            HOP 400 RESERVATION
+D.TIME OCT     0
+D.LRTC OCT     0
+D.TEMP OCT     0
+
+* FLIGHT MODE WORD BITS:
+* BIT    1 - DRIVE SWITCH SELECTOR
+* BITS 2-6 - STAGE POWERED MASK
+* BIT   11 - REPEATABLE SIMULATION
+* BIT   12 - STORE COMPRESSED DATA
+* BIT   13 - PLATFORM UP
+* BIT   15 - CAPE LATITUDE & GRAVITY
+* BIT   16 - POLARITY INDICATOR
+* BIT   18 - RESTART ON 1ST ORBIT
+* BIT   SG - FLIGHT MODE
+D.FMDP OCT     000100000    FLIGHT MODE WORD
+
+* PREFLIGHT PROGRAM ENTRY
+START  DIV     =1           INHIBIT INTS. FOR 8 MACHINE CYCLES
+
+       CLA     =O37774
+       PIO     032          RESET LIMITING ON ALL INTERRUPTS
+       PIO     072          INHIBIT ALL INTERRUPTS
+
+       CLA     D.FMDP       SET DESIRED FLIGHT MODE
+       CDS     D.FMDI
+       STO     D.FMDI
+       CDS     D.FMDP
+
+       CLA     =H'E.PPI     SET UP HOP 400 FOR INTERRUPTS
+       STO     400
+
+       PIO     103
+       STO     D.LRTC       STORE INITIAL RTC READING
+
+       CLA     =O0
+       STO     D.TIME       SET PREFLIGHT TIME TO 0
+
+       CLA     =O000003760
+       PIO     076          SCHEDULE T1
+
+       CLA     =O17374
+       PIO     072          ENABLE T1+GRR INTERRUPTS
+
+       TRA     *
+
+E.PPI  STO     776          SAVE INTERRUPT RETURN
+       PIO     137          READ INTERRUPT STORAGE REGISTER
+       AND     =O01         CHECK FOR GRR
+       TNZ     *+2
+       TRA     *+2
+       HOP     E.GP0        GRR. START FLIGHT PROGRAM
+
+       CLA     =O000003760
+       PIO     076          RESCHEDULE T1
+               
+       PIO     103          READ REAL TIME
+       STO     D.TEMP
+       SUB     D.LRTC       COMPUTE ELAPSED TIME SINCE LAST TIME UPDTE
+       AND     =O000037776
+       MPH     =(P.CRS)B-11
+       SHR     1
+       ADD     D.TIME       UPDATE PREFLIGHT TIME
+       STO     D.TIME
+       PIO     031
+
+       CLA     D.TEMP       SAVE LAST RTC READING
+       STO     D.LRTC
+
+       CLA     =O2          RESET T1 LIMITING
+       PIO     032
+
+       HOP     776

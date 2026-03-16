@@ -39,9 +39,9 @@ gtkwave iu.fst iu.gtkw
 
 The included self-test software can be built for use with the simulator as follows, utilizing yaASM.py from VirtualAGC:
 ```
-cd self-test
+cd programs/self-test
 ~/virtualagc/yaASM.py/yaASM.py < self-test.lvdc > self-test.lst
-../scripts/lvdc_tsv_to_mem.py yaASM.tsv -o ../core
+../../scripts/lvdc_tsv_to_mem.py yaASM.tsv -o ../../core
 ```
 
 ## The EXM problem
