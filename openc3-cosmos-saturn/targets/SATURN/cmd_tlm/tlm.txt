@@ -6,12 +6,28 @@ TELEMETRY SATURN TAS BIG_ENDIAN "Time from GRR at accelerometer read time"
   APPEND_ITEM    TAS   26      INT        "Time from GRR"
     POLY_READ_CONVERSION 0 0.0009765625
 
+TELEMETRY SATURN CHIZ BIG_ENDIAN "Yaw guidance command"
+  # Keyword      Name  BitSize Type   ID  Description
+  APPEND_ID_ITEM TAG   16      INT 0o1400 "Tag"
+    FORMAT_STRING "%04o"
+  APPEND_ITEM    PAD   6       INT        "Padding"
+  APPEND_ITEM    CHIZ  26      INT        "Yaw guidance command"
+    POLY_READ_CONVERSION 0 0.00000536441803
+
 TELEMETRY SATURN ACCZ BIG_ENDIAN "Z accelerometer reading"
   # Keyword      Name  BitSize Type   ID  Description
   APPEND_ID_ITEM TAG   16      INT 0o0402 "Tag"
     FORMAT_STRING "%04o"
   APPEND_ITEM    PAD   6       INT        "Padding"
   APPEND_ITEM    ACCZ  26      INT        "Z accelerometer reading"
+
+TELEMETRY SATURN CHIX BIG_ENDIAN "Roll guidance command"
+  # Keyword      Name  BitSize Type   ID  Description
+  APPEND_ID_ITEM TAG   16      INT 0o1402 "Tag"
+    FORMAT_STRING "%04o"
+  APPEND_ITEM    PAD   6       INT        "Padding"
+  APPEND_ITEM    CHIX  26      INT        "Roll guidance command"
+    POLY_READ_CONVERSION 0 0.00000536441803
 
 TELEMETRY SATURN ACCX BIG_ENDIAN "X accelerometer reading"
   # Keyword      Name  BitSize Type   ID  Description
@@ -20,6 +36,14 @@ TELEMETRY SATURN ACCX BIG_ENDIAN "X accelerometer reading"
   APPEND_ITEM    PAD   6       INT        "Padding"
   APPEND_ITEM    ACCX  26      INT        "X accelerometer reading"
 
+TELEMETRY SATURN CHIY BIG_ENDIAN "Pitch guidance command"
+  # Keyword      Name  BitSize Type   ID  Description
+  APPEND_ID_ITEM TAG   16      INT 0o1404 "Tag"
+    FORMAT_STRING "%04o"
+  APPEND_ITEM    PAD   6       INT        "Padding"
+  APPEND_ITEM    CHIY  26      INT        "Pitch guidance command"
+    POLY_READ_CONVERSION 0 0.00000536441803
+
 TELEMETRY SATURN ACCY BIG_ENDIAN "Y accelerometer reading"
   # Keyword      Name  BitSize Type   ID  Description
   APPEND_ID_ITEM TAG   16      INT 0o0406 "Tag"
@@ -27,12 +51,28 @@ TELEMETRY SATURN ACCY BIG_ENDIAN "Y accelerometer reading"
   APPEND_ITEM    PAD   6       INT        "Padding"
   APPEND_ITEM    ACCY  26      INT        "Y accelerometer reading"
 
+TELEMETRY SATURN TLTHTZ BIG_ENDIAN "Yaw gimbal angle"
+  # Keyword      Name  BitSize Type   ID  Description
+  APPEND_ID_ITEM TAG   16      INT 0o1406 "Tag"
+    FORMAT_STRING "%04o"
+  APPEND_ITEM    PAD   6       INT        "Padding"
+  APPEND_ITEM    TLTHTZ 26     INT        "Yaw gimbal angle"
+    POLY_READ_CONVERSION 0 0.00000536441803
+
 TELEMETRY SATURN LVE BIG_ENDIAN "Angle from vernal equinox to launch meridian at GRR"
   # Keyword      Name  BitSize Type   ID  Description
   APPEND_ID_ITEM TAG   16      INT 0o0410 "Tag"
     FORMAT_STRING "%04o"
   APPEND_ITEM    PAD   6       INT        "Padding"
   APPEND_ITEM    LVE   26      INT        "Angle from vernal equinox to launch meridian at GRR"
+    POLY_READ_CONVERSION 0 0.00000536441803
+
+TELEMETRY SATURN TLTHTX BIG_ENDIAN "Roll gimbal angle"
+  # Keyword      Name  BitSize Type   ID  Description
+  APPEND_ID_ITEM TAG   16      INT 0o1410 "Tag"
+    FORMAT_STRING "%04o"
+  APPEND_ITEM    PAD   6       INT        "Padding"
+  APPEND_ITEM    TLTHTX 26     INT        "Roll gimbal angle"
     POLY_READ_CONVERSION 0 0.00000536441803
 
 TELEMETRY SATURN LAMBDA BIG_ENDIAN "Angle from longitude of launch meridian to descending node of desired orbital plane"
@@ -43,12 +83,28 @@ TELEMETRY SATURN LAMBDA BIG_ENDIAN "Angle from longitude of launch meridian to d
   APPEND_ITEM    LAMBDA 26     INT        "Angle from longitude of launch meridian to descending node of desired orbital plane"
     POLY_READ_CONVERSION 0 0.00000536441803
 
+TELEMETRY SATURN TLTHTY BIG_ENDIAN "Pitch gimbal angle"
+  # Keyword      Name  BitSize Type   ID  Description
+  APPEND_ID_ITEM TAG   16      INT 0o1412 "Tag"
+    FORMAT_STRING "%04o"
+  APPEND_ITEM    PAD   6       INT        "Padding"
+  APPEND_ITEM    TLTHTY 26     INT        "Pitch gimbal angle"
+    POLY_READ_CONVERSION 0 0.00000536441803
+
 TELEMETRY SATURN TBB BIG_ENDIAN "Updated time in current time base"
   # Keyword      Name  BitSize Type   ID  Description
   APPEND_ID_ITEM TAG   16      INT 0o0414 "Tag"
     FORMAT_STRING "%04o"
   APPEND_ITEM    PAD   6       INT        "Padding"
   APPEND_ITEM    TBB   26      INT        "Updated time in current time base"
+    POLY_READ_CONVERSION 0 0.0009765625
+
+TELEMETRY SATURN TB BIG_ENDIAN "Time in current time base"
+  # Keyword      Name  BitSize Type   ID  Description
+  APPEND_ID_ITEM TAG   16      INT 0o1414 "Tag"
+    FORMAT_STRING "%04o"
+  APPEND_ITEM    PAD   6       INT        "Padding"
+  APPEND_ITEM    TB    26      INT        "Time in current time base"
     POLY_READ_CONVERSION 0 0.0009765625
 
 TELEMETRY SATURN ZS BIG_ENDIAN "Z component of radius vector R"
@@ -59,6 +115,22 @@ TELEMETRY SATURN ZS BIG_ENDIAN "Z component of radius vector R"
   APPEND_ITEM    ZS    26      INT        "Position Z"
     POLY_READ_CONVERSION 0 0.25
 
+TELEMETRY SATURN TD BIG_ENDIAN "Difference in time of liftoff and time of launch window opening"
+  # Keyword      Name  BitSize Type   ID  Description
+  APPEND_ID_ITEM TAG   16      INT 0o1416 "Tag"
+    FORMAT_STRING "%04o"
+  APPEND_ITEM    PAD   6       INT        "Padding"
+  APPEND_ITEM    TD    26      INT        "Difference in time of liftoff and time of launch window opening"
+    POLY_READ_CONVERSION 0 0.0009765625
+
+TELEMETRY SATURN I BIG_ENDIAN "Inclination of parking orbit"
+  # Keyword      Name  BitSize Type   ID  Description
+  APPEND_ID_ITEM TAG   16      INT 0o1420 "Tag"
+    FORMAT_STRING "%04o"
+  APPEND_ITEM    PAD   6       INT        "Padding"
+  APPEND_ITEM    I     26      INT        "Inclination of parking orbit"
+    POLY_READ_CONVERSION 0 0.00000536441803
+
 TELEMETRY SATURN XS BIG_ENDIAN "X component of radius vector R"
   # Keyword      Name  BitSize Type   ID  Description
   APPEND_ID_ITEM TAG   16      INT 0o0422 "Tag"
@@ -66,6 +138,14 @@ TELEMETRY SATURN XS BIG_ENDIAN "X component of radius vector R"
   APPEND_ITEM    PAD   6       INT        "Padding"
   APPEND_ITEM    XS    26      INT        "Position X"
     POLY_READ_CONVERSION 0 0.25
+
+TELEMETRY SATURN COSATS BIG_ENDIAN "Cosine of nominal angle between pseudonodal vector S and target vector T at T6+0"
+  # Keyword      Name  BitSize Type   ID  Description
+  APPEND_ID_ITEM TAG   16      INT 0o1422 "Tag"
+    FORMAT_STRING "%04o"
+  APPEND_ITEM    PAD   6       INT        "Padding"
+  APPEND_ITEM    COSATS 26     INT        "Cosine of nominal angle between pseudonodal vector S and target vector T at T6+0"
+    POLY_READ_CONVERSION 0 2.9802322387695312e-8
 
 TELEMETRY SATURN YS BIG_ENDIAN "Y component of radius vector R"
   # Keyword      Name  BitSize Type   ID  Description
@@ -75,6 +155,14 @@ TELEMETRY SATURN YS BIG_ENDIAN "Y component of radius vector R"
   APPEND_ITEM    YS    26      INT        "Position Y"
     POLY_READ_CONVERSION 0 0.25
 
+TELEMETRY SATURN TTGO BIG_ENDIAN "Time-to-go to start of TB6"
+  # Keyword      Name  BitSize Type   ID  Description
+  APPEND_ID_ITEM TAG   16      INT 0o1424 "Tag"
+    FORMAT_STRING "%04o"
+  APPEND_ITEM    PAD   6       INT        "Padding"
+  APPEND_ITEM    TTGO  26      INT        "Time-to-go to start of TB6"
+    POLY_READ_CONVERSION 0 0.0009765625
+
 TELEMETRY SATURN RINV BIG_ENDIAN "Reciprocal of radius"
   # Keyword      Name  BitSize Type   ID  Description
   APPEND_ID_ITEM TAG   16      INT 0o0426 "Tag"
@@ -82,6 +170,14 @@ TELEMETRY SATURN RINV BIG_ENDIAN "Reciprocal of radius"
   APPEND_ITEM    PAD   6       INT        "Padding"
   APPEND_ITEM    RINV  26      INT        "Reciprocal of radius"
     POLY_READ_CONVERSION 0 7.1054273576e-15
+
+TELEMETRY SATURN TPSZ BIG_ENDIAN "Zs component of target vector Tp"
+  # Keyword      Name  BitSize Type   ID  Description
+  APPEND_ID_ITEM TAG   16      INT 0o1426 "Tag"
+    FORMAT_STRING "%04o"
+  APPEND_ITEM    PAD   6       INT        "Padding"
+  APPEND_ITEM    TPSZ  26      INT        "Zs component of target vector Tp"
+    POLY_READ_CONVERSION 0 0.00000536441803
 
 TELEMETRY SATURN ZGG BIG_ENDIAN "ZG component of gravity acceleration"
   # Keyword      Name  BitSize Type   ID  Description
@@ -99,6 +195,14 @@ TELEMETRY SATURN XGG BIG_ENDIAN "XG component of gravity acceleration"
   APPEND_ITEM    XGG   26      INT        "XG component of gravity acceleration"
     POLY_READ_CONVERSION 0 0.0000004768371582
 
+TELEMETRY SATURN TPSX BIG_ENDIAN "Xs component of target vector Tp"
+  # Keyword      Name  BitSize Type   ID  Description
+  APPEND_ID_ITEM TAG   16      INT 0o1432 "Tag"
+    FORMAT_STRING "%04o"
+  APPEND_ITEM    PAD   6       INT        "Padding"
+  APPEND_ITEM    TPSX  26      INT        "Xs component of target vector Tp"
+    POLY_READ_CONVERSION 0 0.00000536441803
+
 TELEMETRY SATURN YGG BIG_ENDIAN "YG component of gravity acceleration"
   # Keyword      Name  BitSize Type   ID  Description
   APPEND_ID_ITEM TAG   16      INT 0o0434 "Tag"
@@ -107,316 +211,20 @@ TELEMETRY SATURN YGG BIG_ENDIAN "YG component of gravity acceleration"
   APPEND_ITEM    YGG   26      INT        "YG component of gravity acceleration"
     POLY_READ_CONVERSION 0 0.0000004768371582
 
+TELEMETRY SATURN TPSY BIG_ENDIAN "Ys component of target vector Tp"
+  # Keyword      Name  BitSize Type   ID  Description
+  APPEND_ID_ITEM TAG   16      INT 0o1434 "Tag"
+    FORMAT_STRING "%04o"
+  APPEND_ITEM    PAD   6       INT        "Padding"
+  APPEND_ITEM    TPSY  26      INT        "Ys component of target vector Tp"
+    POLY_READ_CONVERSION 0 0.00000536441803
+
 TELEMETRY SATURN TBA BIG_ENDIAN "Time of station acquisition"
   # Keyword      Name  BitSize Type   ID  Description
   APPEND_ID_ITEM TAG   16      INT 0o0436 "Tag"
     FORMAT_STRING "%04o"
   APPEND_ITEM    PAD   6       INT        "Padding"
   APPEND_ITEM    TBA   26      INT        "Time of station acquisition"
-    POLY_READ_CONVERSION 0 0.0009765625
-
-TELEMETRY SATURN TLTSEC BIG_ENDIAN "Time of position extrapolation"
-  # Keyword      Name  BitSize Type   ID  Description
-  APPEND_ID_ITEM TAG   16      INT 0o0440 "Tag"
-    FORMAT_STRING "%04o"
-  APPEND_ITEM    PAD   6       INT        "Padding"
-  APPEND_ITEM    TLTSEC 26     INT        "Time of position extrapolation"
-    POLY_READ_CONVERSION 0 0.0009765625
-
-TELEMETRY SATURN DT4 BIG_ENDIAN "Time between actual and nominal S-IVB cutoff"
-  # Keyword      Name  BitSize Type   ID  Description
-  APPEND_ID_ITEM TAG   16      INT 0o0442 "Tag"
-    FORMAT_STRING "%04o"
-  APPEND_ITEM    PAD   6       INT        "Padding"
-  APPEND_ITEM    DT4   26      INT        "Time between actual and nominal S-IVB cutoff"
-    POLY_READ_CONVERSION 0 7.62939453125e-6
-
-TELEMETRY SATURN ZDS BIG_ENDIAN "Zs component of velocity vector V"
-  # Keyword      Name  BitSize Type   ID  Description
-  APPEND_ID_ITEM TAG   16      INT 0o0444 "Tag"
-    FORMAT_STRING "%04o"
-  APPEND_ITEM    PAD   6       INT        "Padding"
-  APPEND_ITEM    ZDS   26      INT        "Zs component of velocity vector V"
-    POLY_READ_CONVERSION 0 0.00048828125
-
-TELEMETRY SATURN XDS BIG_ENDIAN "Xs component of velocity vector V"
-  # Keyword      Name  BitSize Type   ID  Description
-  APPEND_ID_ITEM TAG   16      INT 0o0446 "Tag"
-    FORMAT_STRING "%04o"
-  APPEND_ITEM    PAD   6       INT        "Padding"
-  APPEND_ITEM    XDS   26      INT        "Xs component of velocity vector V"
-    POLY_READ_CONVERSION 0 0.00048828125
-
-TELEMETRY SATURN YDS BIG_ENDIAN "Ys component of velocity vector V"
-  # Keyword      Name  BitSize Type   ID  Description
-  APPEND_ID_ITEM TAG   16      INT 0o0450 "Tag"
-    FORMAT_STRING "%04o"
-  APPEND_ITEM    PAD   6       INT        "Padding"
-  APPEND_ITEM    YDS   26      INT        "Ys component of velocity vector V"
-    POLY_READ_CONVERSION 0 0.00048828125
-
-TELEMETRY SATURN V BIG_ENDIAN "Total space-fixed inertial velocity"
-  # Keyword      Name  BitSize Type   ID  Description
-  APPEND_ID_ITEM TAG   16      INT 0o0452 "Tag"
-    FORMAT_STRING "%04o"
-  APPEND_ITEM    PAD   6       INT        "Padding"
-  APPEND_ITEM    V     26      INT        "Velocity"
-    POLY_READ_CONVERSION 0 0.00048828125
-
-TELEMETRY SATURN RXZS BIG_ENDIAN "ZS extrapolated position"
-  # Keyword      Name  BitSize Type   ID  Description
-  APPEND_ID_ITEM TAG   16      INT 0o0456 "Tag"
-    FORMAT_STRING "%04o"
-  APPEND_ITEM    PAD   6       INT        "Padding"
-  APPEND_ITEM    RXZS  26      INT        "ZS extrapolated position"
-    POLY_READ_CONVERSION 0 0.25
-
-TELEMETRY SATURN RXXS BIG_ENDIAN "XS extrapolated position"
-  # Keyword      Name  BitSize Type   ID  Description
-  APPEND_ID_ITEM TAG   16      INT 0o0462 "Tag"
-    FORMAT_STRING "%04o"
-  APPEND_ITEM    PAD   6       INT        "Padding"
-  APPEND_ITEM    RXXS  26      INT        "XS extrapolated position"
-    POLY_READ_CONVERSION 0 0.25
-
-TELEMETRY SATURN RXYS BIG_ENDIAN "YS extrapolated position"
-  # Keyword      Name  BitSize Type   ID  Description
-  APPEND_ID_ITEM TAG   16      INT 0o0464 "Tag"
-    FORMAT_STRING "%04o"
-  APPEND_ITEM    PAD   6       INT        "Padding"
-  APPEND_ITEM    RXYS  26      INT        "YS extrapolated position"
-    POLY_READ_CONVERSION 0 0.25
-
-TELEMETRY SATURN C3B BIG_ENDIAN "Twice the orbital energy for 2nd opportunity"
-  # Keyword      Name  BitSize Type   ID  Description
-  APPEND_ID_ITEM TAG   16      INT 0o0472 "Tag"
-    FORMAT_STRING "%04o"
-  APPEND_ITEM    PAD   6       INT        "Padding"
-  APPEND_ITEM    C3B   26      INT        "Twice the orbital energy for 2nd opportunity"
-    POLY_READ_CONVERSION 0 2.0
-
-TELEMETRY SATURN RTAS BIG_ENDIAN "Real-time clock reading associated with Tas"
-  # Keyword      Name  BitSize Type   ID  Description
-  APPEND_ID_ITEM TAG   16      INT 0o0476 "Tag"
-    FORMAT_STRING "%04o"
-  APPEND_ITEM    PAD   6       INT        "Padding"
-  APPEND_ITEM    RTAS  26      INT        "Real-time clock reading associated with Tas"
-    FORMAT_STRING "%o"
-
-TELEMETRY SATURN IGT1I BIG_ENDIAN "S-II IGM time-to-go before EMRC"
-  # Keyword      Name  BitSize Type   ID  Description
-  APPEND_ID_ITEM TAG   16      INT 0o0500 "Tag"
-    FORMAT_STRING "%04o"
-  APPEND_ITEM    PAD   6       INT        "Padding"
-  APPEND_ITEM    IGT1I   26      INT        "S-II IGM time-to-go before EMRC"
-    POLY_READ_CONVERSION 0 3.0517578125e-5
-
-TELEMETRY SATURN CS BIG_ENDIAN "Cosine of true anomaly of 1st opportunity target vector"
-  # Keyword      Name  BitSize Type   ID  Description
-  APPEND_ID_ITEM TAG   16      INT 0o0502 "Tag"
-    FORMAT_STRING "%04o"
-  APPEND_ITEM    PAD   6       INT        "Padding"
-  APPEND_ITEM    CS    26      INT        "Cosine of true anomaly of 1st opportunity target vector"
-    POLY_READ_CONVERSION 0 0.00000536441803
-
-TELEMETRY SATURN RA BIG_ENDIAN "Right ascension of 1st opportunity target vector"
-  # Keyword      Name  BitSize Type   ID  Description
-  APPEND_ID_ITEM TAG   16      INT 0o0504 "Tag"
-    FORMAT_STRING "%04o"
-  APPEND_ITEM    PAD   6       INT        "Padding"
-  APPEND_ITEM    RA    26      INT        "Right ascension of 1st opportunity target vector"
-    POLY_READ_CONVERSION 0 0.00000536441803
-
-TELEMETRY SATURN MC27 BIG_ENDIAN "Mode code 27"
-  # Keyword      Name  BitSize Type   ID  Description
-  APPEND_ID_ITEM TAG   16      INT 0o0510 "Tag"
-    FORMAT_STRING "%04o"
-  APPEND_ITEM    PAD   6       INT        "Padding"
-  APPEND_ITEM    MC27  26      UINT       "Mode code 27"
-    FORMAT_STRING "%09o"
-
-TELEMETRY SATURN RZ4 BIG_ENDIAN "Z4 compontent of radius vector R"
-  # Keyword      Name  BitSize Type   ID  Description
-  APPEND_ID_ITEM TAG   16      INT 0o0516 "Tag"
-    FORMAT_STRING "%04o"
-  APPEND_ITEM    PAD   6       INT        "Padding"
-  APPEND_ITEM    RZ4   26      INT        "Z4 compontent of radius vector R"
-    POLY_READ_CONVERSION 0 0.25
-
-TELEMETRY SATURN RX4 BIG_ENDIAN "X4 compontent of radius vector R"
-  # Keyword      Name  BitSize Type   ID  Description
-  APPEND_ID_ITEM TAG   16      INT 0o0522 "Tag"
-    FORMAT_STRING "%04o"
-  APPEND_ITEM    PAD   6       INT        "Padding"
-  APPEND_ITEM    RX4   26      INT        "X4 compontent of radius vector R"
-    POLY_READ_CONVERSION 0 0.25
-
-TELEMETRY SATURN RY4 BIG_ENDIAN "Y4 compontent of radius vector R"
-  # Keyword      Name  BitSize Type   ID  Description
-  APPEND_ID_ITEM TAG   16      INT 0o0524 "Tag"
-    FORMAT_STRING "%04o"
-  APPEND_ITEM    PAD   6       INT        "Padding"
-  APPEND_ITEM    RY4   26      INT        "Y4 compontent of radius vector R"
-    POLY_READ_CONVERSION 0 0.25
-
-TELEMETRY SATURN IGTSTR BIG_ENDIAN "Time-to-go to S-IVB cutoff"
-  # Keyword      Name  BitSize Type   ID  Description
-  APPEND_ID_ITEM TAG   16      INT 0o0530 "Tag"
-    FORMAT_STRING "%04o"
-  APPEND_ITEM    PAD   6       INT        "Padding"
-  APPEND_ITEM    IGTSTR 26     INT        "Time-to-go to S-IVB cutoff"
-    POLY_READ_CONVERSION 0 0.000244140625
-
-TELEMETRY SATURN IGT3I BIG_ENDIAN "S-IVB IGM time-to-go after EMRC"
-  # Keyword      Name  BitSize Type   ID  Description
-  APPEND_ID_ITEM TAG   16      INT 0o0532 "Tag"
-    FORMAT_STRING "%04o"
-  APPEND_ITEM    PAD   6       INT        "Padding"
-  APPEND_ITEM    IGT3I 26      INT        "S-IVB IGM time-to-go after EMRC"
-    POLY_READ_CONVERSION 0 0.000244140625
-
-TELEMETRY SATURN AZ BIG_ENDIAN "Platform azimuth"
-  # Keyword      Name  BitSize Type   ID  Description
-  APPEND_ID_ITEM TAG   16      INT 0o0534 "Tag"
-    FORMAT_STRING "%04o"
-  APPEND_ITEM    PAD   6       INT        "Padding"
-  APPEND_ITEM    AZ    26      INT        "Platform azimuth"
-    POLY_READ_CONVERSION 0 0.00000536441803
-
-TELEMETRY SATURN VVZ BIG_ENDIAN "Z component of venting acceleration"
-  # Keyword      Name  BitSize Type   ID  Description
-  APPEND_ID_ITEM TAG   16      INT 0o0542 "Tag"
-    FORMAT_STRING "%04o"
-  APPEND_ITEM    PAD   6       INT        "Padding"
-  APPEND_ITEM    VVZ   26      INT        "Z component of venting acceleration"
-    POLY_READ_CONVERSION 0 4.76837158203125e-7
-
-TELEMETRY SATURN VVX BIG_ENDIAN "X component of venting acceleration"
-  # Keyword      Name  BitSize Type   ID  Description
-  APPEND_ID_ITEM TAG   16      INT 0o0544 "Tag"
-    FORMAT_STRING "%04o"
-  APPEND_ITEM    PAD   6       INT        "Padding"
-  APPEND_ITEM    VVX   26      INT        "X component of venting acceleration"
-    POLY_READ_CONVERSION 0 4.76837158203125e-7
-
-TELEMETRY SATURN VVY BIG_ENDIAN "Y component of venting acceleration"
-  # Keyword      Name  BitSize Type   ID  Description
-  APPEND_ID_ITEM TAG   16      INT 0o0546 "Tag"
-    FORMAT_STRING "%04o"
-  APPEND_ITEM    PAD   6       INT        "Padding"
-  APPEND_ITEM    VVY   26      INT        "Y component of venting acceleration"
-    POLY_READ_CONVERSION 0 4.76837158203125e-7
-
-TELEMETRY SATURN AZDS BIG_ENDIAN "Zs component of drag acceleration"
-  # Keyword      Name  BitSize Type   ID  Description
-  APPEND_ID_ITEM TAG   16      INT 0o0550 "Tag"
-    FORMAT_STRING "%04o"
-  APPEND_ITEM    PAD   6       INT        "Padding"
-  APPEND_ITEM    AZDS  26      INT        "Zs component of drag acceleration"
-    POLY_READ_CONVERSION 0 4.76837158203125e-7
-
-TELEMETRY SATURN AXDS BIG_ENDIAN "Xs component of drag acceleration"
-  # Keyword      Name  BitSize Type   ID  Description
-  APPEND_ID_ITEM TAG   16      INT 0o0552 "Tag"
-    FORMAT_STRING "%04o"
-  APPEND_ITEM    PAD   6       INT        "Padding"
-  APPEND_ITEM    AXDS  26      INT        "Xs component of drag acceleration"
-    POLY_READ_CONVERSION 0 4.76837158203125e-7
-
-TELEMETRY SATURN AYDS BIG_ENDIAN "Ys component of drag acceleration"
-  # Keyword      Name  BitSize Type   ID  Description
-  APPEND_ID_ITEM TAG   16      INT 0o0554 "Tag"
-    FORMAT_STRING "%04o"
-  APPEND_ITEM    PAD   6       INT        "Padding"
-  APPEND_ITEM    AYDS  26      INT        "Ys component of drag acceleration"
-    POLY_READ_CONVERSION 0 4.76837158203125e-7
-
-TELEMETRY SATURN ALT BIG_ENDIAN "Vehicle altitude"
-  # Keyword      Name  BitSize Type   ID  Description
-  APPEND_ID_ITEM TAG   16      INT 0o0556 "Tag"
-    FORMAT_STRING "%04o"
-  APPEND_ITEM    PAD   6       INT        "Padding"
-  APPEND_ITEM    ALT   26      INT        "Vehicle altitude"
-    POLY_READ_CONVERSION 0 0.015625
-
-TELEMETRY SATURN T3I BIG_ENDIAN "High speed loop time-to-go"
-  # Keyword      Name  BitSize Type   ID  Description
-  APPEND_ID_ITEM TAG   16      INT 0o0562 "Tag"
-    FORMAT_STRING "%04o"
-  APPEND_ITEM    PAD   6       INT        "Padding"
-  APPEND_ITEM    T3I   26      INT        "High speed loop time-to-go"
-    POLY_READ_CONVERSION 0 4.76837158203125e-7
-
-TELEMETRY SATURN CHIZ BIG_ENDIAN "Yaw guidance command"
-  # Keyword      Name  BitSize Type   ID  Description
-  APPEND_ID_ITEM TAG   16      INT 0o1400 "Tag"
-    FORMAT_STRING "%04o"
-  APPEND_ITEM    PAD   6       INT        "Padding"
-  APPEND_ITEM    CHIZ  26      INT        "Yaw guidance command"
-    POLY_READ_CONVERSION 0 0.00000536441803
-
-TELEMETRY SATURN CHIX BIG_ENDIAN "Roll guidance command"
-  # Keyword      Name  BitSize Type   ID  Description
-  APPEND_ID_ITEM TAG   16      INT 0o1402 "Tag"
-    FORMAT_STRING "%04o"
-  APPEND_ITEM    PAD   6       INT        "Padding"
-  APPEND_ITEM    CHIX  26      INT        "Roll guidance command"
-    POLY_READ_CONVERSION 0 0.00000536441803
-
-TELEMETRY SATURN CHIY BIG_ENDIAN "Pitch guidance command"
-  # Keyword      Name  BitSize Type   ID  Description
-  APPEND_ID_ITEM TAG   16      INT 0o1404 "Tag"
-    FORMAT_STRING "%04o"
-  APPEND_ITEM    PAD   6       INT        "Padding"
-  APPEND_ITEM    CHIY  26      INT        "Pitch guidance command"
-    POLY_READ_CONVERSION 0 0.00000536441803
-
-TELEMETRY SATURN TLTHTZ BIG_ENDIAN "Yaw gimbal angle"
-  # Keyword      Name  BitSize Type   ID  Description
-  APPEND_ID_ITEM TAG   16      INT 0o1406 "Tag"
-    FORMAT_STRING "%04o"
-  APPEND_ITEM    PAD   6       INT        "Padding"
-  APPEND_ITEM    TLTHTZ 26     INT        "Yaw gimbal angle"
-    POLY_READ_CONVERSION 0 0.00000536441803
-
-TELEMETRY SATURN TLTHTX BIG_ENDIAN "Roll gimbal angle"
-  # Keyword      Name  BitSize Type   ID  Description
-  APPEND_ID_ITEM TAG   16      INT 0o1410 "Tag"
-    FORMAT_STRING "%04o"
-  APPEND_ITEM    PAD   6       INT        "Padding"
-  APPEND_ITEM    TLTHTX 26     INT        "Roll gimbal angle"
-    POLY_READ_CONVERSION 0 0.00000536441803
-
-TELEMETRY SATURN TLTHTY BIG_ENDIAN "Pitch gimbal angle"
-  # Keyword      Name  BitSize Type   ID  Description
-  APPEND_ID_ITEM TAG   16      INT 0o1412 "Tag"
-    FORMAT_STRING "%04o"
-  APPEND_ITEM    PAD   6       INT        "Padding"
-  APPEND_ITEM    TLTHTY 26     INT        "Pitch gimbal angle"
-    POLY_READ_CONVERSION 0 0.00000536441803
-
-TELEMETRY SATURN TB BIG_ENDIAN "Time in current time base"
-  # Keyword      Name  BitSize Type   ID  Description
-  APPEND_ID_ITEM TAG   16      INT 0o1414 "Tag"
-    FORMAT_STRING "%04o"
-  APPEND_ITEM    PAD   6       INT        "Padding"
-  APPEND_ITEM    TB    26      INT        "Time in current time base"
-    POLY_READ_CONVERSION 0 0.0009765625
-
-TELEMETRY SATURN I BIG_ENDIAN "Inclination of parking orbit"
-  # Keyword      Name  BitSize Type   ID  Description
-  APPEND_ID_ITEM TAG   16      INT 0o1420 "Tag"
-    FORMAT_STRING "%04o"
-  APPEND_ITEM    PAD   6       INT        "Padding"
-  APPEND_ITEM    I     26      INT        "Inclination of parking orbit"
-    POLY_READ_CONVERSION 0 0.00000536441803
-
-TELEMETRY SATURN TTGO BIG_ENDIAN "Time-to-go to start of TB6"
-  # Keyword      Name  BitSize Type   ID  Description
-  APPEND_ID_ITEM TAG   16      INT 0o1424 "Tag"
-    FORMAT_STRING "%04o"
-  APPEND_ITEM    PAD   6       INT        "Padding"
-  APPEND_ITEM    TTGO  26      INT        "Time-to-go to start of TB6"
     POLY_READ_CONVERSION 0 0.0009765625
 
 TELEMETRY SATURN SS BIG_ENDIAN "Switch selector function indication at time of read command"
@@ -427,6 +235,30 @@ TELEMETRY SATURN SS BIG_ENDIAN "Switch selector function indication at time of r
   APPEND_ITEM    SS    26      UINT       "Switch selector function indication at time of read command"
     FORMAT_STRING "%09o"
 
+TELEMETRY SATURN TLTSEC BIG_ENDIAN "Time of position extrapolation"
+  # Keyword      Name  BitSize Type   ID  Description
+  APPEND_ID_ITEM TAG   16      INT 0o0440 "Tag"
+    FORMAT_STRING "%04o"
+  APPEND_ITEM    PAD   6       INT        "Padding"
+  APPEND_ITEM    TLTSEC 26     INT        "Time of position extrapolation"
+    POLY_READ_CONVERSION 0 0.0009765625
+
+TELEMETRY SATURN Q1 BIG_ENDIAN "Difference between S*Tp and cosine of ats"
+  # Keyword      Name  BitSize Type   ID  Description
+  APPEND_ID_ITEM TAG   16      INT 0o1440 "Tag"
+    FORMAT_STRING "%04o"
+  APPEND_ITEM    PAD   6       INT        "Padding"
+  APPEND_ITEM    Q1    26      INT        "Time of position extrapolation"
+    POLY_READ_CONVERSION 0 2.9802322387695312e-8
+
+TELEMETRY SATURN DT4 BIG_ENDIAN "Time between actual and nominal S-IVB cutoff"
+  # Keyword      Name  BitSize Type   ID  Description
+  APPEND_ID_ITEM TAG   16      INT 0o0442 "Tag"
+    FORMAT_STRING "%04o"
+  APPEND_ITEM    PAD   6       INT        "Padding"
+  APPEND_ITEM    DT4   26      INT        "Time between actual and nominal S-IVB cutoff"
+    POLY_READ_CONVERSION 0 7.62939453125e-6
+
 TELEMETRY SATURN TBL BIG_ENDIAN "Time in time base of station acquisition loss"
   # Keyword      Name  BitSize Type   ID  Description
   APPEND_ID_ITEM TAG   16      INT 0o1442 "Tag"
@@ -434,6 +266,14 @@ TELEMETRY SATURN TBL BIG_ENDIAN "Time in time base of station acquisition loss"
   APPEND_ITEM    PAD   6       INT        "Padding"
   APPEND_ITEM    TBL   26      INT        "Time in time base of station acquisition loss"
     POLY_READ_CONVERSION 0 0.0009765625
+
+TELEMETRY SATURN ZDS BIG_ENDIAN "Zs component of velocity vector V"
+  # Keyword      Name  BitSize Type   ID  Description
+  APPEND_ID_ITEM TAG   16      INT 0o0444 "Tag"
+    FORMAT_STRING "%04o"
+  APPEND_ITEM    PAD   6       INT        "Padding"
+  APPEND_ITEM    ZDS   26      INT        "Zs component of velocity vector V"
+    POLY_READ_CONVERSION 0 0.00048828125
 
 TELEMETRY SATURN DC BIG_ENDIAN "Declination of 1st opportunity target vector"
   # Keyword      Name  BitSize Type   ID  Description
@@ -443,6 +283,14 @@ TELEMETRY SATURN DC BIG_ENDIAN "Declination of 1st opportunity target vector"
   APPEND_ITEM    DC    26      INT        "Declination of 1st opportunity target vector"
     POLY_READ_CONVERSION 0 0.00000536441803
 
+TELEMETRY SATURN XDS BIG_ENDIAN "Xs component of velocity vector V"
+  # Keyword      Name  BitSize Type   ID  Description
+  APPEND_ID_ITEM TAG   16      INT 0o0446 "Tag"
+    FORMAT_STRING "%04o"
+  APPEND_ITEM    PAD   6       INT        "Padding"
+  APPEND_ITEM    XDS   26      INT        "Xs component of velocity vector V"
+    POLY_READ_CONVERSION 0 0.00048828125
+
 TELEMETRY SATURN DCB BIG_ENDIAN "Declination of 2nd opportunity target vector"
   # Keyword      Name  BitSize Type   ID  Description
   APPEND_ID_ITEM TAG   16      INT 0o1446 "Tag"
@@ -450,6 +298,30 @@ TELEMETRY SATURN DCB BIG_ENDIAN "Declination of 2nd opportunity target vector"
   APPEND_ITEM    PAD   6       INT        "Padding"
   APPEND_ITEM    DCB   26      INT        "Declination of 2nd opportunity target vector"
     POLY_READ_CONVERSION 0 0.00000536441803
+
+TELEMETRY SATURN YDS BIG_ENDIAN "Ys component of velocity vector V"
+  # Keyword      Name  BitSize Type   ID  Description
+  APPEND_ID_ITEM TAG   16      INT 0o0450 "Tag"
+    FORMAT_STRING "%04o"
+  APPEND_ITEM    PAD   6       INT        "Padding"
+  APPEND_ITEM    YDS   26      INT        "Ys component of velocity vector V"
+    POLY_READ_CONVERSION 0 0.00048828125
+
+TELEMETRY SATURN AD BIG_ENDIAN "Angle between perigee and the descending node of transfer ellipse"
+  # Keyword      Name  BitSize Type   ID  Description
+  APPEND_ID_ITEM TAG   16      INT 0o1450 "Tag"
+    FORMAT_STRING "%04o"
+  APPEND_ITEM    PAD   6       INT        "Padding"
+  APPEND_ITEM    AD    26      INT        "Angle between perigee and the descending node of transfer ellipse"
+    POLY_READ_CONVERSION 0 0.00000536441803
+
+TELEMETRY SATURN V BIG_ENDIAN "Total space-fixed inertial velocity"
+  # Keyword      Name  BitSize Type   ID  Description
+  APPEND_ID_ITEM TAG   16      INT 0o0452 "Tag"
+    FORMAT_STRING "%04o"
+  APPEND_ITEM    PAD   6       INT        "Padding"
+  APPEND_ITEM    V     26      INT        "Velocity"
+    POLY_READ_CONVERSION 0 0.00048828125
 
 TELEMETRY SATURN EN BIG_ENDIAN "Nominal eccentricity of target ellipse for 1st opportunity"
   # Keyword      Name  BitSize Type   ID  Description
@@ -459,6 +331,14 @@ TELEMETRY SATURN EN BIG_ENDIAN "Nominal eccentricity of target ellipse for 1st o
   APPEND_ITEM    EN    26      INT        "Nominal eccentricity of target ellipse for 1st opportunity"
     POLY_READ_CONVERSION 0 2.9802322387695312e-8
 
+TELEMETRY SATURN VT BIG_ENDIAN "Terminal velocity"
+  # Keyword      Name  BitSize Type   ID  Description
+  APPEND_ID_ITEM TAG   16      INT 0o0454 "Tag"
+    FORMAT_STRING "%04o"
+  APPEND_ITEM    PAD   6       INT        "Padding"
+  APPEND_ITEM    VT    26      INT        "Terminal velocity"
+    POLY_READ_CONVERSION 0 0.00048828125
+
 TELEMETRY SATURN ENB BIG_ENDIAN "Nominal eccentricity of target ellipse for 2nd opportunity"
   # Keyword      Name  BitSize Type   ID  Description
   APPEND_ID_ITEM TAG   16      INT 0o1454 "Tag"
@@ -466,6 +346,14 @@ TELEMETRY SATURN ENB BIG_ENDIAN "Nominal eccentricity of target ellipse for 2nd 
   APPEND_ITEM    PAD   6       INT        "Padding"
   APPEND_ITEM    ENB   26      INT        "Nominal eccentricity of target ellipse for 2nd opportunity"
     POLY_READ_CONVERSION 0 2.9802322387695312e-8
+
+TELEMETRY SATURN RXZS BIG_ENDIAN "ZS extrapolated position"
+  # Keyword      Name  BitSize Type   ID  Description
+  APPEND_ID_ITEM TAG   16      INT 0o0456 "Tag"
+    FORMAT_STRING "%04o"
+  APPEND_ITEM    PAD   6       INT        "Padding"
+  APPEND_ITEM    RXZS  26      INT        "ZS extrapolated position"
+    POLY_READ_CONVERSION 0 0.25
 
 TELEMETRY SATURN TPZ BIG_ENDIAN "Z component of 1st opportunity target vector"
   # Keyword      Name  BitSize Type   ID  Description
@@ -475,6 +363,14 @@ TELEMETRY SATURN TPZ BIG_ENDIAN "Z component of 1st opportunity target vector"
   APPEND_ITEM    TPZ   26      INT        "Z component of 1st opportunity target vector"
     POLY_READ_CONVERSION 0 2.9802322387695312e-8
 
+TELEMETRY SATURN RXXS BIG_ENDIAN "XS extrapolated position"
+  # Keyword      Name  BitSize Type   ID  Description
+  APPEND_ID_ITEM TAG   16      INT 0o0462 "Tag"
+    FORMAT_STRING "%04o"
+  APPEND_ITEM    PAD   6       INT        "Padding"
+  APPEND_ITEM    RXXS  26      INT        "XS extrapolated position"
+    POLY_READ_CONVERSION 0 0.25
+
 TELEMETRY SATURN TPX BIG_ENDIAN "X component of 1st opportunity target vector"
   # Keyword      Name  BitSize Type   ID  Description
   APPEND_ID_ITEM TAG   16      INT 0o1462 "Tag"
@@ -482,6 +378,14 @@ TELEMETRY SATURN TPX BIG_ENDIAN "X component of 1st opportunity target vector"
   APPEND_ITEM    PAD   6       INT        "Padding"
   APPEND_ITEM    TPX   26      INT        "X component of 1st opportunity target vector"
     POLY_READ_CONVERSION 0 2.9802322387695312e-8
+
+TELEMETRY SATURN RXYS BIG_ENDIAN "YS extrapolated position"
+  # Keyword      Name  BitSize Type   ID  Description
+  APPEND_ID_ITEM TAG   16      INT 0o0464 "Tag"
+    FORMAT_STRING "%04o"
+  APPEND_ITEM    PAD   6       INT        "Padding"
+  APPEND_ITEM    RXYS  26      INT        "YS extrapolated position"
+    POLY_READ_CONVERSION 0 0.25
 
 TELEMETRY SATURN TPY BIG_ENDIAN "Y component of 1st opportunity target vector"
   # Keyword      Name  BitSize Type   ID  Description
@@ -491,6 +395,30 @@ TELEMETRY SATURN TPY BIG_ENDIAN "Y component of 1st opportunity target vector"
   APPEND_ITEM    TPY   26      INT        "Y component of 1st opportunity target vector"
     POLY_READ_CONVERSION 0 2.9802322387695312e-8
 
+TELEMETRY SATURN SSZ BIG_ENDIAN "Zs component of pseudonodal vector S"
+  # Keyword      Name  BitSize Type   ID  Description
+  APPEND_ID_ITEM TAG   16      INT 0o0466 "Tag"
+    FORMAT_STRING "%04o"
+  APPEND_ITEM    PAD   6       INT        "Padding"
+  APPEND_ITEM    RXYS  26      INT        "Zs component of pseudonodal vector S"
+    POLY_READ_CONVERSION 0 5.960464477539063e-8
+
+TELEMETRY SATURN SSX BIG_ENDIAN "Xs component of pseudonodal vector S"
+  # Keyword      Name  BitSize Type   ID  Description
+  APPEND_ID_ITEM TAG   16      INT 0o1466 "Tag"
+    FORMAT_STRING "%04o"
+  APPEND_ITEM    PAD   6       INT        "Padding"
+  APPEND_ITEM    RXYS  26      INT        "Xs component of pseudonodal vector S"
+    POLY_READ_CONVERSION 0 5.960464477539063e-8
+
+TELEMETRY SATURN SSX BIG_ENDIAN "Ys component of pseudonodal vector S"
+  # Keyword      Name  BitSize Type   ID  Description
+  APPEND_ID_ITEM TAG   16      INT 0o0470 "Tag"
+    FORMAT_STRING "%04o"
+  APPEND_ITEM    PAD   6       INT        "Padding"
+  APPEND_ITEM    RXYS  26      INT        "Ys component of pseudonodal vector S"
+    POLY_READ_CONVERSION 0 5.960464477539063e-8
+
 TELEMETRY SATURN C3 BIG_ENDIAN "Twice the orbital energy for 1st opportunity"
   # Keyword      Name  BitSize Type   ID  Description
   APPEND_ID_ITEM TAG   16      INT 0o1470 "Tag"
@@ -499,12 +427,52 @@ TELEMETRY SATURN C3 BIG_ENDIAN "Twice the orbital energy for 1st opportunity"
   APPEND_ITEM    C3    26      INT        "Twice the orbital energy for 1st opportunity"
     POLY_READ_CONVERSION 0 2.0
 
+TELEMETRY SATURN C3B BIG_ENDIAN "Twice the orbital energy for 2nd opportunity"
+  # Keyword      Name  BitSize Type   ID  Description
+  APPEND_ID_ITEM TAG   16      INT 0o0472 "Tag"
+    FORMAT_STRING "%04o"
+  APPEND_ITEM    PAD   6       INT        "Padding"
+  APPEND_ITEM    C3B   26      INT        "Twice the orbital energy for 2nd opportunity"
+    POLY_READ_CONVERSION 0 2.0
+
+TELEMETRY SATURN RTINV BIG_ENDIAN "Reciprocal of terminal radius"
+  # Keyword      Name  BitSize Type   ID  Description
+  APPEND_ID_ITEM TAG   16      INT 0o0474 "Tag"
+    FORMAT_STRING "%04o"
+  APPEND_ITEM    PAD   6       INT        "Padding"
+  APPEND_ITEM    RTINV 26      INT        "Reciprocal of terminal radius"
+    POLY_READ_CONVERSION 0 7.1054273576e-15
+
 TELEMETRY SATURN IGT2I BIG_ENDIAN "S-II IGM time-to-go after EMRC and S-IVB time to go before EMRC"
   # Keyword      Name  BitSize Type   ID  Description
   APPEND_ID_ITEM TAG   16      INT 0o1474 "Tag"
     FORMAT_STRING "%04o"
   APPEND_ITEM    PAD   6       INT        "Padding"
   APPEND_ITEM    IGT2I 26      INT        "S-II IGM time-to-go after EMRC and S-IVB time to go before EMRC"
+    POLY_READ_CONVERSION 0 3.0517578125e-5
+
+TELEMETRY SATURN RTAS BIG_ENDIAN "Real-time clock reading associated with Tas"
+  # Keyword      Name  BitSize Type   ID  Description
+  APPEND_ID_ITEM TAG   16      INT 0o0476 "Tag"
+    FORMAT_STRING "%04o"
+  APPEND_ITEM    PAD   6       INT        "Padding"
+  APPEND_ITEM    RTAS  26      INT        "Real-time clock reading associated with Tas"
+    FORMAT_STRING "%o"
+
+TELEMETRY SATURN T8TBB BIG_ENDIAN "Initiation of TB8 measured from TB7 start"
+  # Keyword      Name  BitSize Type   ID  Description
+  APPEND_ID_ITEM TAG   16      INT 0o1476 "Tag"
+    FORMAT_STRING "%04o"
+  APPEND_ITEM    PAD   6       INT        "Padding"
+  APPEND_ITEM    T8TBB 26      INT        "Initiation of TB8 measured from TB7 start"
+    POLY_READ_CONVERSION 0 0.0009765625
+
+TELEMETRY SATURN IGT1I BIG_ENDIAN "S-II IGM time-to-go before EMRC"
+  # Keyword      Name  BitSize Type   ID  Description
+  APPEND_ID_ITEM TAG   16      INT 0o0500 "Tag"
+    FORMAT_STRING "%04o"
+  APPEND_ITEM    PAD   6       INT        "Padding"
+  APPEND_ITEM    IGT1I   26      INT        "S-II IGM time-to-go before EMRC"
     POLY_READ_CONVERSION 0 3.0517578125e-5
 
 TELEMETRY SATURN MC26 BIG_ENDIAN "Mode code 26"
@@ -515,12 +483,28 @@ TELEMETRY SATURN MC26 BIG_ENDIAN "Mode code 26"
   APPEND_ITEM    MC26  26      UINT       "Mode code 26"
     FORMAT_STRING "%09o"
 
+TELEMETRY SATURN CS BIG_ENDIAN "Cosine of true anomaly of 1st opportunity target vector"
+  # Keyword      Name  BitSize Type   ID  Description
+  APPEND_ID_ITEM TAG   16      INT 0o0502 "Tag"
+    FORMAT_STRING "%04o"
+  APPEND_ITEM    PAD   6       INT        "Padding"
+  APPEND_ITEM    CS    26      INT        "Cosine of true anomaly of 1st opportunity target vector"
+    POLY_READ_CONVERSION 0 0.00000536441803
+
 TELEMETRY SATURN CSB BIG_ENDIAN "Cosine of true anomaly of 2nd opportunity target vector"
   # Keyword      Name  BitSize Type   ID  Description
   APPEND_ID_ITEM TAG   16      INT 0o1502 "Tag"
     FORMAT_STRING "%04o"
   APPEND_ITEM    PAD   6       INT        "Padding"
   APPEND_ITEM    CSB   26      INT        "Cosine of true anomaly of 2nd opportunity target vector"
+    POLY_READ_CONVERSION 0 0.00000536441803
+
+TELEMETRY SATURN RA BIG_ENDIAN "Right ascension of 1st opportunity target vector"
+  # Keyword      Name  BitSize Type   ID  Description
+  APPEND_ID_ITEM TAG   16      INT 0o0504 "Tag"
+    FORMAT_STRING "%04o"
+  APPEND_ITEM    PAD   6       INT        "Padding"
+  APPEND_ITEM    RA    26      INT        "Right ascension of 1st opportunity target vector"
     POLY_READ_CONVERSION 0 0.00000536441803
 
 TELEMETRY SATURN RAB BIG_ENDIAN "Right ascension of 2nd opportunity target vector"
@@ -537,6 +521,14 @@ TELEMETRY SATURN MC24 BIG_ENDIAN "Mode code 24"
     FORMAT_STRING "%04o"
   APPEND_ITEM    PAD   6       INT        "Padding"
   APPEND_ITEM    MC24  26      UINT       "Mode code 24"
+    FORMAT_STRING "%09o"
+
+TELEMETRY SATURN MC27 BIG_ENDIAN "Mode code 27"
+  # Keyword      Name  BitSize Type   ID  Description
+  APPEND_ID_ITEM TAG   16      INT 0o0510 "Tag"
+    FORMAT_STRING "%04o"
+  APPEND_ITEM    PAD   6       INT        "Padding"
+  APPEND_ITEM    MC27  26      UINT       "Mode code 27"
     FORMAT_STRING "%09o"
 
 TELEMETRY SATURN MC25 BIG_ENDIAN "Mode code 25"
@@ -633,6 +625,14 @@ TELEMETRY SATURN ICR BIG_ENDIAN "Internal control register status word"
   APPEND_ITEM    ICR   26      UINT       "Internal control register status word"
     FORMAT_STRING "%09o"
 
+TELEMETRY SATURN RZ4 BIG_ENDIAN "Z4 compontent of radius vector R"
+  # Keyword      Name  BitSize Type   ID  Description
+  APPEND_ID_ITEM TAG   16      INT 0o0516 "Tag"
+    FORMAT_STRING "%04o"
+  APPEND_ITEM    PAD   6       INT        "Padding"
+  APPEND_ITEM    RZ4   26      INT        "Z4 compontent of radius vector R"
+    POLY_READ_CONVERSION 0 0.25
+
 TELEMETRY SATURN EMRR BIG_ENDIAN "Error monitor register status word"
   # Keyword      Name  BitSize Type   ID  Description
   APPEND_ID_ITEM TAG   16      INT 0o1516 "Tag"
@@ -640,6 +640,14 @@ TELEMETRY SATURN EMRR BIG_ENDIAN "Error monitor register status word"
   APPEND_ITEM    PAD   6       INT        "Padding"
   APPEND_ITEM    EMRR  26      UINT       "Error monitor register status word"
     FORMAT_STRING "%09o"
+
+TELEMETRY SATURN K5 BIG_ENDIAN "Parameter used in Vt calculation"
+  # Keyword      Name  BitSize Type   ID  Description
+  APPEND_ID_ITEM TAG   16      INT 0o0520 "Tag"
+    FORMAT_STRING "%04o"
+  APPEND_ITEM    PAD   6       INT        "Padding"
+  APPEND_ITEM    K5    26      INT        "Parameter used in Vt calculation"
+    POLY_READ_CONVERSION 0 0.000244140625
 
 TELEMETRY SATURN INT BIG_ENDIAN "System interrupt indication"
   # Keyword      Name  BitSize Type   ID  Description
@@ -649,6 +657,14 @@ TELEMETRY SATURN INT BIG_ENDIAN "System interrupt indication"
   APPEND_ITEM    INT   26      UINT       "System interrupt indication"
     FORMAT_STRING "%09o"
 
+TELEMETRY SATURN RX4 BIG_ENDIAN "X4 compontent of radius vector R"
+  # Keyword      Name  BitSize Type   ID  Description
+  APPEND_ID_ITEM TAG   16      INT 0o0522 "Tag"
+    FORMAT_STRING "%04o"
+  APPEND_ITEM    PAD   6       INT        "Padding"
+  APPEND_ITEM    RX4   26      INT        "X4 compontent of radius vector R"
+    POLY_READ_CONVERSION 0 0.25
+
 TELEMETRY SATURN DIR BIG_ENDIAN "Discrete input register status word"
   # Keyword      Name  BitSize Type   ID  Description
   APPEND_ID_ITEM TAG   16      INT 0o1522 "Tag"
@@ -656,6 +672,38 @@ TELEMETRY SATURN DIR BIG_ENDIAN "Discrete input register status word"
   APPEND_ITEM    PAD   6       INT        "Padding"
   APPEND_ITEM    DIR   26      UINT       "Discrete input register status word"
     FORMAT_STRING "%09o"
+
+TELEMETRY SATURN RY4 BIG_ENDIAN "Y4 compontent of radius vector R"
+  # Keyword      Name  BitSize Type   ID  Description
+  APPEND_ID_ITEM TAG   16      INT 0o0524 "Tag"
+    FORMAT_STRING "%04o"
+  APPEND_ITEM    PAD   6       INT        "Padding"
+  APPEND_ITEM    RY4   26      INT        "Y4 compontent of radius vector R"
+    POLY_READ_CONVERSION 0 0.25
+
+TELEMETRY SATURN IGTSTR BIG_ENDIAN "Time-to-go to S-IVB cutoff"
+  # Keyword      Name  BitSize Type   ID  Description
+  APPEND_ID_ITEM TAG   16      INT 0o0530 "Tag"
+    FORMAT_STRING "%04o"
+  APPEND_ITEM    PAD   6       INT        "Padding"
+  APPEND_ITEM    IGTSTR 26     INT        "Time-to-go to S-IVB cutoff"
+    POLY_READ_CONVERSION 0 0.000244140625
+
+TELEMETRY SATURN TLCHOP BIG_ENDIAN "HOP save of TLC interrupt"
+  # Keyword      Name  BitSize Type   ID  Description
+  APPEND_ID_ITEM TAG   16      INT 0o1530 "Tag"
+    FORMAT_STRING "%04o"
+  APPEND_ITEM    PAD   6       INT        "Padding"
+  APPEND_ITEM    TLCHOP 26     UINT       "HOP save of TLC interrupt"
+    FORMAT_STRING "%09o"
+
+TELEMETRY SATURN IGT3I BIG_ENDIAN "S-IVB IGM time-to-go after EMRC"
+  # Keyword      Name  BitSize Type   ID  Description
+  APPEND_ID_ITEM TAG   16      INT 0o0532 "Tag"
+    FORMAT_STRING "%04o"
+  APPEND_ITEM    PAD   6       INT        "Padding"
+  APPEND_ITEM    IGT3I 26      INT        "S-IVB IGM time-to-go after EMRC"
+    POLY_READ_CONVERSION 0 0.000244140625
 
 TELEMETRY SATURN DI BIG_ENDIAN "Discrete input indication"
   # Keyword      Name  BitSize Type   ID  Description
@@ -665,12 +713,36 @@ TELEMETRY SATURN DI BIG_ENDIAN "Discrete input indication"
   APPEND_ITEM    DI    26      UINT       "Discrete input indication"
     FORMAT_STRING "%09o"
 
+TELEMETRY SATURN AZ BIG_ENDIAN "Platform azimuth"
+  # Keyword      Name  BitSize Type   ID  Description
+  APPEND_ID_ITEM TAG   16      INT 0o0534 "Tag"
+    FORMAT_STRING "%04o"
+  APPEND_ITEM    PAD   6       INT        "Padding"
+  APPEND_ITEM    AZ    26      INT        "Platform azimuth"
+    POLY_READ_CONVERSION 0 0.00000536441803
+
+TELEMETRY SATURN AZF BIG_ENDIAN "Flight azimuth computed from targeted data"
+  # Keyword      Name  BitSize Type   ID  Description
+  APPEND_ID_ITEM TAG   16      INT 0o0536 "Tag"
+    FORMAT_STRING "%04o"
+  APPEND_ITEM    PAD   6       INT        "Padding"
+  APPEND_ITEM    AZF   26      INT        "Flight azimuth computed from targeted data"
+    POLY_READ_CONVERSION 0 0.00000536441803
+
 TELEMETRY SATURN TB1S BIG_ENDIAN "Indication of TB1 start on backup test"
   # Keyword      Name  BitSize Type   ID  Description
   APPEND_ID_ITEM TAG   16      INT 0o1536 "Tag"
     FORMAT_STRING "%04o"
   APPEND_ITEM    PAD   6       INT        "Padding"
   APPEND_ITEM    TB1S  26      UINT       "Indication of TB1 start on backup test"
+    FORMAT_STRING "%09o"
+
+TELEMETRY SATURN FDBK BIG_ENDIAN "SS feedback in error"
+  # Keyword      Name  BitSize Type   ID  Description
+  APPEND_ID_ITEM TAG   16      INT 0o0540 "Tag"
+    FORMAT_STRING "%04o"
+  APPEND_ITEM    PAD   6       INT        "Padding"
+  APPEND_ITEM    FDBK  26      UINT       "SS feedback in error"
     FORMAT_STRING "%09o"
 
 TELEMETRY SATURN MLCHIZ BIG_ENDIAN "Minor loop rate-limited CHIZ"
@@ -681,6 +753,14 @@ TELEMETRY SATURN MLCHIZ BIG_ENDIAN "Minor loop rate-limited CHIZ"
   APPEND_ITEM    MLCHIZ 26     INT        "Minor loop rate-limited CHIZ"
     POLY_READ_CONVERSION 0 0.00000536441803
 
+TELEMETRY SATURN VVZ BIG_ENDIAN "Z component of venting acceleration"
+  # Keyword      Name  BitSize Type   ID  Description
+  APPEND_ID_ITEM TAG   16      INT 0o0542 "Tag"
+    FORMAT_STRING "%04o"
+  APPEND_ITEM    PAD   6       INT        "Padding"
+  APPEND_ITEM    VVZ   26      INT        "Z component of venting acceleration"
+    POLY_READ_CONVERSION 0 4.76837158203125e-7
+
 TELEMETRY SATURN MLCHIX BIG_ENDIAN "Minor loop rate-limited CHIX"
   # Keyword      Name  BitSize Type   ID  Description
   APPEND_ID_ITEM TAG   16      INT 0o1542 "Tag"
@@ -688,6 +768,14 @@ TELEMETRY SATURN MLCHIX BIG_ENDIAN "Minor loop rate-limited CHIX"
   APPEND_ITEM    PAD   6       INT        "Padding"
   APPEND_ITEM    MLCHIX 26     INT        "Minor loop rate-limited CHIX"
     POLY_READ_CONVERSION 0 0.00000536441803
+
+TELEMETRY SATURN VVX BIG_ENDIAN "X component of venting acceleration"
+  # Keyword      Name  BitSize Type   ID  Description
+  APPEND_ID_ITEM TAG   16      INT 0o0544 "Tag"
+    FORMAT_STRING "%04o"
+  APPEND_ITEM    PAD   6       INT        "Padding"
+  APPEND_ITEM    VVX   26      INT        "X component of venting acceleration"
+    POLY_READ_CONVERSION 0 4.76837158203125e-7
 
 TELEMETRY SATURN MLCHIY BIG_ENDIAN "Minor loop rate-limited CHIY"
   # Keyword      Name  BitSize Type   ID  Description
@@ -697,6 +785,14 @@ TELEMETRY SATURN MLCHIY BIG_ENDIAN "Minor loop rate-limited CHIY"
   APPEND_ITEM    MLCHIY 26     INT        "Minor loop rate-limited CHIY"
     POLY_READ_CONVERSION 0 0.00000536441803
 
+TELEMETRY SATURN VVY BIG_ENDIAN "Y component of venting acceleration"
+  # Keyword      Name  BitSize Type   ID  Description
+  APPEND_ID_ITEM TAG   16      INT 0o0546 "Tag"
+    FORMAT_STRING "%04o"
+  APPEND_ITEM    PAD   6       INT        "Padding"
+  APPEND_ITEM    VVY   26      INT        "Y component of venting acceleration"
+    POLY_READ_CONVERSION 0 4.76837158203125e-7
+
 TELEMETRY SATURN TPZB BIG_ENDIAN "Z component of 2nd opportunity target vector"
   # Keyword      Name  BitSize Type   ID  Description
   APPEND_ID_ITEM TAG   16      INT 0o1546 "Tag"
@@ -704,6 +800,14 @@ TELEMETRY SATURN TPZB BIG_ENDIAN "Z component of 2nd opportunity target vector"
   APPEND_ITEM    PAD   6       INT        "Padding"
   APPEND_ITEM    TPZB  26      INT        "Z component of 2nd opportunity target vector"
     POLY_READ_CONVERSION 0 2.9802322387695312e-8
+
+TELEMETRY SATURN AZDS BIG_ENDIAN "Zs component of drag acceleration"
+  # Keyword      Name  BitSize Type   ID  Description
+  APPEND_ID_ITEM TAG   16      INT 0o0550 "Tag"
+    FORMAT_STRING "%04o"
+  APPEND_ITEM    PAD   6       INT        "Padding"
+  APPEND_ITEM    AZDS  26      INT        "Zs component of drag acceleration"
+    POLY_READ_CONVERSION 0 4.76837158203125e-7
 
 TELEMETRY SATURN TPXB BIG_ENDIAN "X component of 2nd opportunity target vector"
   # Keyword      Name  BitSize Type   ID  Description
@@ -713,6 +817,14 @@ TELEMETRY SATURN TPXB BIG_ENDIAN "X component of 2nd opportunity target vector"
   APPEND_ITEM    TPXB  26      INT        "X component of 2nd opportunity target vector"
     POLY_READ_CONVERSION 0 2.9802322387695312e-8
 
+TELEMETRY SATURN AXDS BIG_ENDIAN "Xs component of drag acceleration"
+  # Keyword      Name  BitSize Type   ID  Description
+  APPEND_ID_ITEM TAG   16      INT 0o0552 "Tag"
+    FORMAT_STRING "%04o"
+  APPEND_ITEM    PAD   6       INT        "Padding"
+  APPEND_ITEM    AXDS  26      INT        "Xs component of drag acceleration"
+    POLY_READ_CONVERSION 0 4.76837158203125e-7
+
 TELEMETRY SATURN TPYB BIG_ENDIAN "Y component of 2nd opportunity target vector"
   # Keyword      Name  BitSize Type   ID  Description
   APPEND_ID_ITEM TAG   16      INT 0o1552 "Tag"
@@ -720,6 +832,22 @@ TELEMETRY SATURN TPYB BIG_ENDIAN "Y component of 2nd opportunity target vector"
   APPEND_ITEM    PAD   6       INT        "Padding"
   APPEND_ITEM    TPYB  26      INT        "Y component of 2nd opportunity target vector"
     POLY_READ_CONVERSION 0 2.9802322387695312e-8
+
+TELEMETRY SATURN AYDS BIG_ENDIAN "Ys component of drag acceleration"
+  # Keyword      Name  BitSize Type   ID  Description
+  APPEND_ID_ITEM TAG   16      INT 0o0554 "Tag"
+    FORMAT_STRING "%04o"
+  APPEND_ITEM    PAD   6       INT        "Padding"
+  APPEND_ITEM    AYDS  26      INT        "Ys component of drag acceleration"
+    POLY_READ_CONVERSION 0 4.76837158203125e-7
+
+TELEMETRY SATURN ALT BIG_ENDIAN "Vehicle altitude"
+  # Keyword      Name  BitSize Type   ID  Description
+  APPEND_ID_ITEM TAG   16      INT 0o0556 "Tag"
+    FORMAT_STRING "%04o"
+  APPEND_ITEM    PAD   6       INT        "Padding"
+  APPEND_ITEM    ALT   26      INT        "Vehicle altitude"
+    POLY_READ_CONVERSION 0 0.015625
 
 TELEMETRY SATURN EMR8 BIG_ENDIAN "EMR ORed during each orbital navigation pass"
   # Keyword      Name  BitSize Type   ID  Description
@@ -729,6 +857,70 @@ TELEMETRY SATURN EMR8 BIG_ENDIAN "EMR ORed during each orbital navigation pass"
   APPEND_ITEM    EMR8  26      UINT       "EMR ORed during each orbital navigation pass"
     FORMAT_STRING "%09o"
 
+TELEMETRY SATURN SIGMA BIG_ENDIAN "True anomaly of target vector Tp"
+  # Keyword      Name  BitSize Type   ID  Description
+  APPEND_ID_ITEM TAG   16      INT 0o0560 "Tag"
+    FORMAT_STRING "%04o"
+  APPEND_ITEM    PAD   6       INT        "Padding"
+  APPEND_ITEM    SIGMA 26      INT        "True anomaly of target vector Tp"
+    POLY_READ_CONVERSION 0 0.00000536441803
+
+TELEMETRY SATURN PSI BIG_ENDIAN "Angle between pseudonodal vector S and target vctor Tp"
+  # Keyword      Name  BitSize Type   ID  Description
+  APPEND_ID_ITEM TAG   16      INT 0o1560 "Tag"
+    FORMAT_STRING "%04o"
+  APPEND_ITEM    PAD   6       INT        "Padding"
+  APPEND_ITEM    PSI   26      INT        "Angle between pseudonodal vector S and target vctor Tp"
+    POLY_READ_CONVERSION 0 0.00000536441803
+
+TELEMETRY SATURN T3I BIG_ENDIAN "High speed loop time-to-go"
+  # Keyword      Name  BitSize Type   ID  Description
+  APPEND_ID_ITEM TAG   16      INT 0o0562 "Tag"
+    FORMAT_STRING "%04o"
+  APPEND_ITEM    PAD   6       INT        "Padding"
+  APPEND_ITEM    T3I   26      INT        "High speed loop time-to-go"
+    POLY_READ_CONVERSION 0 4.76837158203125e-7
+
+TELEMETRY SATURN THETAT BIG_ENDIAN "Terminal path angle"
+  # Keyword      Name  BitSize Type   ID  Description
+  APPEND_ID_ITEM TAG   16      INT 0o0564 "Tag"
+    FORMAT_STRING "%04o"
+  APPEND_ITEM    PAD   6       INT        "Padding"
+  APPEND_ITEM    THETAT 26     INT        "Terminal path angle"
+    POLY_READ_CONVERSION 0 0.00000536441803
+
+TELEMETRY SATURN COSI BIG_ENDIAN "Cosine of inclination"
+  # Keyword      Name  BitSize Type   ID  Description
+  APPEND_ID_ITEM TAG   16      INT 0o1564 "Tag"
+    FORMAT_STRING "%04o"
+  APPEND_ITEM    PAD   6       INT        "Padding"
+  APPEND_ITEM    COSI  26      INT        "Cosine of inclination"
+    POLY_READ_CONVERSION 0 2.9802322387695312e-8
+
+TELEMETRY SATURN SINI BIG_ENDIAN "Sine of inclination"
+  # Keyword      Name  BitSize Type   ID  Description
+  APPEND_ID_ITEM TAG   16      INT 0o0566 "Tag"
+    FORMAT_STRING "%04o"
+  APPEND_ITEM    PAD   6       INT        "Padding"
+  APPEND_ITEM    SINI  26      INT        "Sine of inclination"
+    POLY_READ_CONVERSION 0 2.9802322387695312e-8
+
+TELEMETRY SATURN THETAN BIG_ENDIAN "Descending node of transfer ellipse"
+  # Keyword      Name  BitSize Type   ID  Description
+  APPEND_ID_ITEM TAG   16      INT 0o1566 "Tag"
+    FORMAT_STRING "%04o"
+  APPEND_ITEM    PAD   6       INT        "Padding"
+  APPEND_ITEM    THETAN 26     INT        "Descending node of transfer ellipse"
+    POLY_READ_CONVERSION 0 0.00000536441803
+
+TELEMETRY SATURN ECC BIG_ENDIAN "Eccentricity of transfer ellipse"
+  # Keyword      Name  BitSize Type   ID  Description
+  APPEND_ID_ITEM TAG   16      INT 0o0570 "Tag"
+    FORMAT_STRING "%04o"
+  APPEND_ITEM    PAD   6       INT        "Padding"
+  APPEND_ITEM    ECC   26      INT        "Eccentricity of transfer ellipse"
+    POLY_READ_CONVERSION 0 2.9802322387695312e-8
+
 TELEMETRY SATURN TI BIG_ENDIAN "Start time of current time base measured from GRR"
   # Keyword      Name  BitSize Type   ID  Description
   APPEND_ID_ITEM TAG   16      INT 0o1570 "Tag"
@@ -737,6 +929,14 @@ TELEMETRY SATURN TI BIG_ENDIAN "Start time of current time base measured from GR
   APPEND_ITEM    TI    26      INT        "Start time of current time base measured from GRR"
     POLY_READ_CONVERSION 0 0.0009765625
 
+TELEMETRY SATURN MLET BIG_ENDIAN "Minor loop error"
+  # Keyword      Name  BitSize Type   ID  Description
+  APPEND_ID_ITEM TAG   16      INT 0o0574 "Tag"
+    FORMAT_STRING "%04o"
+  APPEND_ITEM    PAD   6       INT        "Padding"
+  APPEND_ITEM    MLET  26      UINT       "Minor loop error"
+    FORMAT_STRING "%09o"
+
 TELEMETRY SATURN ETC BIG_ENDIAN "End of telemetry cycle"
   # Keyword      Name  BitSize Type   ID  Description
   APPEND_ID_ITEM TAG   16      INT 0o1574 "Tag"
@@ -744,6 +944,14 @@ TELEMETRY SATURN ETC BIG_ENDIAN "End of telemetry cycle"
   APPEND_ITEM    PAD   6       INT        "Padding"
   APPEND_ITEM    ETC   26      UINT       "End of telemetry cycle"
     FORMAT_STRING "%09o"
+
+TELEMETRY SATURN GT BIG_ENDIAN "Terminal gravity"
+  # Keyword      Name  BitSize Type   ID  Description
+  APPEND_ID_ITEM TAG   16      INT 0o0576 "Tag"
+    FORMAT_STRING "%04o"
+  APPEND_ITEM    PAD   6       INT        "Padding"
+  APPEND_ITEM    GT    26      INT        "Terminal gravity"
+    POLY_READ_CONVERSION 0 9.5367431640625e-7 
 
 TELEMETRY SATURN BTC BIG_ENDIAN "Beginning of telemetry cycle"
   # Keyword      Name  BitSize Type   ID  Description
@@ -761,6 +969,14 @@ TELEMETRY SATURN STAT BIG_ENDIAN "Special status code word"
   APPEND_ITEM    STAT  26      UINT       "Special status code word"
     FORMAT_STRING "%09o"
 
+TELEMETRY SATURN VVC BIG_ENDIAN "Characteristic velocity for IGM performance adjustments"
+  # Keyword      Name  BitSize Type   ID  Description
+  APPEND_ID_ITEM TAG   16      INT 0o3400 "Tag"
+    FORMAT_STRING "%04o"
+  APPEND_ITEM    PAD   6       INT        "Padding"
+  APPEND_ITEM    VVC   26      INT        "Characteristic velocity for IGM performance adjustments"
+    POLY_READ_CONVERSION 0 0.00048828125
+
 TELEMETRY SATURN MVC2 BIG_ENDIAN "Mass computed as a function of characteristic velocity"
   # Keyword      Name  BitSize Type   ID  Description
   APPEND_ID_ITEM TAG   16      INT 0o2402 "Tag"
@@ -768,6 +984,13 @@ TELEMETRY SATURN MVC2 BIG_ENDIAN "Mass computed as a function of characteristic 
   APPEND_ITEM    PAD   6       INT        "Padding"
   APPEND_ITEM    MVC2  26      INT        "Mass computed as a function of characteristic velocity"
     POLY_READ_CONVERSION 0 0.00390625
+
+TELEMETRY SATURN IGKF BIG_ENDIAN "Ratio of constructed thrust to nominal thrust for S-II IGM"
+  # Keyword      Name  BitSize Type   ID  Description
+  APPEND_ID_ITEM TAG   16      INT 0o3402 "Tag"
+    FORMAT_STRING "%04o"
+  APPEND_ITEM    PAD   6       INT        "Padding"
+  APPEND_ITEM    IGKF  26      INT        "Ratio of constructed thrust to nominal thrust for S-II IGM"
 
 TELEMETRY SATURN VC2 BIG_ENDIAN "Characteristic velocity to be gained during S-II IGM"
   # Keyword      Name  BitSize Type   ID  Description
@@ -857,21 +1080,6 @@ TELEMETRY SATURN FOVM BIG_ENDIAN "Total measured acceleration"
   APPEND_ITEM    FOVM  26      INT        "Total measured acceleration"
     POLY_READ_CONVERSION 0 1.9073486328125e-6
 
-TELEMETRY SATURN VVC BIG_ENDIAN "Characteristic velocity for IGM performance adjustments"
-  # Keyword      Name  BitSize Type   ID  Description
-  APPEND_ID_ITEM TAG   16      INT 0o3400 "Tag"
-    FORMAT_STRING "%04o"
-  APPEND_ITEM    PAD   6       INT        "Padding"
-  APPEND_ITEM    VVC   26      INT        "Characteristic velocity for IGM performance adjustments"
-    POLY_READ_CONVERSION 0 0.00048828125
-
-TELEMETRY SATURN IGKF BIG_ENDIAN "Ratio of constructed thrust to nominal thrust for S-II IGM"
-  # Keyword      Name  BitSize Type   ID  Description
-  APPEND_ID_ITEM TAG   16      INT 0o3402 "Tag"
-    FORMAT_STRING "%04o"
-  APPEND_ITEM    PAD   6       INT        "Padding"
-  APPEND_ITEM    IGKF  26      INT        "Ratio of constructed thrust to nominal thrust for S-II IGM"
-
 TELEMETRY SATURN DDOR BIG_ENDIAN "Indication of change in DOR"
   # Keyword      Name  BitSize Type   ID  Description
   APPEND_ID_ITEM TAG   16      INT 0o3512 "Tag"
@@ -931,7 +1139,23 @@ TELEMETRY SATURN RTXA BIG_ENDIAN "Real-time clock reading associated with extra 
     FORMAT_STRING "%04o"
   APPEND_ITEM    PAD   6       INT        "Padding"
   APPEND_ITEM    RTXA  26      INT        "Real-time clock reading associated with extra accelerometer readings"
+    FORMAT_STRING "%09o"
+
+TELEMETRY SATURN RESCL BIG_ENDIAN "Rescaling indication when position components are rescaled from B23 to B27"
+  # Keyword      Name  BitSize Type   ID  Description
+  APPEND_ID_ITEM TAG   16      INT 0o4410 "Tag"
     FORMAT_STRING "%04o"
+  APPEND_ITEM    PAD   6       INT        "Padding"
+  APPEND_ITEM    RESCL 26      INT        "Rescaling indication when position components are rescaled from B23 to B27"
+    FORMAT_STRING "%09o"
+
+TELEMETRY SATURN DCRTC BIG_ENDIAN "Real time clock reading associated with DX updating"
+  # Keyword      Name  BitSize Type   ID  Description
+  APPEND_ID_ITEM TAG   16      INT 0o4412 "Tag"
+    FORMAT_STRING "%04o"
+  APPEND_ITEM    PAD   6       INT        "Padding"
+  APPEND_ITEM    DCRTC 26      INT        "Real time clock reading associated with DX updating"
+    FORMAT_STRING "%09o"
 
 TELEMETRY SATURN P4VV BIG_ENDIAN "Total space-fixed velocity"
   # Keyword      Name  BitSize Type   ID  Description
@@ -989,20 +1213,36 @@ TELEMETRY SATURN MOVFS BIG_ENDIAN "Smoothed value of (M/F)"
   APPEND_ITEM    MOVFS 26      INT        "Smoothed value of (M/F)"
     POLY_READ_CONVERSION 0 7.450580596923828e-09
 
-TELEMETRY SATURN TAU1 BIG_ENDIAN "Ratio of mass to mass flow rate before S-IVB EMRC"
+TELEMETRY SATURN MOVFS BIG_ENDIAN "Smoothed value of (M/F)"
+  # Keyword      Name  BitSize Type   ID  Description
+  APPEND_ID_ITEM TAG   16      INT 0o4466 "Tag"
+    FORMAT_STRING "%04o"
+  APPEND_ITEM    PAD   6       INT        "Padding"
+  APPEND_ITEM    MOVFS 26      INT        "Smoothed value of (M/F)"
+    POLY_READ_CONVERSION 0 7.450580596923828e-09
+
+TELEMETRY SATURN TAU2 BIG_ENDIAN "Ratio of mass to mass flow rate for second phase IGM"
+  # Keyword      Name  BitSize Type   ID  Description
+  APPEND_ID_ITEM TAG   16      INT 0o4476 "Tag"
+    FORMAT_STRING "%04o"
+  APPEND_ITEM    PAD   6       INT        "Padding"
+  APPEND_ITEM    TAU2  26      INT        "Ratio of mass to mass flow rate for second phase IGM"
+    POLY_READ_CONVERSION 0 3.0517578125e-5
+
+TELEMETRY SATURN TAU1 BIG_ENDIAN "Ratio of mass to mass flow rate for second phase IGM"
   # Keyword      Name  BitSize Type   ID  Description
   APPEND_ID_ITEM TAG   16      INT 0o4502 "Tag"
     FORMAT_STRING "%04o"
   APPEND_ITEM    PAD   6       INT        "Padding"
-  APPEND_ITEM    TAU1  26      INT        "Ratio of mass to mass flow rate before S-IVB EMRC"
+  APPEND_ITEM    TAU1  26      INT        "Ratio of mass to mass flow rate for second phase IGM"
     POLY_READ_CONVERSION 0 3.0517578125e-5
 
-TELEMETRY SATURN TAU3 BIG_ENDIAN "Ratio of mass to mass flow rate after S-IVB EMRC"
+TELEMETRY SATURN TAU3 BIG_ENDIAN "Ratio of mass to mass flow rate for third phase IGM"
   # Keyword      Name  BitSize Type   ID  Description
   APPEND_ID_ITEM TAG   16      INT 0o4504 "Tag"
     FORMAT_STRING "%04o"
   APPEND_ITEM    PAD   6       INT        "Padding"
-  APPEND_ITEM    TAU3  26      INT        "Ratio of mass to mass flow rate after S-IVB EMRC"
+  APPEND_ITEM    TAU3  26      INT        "Ratio of mass to mass flow rate for third phase IGM"
     POLY_READ_CONVERSION 0 3.0517578125e-5
 
 TELEMETRY SATURN PHIT BIG_ENDIAN "Terminal range angle"
@@ -1157,6 +1397,22 @@ TELEMETRY SATURN CHIY4 BIG_ENDIAN "Pitch guidance command in target plane system
   APPEND_ITEM    CHIY4 26      INT        "Pitch guidance command in target plane system"
     POLY_READ_CONVERSION 0 0.00000536441803
 
+TELEMETRY SATURN SMCZ BIG_ENDIAN "Yaw stering misalignment correction"
+  # Keyword      Name  BitSize Type   ID  Description
+  APPEND_ID_ITEM TAG   16      INT 0o4570 "Tag"
+    FORMAT_STRING "%04o"
+  APPEND_ITEM    PAD   6       INT        "Padding"
+  APPEND_ITEM    SMCZ  26      INT        "Yaw stering misalignment correction"
+    POLY_READ_CONVERSION 0 0.00000536441803
+
+TELEMETRY SATURN SMCY BIG_ENDIAN "Pitch stering misalignment correction"
+  # Keyword      Name  BitSize Type   ID  Description
+  APPEND_ID_ITEM TAG   16      INT 0o4572 "Tag"
+    FORMAT_STRING "%04o"
+  APPEND_ITEM    PAD   6       INT        "Padding"
+  APPEND_ITEM    SMCZ  26      INT        "Pitch stering misalignment correction"
+    POLY_READ_CONVERSION 0 0.00000536441803
+
 TELEMETRY SATURN P4ZD BIG_ENDIAN "Z velocity at phase II & IV initialize"
   # Keyword      Name  BitSize Type   ID  Description
   APPEND_ID_ITEM TAG   16      INT 0o5414 "Tag"
@@ -1189,13 +1445,29 @@ TELEMETRY SATURN P4TM BIG_ENDIAN "Total time when accelerometer read last"
   APPEND_ITEM    P4TM  26      INT        "Total time when accelerometer read last"
     POLY_READ_CONVERSION 0 0.0009765625
 
-TELEMETRY SATURN TAU2 BIG_ENDIAN "Ratio of mass to mass flow rate for second phase IGM"
-  # Keyword      Name  BitSize Type   ID  Description
-  APPEND_ID_ITEM TAG   16      INT 0o5476 "Tag"
-    FORMAT_STRING "%04o"
-  APPEND_ITEM    PAD   6       INT        "Padding"
-  APPEND_ITEM    TAU2  26      INT        "Ratio of mass to mass flow rate for second phase IGM"
-    POLY_READ_CONVERSION 0 3.0517578125e-5
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 TELEMETRY SATURN @RTC BIG_ENDIAN "Real time clock reading"
   # Keyword      Name  BitSize Type   ID  Description
@@ -1341,7 +1613,7 @@ TELEMETRY SATURN @SSDO BIG_ENDIAN "LVDA Switch selector and discrete output driv
   APPEND_ITEM    SSDO  26      UINT       "LVDA Switch selector and discrete output drivers"
     FORMAT_STRING "%09o"
 
-TELEMETRY SATURN @UNK1 BIG_ENDIAN "LVDA Unknown telemetry 1 (TBD)"
+TELEMETRY SATURN @UNK1 BIG_ENDIAN "LVDA Unknown telemetry 1 (TBD; this is sent but it could be a bug)"
   # Keyword      Name  BitSize Type   ID  Description
   APPEND_ID_ITEM TAG   16      INT 0o0020 "Tag"
     FORMAT_STRING "%04o"
@@ -1350,7 +1622,7 @@ TELEMETRY SATURN @UNK1 BIG_ENDIAN "LVDA Unknown telemetry 1 (TBD)"
   APPEND_ITEM    UNK1  26      UINT       "LVDA Unknown telemetry 1 (TBD)"
     FORMAT_STRING "%09o"
 
-TELEMETRY SATURN @UNK2 BIG_ENDIAN "LVDA Unknown telemetry 2 (TBD)"
+TELEMETRY SATURN @UNK2 BIG_ENDIAN "LVDA Unknown telemetry 2 (TBD; this is sent but it could be a bug)"
   # Keyword      Name  BitSize Type   ID  Description
   APPEND_ID_ITEM TAG   16      INT 0o0024 "Tag"
     FORMAT_STRING "%04o"
@@ -1359,7 +1631,7 @@ TELEMETRY SATURN @UNK2 BIG_ENDIAN "LVDA Unknown telemetry 2 (TBD)"
   APPEND_ITEM    UNK2  26      UINT       "LVDA Unknown telemetry 2 (TBD)"
     FORMAT_STRING "%09o"
 
-TELEMETRY SATURN @UNK3 BIG_ENDIAN "LVDA Unknown telemetry 3 (TBD)"
+TELEMETRY SATURN @UNK3 BIG_ENDIAN "LVDA Unknown telemetry 3 (TBD; this is sent but it could be a bug)"
   # Keyword      Name  BitSize Type   ID  Description
   APPEND_ID_ITEM TAG   16      INT 0o0025 "Tag"
     FORMAT_STRING "%04o"
@@ -1368,7 +1640,7 @@ TELEMETRY SATURN @UNK3 BIG_ENDIAN "LVDA Unknown telemetry 3 (TBD)"
   APPEND_ITEM    UNK3  26      UINT       "LVDA Unknown telemetry 3 (TBD)"
     FORMAT_STRING "%09o"
 
-TELEMETRY SATURN @UNK4 BIG_ENDIAN "LVDA Unknown telemetry 4 (TBD)"
+TELEMETRY SATURN @UNK4 BIG_ENDIAN "LVDA Unknown telemetry 4 (TBD; this is sent but it could be a bug)"
   # Keyword      Name  BitSize Type   ID  Description
   APPEND_ID_ITEM TAG   16      INT 0o0040 "Tag"
     FORMAT_STRING "%04o"
@@ -1377,7 +1649,7 @@ TELEMETRY SATURN @UNK4 BIG_ENDIAN "LVDA Unknown telemetry 4 (TBD)"
   APPEND_ITEM    UNK4  26      UINT       "LVDA Unknown telemetry 4 (TBD)"
     FORMAT_STRING "%09o"
 
-TELEMETRY SATURN @UNK5 BIG_ENDIAN "LVDA Unknown telemetry 5 (TBD)"
+TELEMETRY SATURN @UNK5 BIG_ENDIAN "LVDA Unknown telemetry 5 (TBD; this is sent but it could be a bug)"
   # Keyword      Name  BitSize Type   ID  Description
   APPEND_ID_ITEM TAG   16      INT 0o0100 "Tag"
     FORMAT_STRING "%04o"
@@ -1386,7 +1658,7 @@ TELEMETRY SATURN @UNK5 BIG_ENDIAN "LVDA Unknown telemetry 5 (TBD)"
   APPEND_ITEM    UNK5  26      UINT       "LVDA Unknown telemetry 5 (TBD)"
     FORMAT_STRING "%09o"
 
-TELEMETRY SATURN @UNK6 BIG_ENDIAN "LVDA Unknown telemetry 6 (TBD)"
+TELEMETRY SATURN @UNK6 BIG_ENDIAN "LVDA Unknown telemetry 6 (TBD; this is sent but it could be a bug)"
   # Keyword      Name  BitSize Type   ID  Description
   APPEND_ID_ITEM TAG   16      INT 0o0101 "Tag"
     FORMAT_STRING "%04o"
@@ -1395,7 +1667,7 @@ TELEMETRY SATURN @UNK6 BIG_ENDIAN "LVDA Unknown telemetry 6 (TBD)"
   APPEND_ITEM    UNK6  26      UINT       "LVDA Unknown telemetry 6 (TBD)"
     FORMAT_STRING "%09o"
 
-TELEMETRY SATURN @UNK7 BIG_ENDIAN "LVDA Unknown telemetry 7 (TBD)"
+TELEMETRY SATURN @UNK7 BIG_ENDIAN "LVDA Unknown telemetry 7 (TBD; this is sent but it could be a bug)"
   # Keyword      Name  BitSize Type   ID  Description
   APPEND_ID_ITEM TAG   16      INT 0o0106 "Tag"
     FORMAT_STRING "%04o"
