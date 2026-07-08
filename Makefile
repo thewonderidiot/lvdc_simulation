@@ -40,6 +40,8 @@ LVDA_MODULES = accel_time_proc_1 \
 	       int_cont_regs \
 	       int_countdn_proc_1 \
 	       int_countdn_proc_2 \
+	       int_drivers_1 \
+	       int_drivers_2 \
 	       mode_buff_regs \
 	       processor_store \
 	       sd_sampler_1 \
@@ -49,7 +51,13 @@ LVDA_MODULES = accel_time_proc_1 \
 	       sd_sampler_5 \
 	       sd_sampler_6 \
 	       sd_sampler_7 \
-	       simp_drivers \
+	       simpl_drivers_1 \
+	       simpl_drivers_2 \
+	       simpl_drivers_3 \
+	       simpl_drivers_4 \
+	       simpl_drivers_5 \
+	       simpl_drivers_6 \
+	       simpl_drivers_7 \
 	       sw_sel_regs \
 	       tag_real_tm_regs \
 	       telem_control \
@@ -88,6 +96,8 @@ COMPONENTS = bfr_pa \
 	     nsi \
 	     osc \
 	     sdh \
+	     sdi \
+	     sdl \
 	     tdh \
 	     tdl \
 	     tdm \
@@ -95,17 +105,22 @@ COMPONENTS = bfr_pa \
 	     vi \
 	     vsg \
 
-LVDC_MODULE_SOURCES = $(addsuffix .v, $(addprefix $(SRC_DIR)/lvdc/modules/, $(LVDC_MODULES)))
-LVDA_MODULE_SOURCES = $(addsuffix .v, $(addprefix $(SRC_DIR)/lvda/modules/, $(LVDA_MODULES)))
-COMPONENT_SOURCES = $(addsuffix .v, $(addprefix $(SRC_DIR)/components/, $(COMPONENTS)))
+LVDC_MODULE_SOURCES = $(addsuffix .v, $(addprefix $(SRC_DIR)/iu/lvdc/modules/, $(LVDC_MODULES)))
+LVDA_MODULE_SOURCES = $(addsuffix .v, $(addprefix $(SRC_DIR)/iu/lvda/modules/, $(LVDA_MODULES)))
+COMPONENT_SOURCES = $(addsuffix .v, $(addprefix $(SRC_DIR)/iu/components/, $(COMPONENTS)))
 
 IU_SOURCES = $(COMPONENT_SOURCES) \
-	     $(SRC_DIR)/lvdc/lvdc.v \
+	     $(SRC_DIR)/iu/iu.v \
+	     $(SRC_DIR)/iu/lvdc/lvdc.v \
 	     $(LVDC_MODULE_SOURCES) \
-	     $(SRC_DIR)/lvda/lvda.v \
+	     $(SRC_DIR)/iu/lvda/lvda.v \
 	     $(LVDA_MODULE_SOURCES) \
-	     $(SRC_DIR)/mod410/mod410.v \
-	     $(SRC_DIR)/mod410/uart/uart_tx.v
+	     $(SRC_DIR)/iu/cmd_decoder/cmd_decoder.v \
+	     $(SRC_DIR)/iu/ciu/ciu.v \
+	     $(SRC_DIR)/iu/switch_sel/switch_sel.v \
+	     $(SRC_DIR)/iu/mod410/mod410.v \
+	     $(SRC_DIR)/iu/mod410/uart/uart_tx.v \
+	     $(SRC_DIR)/gse/gse.v
 
 SIM_SOURCES = $(SRC_DIR)/iu_sim.v \
 	      $(IU_SOURCES)
@@ -113,20 +128,20 @@ SIM_SOURCES = $(SRC_DIR)/iu_sim.v \
 FPGA_SOURCES = $(SRC_DIR)/fpga/hdl/lvdc_fpga.v \
 	       $(IU_SOURCES)
 
-CORE_FILES = core/module0.mem \
-	     core/module1.mem \
-	     core/module2.mem \
-	     core/module3.mem \
-	     core/module4.mem \
-	     core/module5.mem \
-	     core/module6.mem \
-	     core/module7.mem
+CORE_FILES = iu/lvdc/core/module0.mem \
+	     iu/lvdc/core/module1.mem \
+	     iu/lvdc/core/module2.mem \
+	     iu/lvdc/core/module3.mem \
+	     iu/lvdc/core/module4.mem \
+	     iu/lvdc/core/module5.mem \
+	     iu/lvdc/core/module6.mem \
+	     iu/lvdc/core/module7.mem
 	  
 .phony: all
 all: iu_sim
 
 iu_sim: $(SIM_SOURCES)
-	iverilog -o $@ $^ -DCORE_PATH='"core/"'
+	iverilog -o $@ $^ -DCORE_PATH='"iu/lvdc/core/"'
 
 .phony: run
 run: iu_sim
