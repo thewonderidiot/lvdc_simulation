@@ -20,7 +20,7 @@ module lvdc_registers(
     input wire pa,
     input wire pb,
     input wire pc,
-    input wire [14:1] bit,
+    input wire [14:1] bt,
     input wire w,
     input wire x,
     input wire y,
@@ -46,8 +46,8 @@ op_active #(.OPCODE('b0001), .CYCLES(5)) op_active_mult(
     .SIM_CLK(SIM_CLK),
     .SIM_RST(SIM_RST),
     .op({OP4V, 1'b0, OP2V, OP1V}),
-    .clk_start(pb & bit[2] & z),
-    .clk_end(pa & bit[2] & z),
+    .clk_start(pb & bt[2] & z),
+    .clk_end(pa & bt[2] & z),
     .active(mult_active)
 );
 
@@ -56,8 +56,8 @@ op_active #(.OPCODE('b0011), .CYCLES(9)) op_active_div(
     .SIM_CLK(SIM_CLK),
     .SIM_RST(SIM_RST),
     .op({OP4V, OP3V, OP2V, OP1V}),
-    .clk_start(pb & bit[2] & z),
-    .clk_end(pb & bit[5] & y),
+    .clk_start(pb & bt[2] & z),
+    .clk_end(pb & bt[5] & y),
     .active(div_active)
 );
 
@@ -75,7 +75,7 @@ register #(26) reg_acc(
     .SIM_CLK(SIM_CLK),
     .SIM_RST(SIM_RST),
     .window(ai3v_window),
-    .clock(pc & bit[14] & z),
+    .clock(pc & bt[14] & z),
     .out(acc)
 );
 
@@ -83,7 +83,7 @@ register #(8) reg_ic(
     .SIM_CLK(SIM_CLK),
     .SIM_RST(SIM_RST),
     .window(ai3v_window[1:8]),
-    .clock(pa & bit[8] & z),
+    .clock(pa & bt[8] & z),
     .out(ic)
 );
 
@@ -101,7 +101,7 @@ register #(26) reg_hopc(
     .SIM_CLK(SIM_CLK),
     .SIM_RST(SIM_RST),
     .window(hopc1v_window),
-    .clock(pa & bit[1] & w),
+    .clock(pa & bt[1] & w),
     .out(hopc)
 );
 
@@ -109,7 +109,7 @@ register #(2) reg_dsm(
     .SIM_CLK(SIM_CLK),
     .SIM_RST(SIM_RST),
     .window(hopc1v_window[1:2]),
-    .clock(pb & bit[1] & w),
+    .clock(pb & bt[1] & w),
     .out(dsm)
 );
 
@@ -127,7 +127,7 @@ register #(26) reg_mem(
     .SIM_CLK(SIM_CLK),
     .SIM_RST(SIM_RST),
     .window(trsv_window),
-    .clock(pa & bit[1] & w),
+    .clock(pa & bt[1] & w),
     .out(mem)
 );
 
@@ -223,7 +223,7 @@ register #(26) reg_pq(
     .SIM_CLK(SIM_CLK),
     .SIM_RST(SIM_RST),
     .window(mr1v_window),
-    .clock(pc & bit[12] & z),
+    .clock(pc & bt[12] & z),
     .out(pq)
 );
 

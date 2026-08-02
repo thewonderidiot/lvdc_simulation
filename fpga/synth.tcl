@@ -13,7 +13,7 @@ read_verilog -sv \
     $src_dir/iu/switch_sel/switch_sel.v \
     $src_dir/iu/mod410/mod410.v \
     [glob $src_dir/iu/mod410/uart/*.v] \
-    $src_dir/gse/gse.v \
+    [glob $src_dir/gse/*.v] \
 
 set_property verilog_define {TARGET_FPGA=1 CORE_PATH=""} [current_fileset]
 

@@ -154,11 +154,10 @@ initial TE2 = 0;
 initial TE3 = 0;
 initial TER = 0;
 
-
 wire pa;
 wire pb;
 wire pc;
-wire [14:1] bit;
+wire [14:1] bt;
 wire w;
 wire x;
 wire y;
@@ -174,7 +173,7 @@ clock_gen clock_gen1(
     .pa(pa),
     .pb(pb),
     .pc(pc),
-    .bit(bit),
+    .bt(bt),
     .w(w),
     .x(x),
     .y(y),
@@ -213,7 +212,7 @@ lvdc_registers lvdc_registers1(
     .pa(pa),
     .pb(pb),
     .pc(pc),
-    .bit(bit),
+    .bt(bt),
     .w(w),
     .x(x),
     .y(y),

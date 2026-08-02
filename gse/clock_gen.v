@@ -12,7 +12,7 @@ module clock_gen(
     output reg pb,
     output reg pc,
 
-    output reg [14:1] bit,
+    output reg [14:1] bt,
 
     output reg w,
     output reg x,
@@ -20,20 +20,70 @@ module clock_gen(
     output reg z
 );
 
-localparam phase_delay = 27243.75;
-localparam clock_delay = 388.28125;
-
 initial pa = 0;
 initial pb = 0;
 initial pc = 0;
-initial bit = 'o20000;
+initial bt = 'o20000;
 initial w = 0;
 initial x = 0;
 initial y = 0;
 initial z = 0;
 
 `ifdef TARGET_FPGA
+
+localparam PHASE_CLOCKS = 1120;
+localparam BIT_CLOCKS = 20;
+localparam PHASE_CTR_LEN = $clog2(3 * PHASE_CLOCKS);
+localparam BIT_CTR_LEN = $clog2(4 * BIT_CLOCKS);
+
+reg pbavn_r;
+reg w6_r;
+reg [PHASE_CTR_LEN-1:0] phase_ctr;
+reg [BIT_CTR_LEN-1:0] bit_ctr;
+
+always @(posedge SIM_CLK or negedge SIM_RST) begin
+    if (~SIM_RST) begin
+        phase_ctr <= 0;
+        bit_ctr <= 0;
+        bt <= 'o20000;
+    end else begin
+        pbavn_r <= PBAVN;
+        w6_r <= W6;
+        if (~w6_r & W6) begin
+            bit_ctr <= 0;
+            bt <= {bt[13:1], bt[14]};
+        end else begin
+            bit_ctr <= bit_ctr + 1;
+        end
+
+        if (pbavn_r & ~PBAVN) begin
+            bt <= 'b1;
+            phase_ctr <= 0;
+        end else begin
+            phase_ctr <= phase_ctr + 1;
+        end
+    end
+end
+
+always @(*) begin
+    pb = phase_ctr < (PHASE_CLOCKS - 10);
+    pc = (phase_ctr >= PHASE_CLOCKS) && (phase_ctr < (2*PHASE_CLOCKS - 10));
+    pa = (phase_ctr >= 2*PHASE_CLOCKS) && (phase_ctr < (3*PHASE_CLOCKS - 10));
+end
+
+always @(*) begin
+    w = bit_ctr < (BIT_CLOCKS - 1);
+    x = (bit_ctr >= BIT_CLOCKS) && (bit_ctr < (2*BIT_CLOCKS - 1));
+    y = (bit_ctr >= 2*BIT_CLOCKS) && (bit_ctr < (3*BIT_CLOCKS - 1));
+    z = (bit_ctr >= 3*BIT_CLOCKS) && (bit_ctr < (4*BIT_CLOCKS - 1));
+end
+
+
 `else
+
+localparam phase_delay = 27243.75;
+localparam clock_delay = 388.28125;
+
 always @(negedge PBAVN) begin
     pb <= 1;
     #phase_delay pb <= 0;
@@ -55,11 +105,12 @@ always @(posedge W6) begin
 end
 
 always @(posedge W6) begin
-    bit <= {bit[13:1], bit[14]};
+    bt <= {bt[13:1], bt[14]};
 end
 always @(posedge pb) begin
-    bit <= 'b1;
+    bt <= 'b1;
 end
+
 `endif
 
 endmodule
