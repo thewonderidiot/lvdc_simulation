@@ -120,7 +120,13 @@ IU_SOURCES = $(COMPONENT_SOURCES) \
 	     $(SRC_DIR)/iu/switch_sel/switch_sel.v \
 	     $(SRC_DIR)/iu/mod410/mod410.v \
 	     $(SRC_DIR)/iu/mod410/uart/uart_tx.v \
-	     $(SRC_DIR)/gse/gse.v
+	     $(SRC_DIR)/gse/gse.v \
+	     $(SRC_DIR)/gse/clock_gen.v \
+	     $(SRC_DIR)/gse/clock_counter.v \
+	     $(SRC_DIR)/gse/op_active.v \
+	     $(SRC_DIR)/gse/lvdc_registers.v \
+	     $(SRC_DIR)/gse/register.v \
+	     $(SRC_DIR)/gse/window.v \
 
 SIM_SOURCES = $(SRC_DIR)/iu_sim.v \
 	      $(IU_SOURCES)

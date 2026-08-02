@@ -154,27 +154,86 @@ initial TE2 = 0;
 initial TE3 = 0;
 initial TER = 0;
 
-reg [26:1] Acc = 26'b0;
-reg [26:1] AccShift = 26'b0;
 
-reg [5:0] w_count = 6'b0;
-reg pbavn_prev = 1'b0;
+wire pa;
+wire pb;
+wire pc;
+wire [14:1] bit;
+wire w;
+wire x;
+wire y;
+wire z;
 
-always @(posedge W6) begin
-    pbavn_prev <= PBAVN;
-    if (~PBAVN & pbavn_prev) begin
-        w_count <= 6'd27;
-    end else if (w_count > 6'd0) begin
-        w_count <= w_count - 1;
-        if (w_count < 6'd27) begin
-            AccShift <= {AccShift[25:1], AI3V};
-        end
-    end else if (w_count == 6'd0) begin
-        Acc <= AccShift;
-    end
-end
+clock_gen clock_gen1(
+    .SIM_CLK(SIM_CLK),
+    .SIM_RST(SIM_RST),
 
+    .PBAVN(PBAVN),
+    .W6(W6),
 
+    .pa(pa),
+    .pb(pb),
+    .pc(pc),
+    .bit(bit),
+    .w(w),
+    .x(x),
+    .y(y),
+    .z(z)
+);
+
+wire [26:1] acc;
+wire [2:1] dsm;
+wire [26:1] dv;
+wire [26:1] hopc;
+wire [8:1] ic;
+wire [26:1] md;
+wire [24:1] mr;
+wire [26:1] mem;
+wire [26:1] pq;
+wire [24:1] pr;
+wire [26:1] rm;
+wire [26:1] qt;
+
+lvdc_registers lvdc_registers1(
+    .SIM_CLK(SIM_CLK),
+    .SIM_RST(SIM_RST),
+
+    .OP1V(OP1V),
+    .OP2V(OP2V),
+    .OP3V(OP3V),
+    .OP4V(OP4V),
+
+    .AI3V(AI3V),
+    .HOPC1V(HOPC1V),
+    .MD7V(MD7V),
+    .MR1V(MR1V),
+    .PR0V(PR0V),
+    .TRSV(TRSV),
+
+    .pa(pa),
+    .pb(pb),
+    .pc(pc),
+    .bit(bit),
+    .w(w),
+    .x(x),
+    .y(y),
+    .z(z),
+
+    .acc(acc),
+    .dsm(dsm),
+    .dv(dv),
+    .hopc(hopc),
+    .ic(ic),
+    .md(md),
+    .mr(mr),
+    .mem(mem),
+    .pq(pq),
+    .pr(pr),
+    .rm(rm),
+    .qt(qt)
+);
+
+// OLD BOOT STUFF
 `ifdef TARGET_FPGA
 reg [13:0] boot_count;
 reg [13:0] next_boot_count;
@@ -203,7 +262,10 @@ end
 `else
 initial begin
     #100000 HLTX = 0;
-    #2000000 HLTX = 1;
+    // #1700000 CST = 1;
+    // TE1 = 1;
+    // #1000000 CST = 0;
+    // #2000000 HLTX = 1;
 end
 `endif
 

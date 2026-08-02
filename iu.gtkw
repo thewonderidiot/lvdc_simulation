@@ -1,11 +1,11 @@
 [*]
-[*] GTKWave Analyzer v3.3.113 (w)1999-2022 BSI
-[*] Tue Mar 14 04:13:04 2023
+[*] GTKWave Analyzer v3.3.127 (w)1999-2026 BSI
+[*] Mon Jul 13 04:54:51 2026
 [*]
-[dumpfile] "/home/mike/iu_simulation/lvdc.fst"
-[dumpfile_mtime] "Tue Mar 14 03:56:01 2023"
-[dumpfile_size] 80192
-[savefile] "/home/mike/iu_simulation/lvdc.gtkw"
+[dumpfile] "/home/mike/lvdc/lvdc_simulation/iu.fst"
+[dumpfile_mtime] "Mon Jul 13 04:45:07 2026"
+[dumpfile_size] 845693
+[savefile] "/home/mike/lvdc/lvdc_simulation/iu.gtkw"
 [timestart] 0
 [size] 1920 1032
 [pos] -1 -1
@@ -19,7 +19,7 @@
 @10c00028
 [color] 7
 [transaction_args] ""
-^<1 /home/mike/iu_simulation/scripts/decode_phase.py
+^<1 /home/mike/lvdc/lvdc_simulation/scripts/decode_phase.py
 #{phase} iu_sim.iu1.lvdc1.a1a13.PCV iu_sim.iu1.lvdc1.a1a13.PBV iu_sim.iu1.lvdc1.a1a13.PAV
 @28
 iu_sim.iu1.lvdc1.a1a13.PAV
@@ -30,7 +30,7 @@ iu_sim.iu1.lvdc1.a1a13.PCV
 @10c00022
 [color] 6
 [transaction_args] ""
-^<2 /home/mike/iu_simulation/scripts/decode_bit_time.py
+^<2 /home/mike/lvdc/lvdc_simulation/scripts/decode_bit_time.py
 #{bit time} iu_sim.iu1.lvdc1.a1a13.G7V iu_sim.iu1.lvdc1.a1a13.G6V iu_sim.iu1.lvdc1.a1a13.G5V iu_sim.iu1.lvdc1.a1a13.G4V iu_sim.iu1.lvdc1.a1a13.G3V iu_sim.iu1.lvdc1.a1a13.G2V iu_sim.iu1.lvdc1.a1a13.G1V
 @28
 iu_sim.iu1.lvdc1.a1a13.G1V
@@ -45,7 +45,7 @@ iu_sim.iu1.lvdc1.a1a13.G7V
 @10c00022
 [color] 5
 [transaction_args] ""
-^<3 /home/mike/iu_simulation/scripts/decode_clock.py
+^<3 /home/mike/lvdc/lvdc_simulation/scripts/decode_clock.py
 #{Clock} iu_sim.iu1.lvdc1.a1a3.ZF iu_sim.iu1.lvdc1.a1a3.YF iu_sim.iu1.lvdc1.a1a3.XF iu_sim.iu1.lvdc1.a1a3.WF
 @28
 iu_sim.iu1.lvdc1.a1a3.WF
@@ -56,7 +56,7 @@ iu_sim.iu1.lvdc1.a1a3.ZF
 -group_end
 @10c00022
 [transaction_args] ""
-^<4 /home/mike/iu_simulation/scripts/decode_opcode.py
+^<4 /home/mike/lvdc/lvdc_simulation/scripts/decode_opcode.py
 #{Opcode} iu_sim.iu1.lvdc1.OP4V iu_sim.iu1.lvdc1.OP3V iu_sim.iu1.lvdc1.OP2V iu_sim.iu1.lvdc1.OP1V iu_sim.iu1.lvdc1.A9V iu_sim.iu1.lvdc1.A8V
 @28
 iu_sim.iu1.lvdc1.A8V
@@ -67,11 +67,11 @@ iu_sim.iu1.lvdc1.OP3V
 iu_sim.iu1.lvdc1.OP4V
 @1401200
 -group_end
-@b0
-+{Acc} iu_sim.gse1.Acc[26:1]
+@31
++{Acc} iu_sim.gse1.acc[26:1]
 @10c00022
 [transaction_args] ""
-^<5 /home/mike/iu_simulation/scripts/decode_module.py
+^<5 /home/mike/lvdc/lvdc_simulation/scripts/decode_module.py
 #{IM} iu_sim.iu1.lvdc1.a1a14.IM3 iu_sim.iu1.lvdc1.a1a14.IM2 iu_sim.iu1.lvdc1.a1a14.IM1 iu_sim.iu1.lvdc1.a1a14.IM0
 @28
 iu_sim.iu1.lvdc1.a1a14.IM0
@@ -93,7 +93,7 @@ iu_sim.iu1.lvdc1.IS4
 +{S} iu_sim.iu1.lvdc1.SYLC1V
 @10c00022
 [transaction_args] ""
-^<5 /home/mike/iu_simulation/scripts/decode_module.py
+^<5 /home/mike/lvdc/lvdc_simulation/scripts/decode_module.py
 #{DM} iu_sim.iu1.lvdc1.a1a14.DM3 iu_sim.iu1.lvdc1.a1a14.DM2 iu_sim.iu1.lvdc1.a1a14.DM1 iu_sim.iu1.lvdc1.a1a14.DM0
 @28
 iu_sim.iu1.lvdc1.a1a14.DM0
