@@ -5,10 +5,22 @@ module lvdc_registers(
     input wire SIM_CLK,
     input wire SIM_RST,
 
+    input wire CST,
+
     input wire OP1V,
     input wire OP2V,
     input wire OP3V,
     input wire OP4V,
+
+    input wire A1V,
+    input wire A2V,
+    input wire A3V,
+    input wire A4V,
+    input wire A5V,
+    input wire A6V,
+    input wire A7V,
+    input wire A8V,
+    input wire A9V,
 
     input wire AI3V,
     input wire HOPC1V,
@@ -16,7 +28,12 @@ module lvdc_registers(
     input wire MR1V,
     input wire PR0V,
     input wire TRSV,
+    input wire C1RDN,
+    input wire C2RDN,
+    input wire C3RD,
+    input wire C4RDV,
 
+    input wire ADV,
     input wire pa,
     input wire pb,
     input wire pc,
@@ -26,250 +43,252 @@ module lvdc_registers(
     input wire y,
     input wire z,
 
-    output wire [26:1] acc,
-    output wire [2:1] dsm,
-    output wire [26:1] dv,
-    output wire [26:1] hopc,
-    output wire [8:1] ic,
-    output wire [26:1] md,
-    output wire [24:1] mr,
-    output wire [26:1] mem,
-    output wire [26:1] pq,
-    output wire [24:1] pr,
-    output wire [26:1] rm,
-    output wire [26:1] qt
+    output wire [4:1] op,
+    output wire [9:1] a,
+    output wire [1:26] trs,
+    output wire [8:1] ai3_ia,
+    output wire [1:26] ai3_data,
+    output wire [1:26] md7,
+    output wire [1:26] mr1,
+    output wire [1:26] pr0,
+    output wire [1:26] hopc1,
+    output wire [1:13] rtc,
+    output wire [1:13] mlc,
+    output wire [1:13] ssc,
+    output wire [1:26] ssmsr,
+
+    output reg [39:0] reg_stream,
+    output wire reg_stream_sync
 );
+
+reg [3:0] hist_idx = 0;
+
+// Parallel registers
+wire [4:1] OPV = {OP4V, OP3V, OP2V, OP1V};
+parallel_register #(4) reg_op(
+    .SIM_CLK(SIM_CLK),
+    .SIM_RST(SIM_RST),
+    .in(OPV),
+    .sync(pa & bt[12] & z),
+    .index(hist_idx),
+    .out(op)
+);
+
+wire [9:1] AV = {A9V, A8V, A7V, A6V, A5V, A4V, A3V, A2V, A1V};
+parallel_register #(9) reg_a(
+    .SIM_CLK(SIM_CLK),
+    .SIM_RST(SIM_RST),
+    .in({A9V, A8V, A7V, A6V, A5V, A4V, A3V, A2V, A1V}),
+    .sync(pa & bt[14] & w & ADV),
+    .index(hist_idx),
+    .out(a)
+);
+
 
 // Multiply and divide detectors
-wire mult_active;
-op_active #(.OPCODE('b0001), .CYCLES(5)) op_active_mult(
+wire nmmh;
+wire ndiv;
+wire selph;
+wire mrsync;
+mult_div_counter mult_div_counter1(
     .SIM_CLK(SIM_CLK),
     .SIM_RST(SIM_RST),
-    .op({OP4V, 1'b0, OP2V, OP1V}),
-    .clk_start(pb & bt[2] & z),
-    .clk_end(pa & bt[2] & z),
-    .active(mult_active)
+    .pa(pa),
+    .pb(pb),
+    .pc(pc),
+    .bt(bt),
+    .z(z),
+    .op(OPV),
+    .nmmh(nmmh),
+    .ndiv(ndiv),
+    .selph(selph),
+    .mrsync(mrsync)
 );
 
-wire div_active;
-op_active #(.OPCODE('b0011), .CYCLES(9)) op_active_div(
+// TRS
+serial_register reg_trs(
     .SIM_CLK(SIM_CLK),
     .SIM_RST(SIM_RST),
-    .op({OP4V, OP3V, OP2V, OP1V}),
-    .clk_start(pb & bt[2] & z),
-    .clk_end(pb & bt[5] & y),
-    .active(div_active)
-);
 
-// AI3V - accumulator and instruction counter
-wire [1:26] ai3v_window;
-window #(26) win_ai3v(
-    .SIM_CLK(SIM_CLK),
-    .SIM_RST(SIM_RST),
-    .line(AI3V),
-    .clock(y),
-    .out(ai3v_window)
-);
-
-register #(26) reg_acc(
-    .SIM_CLK(SIM_CLK),
-    .SIM_RST(SIM_RST),
-    .window(ai3v_window),
-    .clock(pc & bt[14] & z),
-    .out(acc)
-);
-
-register #(8) reg_ic(
-    .SIM_CLK(SIM_CLK),
-    .SIM_RST(SIM_RST),
-    .window(ai3v_window[1:8]),
-    .clock(pa & bt[8] & z),
-    .out(ic)
-);
-
-// HOPC1V -- hop constant generator and DSM bits
-wire [1:26] hopc1v_window;
-window #(26) win_hopc1v(
-    .SIM_CLK(SIM_CLK),
-    .SIM_RST(SIM_RST),
-    .line(HOPC1V),
+    .serial(TRSV),
     .clock(z),
-    .out(hopc1v_window)
+    .sync(pa & bt[1] & w & ~ADV),
+    .index(hist_idx),
+    .out(trs)
 );
 
-register #(26) reg_hopc(
+// AI3V
+serial_register #(8) reg_ai3_ia(
     .SIM_CLK(SIM_CLK),
     .SIM_RST(SIM_RST),
-    .window(hopc1v_window),
-    .clock(pa & bt[1] & w),
-    .out(hopc)
-);
 
-register #(2) reg_dsm(
-    .SIM_CLK(SIM_CLK),
-    .SIM_RST(SIM_RST),
-    .window(hopc1v_window[1:2]),
-    .clock(pb & bt[1] & w),
-    .out(dsm)
-);
-
-// TRSV -- memory data
-wire [1:26] trsv_window;
-window #(26) win_trsv(
-    .SIM_CLK(SIM_CLK),
-    .SIM_RST(SIM_RST),
-    .line(TRSV),
-    .clock(z),
-    .out(trsv_window)
-);
-
-register #(26) reg_mem(
-    .SIM_CLK(SIM_CLK),
-    .SIM_RST(SIM_RST),
-    .window(trsv_window),
-    .clock(pa & bt[1] & w),
-    .out(mem)
-);
-
-// MD7V -- multiplicand and divisor
-wire [1:26] md7v_window;
-window #(26) win_md7v(
-    .SIM_CLK(SIM_CLK),
-    .SIM_RST(SIM_RST),
-    .line(MD7V),
+    .serial(AI3V),
     .clock(y),
-    .out(md7v_window)
+    .sync(pa & bt[8] & z),
+    .index(hist_idx),
+    .out(ai3_ia)
 );
 
-wire md_clk;
-clock_counter #(.PERIOD(28), .DELAY(31)) count_md(
+serial_register reg_ai3_data(
     .SIM_CLK(SIM_CLK),
     .SIM_RST(SIM_RST),
-    .enable(mult_active),
-    .clock_in(z),
-    .clock_out(md_clk)
+
+    .serial(AI3V),
+    .clock(y),
+    .sync(pc & bt[14] & z),
+    .index(hist_idx),
+    .out(ai3_data)
 );
 
-register #(26) reg_md(
+// MD7
+serial_register reg_md7(
     .SIM_CLK(SIM_CLK),
     .SIM_RST(SIM_RST),
-    .window(md7v_window),
-    .clock(md_clk),
-    .out(md)
-);
 
-wire dv_clk;
-clock_counter #(.PERIOD(28), .DELAY(28)) count_dv(
-    .SIM_CLK(SIM_CLK),
-    .SIM_RST(SIM_RST),
-    .enable(div_active),
-    .clock_in(z),
-    .clock_out(dv_clk)
-);
-
-register #(26) reg_dv(
-    .SIM_CLK(SIM_CLK),
-    .SIM_RST(SIM_RST),
-    .window(md7v_window),
-    .clock(dv_clk),
-    .out(dv)
+    .serial(MD7V),
+    .clock(y),
+    .sync(selph & z & ((nmmh & bt[5]) | (ndiv & bt[2]))),
+    .index(hist_idx),
+    .out(md7)
 );
 
 // MR1
-wire [1:26] mr1v_window;
-window #(26) win_mr1v(
+serial_register reg_mr1(
     .SIM_CLK(SIM_CLK),
     .SIM_RST(SIM_RST),
-    .line(MR1V),
+
+    .serial(MR1V),
     .clock(y),
-    .out(mr1v_window)
-);
-
-wire mr_clk;
-clock_counter #(.PERIOD(24), .DELAY(26)) count_mr(
-    .SIM_CLK(SIM_CLK),
-    .SIM_RST(SIM_RST),
-    .enable(mult_active),
-    .clock_in(z),
-    .clock_out(mr_clk)
-);
-
-register #(24) reg_mr(
-    .SIM_CLK(SIM_CLK),
-    .SIM_RST(SIM_RST),
-    .window(mr1v_window[1:24]),
-    .clock(mr_clk),
-    .out(mr)
-);
-
-wire qt_clk;
-clock_counter #(.PERIOD(30), .DELAY(30)) count_qt(
-    .SIM_CLK(SIM_CLK),
-    .SIM_RST(SIM_RST),
-    .enable(div_active),
-    .clock_in(z),
-    .clock_out(qt_clk)
-);
-
-register #(26) reg_qt(
-    .SIM_CLK(SIM_CLK),
-    .SIM_RST(SIM_RST),
-    .window(mr1v_window),
-    .clock(qt_clk),
-    .out(qt)
-);
-
-register #(26) reg_pq(
-    .SIM_CLK(SIM_CLK),
-    .SIM_RST(SIM_RST),
-    .window(mr1v_window),
-    .clock(pc & bt[12] & z),
-    .out(pq)
+    .sync(mrsync & z),
+    .index(hist_idx),
+    .out(mr1)
 );
 
 // PR0
-wire [1:26] pr0v_window;
-window #(26) win_pr0v(
+serial_register reg_pr0(
     .SIM_CLK(SIM_CLK),
     .SIM_RST(SIM_RST),
-    .line(PR0V),
+
+    .serial(PR0V),
     .clock(z),
-    .out(pr0v_window)
+    .sync(selph & w & ((nmmh & bt[1] & ~ADV) | (ndiv & bt[2] & ADV))),
+    .index(hist_idx),
+    .out(pr0)
 );
 
-wire pr_clk;
-clock_counter #(.PERIOD(28), .DELAY(55)) count_pr(
+// HOPC1
+serial_register reg_hopc1(
     .SIM_CLK(SIM_CLK),
     .SIM_RST(SIM_RST),
-    .enable(mult_active),
-    .clock_in(w),
-    .clock_out(pr_clk)
+
+    .serial(HOPC1V),
+    .clock(z),
+    .sync(pa & bt[1] & w & ~ADV),
+    .index(hist_idx),
+    .out(hopc1)
 );
 
-register #(24) reg_pr(
+//SP1
+//SP2
+
+//RTC
+serial_register #(13) reg_rtc(
     .SIM_CLK(SIM_CLK),
     .SIM_RST(SIM_RST),
-    .window(pr0v_window[1:24]),
-    .clock(pr_clk),
-    .out(pr)
+
+    .serial(C4RDV),
+    .clock(x),
+    .sync(pa & bt[14] & y),
+    .index(hist_idx),
+    .out(rtc)
 );
 
-wire rm_clk;
-clock_counter #(.PERIOD(28), .DELAY(56)) count_rm(
+//MLC
+serial_register #(13) reg_mlc(
     .SIM_CLK(SIM_CLK),
     .SIM_RST(SIM_RST),
-    .enable(div_active),
-    .clock_in(w),
-    .clock_out(rm_clk)
+
+    .serial(C3RD),
+    .clock(w),
+    .sync(pc & bt[3] & x),
+    .index(hist_idx),
+    .out(mlc)
 );
 
-register #(26) reg_rm(
+//SSC
+serial_register #(13) reg_ssc(
     .SIM_CLK(SIM_CLK),
     .SIM_RST(SIM_RST),
-    .window(pr0v_window),
-    .clock(rm_clk),
-    .out(rm)
+
+    .serial(~C2RDN),
+    .clock(z),
+    .sync(pc & bt[3] & w & ~ADV),
+    .index(hist_idx),
+    .out(ssc)
 );
+
+wire hop = (OPV == 'b0000);
+wire cds = (OPV == 'b1110) & ~A9V;
+
+// SSMSR
+serial_register reg_ssmsr(
+    .SIM_CLK(SIM_CLK),
+    .SIM_RST(SIM_RST),
+
+    .serial((hop | cds) ? TRSV : HOPC1V),
+    .clock(z),
+    .sync(pa & bt[1] & w & ~ADV),
+    .index(hist_idx),
+    .out(ssmsr)
+);
+
+
+localparam NUM_REGISTERS = 10;
+localparam FREQUENCY = 50;
+localparam MAX_COUNT = (40960000 / NUM_REGISTERS / FREQUENCY);
+localparam COUNTER_LEN = $clog2(MAX_COUNT);
+
+reg [COUNTER_LEN-1:0] counter;
+initial counter = 'd0;
+
+reg [3:0] reg_idx;
+initial reg_idx = 'd0;
+
+// Round-robin register streaming
+always @(posedge SIM_CLK or negedge SIM_RST) begin
+    if (~SIM_RST) begin
+        counter <= 'd0;
+        reg_idx <= 'd0;
+    end else begin
+        if (counter == MAX_COUNT - 1) begin
+            counter <= 'd0;
+            if (reg_idx == NUM_REGISTERS - 1) begin
+                reg_idx = 0;
+            end else begin
+                reg_idx <= reg_idx + 1;
+            end
+        end else begin
+            counter <= counter + 1;
+        end
+    end
+end
+
+always @(*) begin
+    case (reg_idx)
+        'd0:  reg_stream = {reg_idx, hist_idx, 6'b0, ssmsr};
+        'd1:  reg_stream = {reg_idx, hist_idx, 4'b0, op, 7'b0, a, ai3_ia};
+        'd2:  reg_stream = {reg_idx, hist_idx, 6'b0, trs};
+        'd3:  reg_stream = {reg_idx, hist_idx, 6'b0, ai3_data};
+        'd4:  reg_stream = {reg_idx, hist_idx, 6'b0, md7};
+        'd5:  reg_stream = {reg_idx, hist_idx, 6'b0, mr1};
+        'd6:  reg_stream = {reg_idx, hist_idx, 6'b0, pr0};
+        'd7:  reg_stream = {reg_idx, hist_idx, 6'b0, hopc1};
+        'd8:  reg_stream = {reg_idx, hist_idx, 3'b0, rtc, 3'b0, mlc};
+        'd9:  reg_stream = {reg_idx, hist_idx, 19'b0, ssc};
+    endcase
+end
+
+assign reg_stream_sync = counter == 0;
 
 endmodule
 `default_nettype wire

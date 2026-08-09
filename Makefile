@@ -119,14 +119,14 @@ IU_SOURCES = $(COMPONENT_SOURCES) \
 	     $(SRC_DIR)/iu/ciu/ciu.v \
 	     $(SRC_DIR)/iu/switch_sel/switch_sel.v \
 	     $(SRC_DIR)/iu/mod410/mod410.v \
-	     $(SRC_DIR)/iu/mod410/uart/uart_tx.v \
 	     $(SRC_DIR)/gse/gse.v \
 	     $(SRC_DIR)/gse/clock_gen.v \
-	     $(SRC_DIR)/gse/clock_counter.v \
-	     $(SRC_DIR)/gse/op_active.v \
 	     $(SRC_DIR)/gse/lvdc_registers.v \
-	     $(SRC_DIR)/gse/register.v \
+	     $(SRC_DIR)/gse/mult_div_counter.v \
+	     $(SRC_DIR)/gse/parallel_register.v \
+	     $(SRC_DIR)/gse/serial_register.v \
 	     $(SRC_DIR)/gse/window.v \
+	     $(SRC_DIR)/gse/uart/uart_tx.v \
 
 SIM_SOURCES = $(SRC_DIR)/iu_sim.v \
 	      $(IU_SOURCES)
@@ -149,10 +149,16 @@ all: iu_sim
 iu_sim: $(SIM_SOURCES)
 	iverilog -o $@ $^ -DCORE_PATH='"iu/lvdc/core/"'
 
+iu_sim_clocked: $(SIM_SOURCES)
+	iverilog -o $@ $^ -DCLOCKED=1 -DCORE_PATH='"iu/lvdc/core/"'
+
 .phony: run
 run: iu_sim
 	vvp iu_sim -fst -n
 
+.phony: run_clocked
+run_clocked: iu_sim_clocked
+	vvp iu_sim_clocked -fst -n
 
 .phony: fpga
 fpga: $(BUILD_DIR)/lvdc_fpga.bit

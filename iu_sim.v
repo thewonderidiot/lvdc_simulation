@@ -5,9 +5,11 @@ module iu_sim;
 
 reg SIM_CLK;
 initial SIM_CLK = 0;
+wire [39:0] SIM_TLM;
+wire SIM_TLM_SYNC;
 wire SIM_UART_TX;
 
-`ifdef TARGET_FPGA
+`ifdef CLOCKED
 always #12.20703125 SIM_CLK = !SIM_CLK;
 `endif
 
@@ -159,7 +161,8 @@ wire W6;
 iu iu1(
     .SIM_CLK(SIM_CLK),
     .SIM_RST(SIM_RST),
-    .SIM_UART_TX(SIM_UART_TX),
+    .SIM_TLM(SIM_TLM),
+    .SIM_TLM_SYNC(SIM_TLM_SYNC),
 
     // Saturn Discrete Inputs
     .DIN3X(DIN3X),
@@ -311,6 +314,9 @@ iu iu1(
 gse gse1(
     .SIM_CLK(SIM_CLK),
     .SIM_RST(SIM_RST),
+    .SIM_TLM(SIM_TLM),
+    .SIM_TLM_SYNC(SIM_TLM_SYNC),
+    .SIM_UART_TX(SIM_UART_TX),
 
     // RCA-110A
     .BR1X(BR1X),

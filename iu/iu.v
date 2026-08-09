@@ -4,7 +4,8 @@
 module iu(
     input wire SIM_CLK,
     input wire SIM_RST,
-    output wire SIM_UART_TX,
+    output wire [39:0] SIM_TLM,
+    output wire SIM_TLM_SYNC,
 
     // Saturn Discrete Inputs
     input wire DIN3X,  // O2-H2 Burner Malfunction
@@ -683,7 +684,8 @@ switch_sel switch_sel1(
 mod410 mod410a(
     .SIM_CLK(SIM_CLK),
     .SIM_RST(SIM_RST),
-    .SIM_UART_TX(SIM_UART_TX),
+    .SIM_TLM(SIM_TLM),
+    .SIM_TLM_SYNC(SIM_TLM_SYNC),
 
     .BR1(BR1),
     .BR2(BR2),

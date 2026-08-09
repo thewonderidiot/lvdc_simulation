@@ -4,7 +4,8 @@
 module mod410(
     input wire SIM_CLK,
     input wire SIM_RST,
-    output wire SIM_UART_TX,
+    output wire [39:0] SIM_TLM,
+    output wire SIM_TLM_SYNC,
 
     input wire BR1,
     input wire BR2,
@@ -50,24 +51,7 @@ module mod410(
     output wire TSYNC
 );
 
-`define STATE_IDLE     2'd0
-`define STATE_SAMPLE   2'd1
-`define STATE_SEND     2'd2
-`define STATE_WAIT     2'd3
-
-reg [1:0] state;
-reg [1:0] state_next;
-
-wire uart_tx_en;
-assign uart_tx_en = state == `STATE_SEND;
-wire uart_tx_busy;
-
-reg [3:0] byte_count;
-
-reg [47:0] lvdc_word;
-wire [47:0] lvdc_word_next;
-assign lvdc_word_next = {
-    8'hA5,
+assign SIM_TLM = {
     RT3,
     RT2,
     RT1,
@@ -110,99 +94,22 @@ assign lvdc_word_next = {
     BR17
 };
 
-`ifdef TARGET_FPGA
-always @(posedge SIM_CLK) begin
-    if (~SIM_RST) begin
-        lvdc_word <= 40'b0;
-    end else begin
-        if (state == `STATE_SAMPLE) begin
-            lvdc_word <= lvdc_word_next;
-        end else begin
-            if (state == `STATE_WAIT && ~uart_tx_busy) begin
-                lvdc_word <= lvdc_word << 8;
-            end else begin
-                lvdc_word <= lvdc_word;
-            end
-        end
-    end
-end
+`ifdef CLOCKED
 
 localparam MAX_COUNT = 170666;
+localparam COUNT_LEN = $clog2(MAX_COUNT);
+reg [COUNT_LEN-1:0] counter;
 
-reg [17:0] count;
-
-always @(posedge SIM_CLK) begin
+always @(posedge SIM_CLK or negedge SIM_RST) begin
     if (~SIM_RST) begin
-        count <= MAX_COUNT;
+        counter <= 0;
     end else begin
-        if (count == 0) begin
-            count <= MAX_COUNT;
-        end else begin
-            count <= count - 1;
-        end
+        if (counter >= MAX_COUNT - 1) counter <= 0;
+        else counter <= counter + 1;
     end
 end
-
-always @(*) begin
-    state_next = state;
-    case (state)
-    `STATE_IDLE: begin
-        if (count == 18'd0 && !(lvdc_word_next[39:37] == 3'b0 && lvdc_word_next[35:0] == 36'b0)) begin
-            state_next = `STATE_SAMPLE;
-        end
-    end
-    `STATE_SAMPLE: begin
-        state_next = `STATE_SEND;
-    end
-    `STATE_SEND: begin
-        state_next = `STATE_WAIT;
-    end
-    `STATE_WAIT: begin
-        if (~uart_tx_busy) begin
-            if (byte_count == 0) begin
-                state_next = `STATE_IDLE;
-            end else begin
-                state_next = `STATE_SEND;
-            end
-        end
-    end
-
-    endcase
-end
-
-always @(posedge SIM_CLK) begin
-    if (~SIM_RST) begin
-        state <= 2'd0;
-    end else begin
-        state <= state_next;
-    end
-end
-
-always @(posedge SIM_CLK) begin
-    if (~SIM_RST) begin
-        byte_count <= 4'd6;
-    end else begin
-        if (state == `STATE_SAMPLE) begin
-            byte_count <= 4'd6;
-        end else if (state == `STATE_SEND) begin
-            byte_count <= byte_count - 1;
-        end
-    end
-end
-
-assign TSYNC = (byte_count == 5);
-
-uart_tx #(
-    .BIT_RATE(115200),
-    .CLK_HZ(40960000)
-) tx (
-    .clk(SIM_CLK),
-    .resetn(SIM_RST),
-    .uart_txd(SIM_UART_TX),
-    .uart_tx_en(uart_tx_en),
-    .uart_tx_busy(uart_tx_busy),
-    .uart_tx_data(lvdc_word[47:40]) 
-);
+assign SIM_TLM_SYNC = counter == 0;
+assign TSYNC = counter < 7864; // about 192us
 
 `else
 reg tsync_r = 0;

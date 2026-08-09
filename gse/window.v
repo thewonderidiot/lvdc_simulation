@@ -14,7 +14,7 @@ module window #(
 
 initial out = 'b0;
 
-`ifdef TARGET_FPGA
+`ifdef CLOCKED
 
 reg clock_r;
 always @(posedge SIM_CLK or negedge SIM_RST) begin

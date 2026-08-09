@@ -11,7 +11,7 @@ module vsg(
 
 initial y = 1'b1;
 
-`ifdef TARGET_FPGA
+`ifdef CLOCKED
 
 reg prev_a;
 initial prev_a = 1'b0;

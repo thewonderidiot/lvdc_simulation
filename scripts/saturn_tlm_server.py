@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 from serial.tools import list_ports
+from slip import *
 import serial
 import time
 import struct
@@ -22,11 +23,11 @@ def check_parity(tag, word, parity):
 port = None
 devices = list_ports.comports()
 for dev in devices:
-    if dev.vid == 0x0403 and dev.pid == 0x6010:
+    if dev.vid == 0x0403 and dev.pid == 0x6010 and ':1.1' in dev.hwid:
         port = dev.device
         break
 
-s = serial.Serial(port, 115200, timeout=0.01)
+s = serial.Serial(port, 1000000, timeout=0.005)
 
 # Open up a socket for OpenC3
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -48,24 +49,32 @@ while True:
             pass
 
     # Read in LVDC telemetry
-    data += s.read(36)
+    data += s.read(100)
     if not data:
         continue
 
-    # Search for the sync pattern, and sync to it
-    if data[0] != 0xA5:
-        data = data[data.find(0xA5):]
 
-    num_frames = len(data)//6
-    for i in range(num_frames):
+    while data != b'':
+        bs, data = unslip_from(data)
+        if bs == b'':
+            break
+
+        msgid = bs[0]
+        bs = bs[1:]
+
+        if msgid != 0x01:
+            continue
+
+        if bs == b'\x10\x00\x00\x00\x00':
+            continue
+
         # Reconstitute the tag and word from the transmission format
-        bs = data[i*6+1:i*6+6]
         tag = ((bs[0] & 0xE0) << 4) | ((bs[1] & 0x3F) << 3) | ((bs[2] & 0xC0) >> 5) | ((bs[2] & 0x10) >> 4)
         word = (((bs[0] & 0x0F) << 2) | ((bs[1] & 0xC0) >> 6) | ((bs[2] & 0x0F) << 12) |
                 ((bs[3] & 0xFC) << 4) | ((bs[3] & 0x3) << 24) | (bs[4] << 16))
         parity = (bs[0] & 0x10) >> 4
 
-        # Check the validity bit. If set, data is possible corrupt.
+        # Check the validity bit. If set, data is possibly corrupt.
         if bs[2] & 0x20:
             continue
 
@@ -93,5 +102,3 @@ while True:
                 conn.sendall(packet)
             except:
                 conn = None
-
-    data = data[num_frames*6:]

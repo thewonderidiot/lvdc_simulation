@@ -11,7 +11,7 @@ parameter delay = 2500;
 
 initial y = 0;
 
-`ifdef TARGET_FPGA
+`ifdef CLOCKED
 
 localparam WIDTH = (delay*10/244);
 

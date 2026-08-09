@@ -210,7 +210,7 @@ assign inh = {MmINH1, MmINH2, MmINH3, MmINH4, MmINH5, MmINH6, MmINH7, MmINH8, Mm
 reg [28:1] data;
 initial data = 28'b0;
 
-`ifdef TARGET_FPGA
+`ifdef CLOCKED
 always @(posedge SIM_CLK) begin
     if (MmSTRP3) begin
         core[address] <= AnSYL0VN ? {data[28:15], inh} : {inh, data[14:1]};
@@ -226,7 +226,7 @@ end
 
 
 // Sense
-`ifdef TARGET_FPGA
+`ifdef CLOCKED
 always @(posedge SIM_CLK) begin
     data <= core[address];
 end

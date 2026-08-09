@@ -10,7 +10,7 @@ module inv(
 
 parameter iv = 1;
 
-`ifdef TARGET_FPGA
+`ifdef CLOCKED
 
 reg yc;
 reg yp;

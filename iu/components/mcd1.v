@@ -14,7 +14,7 @@ initial y = 0;
 wire b;
 assign b = a1 & a2;
 
-`ifdef TARGET_FPGA
+`ifdef CLOCKED
 
 reg prev_b;
 initial prev_b = 1'b1;

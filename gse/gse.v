@@ -4,6 +4,9 @@
 module gse(
     input wire SIM_CLK,
     input wire SIM_RST,
+    input wire [39:0] SIM_TLM,
+    input wire SIM_TLM_SYNC,
+    output wire SIM_UART_TX,
 
     // RCA-110A
     input wire BR1X,   // Buffer reg latch 1 GSE output
@@ -180,27 +183,41 @@ clock_gen clock_gen1(
     .z(z)
 );
 
-wire [26:1] acc;
-wire [2:1] dsm;
-wire [26:1] dv;
-wire [26:1] hopc;
-wire [8:1] ic;
-wire [26:1] md;
-wire [24:1] mr;
-wire [26:1] mem;
-wire [26:1] pq;
-wire [24:1] pr;
-wire [26:1] rm;
-wire [26:1] qt;
+wire [1:26] trs;
+wire [8:1] ai3_ia;
+wire [1:26] ai3_data;
+wire [1:26] md7;
+wire [1:26] mr1;
+wire [1:26] pr0;
+wire [1:26] hopc1;
+wire [1:13] rtc;
+wire [1:13] mlc;
+wire [1:13] ssc;
+wire [1:26] ssmsr;
+
+wire [39:0] reg_stream;
+wire reg_stream_sync;
 
 lvdc_registers lvdc_registers1(
     .SIM_CLK(SIM_CLK),
     .SIM_RST(SIM_RST),
 
+    .CST(CST),
+
     .OP1V(OP1V),
     .OP2V(OP2V),
     .OP3V(OP3V),
     .OP4V(OP4V),
+
+    .A1V(A1V),
+    .A2V(A2V),
+    .A3V(A3V),
+    .A4V(A4V),
+    .A5V(A5V),
+    .A6V(A6V),
+    .A7V(A7V),
+    .A8V(A8V),
+    .A9V(A9V),
 
     .AI3V(AI3V),
     .HOPC1V(HOPC1V),
@@ -208,7 +225,12 @@ lvdc_registers lvdc_registers1(
     .MR1V(MR1V),
     .PR0V(PR0V),
     .TRSV(TRSV),
+    .C1RDN(C1RDN),
+    .C2RDN(C2RDN),
+    .C3RD(C3RD),
+    .C4RDV(C4RDV),
 
+    .ADV(ADV),
     .pa(pa),
     .pb(pb),
     .pc(pc),
@@ -218,22 +240,37 @@ lvdc_registers lvdc_registers1(
     .y(y),
     .z(z),
 
-    .acc(acc),
-    .dsm(dsm),
-    .dv(dv),
-    .hopc(hopc),
-    .ic(ic),
-    .md(md),
-    .mr(mr),
-    .mem(mem),
-    .pq(pq),
-    .pr(pr),
-    .rm(rm),
-    .qt(qt)
+    .trs(trs),
+    .ai3_ia(ai3_ia),
+    .ai3_data(ai3_data),
+    .md7(md7),
+    .mr1(mr1),
+    .pr0(pr0),
+    .hopc1(hopc1),
+    .rtc(rtc),
+    .mlc(mlc),
+    .ssc(ssc),
+    .ssmsr(ssmsr),
+
+    .reg_stream(reg_stream),
+    .reg_stream_sync(reg_stream_sync)
 );
 
-// OLD BOOT STUFF
 `ifdef TARGET_FPGA
+streamer streamer1(
+    .SIM_CLK(SIM_CLK),
+    .SIM_RST(SIM_RST),
+    .SIM_TLM(SIM_TLM),
+    .SIM_TLM_SYNC(SIM_TLM_SYNC),
+    .SIM_UART_TX(SIM_UART_TX),
+
+    .reg_stream(reg_stream),
+    .reg_stream_sync(reg_stream_sync)
+);
+`endif
+
+// OLD BOOT STUFF
+`ifdef CLOCKED
 reg [13:0] boot_count;
 reg [13:0] next_boot_count;
 initial boot_count = 14'o37777;
@@ -261,7 +298,7 @@ end
 `else
 initial begin
     #100000 HLTX = 0;
-    // #1700000 CST = 1;
+    // #1000000 CST = 1;
     // TE1 = 1;
     // #1000000 CST = 0;
     // #2000000 HLTX = 1;

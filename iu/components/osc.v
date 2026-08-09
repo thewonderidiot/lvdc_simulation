@@ -9,7 +9,7 @@ module osc(
 
 initial y = 0;
 
-`ifdef TARGET_FPGA
+`ifdef CLOCKED
 
 reg [3:0] count;
 reg [3:0] count_next;

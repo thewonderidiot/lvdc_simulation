@@ -14,6 +14,8 @@ module lvdc_fpga(
 
 wire SIM_CLK;
 wire SIM_RST;
+wire [39:0] SIM_TLM;
+wire SIM_TLM_SYNC;
 
 prop_clk prop_clk0(
     .clk_in1(clk),
@@ -186,7 +188,8 @@ wire W6;
 iu iu1(
     .SIM_CLK(SIM_CLK),
     .SIM_RST(SIM_RST),
-    .SIM_UART_TX(SIM_UART_TX),
+    .SIM_TLM(SIM_TLM),
+    .SIM_TLM_SYNC(SIM_TLM_SYNC),
 
     // Saturn Discrete Inputs
     .DIN3X(DIN3X),
@@ -338,6 +341,9 @@ iu iu1(
 gse gse1(
     .SIM_CLK(SIM_CLK),
     .SIM_RST(SIM_RST),
+    .SIM_TLM(SIM_TLM),
+    .SIM_TLM_SYNC(SIM_TLM_SYNC),
+    .SIM_UART_TX(SIM_UART_TX),
 
     // RCA-110A
     .BR1X(BR1X),

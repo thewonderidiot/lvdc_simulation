@@ -29,7 +29,7 @@ initial x = 0;
 initial y = 0;
 initial z = 0;
 
-`ifdef TARGET_FPGA
+`ifdef CLOCKED
 
 localparam PHASE_CLOCKS = 1120;
 localparam BIT_CLOCKS = 20;

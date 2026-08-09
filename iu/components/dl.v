@@ -11,7 +11,7 @@ parameter delay = 31000;
 
 initial y = 0;
 
-`ifdef TARGET_FPGA
+`ifdef CLOCKED
 
 localparam SIZE = (delay*10/244);
 reg [SIZE-1:0] delay_line;
