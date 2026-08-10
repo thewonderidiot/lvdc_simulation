@@ -1,0 +1,135 @@
+from collections import namedtuple
+import struct
+
+class MsgId:
+    Debug = 0
+    Telemetry = 1
+    Registers = 2
+
+class Register:
+    SSMSR = 0
+    OP_A_IA = 1
+    TRS = 2
+    AI3_DATA = 3
+    MD7 = 4
+    MR1 = 5
+    PR0 = 6
+    HOPC1 = 7
+    RTC = 8
+    SSC_MLC = 9
+
+class RegistersCmd:
+    SET_HIST_IDX = 0
+
+Telemetry = namedtuple('Telemetry', ['tag', 'rtc', 'word'])
+RegisterSSMSR = namedtuple('RegisterSSMSR', ['hist_idx', 'im', 'dupin', 'is_', 'syl', 'dm', 'dupdn', 'ds'])
+RegisterOP_A_IA = namedtuple('RegisterOP_A_IA', ['hist_idx', 'op', 'a', 'ia'])
+RegisterTRS = namedtuple('RegisterTRS', ['hist_idx', 'trs'])
+RegisterAI3_DATA = namedtuple('RegisterAI3A_DATA', ['hist_idx', 'data'])
+RegisterMD7 = namedtuple('RegisterMD7', ['hist_idx', 'md7'])
+RegisterMR1 = namedtuple('RegisterMR1', ['hist_idx', 'mr1'])
+RegisterPR0 = namedtuple('RegisterPR0', ['hist_idx', 'pr0'])
+RegisterHOPC1 = namedtuple('RegisterHOPC1', ['hist_idx', 'hopc1'])
+RegisterRTC = namedtuple('RegisterRTC', ['hist_idx', 'rtc'])
+RegisterSSC_MLC = namedtuple('RegisterSSC_MLC', ['hist_idx', 'ssc', 'mlc'])
+
+RegistersSetHistIndex = namedtuple('RegistersSetHistIndex', ['hist_idx'])
+
+def check_parity(tag, word, parity):
+    word = (tag << 26) | word
+    p = 0
+    for i in range(38):
+        if word & (1 << i):
+            p ^= 1
+
+    return parity != p
+
+def unpack(msg_bytes):
+    msg = None
+    msg_id, = struct.unpack_from('>B', msg_bytes)
+
+    if msg_id == MsgId.Telemetry:
+        bs = msg_bytes[1:]
+        if bs == b'\x10\x00\x00\x00\x00':
+            return None
+
+        tag = ((bs[0] & 0xE0) << 4) | ((bs[1] & 0x3F) << 3) | ((bs[2] & 0xC0) >> 5) | ((bs[2] & 0x10) >> 4)
+        word = (((bs[0] & 0x0F) << 2) | ((bs[1] & 0xC0) >> 6) | ((bs[2] & 0x0F) << 12) |
+                ((bs[3] & 0xFC) << 4) | ((bs[3] & 0x3) << 24) | (bs[4] << 16))
+        parity = (bs[0] & 0x10) >> 4
+
+        # Check the validity bit. If set, data is possibly corrupt.
+        if bs[2] & 0x20:
+            return None
+
+        if not check_parity(tag, word, parity):
+            return None
+
+        # Check the parity of the frame.
+        if not check_parity(tag, word, parity):
+            return None
+
+        if tag & 0x100:
+            # LVDC telemetry: transmit the entire tag and word
+            rtc = 0
+        else:
+            # LVDA telemetry: extract the RTC timestamp bits from the tag
+            # and send the two separately.
+            rtc = ((tag >> 9) & 0o7) | ((tag << 3) & 0o10)
+            tag = (tag & 0o776) >> 1
+
+        msg = Telemetry(tag, rtc, word)
+
+    elif msg_id == MsgId.Registers:
+        reg_id = msg_bytes[1] >> 4
+        hist_idx = msg_bytes[1] & 0xF
+
+        if reg_id == Register.SSMSR:
+            im = ((msg_bytes[5] << 1) & 0x06) | ((msg_bytes[2] >> 1) & 0x01)
+            is_ = (msg_bytes[5] >> 2) & 0x0F
+            syl = (msg_bytes[5] >> 6) & 0x01
+            dupdn = msg_bytes[3] & 0x01
+            dm = (msg_bytes[3] >> 1) & 0x07
+            ds = (msg_bytes[3] >> 4) & 0x0F
+            dupin = msg_bytes[2] & 0x01
+            msg = RegisterSSMSR(hist_idx, im, dupin, is_, syl, dm, dupdn, ds)
+        elif reg_id == Register.OP_A_IA:
+            op = msg_bytes[2]
+            a = struct.unpack_from('>H', msg_bytes, 3)
+            ia = msg_bytes[5]
+            msg = RegisterOP_A_IA(hist_idx, op, a, ia)
+        elif reg_id == Register.TRS:
+            trs = struct.unpack_from('>I', msg_bytes, 2)
+            msg = RegisterTRS(hist_idx, trs)
+        elif reg_id == Register.AI3_DATA:
+            data = struct.unpack_from('>I', msg_bytes, 2)
+            msg = RegisterAI3_DATA(hist_idx, data)
+        elif reg_id == Register.MD7:
+            md7 = struct.unpack_from('>I', msg_bytes, 2)
+            msg = RegisterMD7(hist_idx, md7)
+        elif reg_id == Register.MR1:
+            mr1 = struct.unpack_from('>I', msg_bytes, 2)
+            msg = RegisterMR1(hist_idx, mr1)
+        elif reg_id == Register.PR0:
+            pr0 = struct.unpack_from('>I', msg_bytes, 2)
+            msg = RegisterPR0(hist_idx, pr0)
+        elif reg_id == Register.HOPC1:
+            hopc1 = struct.unpack_from('>I', msg_bytes, 2)
+            msg = RegisterHOPC1(hist_idx, hopc1)
+        elif reg_id == Register.RTC:
+            rtc = struct.unpack_from('>H', msg_bytes, 4)
+            msg = RegisterRTC(hist_idx, rtc)
+        elif reg_id == Register.SSC_MLC:
+            ssc = struct.unpack_from('>H', msg_bytes, 2)
+            mlc = struct.unpack_from('>H', msg_bytes, 4)
+            msg = RegisterSSC_MLC(hist_idx, ssc, mlc)
+        
+    return msg
+
+def pack(msg):
+    if isinstance(msg, RegistersSetHistIndex):
+        msgid = MsgId.Registers
+        cmdid = RegistersCmd.SET_HIST_IDX
+        msg_bytes = struct.pack('>BBxxxB', msgid, cmdid, msg.hist_idx)
+
+    return msg_bytes
