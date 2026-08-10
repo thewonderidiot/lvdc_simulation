@@ -3,10 +3,10 @@
 
 module iu_sim;
 
-reg SIM_CLK;
-initial SIM_CLK = 0;
+reg SIM_CLK = 0;
 wire [39:0] SIM_TLM;
 wire SIM_TLM_SYNC;
+wire SIM_UART_RX = 0;
 wire SIM_UART_TX;
 
 `ifdef CLOCKED
@@ -316,6 +316,7 @@ gse gse1(
     .SIM_RST(SIM_RST),
     .SIM_TLM(SIM_TLM),
     .SIM_TLM_SYNC(SIM_TLM_SYNC),
+    .SIM_UART_RX(SIM_UART_RX),
     .SIM_UART_TX(SIM_UART_TX),
 
     // RCA-110A

@@ -5,6 +5,9 @@ module lvdc_registers(
     input wire SIM_CLK,
     input wire SIM_RST,
 
+    input wire [47:0] cmd,
+    input wire cmd_ready,
+
     input wire CST,
 
     input wire OP1V,
@@ -243,6 +246,7 @@ serial_register reg_ssmsr(
 );
 
 
+`ifdef CLOCKED
 localparam NUM_REGISTERS = 10;
 localparam FREQUENCY = 50;
 localparam MAX_COUNT = (40960000 / NUM_REGISTERS / FREQUENCY);
@@ -283,12 +287,27 @@ always @(*) begin
         'd5:  reg_stream = {reg_idx, hist_idx, 6'b0, mr1};
         'd6:  reg_stream = {reg_idx, hist_idx, 6'b0, pr0};
         'd7:  reg_stream = {reg_idx, hist_idx, 6'b0, hopc1};
-        'd8:  reg_stream = {reg_idx, hist_idx, 3'b0, rtc, 3'b0, mlc};
-        'd9:  reg_stream = {reg_idx, hist_idx, 19'b0, ssc};
+        'd8:  reg_stream = {reg_idx, hist_idx, 19'b0, rtc};
+        'd9:  reg_stream = {reg_idx, hist_idx, 3'b0, ssc, 3'b0, mlc};
     endcase
 end
 
 assign reg_stream_sync = counter == 0;
+`endif
+
+`ifdef TARGET_FPGA
+always @(posedge SIM_CLK or negedge SIM_RST) begin
+    if (~SIM_RST) begin
+        hist_idx <= 'd0;
+    end else begin
+        if (cmd_ready & cmd[47:40] == `MSGID_REGISTERS) begin
+            case (cmd[39:32])
+                'h00: hist_idx <= cmd[3:0];
+            endcase
+        end
+    end
+end
+`endif
 
 endmodule
 `default_nettype wire

@@ -1,5 +1,8 @@
 iu_sim
+iu_sim_clocked
 *.fst
 *.swp
+*.lst
 yaASM*
 build/
+__pycache__

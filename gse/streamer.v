@@ -1,7 +1,7 @@
 `timescale 1ns/1ps
 `default_nettype none
 
-`include "gse_defs.h"
+`include "gse_defs.v"
 
 module streamer(
     input wire SIM_CLK,
@@ -47,14 +47,6 @@ stream_fifo reg_fifo(
   .empty(reg_fifo_empty)
 );
 
-assign next_msg = ~tlm_fifo_empty ? {`MSGID_TELEMETRY, next_tlm} :
-                  ~reg_fifo_empty ? {`MSGID_REGISTERS, next_reg} :
-                  40'b0;
-
-assign read_tlm = (~tlm_fifo_empty & ~send_fifo_full);
-assign read_reg = (tlm_fifo_empty & ~reg_fifo_empty & ~send_fifo_full);
-assign next_msg_ready = read_tlm | read_reg;
-
 // Signal to send message FIFO that the message sender is ready for data
 wire sender_ready;
 // Data from send message FIFO to the message sender
@@ -77,6 +69,14 @@ wire tx_byte_fifo_empty;
 // Output byte from the TX byte FIFO
 wire [7:0] tx_byte;
 wire tx_byte_read_en;
+
+assign next_msg = ~tlm_fifo_empty ? {`MSGID_TELEMETRY, next_tlm} :
+                  ~reg_fifo_empty ? {`MSGID_REGISTERS, next_reg} :
+                  40'b0;
+
+assign read_tlm = (~tlm_fifo_empty & ~send_fifo_full);
+assign read_reg = (tlm_fifo_empty & ~reg_fifo_empty & ~send_fifo_full);
+assign next_msg_ready = read_tlm | read_reg;
 
 // Send message FIFO
 msg_fifo send_msg_fifo(

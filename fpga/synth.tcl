@@ -56,9 +56,17 @@ set_property -dict [list \
     CONFIG.Performance_Options {First_Word_Fall_Through} \
 ] [get_ips tx_byte_fifo]
 
+create_ip -name fifo_generator -vendor xilinx.com -library ip -module_name cmd_fifo -dir ip -force
+set_property -dict [list \
+    CONFIG.Fifo_Implementation {Common_Clock_Block_RAM} \
+    CONFIG.Input_Data_Width {48} \
+    CONFIG.Input_Depth {512} \
+    CONFIG.Output_Data_Width {48} \
+    CONFIG.Output_Depth {512} \
+    CONFIG.Performance_Options {First_Word_Fall_Through} \
+] [get_ips cmd_fifo]
 
-
-synth_ip [get_ips prop_clk stream_fifo msg_fifo tx_byte_fifo]
+synth_ip [get_ips prop_clk stream_fifo msg_fifo tx_byte_fifo cmd_fifo]
 synth_design -top "lvdc_fpga" -part "xc7a35tcpg236-1"
 
 write_checkpoint -force post_synth.dcp

@@ -9,6 +9,7 @@ module lvdc_fpga(
     output wire AI3V,
     output wire TRSV,
     output wire DATAV,
+    input wire SIM_UART_RX,
     output wire SIM_UART_TX
 );
 
@@ -343,6 +344,7 @@ gse gse1(
     .SIM_RST(SIM_RST),
     .SIM_TLM(SIM_TLM),
     .SIM_TLM_SYNC(SIM_TLM_SYNC),
+    .SIM_UART_RX(SIM_UART_RX),
     .SIM_UART_TX(SIM_UART_TX),
 
     // RCA-110A

@@ -6,6 +6,7 @@ module gse(
     input wire SIM_RST,
     input wire [39:0] SIM_TLM,
     input wire SIM_TLM_SYNC,
+    input wire SIM_UART_RX,
     output wire SIM_UART_TX,
 
     // RCA-110A
@@ -166,6 +167,9 @@ wire x;
 wire y;
 wire z;
 
+wire [47:0] cmd;
+wire cmd_ready;
+
 clock_gen clock_gen1(
     .SIM_CLK(SIM_CLK),
     .SIM_RST(SIM_RST),
@@ -201,6 +205,9 @@ wire reg_stream_sync;
 lvdc_registers lvdc_registers1(
     .SIM_CLK(SIM_CLK),
     .SIM_RST(SIM_RST),
+
+    .cmd(cmd),
+    .cmd_ready(cmd_ready),
 
     .CST(CST),
 
@@ -257,6 +264,17 @@ lvdc_registers lvdc_registers1(
 );
 
 `ifdef TARGET_FPGA
+cmd_interface cmd_interface(
+    .SIM_CLK(SIM_CLK),
+    .SIM_RST(SIM_RST),
+    .SIM_UART_RX(SIM_UART_RX),
+
+    .cmd_busy(1'b0),
+
+    .cmd(cmd),
+    .cmd_ready(cmd_ready)
+);
+
 streamer streamer1(
     .SIM_CLK(SIM_CLK),
     .SIM_RST(SIM_RST),
@@ -267,6 +285,9 @@ streamer streamer1(
     .reg_stream(reg_stream),
     .reg_stream_sync(reg_stream_sync)
 );
+`else
+assign cmd = 0;
+assign cmd_ready = 0;
 `endif
 
 // OLD BOOT STUFF

@@ -2,6 +2,7 @@ set_property -dict {PACKAGE_PIN L17 IOSTANDARD LVCMOS33} [get_ports {clk}];
 create_clock -add -name clk_pin -period 83.333 -waveform {0 41.666} [get_ports {clk}];
 
 set_property -dict {PACKAGE_PIN A18 IOSTANDARD LVCMOS33} [get_ports {rst}];
+set_property -dict {PACKAGE_PIN J17 IOSTANDARD LVCMOS33} [get_ports {SIM_UART_RX}];
 set_property -dict {PACKAGE_PIN J18 IOSTANDARD LVCMOS33} [get_ports {SIM_UART_TX}];
 
 set_property -dict {PACKAGE_PIN L3 IOSTANDARD LVCMOS33} [get_ports {AI3V}];

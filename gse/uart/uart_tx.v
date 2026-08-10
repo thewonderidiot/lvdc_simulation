@@ -7,7 +7,12 @@
 // - UART transmitter module.
 //
 
-module uart_tx #(parameter PAYLOAD_BITS = 8, BIT_RATE = 9600, CLK_HZ = 50_000_000)
+module uart_tx #(
+parameter BIT_RATE     = 9600,       // Input bit rate of the UART line. (bits / sec)
+parameter CLK_HZ       = 50_000_000, // Clock frequency in hertz.
+parameter PAYLOAD_BITS = 8,          // Number of data bits recieved per UART packet.
+parameter STOP_BITS    = 1           // Number of stop bits indicating the end of a packet.
+)
 (
 input  wire         clk         , // Top level system clock input.
 input  wire         resetn      , // Asynchronous active low reset.
@@ -18,30 +23,16 @@ input  wire [PAYLOAD_BITS-1:0]   uart_tx_data  // The data to be sent
 );
 
 // --------------------------------------------------------------------------- 
-// External parameters.
+// Internal parameters.
 // 
 
 //
-// Input bit rate of the UART line.
-//parameter   BIT_RATE        = 9600; // bits / sec
+// Input bit period of the UART line.
 localparam  BIT_P           = 1_000_000_000 * 1/BIT_RATE; // nanoseconds
 
 //
-// Clock frequency in hertz.
-//parameter   CLK_HZ          =    50_000_000;
+// Clock period
 localparam  CLK_P           = 1_000_000_000 * 1/CLK_HZ; // nanoseconds
-
-//
-// Number of data bits recieved per UART packet.
-//parameter   PAYLOAD_BITS    = 8;
-
-//
-// Number of stop bits indicating the end of a packet.
-parameter   STOP_BITS       = 1;
-
-// --------------------------------------------------------------------------- 
-// Internal parameters.
-// 
 
 //
 // Number of clock cycles per uart bit.
