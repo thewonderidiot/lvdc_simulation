@@ -8,7 +8,7 @@ class MsgId:
 
 class Register:
     SSMSR = 0
-    OP_A_IA = 1
+    OP_A = 1
     TRS = 2
     AI3_DATA = 3
     MD7 = 4
@@ -23,7 +23,7 @@ class RegistersCmd:
 
 Telemetry = namedtuple('Telemetry', ['tag', 'rtc', 'word'])
 RegisterSSMSR = namedtuple('RegisterSSMSR', ['hist_idx', 'im', 'dupin', 'is_', 'syl', 'dm', 'dupdn', 'ds'])
-RegisterOP_A_IA = namedtuple('RegisterOP_A_IA', ['hist_idx', 'op', 'a', 'ia'])
+RegisterOP_A = namedtuple('RegisterOP_A', ['hist_idx', 'bra', 'brb', 'op', 'a', 'ia'])
 RegisterTRS = namedtuple('RegisterTRS', ['hist_idx', 'trs'])
 RegisterAI3_DATA = namedtuple('RegisterAI3A_DATA', ['hist_idx', 'data'])
 RegisterMD7 = namedtuple('RegisterMD7', ['hist_idx', 'md7'])
@@ -93,35 +93,37 @@ def unpack(msg_bytes):
             ds = (msg_bytes[3] >> 4) & 0x0F
             dupin = msg_bytes[2] & 0x01
             msg = RegisterSSMSR(hist_idx, im, dupin, is_, syl, dm, dupdn, ds)
-        elif reg_id == Register.OP_A_IA:
-            op = msg_bytes[2]
-            a = struct.unpack_from('>H', msg_bytes, 3)
+        elif reg_id == Register.OP_A:
+            bra = (msg_bytes[2] >> 4) & 1
+            brb = (msg_bytes[2] >> 5) & 1
+            op = msg_bytes[2] & 0x0F
+            a, = struct.unpack_from('>H', msg_bytes, 3)
             ia = msg_bytes[5]
-            msg = RegisterOP_A_IA(hist_idx, op, a, ia)
+            msg = RegisterOP_A(hist_idx, bra, brb, op, a, ia)
         elif reg_id == Register.TRS:
-            trs = struct.unpack_from('>I', msg_bytes, 2)
+            trs, = struct.unpack_from('>I', msg_bytes, 2)
             msg = RegisterTRS(hist_idx, trs)
         elif reg_id == Register.AI3_DATA:
-            data = struct.unpack_from('>I', msg_bytes, 2)
+            data, = struct.unpack_from('>I', msg_bytes, 2)
             msg = RegisterAI3_DATA(hist_idx, data)
         elif reg_id == Register.MD7:
-            md7 = struct.unpack_from('>I', msg_bytes, 2)
+            md7, = struct.unpack_from('>I', msg_bytes, 2)
             msg = RegisterMD7(hist_idx, md7)
         elif reg_id == Register.MR1:
-            mr1 = struct.unpack_from('>I', msg_bytes, 2)
+            mr1, = struct.unpack_from('>I', msg_bytes, 2)
             msg = RegisterMR1(hist_idx, mr1)
         elif reg_id == Register.PR0:
-            pr0 = struct.unpack_from('>I', msg_bytes, 2)
+            pr0, = struct.unpack_from('>I', msg_bytes, 2)
             msg = RegisterPR0(hist_idx, pr0)
         elif reg_id == Register.HOPC1:
-            hopc1 = struct.unpack_from('>I', msg_bytes, 2)
+            hopc1, = struct.unpack_from('>I', msg_bytes, 2)
             msg = RegisterHOPC1(hist_idx, hopc1)
         elif reg_id == Register.RTC:
-            rtc = struct.unpack_from('>H', msg_bytes, 4)
+            rtc, = struct.unpack_from('>H', msg_bytes, 4)
             msg = RegisterRTC(hist_idx, rtc)
         elif reg_id == Register.SSC_MLC:
-            ssc = struct.unpack_from('>H', msg_bytes, 2)
-            mlc = struct.unpack_from('>H', msg_bytes, 4)
+            ssc, = struct.unpack_from('>H', msg_bytes, 2)
+            mlc, = struct.unpack_from('>H', msg_bytes, 4)
             msg = RegisterSSC_MLC(hist_idx, ssc, mlc)
         
     return msg

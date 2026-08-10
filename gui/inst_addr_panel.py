@@ -1,4 +1,4 @@
-from qtpy.QtWidgets import QFrame, QHBoxLayout, QVBoxLayout, QWidget, QLabel
+from qtpy.QtWidgets import QFrame, QHBoxLayout, QVBoxLayout, QWidget, QLabel, QSizePolicy
 from qtpy.QtCore import Qt
 from module_reg import ModuleReg
 from sector_reg import SectorReg
@@ -16,6 +16,7 @@ class InstAddrPanel(QFrame):
         self._usbif.msg_received.connect(self._update)
 
     def _setup_ui(self):
+        self.setSizePolicy(QSizePolicy.Maximum, QSizePolicy.Maximum)
         self.setFrameStyle(QFrame.Panel | QFrame.Raised)
         layout = QVBoxLayout(self)
         layout.setSpacing(0)
@@ -38,7 +39,7 @@ class InstAddrPanel(QFrame):
         self._mod_reg = ModuleReg(self, 'IM')
         row_layout.addWidget(self._mod_reg)
 
-        row_layout.addSpacing(40)
+        row_layout.addSpacing(50)
 
         self._sec_reg = SectorReg(self, 'IS', has_syl=True)
         row_layout.addWidget(self._sec_reg)
@@ -48,7 +49,7 @@ class InstAddrPanel(QFrame):
         row_layout = QHBoxLayout(row)
         row.setLayout(row_layout)
         self._addr_reg = AddrReg(self)
-        row_layout.addSpacing(30)
+        row_layout.addSpacing(50)
         row_layout.addWidget(self._addr_reg)
 
     def _update(self, msg):
@@ -59,5 +60,5 @@ class InstAddrPanel(QFrame):
             self._sec_reg.setSyl(msg.syl)
             self._sec_reg.setValue(msg.is_)
 
-        elif isinstance(msg, usb_msg.RegisterOP_A_IA):
+        elif isinstance(msg, usb_msg.RegisterOP_A):
             self._addr_reg.setValue(msg.ia)

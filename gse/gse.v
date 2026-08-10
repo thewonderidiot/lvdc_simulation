@@ -187,6 +187,9 @@ clock_gen clock_gen1(
     .z(z)
 );
 
+wire [4:1] op;
+wire [9:1] a;
+wire [2:1] br14p;
 wire [1:26] trs;
 wire [8:1] ai3_ia;
 wire [1:26] ai3_data;
@@ -226,6 +229,9 @@ lvdc_registers lvdc_registers1(
     .A8V(A8V),
     .A9V(A9V),
 
+    .BRA14P(BRA14P),
+    .BRB14P(BRB14P),
+
     .AI3V(AI3V),
     .HOPC1V(HOPC1V),
     .MD7V(MD7V),
@@ -247,6 +253,9 @@ lvdc_registers lvdc_registers1(
     .y(y),
     .z(z),
 
+    .op(op),
+    .a(a),
+    .br14p(br14p),
     .trs(trs),
     .ai3_ia(ai3_ia),
     .ai3_data(ai3_data),

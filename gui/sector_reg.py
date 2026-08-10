@@ -17,7 +17,7 @@ class SectorReg(QWidget):
 
     def setSyl(self, syl):
         if self._has_syl:
-            self._syl.setState(0, syl)
+            self._syl.setState(0, syl ^ 1)
 
     def _setup_ui(self, text, has_syl):
         layout = QGridLayout(self)

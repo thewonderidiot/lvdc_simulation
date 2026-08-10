@@ -25,6 +25,9 @@ module lvdc_registers(
     input wire A8V,
     input wire A9V,
 
+    input wire BRA14P,
+    input wire BRB14P,
+
     input wire AI3V,
     input wire HOPC1V,
     input wire MD7V,
@@ -48,6 +51,7 @@ module lvdc_registers(
 
     output wire [4:1] op,
     output wire [9:1] a,
+    output wire [2:1] br14p,
     output wire [1:26] trs,
     output wire [8:1] ai3_ia,
     output wire [1:26] ai3_data,
@@ -87,6 +91,14 @@ parallel_register #(9) reg_a(
     .out(a)
 );
 
+parallel_register #(2) reg_br14p(
+    .SIM_CLK(SIM_CLK),
+    .SIM_RST(SIM_RST),
+    .in({BRA14P, BRB14P}),
+    .sync(pa & bt[12] & x),
+    .index(hist_idx),
+    .out(br14p)
+);
 
 // Multiply and divide detectors
 wire nmmh;
@@ -280,7 +292,7 @@ end
 always @(*) begin
     case (reg_idx)
         'd0:  reg_stream = {reg_idx, hist_idx, 6'b0, ssmsr};
-        'd1:  reg_stream = {reg_idx, hist_idx, 4'b0, op, 7'b0, a, ai3_ia};
+        'd1:  reg_stream = {reg_idx, hist_idx, 2'b0, br14p, op, 7'b0, a, ai3_ia};
         'd2:  reg_stream = {reg_idx, hist_idx, 6'b0, trs};
         'd3:  reg_stream = {reg_idx, hist_idx, 6'b0, ai3_data};
         'd4:  reg_stream = {reg_idx, hist_idx, 6'b0, md7};
