@@ -1,7 +1,7 @@
 from qtpy.QtWidgets import QGridLayout, QWidget, QLabel, QSizePolicy
 from qtpy.QtGui import QColor, QPainter
 from qtpy.QtCore import Qt
-from switch_lamp import SwitchLamp
+from switch_lamp import SwitchLamp2ToggleBottom
 
 class OpReg(QWidget):
     def __init__(self, parent):
@@ -52,13 +52,13 @@ class OpReg(QWidget):
 
         self._opcode_switches = []
         for i in range(4):
-            sw = SwitchLamp(self, ['OP%u' % (4-i)], split='-', colors=[QColor(0,255,0), QColor(255,0,0)], toggle=1)
+            sw = SwitchLamp2ToggleBottom(self, text='OP%u' % (4-i), color=[QColor(0,255,0), QColor(255,0,0)])
             self._opcode_switches.insert(0, sw)
             layout.addWidget(sw, 1, 1+i, 2, 1)
 
         self._operand_switches = []
         for i in range(9):
-            sw = SwitchLamp(self, ['OA%u' % (9-i)], split='-', colors=[QColor(0,255,0), QColor(255,0,0)], toggle=1)
+            sw = SwitchLamp2ToggleBottom(self, text='OA%u' % (9-i), color=[QColor(0,255,0), QColor(255,0,0)])
             self._operand_switches.insert(0, sw)
             layout.addWidget(sw, 1, 5+i, 2, 1)
 

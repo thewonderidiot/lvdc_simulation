@@ -1,10 +1,12 @@
 from qtpy.QtWidgets import QMainWindow, QVBoxLayout, QWidget
 from qtpy.QtCore import Qt
+from qtpy.QtGui import QColor
 import os
 
 from inst_addr_panel import InstAddrPanel
 from data_addr_panel import DataAddrPanel
 from usb_interface import USBInterface
+from switch_lamp import *
 import usb_msg
 
 class MainWindow(QMainWindow):

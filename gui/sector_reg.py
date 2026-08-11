@@ -1,7 +1,7 @@
 from qtpy.QtWidgets import QGridLayout, QWidget, QLabel, QSizePolicy
 from qtpy.QtGui import QColor, QPainter
 from qtpy.QtCore import Qt
-from switch_lamp import SwitchLamp
+from switch_lamp import SwitchLamp2ToggleBottom, SwitchLamp4ToggleBottom
 
 class SectorReg(QWidget):
     def __init__(self, parent, text, has_syl=False):
@@ -42,12 +42,12 @@ class SectorReg(QWidget):
             self._syl_label.setFont(font)
             layout.addWidget(self._syl_label, 0, 0, Qt.AlignCenter)
 
-            self._syl = SwitchLamp(self, ['0','1','1','0'], split='+', colors=[QColor(0,255,0), QColor(0,255,0), QColor(255,0,0), QColor(255,0,0)], toggle=2)
+            self._syl = SwitchLamp4ToggleBottom(self, text=['0','1','1','0'], color=[QColor(0,255,0), QColor(0,255,0), QColor(255,0,0), QColor(255,0,0)])
             layout.addWidget(self._syl, 1, 0)
 
         self._switches = []
         for i in range(4):
-            sw = SwitchLamp(self, ['%s%u' % (text, 4-i)], split='-', colors=[QColor(0,255,0), QColor(255,0,0)], toggle=1)
+            sw = SwitchLamp2ToggleBottom(self, text='%s%u' % (text, 4-i), color=[QColor(0,255,0), QColor(255,0,0)])
             self._switches.insert(0, sw)
             layout.addWidget(sw, 1, i+1)
 

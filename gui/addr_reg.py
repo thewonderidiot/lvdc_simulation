@@ -1,7 +1,7 @@
 from qtpy.QtWidgets import QGridLayout, QWidget, QLabel, QSizePolicy
 from qtpy.QtGui import QColor, QPainter
 from qtpy.QtCore import Qt
-from switch_lamp import SwitchLamp
+from switch_lamp import SwitchLamp2ToggleBottom
 
 class AddrReg(QWidget):
     def __init__(self, parent):
@@ -42,7 +42,7 @@ class AddrReg(QWidget):
 
         self._switches = []
         for i in range(8):
-            sw = SwitchLamp(self, ['A%u' % (8-i)], split='-', colors=[QColor(0,255,0), QColor(255,0,0)], toggle=1)
+            sw = SwitchLamp2ToggleBottom(self, text='A%u' % (8-i), color=[QColor(0,255,0), QColor(255,0,0)])
             self._switches.insert(0, sw)
             layout.addWidget(sw, 1, 1+i, 2, 1)
 

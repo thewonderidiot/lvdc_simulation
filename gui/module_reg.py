@@ -1,7 +1,7 @@
 from qtpy.QtWidgets import QGridLayout, QWidget, QLabel, QSizePolicy
 from qtpy.QtGui import QColor, QPainter
 from qtpy.QtCore import Qt
-from switch_lamp import SwitchLamp
+from switch_lamp import SwitchLamp2ToggleBottom, SwitchLamp4ToggleBottom
 
 class ModuleReg(QWidget):
     def __init__(self, parent, text):
@@ -45,10 +45,10 @@ class ModuleReg(QWidget):
 
         self._switches = []
         for i in range(3):
-            sw = SwitchLamp(self, ['%s%u' % (text, 3-i)], split='-', colors=[QColor(0,255,0), QColor(255,0,0)], toggle=1)
+            sw = SwitchLamp2ToggleBottom(self, text='%s%u' % (text, 3-i), color=[QColor(0,255,0), QColor(255,0,0)])
             self._switches.insert(0, sw)
             layout.addWidget(sw, 1, 1+i, 2, 1)
-        self._dup = SwitchLamp(self, ['DX','SX','SX','DX'], split='+', colors=[QColor(0,255,0), QColor(0,255,0), QColor(255,0,0), QColor(255,0,0)], toggle=2)
+        self._dup = SwitchLamp4ToggleBottom(self, text=['DX','SX','SX','DX'], color=[QColor(0,255,0), QColor(0,255,0), QColor(255,0,0), QColor(255,0,0)])
         layout.addWidget(self._dup, 1, 4, 2, 1)
 
     def paintEvent(self, event):

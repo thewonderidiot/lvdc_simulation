@@ -1,44 +1,12 @@
 from qtpy.QtWidgets import QPushButton, QStyleOption, QStyle, QStylePainter, QStyleOptionButton, QSizePolicy
 from qtpy.QtGui import QPainter, QPen, QColor, QFont
-from qtpy.QtCore import Qt, QRectF
+from qtpy.QtCore import Qt, QRectF, QLineF
 
-# This whole thing is incredibly janky and flimsy. Sorry.
-class SwitchLamp(QPushButton):
-    def __init__(self, parent, texts=[''], colors=[QColor(0,255,0)], toggle=0, split=' '):
+class Lamp(QPushButton):
+    def __init__(self, parent, text='', color=QColor(255,255,255)):
         super().__init__(parent)
-        if split not in ' -|+':
-            raise RuntimeError('Invalid button split "%s"' % split)
 
-        self._split = split
-        if split in '-|':
-            lights = 2
-        elif split == '+':
-            lights = 4
-        else:
-            lights = 1
-
-        if len(texts) == 1:
-            texts = texts * lights
-        elif len(texts) != lights:
-            raise RuntimeError('Text/button mismatch')
-        self._texts = texts
-
-        if len(colors) == 1:
-            colors = colors * lights
-        elif len(colors) != lights:
-            raise RuntimeError('Color/button mismatch')
-        self._colors = colors
-
-        self._states = [False]*lights
-        if toggle == 2:
-            if lights == 4:
-                self._states[3] = True
-            elif lights == 2:
-                self._states[1] = True
-        elif toggle == 4:
-            self._states[0] = True
-        self._toggle = toggle
-
+        self.setEnabled(False)
         self.setFixedSize(50, 50)
         self.setSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
         self.setStyleSheet(
@@ -54,31 +22,29 @@ class SwitchLamp(QPushButton):
             }
             '''
         )
-        self.pressed.connect(self._pressed)
-        self.released.connect(self._released)
+
+        if not isinstance(text, list):
+            text = [text]
+        if not isinstance(color, list):
+            color = [color]
+        self._texts = text
+        self._colors = color
+        self._create_geometry()
+        self._states = [False]*len(self._texts)
+
+    def _create_geometry(self):
+        bw = 2
+        x = bw
+        y = bw
+        w = self.width() - 2*bw
+        h = self.height() - 2*bw
+        self._rects = [QRectF(x, y, w, h)]
+        self._lines = []
 
     def setState(self, light, state):
+        if light > len(self._states):
+            raise RuntimeError('Invalid light %u' % light)
         self._states[light] = state
-        if self._split == '+':
-            if self._toggle == 2 and light == 0:
-                self._states[1] = not state
-        self.update()
-
-    def _pressed(self):
-        if self._toggle == 4 or (len(self._states) == 2 and self._toggle == 2):
-            self._states = self._states[-1:] + self._states[:-1]
-        elif len(self._states) == 4 and self._toggle == 2:
-            self._states[2] = not self._states[2]
-            self._states[3] = not self._states[3]
-        elif len(self._states) == 2 and self._toggle == 1:
-            self._states[1] = not self._states[1]
-        elif len(self._states) == 1:
-            self._states[0] = not self._states[0]
-        self.update()
-
-    def _released(self):
-        if len(self._states) == 1 and self._toggle == 0:
-            self._states[0] = False
         self.update()
 
     def paintEvent(self, event):
@@ -90,45 +56,18 @@ class SwitchLamp(QPushButton):
         p = QPainter(self)
         p.setRenderHint(QPainter.Antialiasing)
 
-        bw = 2
-        x = bw
-        y = bw
-        w = self.width() - 2*bw
-        h = self.height() - 2*bw
-
-        if self._split == '+':
-            rects = [
-                QRectF(x, y, w/2, h/2),
-                QRectF(x+w/2, y, w/2, h/2),
-                QRectF(x+w/2, y+h/2, w/2, h/2),
-                QRectF(x, y+h/2, w/2, h/2),
-            ]
-        elif self._split == '-':
-            rects = [
-                QRectF(x, y, w, h/2),
-                QRectF(x, y+h/2, w, h/2),
-            ]
-        elif self._split == '|':
-            rects = [
-                QRectF(x, y, w/2, h),
-                QRectF(x+w/2, y, w/2, h),
-            ]
-        else:
-            rects = [QRectF(x, y, w, h)]
-
         colors = self._colors[:]
         for i,state in enumerate(self._states):
             if not state:
                 colors[i] = colors[i].darker(255)
-            if self.isDown() and self._toggle != 0:
+
+            if self.isDown():
                 colors[i] = colors[i].darker(132)
 
-            p.fillRect(rects[i], colors[i])
-
-        if self._split in '-+':
-            p.drawLine(x, y+h/2, x+w, y+h/2)
-        if self._split in '|+':
-            p.drawLine(x+w/2, y, x+w/2, y+h)
+            p.fillRect(self._rects[i], colors[i])
+    
+        for line in self._lines:
+            p.drawLine(line)
 
         font = self.font()
         font.setBold(True)
@@ -138,7 +77,158 @@ class SwitchLamp(QPushButton):
         p.setFont(font)
 
         for i,t in enumerate(self._texts):
-            factor = max(0.25, min(1.25, w / p.fontMetrics().width(t)))
+            factor = max(0.25, min(1.25, self.width() / p.fontMetrics().width(t)))
             font.setPointSizeF(pointsize*factor)
             p.setFont(font)
-            p.drawText(rects[i], Qt.AlignCenter, t)
+            p.drawText(self._rects[i], Qt.AlignCenter, t)
+
+class SwitchLampMomentary(Lamp):
+    def __init__(self, parent, text='', color=QColor(255,255,255)):
+        super().__init__(parent, text=text, color=color)
+        self.setEnabled(True)
+
+        self.pressed.connect(self._pressed)
+        self.released.connect(self._released)
+
+    def setState(self, light, state):
+        pass
+
+    def _pressed(self):
+        self._states[0] = True
+        self.update()
+
+    def _released(self):
+        self._states[0] = False
+        self.update()
+
+class SwitchLampAlternate(Lamp):
+    def __init__(self, parent, text='', color=QColor(255,255,255)):
+        super().__init__(parent, text=text, color=color)
+        self.setEnabled(True)
+
+        self.pressed.connect(self._pressed)
+        self.released.connect(self._released)
+
+    def setState(self, light, state):
+        pass
+
+    def _pressed(self):
+        self._states[0] = True
+        self.update()
+
+    def _released(self):
+        self._states[0] = False
+        self.update()
+
+class Lamp2Vertical(Lamp):
+    def __init__(self, parent, text='', color=QColor(255,255,255)):
+        if not isinstance(text, list):
+            text = [text]
+        if len(text) == 1:
+            text = 2*text
+        if not isinstance(color, list):
+            color = [color]
+        if len(color) == 1:
+            color = 2*color
+        super().__init__(parent, text=text, color=color)
+
+    def _create_geometry(self):
+        bw = 2
+        x = bw
+        y = bw
+        w = self.width() - 2*bw
+        h = self.height() - 2*bw
+        self._rects = [
+            QRectF(x, y, w/2, h),
+            QRectF(x+w/2, y, w/2, h),
+        ]
+        self._lines = [
+            QLineF(x+w/2, y, x+w/2, y+h)
+        ]
+
+class Lamp2Horizontal(Lamp):
+    def __init__(self, parent, text='', color=QColor(255,255,255)):
+        if not isinstance(text, list):
+            text = [text]
+        if len(text) == 1:
+            text = 2*text
+        if not isinstance(color, list):
+            color = [color]
+        if len(color) == 1:
+            color = 2*color
+        super().__init__(parent, text=text, color=color)
+
+    def _create_geometry(self):
+        bw = 2
+        x = bw
+        y = bw
+        w = self.width() - 2*bw
+        h = self.height() - 2*bw
+        self._rects = [
+            QRectF(x, y, w, h/2),
+            QRectF(x, y+h/2, w, h/2),
+        ]
+        self._lines = [
+            QLineF(x, y+h/2, x+w, y+h/2)
+        ]
+
+class SwitchLamp2ToggleRight(Lamp2Vertical):
+    def __init__(self, parent, text='', color=QColor(255,255,255)):
+        super().__init__(parent, text=text, color=color)
+        self.setEnabled(True)
+        self.pressed.connect(self._pressed)
+
+    def _pressed(self):
+        self._states[1] = not self._states[1]
+        self.update()
+
+class SwitchLamp2ToggleBottom(Lamp2Horizontal):
+    def __init__(self, parent, text='', color=QColor(255,255,255)):
+        super().__init__(parent, text=text, color=color)
+        self.setEnabled(True)
+        self.pressed.connect(self._pressed)
+
+    def _pressed(self):
+        self._states[1] = not self._states[1]
+        self.update()
+
+class Lamp4(Lamp):
+    def __init__(self, parent, text='', color=QColor(255,255,255)):
+        if not isinstance(text, list):
+            text = [text]
+        if len(text) == 1:
+            text = 4*text
+        if not isinstance(color, list):
+            color = [color]
+        if len(color) == 1:
+            color = 4*color
+        super().__init__(parent, text=text, color=color)
+
+    def _create_geometry(self):
+        bw = 2
+        x = bw
+        y = bw
+        w = self.width() - 2*bw
+        h = self.height() - 2*bw
+        self._rects = [
+            QRectF(x, y, w/2, h/2),
+            QRectF(x+w/2, y, w/2, h/2),
+            QRectF(x+w/2, y+h/2, w/2, h/2),
+            QRectF(x, y+h/2, w/2, h/2),
+        ]
+        self._lines = [
+            QLineF(x, y+h/2, x+w, y+h/2),
+            QLineF(x+w/2, y, x+w/2, y+h),
+        ]
+
+class SwitchLamp4ToggleBottom(Lamp4):
+    def __init__(self, parent, text='', color=QColor(255,255,255)):
+        super().__init__(parent, text=text, color=color)
+        self.setEnabled(True)
+        self.pressed.connect(self._pressed)
+        self._states[3] = True
+
+    def _pressed(self):
+        self._states[3] = not self._states[3]
+        self._states[2] = not self._states[3]
+        self.update()

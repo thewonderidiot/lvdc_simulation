@@ -4,7 +4,7 @@ from qtpy.QtCore import Qt
 from module_reg import ModuleReg
 from sector_reg import SectorReg
 from op_reg import OpReg
-from switch_lamp import SwitchLamp
+from switch_lamp import Lamp2Horizontal
 import usb_msg
 
 class DataAddrPanel(QFrame):
@@ -52,7 +52,7 @@ class DataAddrPanel(QFrame):
         font.setBold(True)
         label.setFont(font)
         parity_layout.addWidget(label, 0, Qt.AlignCenter)
-        self._parity = SwitchLamp(parity_bit, ['BRA', 'BRB'], split='-', colors=[QColor(0,255,0)], toggle=0)
+        self._parity = Lamp2Horizontal(parity_bit, text=['BRA', 'BRB'], color=QColor(0,255,0))
         parity_layout.addWidget(self._parity, 0, Qt.AlignCenter)
 
         row_layout.addSpacing(20)
