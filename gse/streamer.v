@@ -11,7 +11,9 @@ module streamer(
     output wire SIM_UART_TX,
 
     input wire [39:0] reg_stream,
-    input wire reg_stream_sync
+    input wire reg_stream_sync,
+    input wire [39:0] control_status,
+    input wire control_status_sync
 );
 
 wire next_msg_ready;
@@ -47,6 +49,21 @@ stream_fifo reg_fifo(
   .empty(reg_fifo_empty)
 );
 
+// Control FIFO
+wire read_control;
+wire control_fifo_empty;
+wire [39:0] next_control;
+stream_fifo control_fifo(
+  .clk(SIM_CLK),
+  .srst(~SIM_RST),
+  .din(control_status),
+  .wr_en(control_status_sync),
+  .rd_en(read_control),
+  .dout(next_control),
+  .full(),
+  .empty(control_fifo_empty)
+);
+
 // Signal to send message FIFO that the message sender is ready for data
 wire sender_ready;
 // Data from send message FIFO to the message sender
@@ -72,11 +89,13 @@ wire tx_byte_read_en;
 
 assign next_msg = ~tlm_fifo_empty ? {`MSGID_TELEMETRY, next_tlm} :
                   ~reg_fifo_empty ? {`MSGID_REGISTERS, next_reg} :
+                  ~control_fifo_empty ? {`MSGID_CONTROL, next_control} :
                   40'b0;
 
 assign read_tlm = (~tlm_fifo_empty & ~send_fifo_full);
 assign read_reg = (tlm_fifo_empty & ~reg_fifo_empty & ~send_fifo_full);
-assign next_msg_ready = read_tlm | read_reg;
+assign read_control = (tlm_fifo_empty & reg_fifo_empty & ~control_fifo_empty & ~send_fifo_full);
+assign next_msg_ready = read_tlm | read_reg | read_control;
 
 // Send message FIFO
 msg_fifo send_msg_fifo(

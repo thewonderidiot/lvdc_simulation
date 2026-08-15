@@ -32,16 +32,25 @@ module control(
     input wire [4:1] ds,
 
     output reg CST,
-    output wire TE1
+    output wire TE1,
+    output reg HLTX,
+
+    output wire [39:0] control_status,
+    output wire control_status_sync
 );
 
 initial CST = 0;
+initial HLTX = 1;
 
 wire control_cmd = (cmd_ready & cmd[47:40] == `MSGID_CONTROL);
 wire advance_cmd = control_cmd & (cmd[39:32] == 'h01);
 wire stop_cmd = control_cmd & (cmd[39:32] == 'h02);
+wire restart_cmd = control_cmd & (cmd[39:32] == 'h05);
+
 reg cst_mode = 0;
 assign TE1 = cst_mode;
+
+reg restart_mode = 0;
 
 wire nexm = {op, a[9:8]} == 'b111011;
 wire nhop = op == 'b0000;
@@ -61,9 +70,12 @@ reg [4:1] cmd_ds = 0;
 
 `ifdef CLOCKED
 
+// Address Compare
 reg advance = 0;
-wire addr_compare = ((im == cmd_im) && (dupin == cmd_dupin) && (is == cmd_is) && (syl == cmd_syl) && (ai3_ia == cmd_ai3_ia)) || advance;
+wire inst_compare = ((im == cmd_im) && (dupin == cmd_dupin) && (is == cmd_is) && (syl == cmd_syl) && (ai3_ia == cmd_ai3_ia));
+wire addr_compare = inst_compare || advance;
 
+// Advance
 reg advance_pend = 0;
 always @(posedge SIM_CLK or negedge SIM_RST) begin
     if (~SIM_RST) begin
@@ -84,6 +96,7 @@ always @(posedge SIM_CLK or negedge SIM_RST) begin
     end
 end
 
+// Stop
 reg stop = 0;
 always @(posedge SIM_CLK or negedge SIM_RST) begin
     if (~SIM_RST) begin
@@ -94,6 +107,7 @@ always @(posedge SIM_CLK or negedge SIM_RST) begin
     end
 end
 
+// CST control
 always @(posedge SIM_CLK or negedge SIM_RST) begin
     if (~SIM_RST) begin
         CST <= 1'b0;
@@ -109,9 +123,72 @@ always @(posedge SIM_CLK or negedge SIM_RST) begin
         end
     end
 end
+
+// Restart control
+wire hop0 = {op, im, dupin, is, syl, ai3_ia, dm, dupdn, ds, a} == 0;
+reg restart = 0;
+always @(posedge SIM_CLK or negedge SIM_RST) begin
+    if (~SIM_RST) begin
+        restart <= 0;
+    end else begin
+        if ((restart_cmd & ~restart_mode) | (inst_compare & restart_mode)) restart <= 1;
+        if (hop0) restart <= 0;
+    end
+end
+
+// Boot sequencing
+reg [13:0] boot_count;
+reg [13:0] next_boot_count;
+initial boot_count = 14'o37777;
+
+always @(*) begin
+    if (boot_count > 14'o0) begin
+        next_boot_count = boot_count - 14'o1;
+    end else begin
+        next_boot_count = 14'o0;
+    end
+end
+
+always @(posedge SIM_CLK) begin
+    if (~SIM_RST) begin
+        boot_count <= 14'o37777;
+    end else begin
+        boot_count <= next_boot_count;
+    end
+end
+
+always @(*) begin
+    HLTX = (boot_count > 14'o0) || restart;
+end
+`else
+initial begin
+    #100000 HLTX = 0;
+    #1000000 HLTX = 1;
+end
 `endif
 
+// Commands and telemetry
 `ifdef TARGET_FPGA
+localparam FREQUENCY = 50;
+localparam MAX_COUNT = (40960000 / FREQUENCY);
+localparam COUNTER_LEN = $clog2(MAX_COUNT);
+reg [COUNTER_LEN-1:0] counter;
+initial counter = 'd0;
+
+always @(posedge SIM_CLK or negedge SIM_RST) begin
+    if (~SIM_RST) begin
+        counter <= 'd0;
+    end else begin
+        if (counter == MAX_COUNT - 1) begin
+            counter <= 'd0;
+        end else begin
+            counter <= counter + 1;
+        end
+    end
+end
+assign control_status = {39'b0, CST};
+assign control_status_sync = counter == 0;
+
 always @(posedge SIM_CLK or negedge SIM_RST) begin
     if (~SIM_RST) begin
         cst_mode <= 0;
@@ -120,6 +197,7 @@ always @(posedge SIM_CLK or negedge SIM_RST) begin
         cmd_is <= 0;
         cmd_syl <= 0;
         cmd_ai3_ia <= 0;
+        restart_mode <= 0;
     end else begin
         if (control_cmd) begin
             case (cmd[39:32])
@@ -131,6 +209,7 @@ always @(posedge SIM_CLK or negedge SIM_RST) begin
                     cmd_im <= cmd[18:16];
                     cmd_dupin <= cmd[20];
                 end
+                'h04: restart_mode <= cmd[0];
             endcase
         end
     end

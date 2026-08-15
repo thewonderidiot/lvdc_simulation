@@ -11,6 +11,7 @@ class ComputerControl(QWidget):
 
         # Set up the UI
         self._setup_ui()
+        self._usbif.msg_received.connect(self._update)
 
     def _setup_ui(self):
         self.setStyleSheet(
@@ -73,20 +74,26 @@ class ComputerControl(QWidget):
         self._stop.released.connect(self._stop_released)
         layout.addWidget(self._stop, 2, 2)
 
-        auto_man = SwitchLamp2HorizontalToggle(self, text=['AUTO', 'MAN/PTC'], color=[QColor(0,255,0), QColor(255,0,0)])
-        layout.addWidget(auto_man, 2, 3)
+        self._auto_man = SwitchLamp2HorizontalToggle(self, text=['AUTO', 'MAN/PTC'], color=[QColor(0,255,0), QColor(255,0,0)])
+        self._auto_man.pressed.connect(self._auto_man_pressed)
+        layout.addWidget(self._auto_man, 2, 3)
 
-        self._man_restart = SwitchLampMomentary(self, text='MANUAL\nRESTART', color=QColor(255,0,0))
+        self._man_restart = SwitchLamp(self, text='MANUAL\nRESTART', color=QColor(255,0,0))
+        self._man_restart.pressed.connect(self._restart_pressed)
+        self._man_restart.released.connect(self._restart_released)
         layout.addWidget(self._man_restart, 2, 4)
 
-        early = SwitchLamp(self, text='EARLY', color=QColor(0,255,0))
-        layout.addWidget(early, 2, 5)
+        self._early = SwitchLamp(self, text='EARLY', color=QColor(0,255,0))
+        self._early.pressed.connect(self._early_pressed)
+        layout.addWidget(self._early, 2, 5)
 
-        normal = SwitchLamp(self, text='NORMAL', color=QColor(0,255,0))
-        layout.addWidget(normal, 2, 6)
-        normal.setState(0, True)
+        self._normal = SwitchLamp(self, text='NORMAL', color=QColor(0,255,0))
+        self._normal.pressed.connect(self._normal_pressed)
+        layout.addWidget(self._normal, 2, 6)
+        self._normal.setState(0, True)
 
         self._late = SwitchLamp(self, text='LATE', color=QColor(0,255,0))
+        self._late.pressed.connect(self._late_pressed)
         layout.addWidget(self._late, 2, 7)
 
     def _set_cst_onoff(self):
@@ -110,6 +117,34 @@ class ComputerControl(QWidget):
         
     def _stop_released(self):
         self._stop.setState(0, False)
+
+    def _auto_man_pressed(self):
+        state = self._auto_man.getState(0)
+        self._usbif.send(usb_msg.ControlSetRestartMode(state))
+
+    def _restart_pressed(self):
+        restart_mode = self._auto_man.getState(0)
+        if not restart_mode:
+            self._man_restart.setState(0, True)
+            self._usbif.send(usb_msg.ControlRestart())
+
+    def _restart_released(self):
+        self._man_restart.setState(0, False)
+
+    def _early_pressed(self):
+        self._early.setState(0, True)
+        self._normal.setState(0, False)
+        self._late.setState(0, False)
+
+    def _normal_pressed(self):
+        self._early.setState(0, False)
+        self._normal.setState(0, True)
+        self._late.setState(0, False)
+
+    def _late_pressed(self):
+        self._early.setState(0, False)
+        self._normal.setState(0, False)
+        self._late.setState(0, True)
 
     def paintEvent(self, event):
         painter = QPainter(self)
@@ -143,3 +178,7 @@ class ComputerControl(QWidget):
         painter.drawLine(stop_r, line_top, stop_r, switch_top)
         painter.drawLine(restart_r, line_top, restart_r, switch_top)
         painter.drawLine(late_r, line_top, late_r, switch_top)
+
+    def _update(self, msg):
+        if isinstance(msg, usb_msg.ControlStatus):
+            self._advance.setState(1, msg.cst)

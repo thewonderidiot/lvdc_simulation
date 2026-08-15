@@ -27,6 +27,8 @@ class ControlCmd:
     ADVANCE = 1
     STOP = 2
     SET_CMD_INS_ADDR = 3
+    SET_RESTART_MODE = 4
+    RESTART = 5
 
 Telemetry = namedtuple('Telemetry', ['tag', 'rtc', 'word'])
 RegisterSSMSR = namedtuple('RegisterSSMSR', ['hist_idx', 'im', 'dupin', 'is_', 'syl', 'dm', 'dupdn', 'ds'])
@@ -39,12 +41,15 @@ RegisterPR0 = namedtuple('RegisterPR0', ['hist_idx', 'pr0'])
 RegisterHOPC1 = namedtuple('RegisterHOPC1', ['hist_idx', 'hopc1'])
 RegisterRTC = namedtuple('RegisterRTC', ['hist_idx', 'rtc'])
 RegisterSSC_MLC = namedtuple('RegisterSSC_MLC', ['hist_idx', 'ssc', 'mlc'])
+ControlStatus = namedtuple('ControlStatus', ['cst'])
 
 RegistersSetHistIndex = namedtuple('RegistersSetHistIndex', ['hist_idx'])
 ControlSetCSTMode = namedtuple('ControlSetCSTMode', ['mode'])
 ControlAdvance = namedtuple('ControlAdvance', [])
 ControlStop = namedtuple('ControlStop', [])
 ControlSetCmdInsAddr = namedtuple('ControlSetCmdInsAddr', ['im', 'dupin', 'is_', 'syl', 'ia'])
+ControlSetRestartMode = namedtuple('ControlSetRestartMode', ['mode'])
+ControlRestart = namedtuple('ControlRestart', [])
 
 def check_parity(tag, word, parity):
     word = (tag << 26) | word
@@ -140,6 +145,10 @@ def unpack(msg_bytes):
             ssc, = struct.unpack_from('>H', msg_bytes, 2)
             mlc, = struct.unpack_from('>H', msg_bytes, 4)
             msg = RegisterSSC_MLC(hist_idx, ssc, mlc)
+
+    elif msg_id == MsgId.Control:
+        cst = (msg_bytes[5] & 0x01) != 0
+        msg = ControlStatus(cst)
         
     return msg
 
@@ -165,5 +174,13 @@ def pack(msg):
         cmdid = ControlCmd.SET_CMD_INS_ADDR
         dup = 1 if msg.dupin else 0
         msg_bytes = struct.pack('>BBxBBB', msgid, cmdid, (dup << 4) | msg.im, (msg.syl << 4) | msg.is_, msg.ia)
+    elif isinstance(msg, ControlSetRestartMode):
+        msgid = MsgId.Control
+        cmdid = ControlCmd.SET_RESTART_MODE
+        msg_bytes = struct.pack('>BBxxxB', msgid, cmdid, 1 if msg.mode else 0)
+    elif isinstance(msg, ControlRestart):
+        msgid = MsgId.Control
+        cmdid = ControlCmd.RESTART
+        msg_bytes = struct.pack('>BBxxxx', msgid, cmdid)
 
     return msg_bytes

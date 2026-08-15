@@ -70,7 +70,7 @@ module gse(
     output reg GC13,    // GSE input line 13
     output reg GC14,    // GSE input line 14
     output reg GCSYNCX, // GSE sync
-    output reg HLTX,    // Halt
+    output wire HLTX,    // Halt
     output reg ICSN,    // Block CR inputs
     output reg INTR1X,  // Spare (Wired to ESE)
     output reg INTR3X,  // RCA-110A Interrupt
@@ -148,7 +148,6 @@ initial GC7 = 0;
 initial GC8 = 0;
 initial GC9 = 0;
 initial GCSYNCX = 0;
-initial HLTX = 1;
 initial ICSN = 1;
 initial INTR1X = 0;
 initial INTR3X = 0;
@@ -264,6 +263,9 @@ lvdc_registers lvdc_registers1(
     .reg_stream_sync(reg_stream_sync)
 );
 
+wire [39:0] control_status;
+wire control_status_sync;
+
 control control1(
     .SIM_CLK(SIM_CLK),
     .SIM_RST(SIM_RST),
@@ -293,7 +295,11 @@ control control1(
     .ds(ds),
 
     .CST(CST),
-    .TE1(TE1)
+    .TE1(TE1),
+    .HLTX(HLTX),
+
+    .control_status(control_status),
+    .control_status_sync(control_status_sync)
 );
 
 `ifdef TARGET_FPGA
@@ -316,7 +322,9 @@ streamer streamer1(
     .SIM_UART_TX(SIM_UART_TX),
 
     .reg_stream(reg_stream),
-    .reg_stream_sync(reg_stream_sync)
+    .reg_stream_sync(reg_stream_sync),
+    .control_status(control_status),
+    .control_status_sync(control_status_sync)
 );
 `else
 reg [47:0] test_cmd = 0;
@@ -330,41 +338,6 @@ initial begin
     @(posedge SIM_CLK);
     @(posedge SIM_CLK) test_cmd = 0;
     test_cmd_ready = 0;
-end
-`endif
-
-// OLD BOOT STUFF
-`ifdef CLOCKED
-reg [13:0] boot_count;
-reg [13:0] next_boot_count;
-initial boot_count = 14'o37777;
-
-always @(*) begin
-    if (boot_count > 14'o0) begin
-        next_boot_count = boot_count - 14'o1;
-    end else begin
-        next_boot_count = 14'o0;
-    end
-end
-
-always @(posedge SIM_CLK) begin
-    if (~SIM_RST) begin
-        boot_count <= 14'o37777;
-    end else begin
-        boot_count <= next_boot_count;
-    end
-end
-
-always @(*) begin
-    HLTX = (boot_count > 14'o0);
-end
-
-`else
-initial begin
-    #100000 HLTX = 0;
-    // #1000000 CST = 1;
-    // #1000000 CST = 0;
-    // #2000000 HLTX = 1;
 end
 `endif
 
