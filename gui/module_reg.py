@@ -1,9 +1,11 @@
 from qtpy.QtWidgets import QGridLayout, QWidget, QLabel, QSizePolicy
 from qtpy.QtGui import QColor, QPainter
-from qtpy.QtCore import Qt
+from qtpy.QtCore import Qt, Signal
 from switch_lamp import SwitchLamp2ToggleBottom, SwitchLamp4ToggleBottom
 
 class ModuleReg(QWidget):
+    valueChanged = Signal(int, bool)
+
     def __init__(self, parent, text):
         super().__init__(parent)
 
@@ -16,6 +18,7 @@ class ModuleReg(QWidget):
 
     def setDuplex(self, duplex):
         self._dup.setState(0, duplex)
+        self._dup.setState(1, not duplex)
 
     def _setup_ui(self, text):
         layout = QGridLayout(self)
@@ -46,14 +49,23 @@ class ModuleReg(QWidget):
         self._switches = []
         for i in range(3):
             sw = SwitchLamp2ToggleBottom(self, text='%s%u' % (text, 3-i), color=[QColor(0,255,0), QColor(255,0,0)])
+            sw.pressed.connect(self._switch_pressed)
             self._switches.insert(0, sw)
             layout.addWidget(sw, 1, 1+i, 2, 1)
         self._dup = SwitchLamp4ToggleBottom(self, text=['DX','SX','SX','DX'], color=[QColor(0,255,0), QColor(0,255,0), QColor(255,0,0), QColor(255,0,0)])
+        self._dup.pressed.connect(self._switch_pressed)
         layout.addWidget(self._dup, 1, 4, 2, 1)
+
+    def _switch_pressed(self):
+        value = 0
+        for i,sw in enumerate(self._switches):
+            if sw.getState(1):
+                value |= 1 << i
+        self.valueChanged.emit(value, self._dup.getState(3))
 
     def paintEvent(self, event):
         painter = QPainter(self)
-        painter.setPen(QColor(0,0,0))
+        painter.setPen(QColor(255,255,255))
         mod_geom = self._mod_label.geometry()
         line_h = mod_geom.center().y()
         line_l = self._switches[2].geometry().left()

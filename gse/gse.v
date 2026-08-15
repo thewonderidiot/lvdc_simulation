@@ -121,15 +121,14 @@ module gse(
     input wire TRSV,   // Transfer reg
     input wire W6,     // W clock pulse driver output 6
 
-    output reg CST, // Single step
+    output wire CST, // Single step
     output reg DIN, // Data injection
-    output reg TE1, // LTE input line 1
+    output wire TE1, // LTE input line 1
     output reg TE2, // LTE input line 2
     output reg TE3, // LTE input line 3
     output reg TER  // Reset memory error indication
 );
 
-initial CST = 0;
 initial DIN1X = 0;
 initial DIN7X = 0;
 initial DIN8X = 0;
@@ -153,7 +152,6 @@ initial HLTX = 1;
 initial ICSN = 1;
 initial INTR1X = 0;
 initial INTR3X = 0;
-initial TE1 = 0;
 initial TE2 = 0;
 initial TE3 = 0;
 initial TER = 0;
@@ -189,18 +187,15 @@ clock_gen clock_gen1(
 
 wire [4:1] op;
 wire [9:1] a;
-wire [2:1] br14p;
-wire [1:26] trs;
 wire [8:1] ai3_ia;
 wire [1:26] ai3_data;
-wire [1:26] md7;
-wire [1:26] mr1;
-wire [1:26] pr0;
-wire [1:26] hopc1;
-wire [1:13] rtc;
-wire [1:13] mlc;
-wire [1:13] ssc;
-wire [1:26] ssmsr;
+wire [3:1] im;
+wire dupin;
+wire [4:1] is;
+wire syl;
+wire [3:1] dm;
+wire dupdn;
+wire [4:1] ds;
 
 wire [39:0] reg_stream;
 wire reg_stream_sync;
@@ -255,21 +250,50 @@ lvdc_registers lvdc_registers1(
 
     .op(op),
     .a(a),
-    .br14p(br14p),
-    .trs(trs),
     .ai3_ia(ai3_ia),
     .ai3_data(ai3_data),
-    .md7(md7),
-    .mr1(mr1),
-    .pr0(pr0),
-    .hopc1(hopc1),
-    .rtc(rtc),
-    .mlc(mlc),
-    .ssc(ssc),
-    .ssmsr(ssmsr),
+    .im(im),
+    .dupin(dupin),
+    .is(is),
+    .syl(syl),
+    .dm(dm),
+    .dupdn(dupdn),
+    .ds(ds),
 
     .reg_stream(reg_stream),
     .reg_stream_sync(reg_stream_sync)
+);
+
+control control1(
+    .SIM_CLK(SIM_CLK),
+    .SIM_RST(SIM_RST),
+
+    .cmd(cmd),
+    .cmd_ready(cmd_ready),
+
+    .pa(pa),
+    .pb(pb),
+    .pc(pc),
+    .bt(bt),
+    .w(w),
+    .x(x),
+    .y(y),
+    .z(z),
+
+    .op(op),
+    .a(a),
+    .ai3_ia(ai3_ia),
+    .ai3_data(ai3_data),
+    .im(im),
+    .dupin(dupin),
+    .is(is),
+    .syl(syl),
+    .dm(dm),
+    .dupdn(dupdn),
+    .ds(ds),
+
+    .CST(CST),
+    .TE1(TE1)
 );
 
 `ifdef TARGET_FPGA
@@ -295,8 +319,18 @@ streamer streamer1(
     .reg_stream_sync(reg_stream_sync)
 );
 `else
-assign cmd = 0;
-assign cmd_ready = 0;
+reg [47:0] test_cmd = 0;
+reg test_cmd_ready = 0;
+assign cmd = test_cmd;
+assign cmd_ready = test_cmd_ready;
+initial begin
+    #100000;
+    @(posedge SIM_CLK) test_cmd = 'h020000000001;
+    test_cmd_ready = 1;
+    @(posedge SIM_CLK);
+    @(posedge SIM_CLK) test_cmd = 0;
+    test_cmd_ready = 0;
+end
 `endif
 
 // OLD BOOT STUFF
@@ -329,7 +363,6 @@ end
 initial begin
     #100000 HLTX = 0;
     // #1000000 CST = 1;
-    // TE1 = 1;
     // #1000000 CST = 0;
     // #2000000 HLTX = 1;
 end

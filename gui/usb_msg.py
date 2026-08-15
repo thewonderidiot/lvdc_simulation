@@ -5,6 +5,7 @@ class MsgId:
     Debug = 0
     Telemetry = 1
     Registers = 2
+    Control = 3
 
 class Register:
     SSMSR = 0
@@ -21,9 +22,15 @@ class Register:
 class RegistersCmd:
     SET_HIST_IDX = 0
 
+class ControlCmd:
+    SET_CST_MODE = 0
+    ADVANCE = 1
+    STOP = 2
+    SET_CMD_INS_ADDR = 3
+
 Telemetry = namedtuple('Telemetry', ['tag', 'rtc', 'word'])
 RegisterSSMSR = namedtuple('RegisterSSMSR', ['hist_idx', 'im', 'dupin', 'is_', 'syl', 'dm', 'dupdn', 'ds'])
-RegisterOP_A = namedtuple('RegisterOP_A', ['hist_idx', 'bra', 'brb', 'op', 'a', 'ia'])
+RegisterOP_A = namedtuple('RegisterOP_A', ['hist_idx', 'inst_bra', 'inst_brb', 'syl0_bra', 'syl0_brb', 'syl1_bra', 'syl1_brb', 'op', 'a', 'ia'])
 RegisterTRS = namedtuple('RegisterTRS', ['hist_idx', 'trs'])
 RegisterAI3_DATA = namedtuple('RegisterAI3A_DATA', ['hist_idx', 'data'])
 RegisterMD7 = namedtuple('RegisterMD7', ['hist_idx', 'md7'])
@@ -34,6 +41,10 @@ RegisterRTC = namedtuple('RegisterRTC', ['hist_idx', 'rtc'])
 RegisterSSC_MLC = namedtuple('RegisterSSC_MLC', ['hist_idx', 'ssc', 'mlc'])
 
 RegistersSetHistIndex = namedtuple('RegistersSetHistIndex', ['hist_idx'])
+ControlSetCSTMode = namedtuple('ControlSetCSTMode', ['mode'])
+ControlAdvance = namedtuple('ControlAdvance', [])
+ControlStop = namedtuple('ControlStop', [])
+ControlSetCmdInsAddr = namedtuple('ControlSetCmdInsAddr', ['im', 'dupin', 'is_', 'syl', 'ia'])
 
 def check_parity(tag, word, parity):
     word = (tag << 26) | word
@@ -94,12 +105,16 @@ def unpack(msg_bytes):
             dupin = msg_bytes[2] & 0x01
             msg = RegisterSSMSR(hist_idx, im, dupin, is_, syl, dm, dupdn, ds)
         elif reg_id == Register.OP_A:
-            bra = (msg_bytes[2] >> 4) & 1
-            brb = (msg_bytes[2] >> 5) & 1
             op = msg_bytes[2] & 0x0F
-            a, = struct.unpack_from('>H', msg_bytes, 3)
+            inst_brb = (msg_bytes[3] >> 2) & 0x01
+            inst_bra = (msg_bytes[3] >> 3) & 0x01
+            syl0_brb = (msg_bytes[3] >> 4) & 0x01
+            syl0_bra = (msg_bytes[3] >> 5) & 0x01
+            syl1_brb = (msg_bytes[3] >> 6) & 0x01
+            syl1_bra = (msg_bytes[3] >> 7) & 0x01
+            a = ((msg_bytes[3] << 8) & 0x100) | msg_bytes[4]
             ia = msg_bytes[5]
-            msg = RegisterOP_A(hist_idx, bra, brb, op, a, ia)
+            msg = RegisterOP_A(hist_idx, inst_bra, inst_brb, syl0_bra, syl0_brb, syl1_bra, syl1_brb, op, a, ia)
         elif reg_id == Register.TRS:
             trs, = struct.unpack_from('>I', msg_bytes, 2)
             msg = RegisterTRS(hist_idx, trs)
@@ -133,5 +148,22 @@ def pack(msg):
         msgid = MsgId.Registers
         cmdid = RegistersCmd.SET_HIST_IDX
         msg_bytes = struct.pack('>BBxxxB', msgid, cmdid, msg.hist_idx)
+    elif isinstance(msg, ControlSetCSTMode):
+        msgid = MsgId.Control
+        cmdid = ControlCmd.SET_CST_MODE
+        msg_bytes = struct.pack('>BBxxxB', msgid, cmdid, 1 if msg.mode else 0)
+    elif isinstance(msg, ControlAdvance):
+        msgid = MsgId.Control
+        cmdid = ControlCmd.ADVANCE
+        msg_bytes = struct.pack('>BBxxxx', msgid, cmdid)
+    elif isinstance(msg, ControlStop):
+        msgid = MsgId.Control
+        cmdid = ControlCmd.STOP
+        msg_bytes = struct.pack('>BBxxxx', msgid, cmdid)
+    elif isinstance(msg, ControlSetCmdInsAddr):
+        msgid = MsgId.Control
+        cmdid = ControlCmd.SET_CMD_INS_ADDR
+        dup = 1 if msg.dupin else 0
+        msg_bytes = struct.pack('>BBxBBB', msgid, cmdid, (dup << 4) | msg.im, (msg.syl << 4) | msg.is_, msg.ia)
 
     return msg_bytes

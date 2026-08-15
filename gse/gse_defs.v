@@ -11,3 +11,4 @@
 
 `define MSGID_TELEMETRY 8'h01
 `define MSGID_REGISTERS 8'h02
+`define MSGID_CONTROL   8'h03

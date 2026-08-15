@@ -1,9 +1,11 @@
 from qtpy.QtWidgets import QGridLayout, QWidget, QLabel, QSizePolicy
 from qtpy.QtGui import QColor, QPainter
-from qtpy.QtCore import Qt
+from qtpy.QtCore import Qt, Signal
 from switch_lamp import SwitchLamp2ToggleBottom
 
 class AddrReg(QWidget):
+    valueChanged = Signal(int)
+
     def __init__(self, parent):
         super().__init__(parent)
 
@@ -43,12 +45,20 @@ class AddrReg(QWidget):
         self._switches = []
         for i in range(8):
             sw = SwitchLamp2ToggleBottom(self, text='A%u' % (8-i), color=[QColor(0,255,0), QColor(255,0,0)])
+            sw.pressed.connect(self._switch_pressed)
             self._switches.insert(0, sw)
             layout.addWidget(sw, 1, 1+i, 2, 1)
 
+    def _switch_pressed(self):
+        value = 0
+        for i,sw in enumerate(self._switches):
+            if sw.getState(1):
+                value |= 1 << i
+        self.valueChanged.emit(value)
+
     def paintEvent(self, event):
         painter = QPainter(self)
-        painter.setPen(QColor(0,0,0))
+        painter.setPen(QColor(255,255,255))
         addr_geom = self._addr_label.geometry()
         line_h = addr_geom.center().y()
         line_l = self._switches[7].geometry().left()

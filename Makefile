@@ -121,6 +121,7 @@ IU_SOURCES = $(COMPONENT_SOURCES) \
 	     $(SRC_DIR)/iu/mod410/mod410.v \
 	     $(SRC_DIR)/gse/gse.v \
 	     $(SRC_DIR)/gse/clock_gen.v \
+	     $(SRC_DIR)/gse/control.v \
 	     $(SRC_DIR)/gse/lvdc_registers.v \
 	     $(SRC_DIR)/gse/mult_div_counter.v \
 	     $(SRC_DIR)/gse/parallel_register.v \
@@ -147,10 +148,10 @@ CORE_FILES = iu/lvdc/core/module0.mem \
 all: iu_sim
 
 iu_sim: $(SIM_SOURCES)
-	iverilog -o $@ $^ -DCORE_PATH='"iu/lvdc/core/"'
+	iverilog -o $@ $^ -DCORE_PATH='"iu/lvdc/core/"' -Igse
 
 iu_sim_clocked: $(SIM_SOURCES)
-	iverilog -o $@ $^ -DCLOCKED=1 -DCORE_PATH='"iu/lvdc/core/"'
+	iverilog -o $@ $^ -DCLOCKED=1 -DCORE_PATH='"iu/lvdc/core/"' -Igse
 
 .phony: run
 run: iu_sim

@@ -1,9 +1,11 @@
 from qtpy.QtWidgets import QGridLayout, QWidget, QLabel, QSizePolicy
 from qtpy.QtGui import QColor, QPainter
-from qtpy.QtCore import Qt
+from qtpy.QtCore import Qt, Signal
 from switch_lamp import SwitchLamp2ToggleBottom, SwitchLamp4ToggleBottom
 
 class SectorReg(QWidget):
+    valueChanged = Signal(int, int)
+
     def __init__(self, parent, text, has_syl=False):
         super().__init__(parent)
         self._has_syl = has_syl
@@ -18,6 +20,7 @@ class SectorReg(QWidget):
     def setSyl(self, syl):
         if self._has_syl:
             self._syl.setState(0, syl ^ 1)
+            self._syl.setState(1, syl)
 
     def _setup_ui(self, text, has_syl):
         layout = QGridLayout(self)
@@ -43,17 +46,27 @@ class SectorReg(QWidget):
             layout.addWidget(self._syl_label, 0, 0, Qt.AlignCenter)
 
             self._syl = SwitchLamp4ToggleBottom(self, text=['0','1','1','0'], color=[QColor(0,255,0), QColor(0,255,0), QColor(255,0,0), QColor(255,0,0)])
+            self._syl.pressed.connect(self._switch_pressed)
             layout.addWidget(self._syl, 1, 0)
 
         self._switches = []
         for i in range(4):
             sw = SwitchLamp2ToggleBottom(self, text='%s%u' % (text, 4-i), color=[QColor(0,255,0), QColor(255,0,0)])
+            sw.pressed.connect(self._switch_pressed)
             self._switches.insert(0, sw)
             layout.addWidget(sw, 1, i+1)
 
+    def _switch_pressed(self):
+        value = 0
+        for i,sw in enumerate(self._switches):
+            if sw.getState(1):
+                value |= 1 << i
+        syl = 1 if self._syl.getState(2) else 0
+        self.valueChanged.emit(value, syl)
+
     def paintEvent(self, event):
         painter = QPainter(self)
-        painter.setPen(QColor(0,0,0))
+        painter.setPen(QColor(255,255,255))
         sec_geom = self._sec_label.geometry()
         line_h = sec_geom.center().y()
         line_l = self._switches[3].geometry().left()

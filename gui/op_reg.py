@@ -64,7 +64,7 @@ class OpReg(QWidget):
 
     def paintEvent(self, event):
         painter = QPainter(self)
-        painter.setPen(QColor(0,0,0))
+        painter.setPen(QColor(255,255,255))
         opcode_geom = self._opcode_label.geometry()
         line_h = opcode_geom.center().y()
         line_l = self._opcode_switches[3].geometry().left()

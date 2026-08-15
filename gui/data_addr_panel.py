@@ -1,4 +1,4 @@
-from qtpy.QtWidgets import QFrame, QHBoxLayout, QVBoxLayout, QWidget, QLabel
+from qtpy.QtWidgets import QHBoxLayout, QVBoxLayout, QWidget, QLabel
 from qtpy.QtGui import QColor
 from qtpy.QtCore import Qt
 from module_reg import ModuleReg
@@ -7,7 +7,7 @@ from op_reg import OpReg
 from switch_lamp import Lamp2Horizontal
 import usb_msg
 
-class DataAddrPanel(QFrame):
+class DataAddrPanel(QWidget):
     def __init__(self, parent, usbif):
         super().__init__(parent)
 
@@ -18,7 +18,18 @@ class DataAddrPanel(QFrame):
         self._usbif.msg_received.connect(self._update)
 
     def _setup_ui(self):
-        self.setFrameStyle(QFrame.Panel | QFrame.Raised)
+        self.setStyleSheet(
+            '''
+            QLabel {
+                color: #ffffff;
+            }
+            DataAddrPanel {
+                background-color: #707070;
+                border-radius: 10px;
+            }
+            '''
+        )
+        self.setAttribute(Qt.WA_StyledBackground, True)
         layout = QVBoxLayout(self)
         layout.setSpacing(0)
         layout.setContentsMargins(0,0,0,0)
@@ -80,7 +91,7 @@ class DataAddrPanel(QFrame):
 
             self._sec_reg.setValue(msg.ds)
         elif isinstance(msg, usb_msg.RegisterOP_A):
-            self._parity.setState(0, msg.bra)
-            self._parity.setState(1, msg.brb)
+            self._parity.setState(0, msg.inst_bra)
+            self._parity.setState(1, msg.inst_brb)
             self._op_reg.setOpcode(msg.op)
             self._op_reg.setOperand(msg.a)
