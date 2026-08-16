@@ -51,6 +51,9 @@ module lvdc_registers(
     input wire y,
     input wire z,
 
+    input wire display_update,
+    input wire display_reset,
+
     output wire [4:1] op,
     output wire [9:1] a,
     output wire [8:1] ai3_ia,
@@ -77,6 +80,20 @@ wire [1:13] mlc;
 wire [1:13] ssc;
 wire [1:26] ssmsr;
 
+wire [4:1] op_disp;
+wire [9:1] a_disp;
+wire [8:1] ai3_ia_disp;
+wire [1:26] ai3_data_disp;
+wire [1:26] trs_disp;
+wire [1:26] md7_disp;
+wire [1:26] mr1_disp;
+wire [1:26] pr0_disp;
+wire [1:26] hopc1_disp;
+wire [1:13] rtc_disp;
+wire [1:13] mlc_disp;
+wire [1:13] ssc_disp;
+wire [1:26] ssmsr_disp;
+
 assign im = {ssmsr[25:26], ssmsr[1]};
 assign dupin = ssmsr[2];
 assign is = ssmsr[21:24];
@@ -94,8 +111,11 @@ parallel_register #(4) reg_op(
     .SIM_RST(SIM_RST),
     .in(OPV),
     .sync(pa & bt[12] & z & ~CST),
+    .display_update(display_update),
+    .display_reset(display_reset),
     .index(hist_idx),
-    .out(op)
+    .out(op),
+    .display(op_disp)
 );
 
 wire [9:1] AV = {A9V, A8V, A7V, A6V, A5V, A4V, A3V, A2V, A1V};
@@ -104,39 +124,54 @@ parallel_register #(9) reg_a(
     .SIM_RST(SIM_RST),
     .in({A9V, A8V, A7V, A6V, A5V, A4V, A3V, A2V, A1V}),
     .sync(pa & bt[14] & w & ADV & ~CST),
+    .display_update(display_update),
+    .display_reset(display_reset),
     .index(hist_idx),
-    .out(a)
+    .out(a),
+    .display(a_disp)
 );
 
 wire [2:1] inst_brp;
+wire [2:1] inst_brp_disp;
 parallel_register #(2) reg_inst_brp(
     .SIM_CLK(SIM_CLK),
     .SIM_RST(SIM_RST),
     .in({BRA14P, BRB14P}),
     .sync(pa & bt[12] & x & ~CST),
+    .display_update(display_update),
+    .display_reset(display_reset),
     .index(hist_idx),
-    .out(inst_brp)
+    .out(inst_brp),
+    .display(inst_brp_disp)
 );
 
 wire sto = (OPV == 'b1011);
 wire [2:1] syl0_brp;
+wire [2:1] syl0_brp_disp;
 parallel_register #(2) reg_syl0_brp(
     .SIM_CLK(SIM_CLK),
     .SIM_RST(SIM_RST),
     .in({BRA14P, BRB14P}),
     .sync((sto ? pc : pb) & bt[4] & x & ~CST),
+    .display_update(display_update),
+    .display_reset(display_reset),
     .index(hist_idx),
-    .out(syl0_brp)
+    .out(syl0_brp),
+    .display(syl0_brp_disp)
 );
 
 wire [2:1] syl1_brp;
+wire [2:1] syl1_brp_disp;
 parallel_register #(2) reg_syl1_brp(
     .SIM_CLK(SIM_CLK),
     .SIM_RST(SIM_RST),
     .in({BRA14P, BRB14P}),
     .sync((sto ? pa : pc) & bt[4] & x & ~CST),
+    .display_update(display_update),
+    .display_reset(display_reset),
     .index(hist_idx),
-    .out(syl1_brp)
+    .out(syl1_brp),
+    .display(syl1_brp_disp)
 );
 
 // Multiply and divide counter
@@ -167,8 +202,11 @@ serial_register reg_trs(
     .serial(TRSV),
     .clock(z),
     .sync(pa & bt[1] & w & ~ADV & ~CST),
+    .display_update(display_update),
+    .display_reset(display_reset),
     .index(hist_idx),
-    .out(trs)
+    .out(trs),
+    .display(trs_disp)
 );
 
 // AI3V
@@ -179,8 +217,11 @@ serial_register #(8) reg_ai3_ia(
     .serial(AI3V),
     .clock(y),
     .sync(pa & bt[8] & z & ~CST),
+    .display_update(display_update),
+    .display_reset(display_reset),
     .index(hist_idx),
-    .out(ai3_ia)
+    .out(ai3_ia),
+    .display(ai3_ia_disp)
 );
 
 serial_register reg_ai3_data(
@@ -190,8 +231,11 @@ serial_register reg_ai3_data(
     .serial(AI3V),
     .clock(y),
     .sync(pc & bt[14] & z & ~CST),
+    .display_update(display_update),
+    .display_reset(display_reset),
     .index(hist_idx),
-    .out(ai3_data)
+    .out(ai3_data),
+    .display(ai3_data_disp)
 );
 
 // MD7
@@ -202,8 +246,11 @@ serial_register reg_md7(
     .serial(MD7V),
     .clock(y),
     .sync(selph & z & ((nmmh & bt[5]) | (ndiv & bt[2]))),
+    .display_update(display_update),
+    .display_reset(display_reset),
     .index(hist_idx),
-    .out(md7)
+    .out(md7),
+    .display(md7_disp)
 );
 
 // MR1
@@ -214,8 +261,11 @@ serial_register reg_mr1(
     .serial(MR1V),
     .clock(y),
     .sync(mrsync & z),
+    .display_update(display_update),
+    .display_reset(display_reset),
     .index(hist_idx),
-    .out(mr1)
+    .out(mr1),
+    .display(mr1_disp)
 );
 
 // PR0
@@ -226,8 +276,11 @@ serial_register reg_pr0(
     .serial(PR0V),
     .clock(z),
     .sync(selph & w & ((nmmh & bt[1] & ~ADV) | (ndiv & bt[2] & ADV))),
+    .display_update(display_update),
+    .display_reset(display_reset),
     .index(hist_idx),
-    .out(pr0)
+    .out(pr0),
+    .display(pr0_disp)
 );
 
 // HOPC1
@@ -238,8 +291,11 @@ serial_register reg_hopc1(
     .serial(HOPC1V),
     .clock(z),
     .sync(pa & bt[1] & w & ~ADV & ~CST),
+    .display_update(display_update),
+    .display_reset(display_reset),
     .index(hist_idx),
-    .out(hopc1)
+    .out(hopc1),
+    .display(hopc1_disp)
 );
 
 //SP1
@@ -253,8 +309,11 @@ serial_register #(13) reg_rtc(
     .serial(C4RDV),
     .clock(x),
     .sync(pa & bt[14] & y & ~CST),
+    .display_update(display_update),
+    .display_reset(display_reset),
     .index(hist_idx),
-    .out(rtc)
+    .out(rtc),
+    .display(rtc_disp)
 );
 
 //MLC
@@ -265,8 +324,11 @@ serial_register #(13) reg_mlc(
     .serial(C3RD),
     .clock(w),
     .sync(pc & bt[3] & x & ~CST),
+    .display_update(display_update),
+    .display_reset(display_reset),
     .index(hist_idx),
-    .out(mlc)
+    .out(mlc),
+    .display(mlc_disp)
 );
 
 //SSC
@@ -277,8 +339,11 @@ serial_register #(13) reg_ssc(
     .serial(~C2RDN),
     .clock(z),
     .sync(pc & bt[3] & w & ~ADV & ~CST),
+    .display_update(display_update),
+    .display_reset(display_reset),
     .index(hist_idx),
-    .out(ssc)
+    .out(ssc),
+    .display(ssc_disp)
 );
 
 wire hop = (OPV == 'b0000);
@@ -292,8 +357,11 @@ serial_register reg_ssmsr(
     .serial((hop | cds) ? TRSV : HOPC1V),
     .clock(z),
     .sync(pa & bt[1] & w & ~ADV & ~CST),
+    .display_update(display_update),
+    .display_reset(display_reset),
     .index(hist_idx),
-    .out(ssmsr)
+    .out(ssmsr),
+    .display(ssmsr_disp)
 );
 
 
@@ -330,16 +398,16 @@ end
 
 always @(*) begin
     case (reg_idx)
-        'd0:  reg_stream = {reg_idx, hist_idx, 6'b0, ssmsr};
-        'd1:  reg_stream = {reg_idx, hist_idx, 4'b0, op, syl1_brp, syl0_brp, inst_brp, 1'b0, a, ai3_ia};
-        'd2:  reg_stream = {reg_idx, hist_idx, 6'b0, trs};
-        'd3:  reg_stream = {reg_idx, hist_idx, 6'b0, ai3_data};
-        'd4:  reg_stream = {reg_idx, hist_idx, 6'b0, md7};
-        'd5:  reg_stream = {reg_idx, hist_idx, 6'b0, mr1};
-        'd6:  reg_stream = {reg_idx, hist_idx, 6'b0, pr0};
-        'd7:  reg_stream = {reg_idx, hist_idx, 6'b0, hopc1};
-        'd8:  reg_stream = {reg_idx, hist_idx, 19'b0, rtc};
-        'd9:  reg_stream = {reg_idx, hist_idx, 3'b0, ssc, 3'b0, mlc};
+        'd0:  reg_stream = {reg_idx, hist_idx, 6'b0, ssmsr_disp};
+        'd1:  reg_stream = {reg_idx, hist_idx, 4'b0, op_disp, syl1_brp_disp, syl0_brp_disp, inst_brp_disp, 1'b0, a_disp, ai3_ia_disp};
+        'd2:  reg_stream = {reg_idx, hist_idx, 6'b0, trs_disp};
+        'd3:  reg_stream = {reg_idx, hist_idx, 6'b0, ai3_data_disp};
+        'd4:  reg_stream = {reg_idx, hist_idx, 6'b0, md7_disp};
+        'd5:  reg_stream = {reg_idx, hist_idx, 6'b0, mr1_disp};
+        'd6:  reg_stream = {reg_idx, hist_idx, 6'b0, pr0_disp};
+        'd7:  reg_stream = {reg_idx, hist_idx, 6'b0, hopc1_disp};
+        'd8:  reg_stream = {reg_idx, hist_idx, 19'b0, rtc_disp};
+        'd9:  reg_stream = {reg_idx, hist_idx, 3'b0, ssc_disp, 3'b0, mlc_disp};
     endcase
 end
 
@@ -353,7 +421,7 @@ always @(posedge SIM_CLK or negedge SIM_RST) begin
     end else begin
         if (cmd_ready & cmd[47:40] == `MSGID_REGISTERS) begin
             case (cmd[39:32])
-                'h00: hist_idx <= cmd[3:0];
+                `REGISTERS_CMD_SET_HIST_IDX: hist_idx <= cmd[3:0];
             endcase
         end
     end

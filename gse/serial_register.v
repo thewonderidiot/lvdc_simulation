@@ -10,19 +10,24 @@ module serial_register #(
     input wire serial,
     input wire clock,
     input wire sync,
+    input wire display_update,
+    input wire display_reset,
     input wire [3:0] index,
-    output wire [1:WIDTH] out
+    output wire [1:WIDTH] out,
+    output wire [1:WIDTH] display
 );
 
 localparam HISTORY = 16;
 
 reg [WIDTH:1] delay = 'b0;
+reg [WIDTH:1] display_value = 'b0;
 reg [HISTORY-1:0][1:WIDTH] data;
 integer i;
 initial begin
     for (i = 0; i < WIDTH; i = i + 1) data = 'b0;
 end
-assign out = data[index];
+assign out = data[0];
+assign display = (index == 0) ? display_value : data[index];
 
 `ifdef CLOCKED
 reg clock_r;
@@ -47,6 +52,8 @@ always @(posedge SIM_CLK or negedge SIM_RST) begin
             data[0] <= delay;
             delay <= 0;
         end
+        if (display_update) display_value <= data[0];
+        if (display_reset) display_value <= 0;
     end
 end
 `else

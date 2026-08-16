@@ -27,8 +27,37 @@ class ControlCmd:
     ADVANCE = 1
     STOP = 2
     SET_CMD_INS_ADDR = 3
-    SET_RESTART_MODE = 4
-    RESTART = 5
+    SET_CMD_DATA_ADDR = 4
+    SET_RESTART_MODE = 5
+    RESTART = 6
+    SET_COMPARE_MODE = 7
+    SET_DISPLAY_MODE = 8
+    DISPLAY_RESET = 9
+
+class RestartMode:
+    MAN_PTC = 0
+    AUTO = 1
+
+class CompareMode:
+    INS = 0
+    DATA = 1
+
+class DisplayMode:
+    CONTINUOUS = 0
+    SINGLE = 1
+    REPEAT = 2
+
+class DisplaySelect:
+    NONE = 0
+    AI3_IA = 1
+    AI3_DATA = 2
+    MD7 = 3
+    MR1 = 4
+    PR0 = 5
+    HOPC1 = 6
+    RTC = 7
+    MLC = 8
+    SSC = 9
 
 Telemetry = namedtuple('Telemetry', ['tag', 'rtc', 'word'])
 RegisterSSMSR = namedtuple('RegisterSSMSR', ['hist_idx', 'im', 'dupin', 'is_', 'syl', 'dm', 'dupdn', 'ds'])
@@ -48,8 +77,12 @@ ControlSetCSTMode = namedtuple('ControlSetCSTMode', ['mode'])
 ControlAdvance = namedtuple('ControlAdvance', [])
 ControlStop = namedtuple('ControlStop', [])
 ControlSetCmdInsAddr = namedtuple('ControlSetCmdInsAddr', ['im', 'dupin', 'is_', 'syl', 'ia'])
+ControlSetCmdDataAddr = namedtuple('ControlSetCmdDataAddr', ['dm', 'dupdn', 'ds', 'op', 'a'])
 ControlSetRestartMode = namedtuple('ControlSetRestartMode', ['mode'])
 ControlRestart = namedtuple('ControlRestart', [])
+ControlSetCompareMode = namedtuple('ControlSetCompareMode', ['mode'])
+ControlSetDisplayMode = namedtuple('ControlSetDisplayMode', ['mode'])
+ControlDisplayReset = namedtuple('ControlDisplayReset', [])
 
 def check_parity(tag, word, parity):
     word = (tag << 26) | word
@@ -174,6 +207,11 @@ def pack(msg):
         cmdid = ControlCmd.SET_CMD_INS_ADDR
         dup = 1 if msg.dupin else 0
         msg_bytes = struct.pack('>BBxBBB', msgid, cmdid, (dup << 4) | msg.im, (msg.syl << 4) | msg.is_, msg.ia)
+    elif isinstance(msg, ControlSetCmdDataAddr):
+        msgid = MsgId.Control
+        cmdid = ControlCmd.SET_CMD_DATA_ADDR
+        dup = 1 if msg.dupdn else 0
+        msg_bytes = struct.pack('>BBBBH', msgid, cmdid, msg.op, (dup << 7) | (msg.dm << 4) | msg.ds, msg.a)
     elif isinstance(msg, ControlSetRestartMode):
         msgid = MsgId.Control
         cmdid = ControlCmd.SET_RESTART_MODE
@@ -181,6 +219,18 @@ def pack(msg):
     elif isinstance(msg, ControlRestart):
         msgid = MsgId.Control
         cmdid = ControlCmd.RESTART
+        msg_bytes = struct.pack('>BBxxxx', msgid, cmdid)
+    elif isinstance(msg, ControlSetCompareMode):
+        msgid = MsgId.Control
+        cmdid = ControlCmd.SET_COMPARE_MODE
+        msg_bytes = struct.pack('>BBxxxB', msgid, cmdid, 1 if msg.mode else 0)
+    elif isinstance(msg, ControlSetDisplayMode):
+        msgid = MsgId.Control
+        cmdid = ControlCmd.SET_DISPLAY_MODE
+        msg_bytes = struct.pack('>BBxxxB', msgid, cmdid, msg.mode)
+    elif isinstance(msg, ControlDisplayReset):
+        msgid = MsgId.Control
+        cmdid = ControlCmd.DISPLAY_RESET
         msg_bytes = struct.pack('>BBxxxx', msgid, cmdid)
 
     return msg_bytes

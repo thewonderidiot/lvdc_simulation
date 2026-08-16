@@ -8,6 +8,7 @@ from data_addr_panel import DataAddrPanel
 from data_panel import DataPanel
 from computer_control import ComputerControl
 from memory_loader import MemoryLoader
+from display_module import DisplayModule
 from usb_interface import USBInterface
 from switch_lamp import Lamp, SwitchLampToggle, SwitchLamp4Toggle
 import usb_msg
@@ -103,6 +104,9 @@ class MainWindow(QMainWindow):
         control_layout.addWidget(comp_control, 0, Qt.AlignLeft)
         mem_loader = MemoryLoader(self)
         control_layout.addWidget(mem_loader, 0, Qt.AlignRight)
+
+        display_module = DisplayModule(self, self._usbif)
+        layout.addWidget(display_module, 0, Qt.AlignCenter)
 
 
     def _update(self, msg):

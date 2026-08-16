@@ -35,6 +35,9 @@ module control(
     output wire TE1,
     output reg HLTX,
 
+    output wire display_update,
+    output wire display_reset,
+
     output wire [39:0] control_status,
     output wire control_status_sync
 );
@@ -43,14 +46,19 @@ initial CST = 0;
 initial HLTX = 1;
 
 wire control_cmd = (cmd_ready & cmd[47:40] == `MSGID_CONTROL);
-wire advance_cmd = control_cmd & (cmd[39:32] == 'h01);
-wire stop_cmd = control_cmd & (cmd[39:32] == 'h02);
-wire restart_cmd = control_cmd & (cmd[39:32] == 'h05);
+wire advance_cmd = control_cmd & (cmd[39:32] == `CONTROL_CMD_ADVANCE);
+wire stop_cmd = control_cmd & (cmd[39:32] == `CONTROL_CMD_STOP);
+wire restart_cmd = control_cmd & (cmd[39:32] == `CONTROL_CMD_RESTART);
+wire display_reset_cmd = control_cmd & (cmd[39:32] == `CONTROL_CMD_DISPLAY_RESET);
+
+assign display_reset = display_reset_cmd;
 
 reg cst_mode = 0;
 assign TE1 = cst_mode;
 
 reg restart_mode = 0;
+reg compare_mode = 0;
+reg [1:0] display_mode = 0;
 
 wire nexm = {op, a[9:8]} == 'b111011;
 wire nhop = op == 'b0000;
@@ -72,8 +80,32 @@ reg [4:1] cmd_ds = 0;
 
 // Address Compare
 reg advance = 0;
-wire inst_compare = ((im == cmd_im) && (dupin == cmd_dupin) && (is == cmd_is) && (syl == cmd_syl) && (ai3_ia == cmd_ai3_ia));
-wire addr_compare = inst_compare || advance;
+wire inst_compare = ~compare_mode && (im == cmd_im) && (dupin == cmd_dupin) && (is == cmd_is) && (syl == cmd_syl) && (ai3_ia == cmd_ai3_ia);
+wire data_compare = compare_mode && (dm == cmd_dm) && (dupdn == cmd_dupdn) && (ds == cmd_ds) && (op == cmd_op) && (a == cmd_a);
+
+reg addr_compare = 0;
+always @(posedge SIM_CLK or negedge SIM_RST) begin
+    if (~SIM_RST) begin
+        addr_compare <= 0;
+    end else begin
+        if (pb & bt[1] & y) addr_compare <= inst_compare || data_compare || advance;
+        if (pc & bt[4]) addr_compare <= 0;
+    end
+end
+
+// Display Updates
+reg display_locked = 0;
+always @(posedge SIM_CLK or negedge SIM_RST) begin
+    if (~SIM_RST) begin
+        display_locked <= 0;
+    end else begin
+        if (addr_compare & display_mode[0]) display_locked <= 1;
+        else if (display_reset_cmd) display_locked <= 0;
+        else if (display_mode != 'b01) display_locked <= 0;
+    end
+end
+
+assign display_update = (display_mode == 0) || (addr_compare & ~display_locked);
 
 // Advance
 reg advance_pend = 0;
@@ -131,7 +163,7 @@ always @(posedge SIM_CLK or negedge SIM_RST) begin
     if (~SIM_RST) begin
         restart <= 0;
     end else begin
-        if ((restart_cmd & ~restart_mode) | (inst_compare & restart_mode)) restart <= 1;
+        if ((restart_cmd & ~restart_mode) | (addr_compare & restart_mode)) restart <= 1;
         if (hop0) restart <= 0;
     end
 end
@@ -198,18 +230,29 @@ always @(posedge SIM_CLK or negedge SIM_RST) begin
         cmd_syl <= 0;
         cmd_ai3_ia <= 0;
         restart_mode <= 0;
+        compare_mode <= 0;
+        display_mode <= 0;
     end else begin
         if (control_cmd) begin
             case (cmd[39:32])
-                'h00: cst_mode <= cmd[0];
-                'h03: begin
+                `CONTROL_CMD_SET_CST_MODE: cst_mode <= cmd[0];
+                `CONTROL_CMD_SET_CMD_INS_ADDR: begin
                     cmd_ai3_ia <= cmd[7:0];
                     cmd_is <= cmd[11:8];
                     cmd_syl <= cmd[12];
                     cmd_im <= cmd[18:16];
                     cmd_dupin <= cmd[20];
                 end
-                'h04: restart_mode <= cmd[0];
+                `CONTROL_CMD_SET_CMD_DATA_ADDR: begin
+                    cmd_a <= cmd[8:0];
+                    cmd_ds <= cmd[19:16];
+                    cmd_dm <= cmd[22:20];
+                    cmd_dupdn <= cmd[23];
+                    cmd_op <= cmd[27:24];
+                end
+                `CONTROL_CMD_SET_RESTART_MODE: restart_mode <= cmd[0];
+                `CONTROL_CMD_SET_COMPARE_MODE: compare_mode <= cmd[0];
+                `CONTROL_CMD_SET_DISPLAY_MODE: display_mode <= cmd[1:0];
             endcase
         end
     end

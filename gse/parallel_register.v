@@ -9,18 +9,23 @@ module parallel_register #(
 
     input wire [WIDTH:1] in,
     input wire sync,
+    input wire display_update,
+    input wire display_reset,
     input wire [3:0] index,
-    output wire [WIDTH:1] out
+    output wire [WIDTH:1] out,
+    output wire [WIDTH:1] display
 );
 
 localparam HISTORY = 16;
 
 reg [HISTORY-1:0][1:WIDTH] data;
+reg [1:WIDTH] display_value;
 integer i;
 initial begin
     for (i = 0; i < WIDTH; i = i + 1) data = 'b0;
 end
-assign out = data[index];
+assign out = data[0];
+assign display = (index == 0) ? display_value : data[index];
 
 `ifdef CLOCKED
 reg sync_r;
@@ -36,6 +41,8 @@ always @(posedge SIM_CLK or negedge SIM_RST) begin
             end
             data[0] <= in;
         end
+        if (display_update) display_value <= data[0];
+        if (display_reset) display_value <= 0;
     end
 end
 `else

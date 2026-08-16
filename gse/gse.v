@@ -199,6 +199,9 @@ wire [4:1] ds;
 wire [39:0] reg_stream;
 wire reg_stream_sync;
 
+wire display_update;
+wire display_reset;
+
 lvdc_registers lvdc_registers1(
     .SIM_CLK(SIM_CLK),
     .SIM_RST(SIM_RST),
@@ -246,6 +249,9 @@ lvdc_registers lvdc_registers1(
     .x(x),
     .y(y),
     .z(z),
+
+    .display_update(display_update),
+    .display_reset(display_reset),
 
     .op(op),
     .a(a),
@@ -297,6 +303,9 @@ control control1(
     .CST(CST),
     .TE1(TE1),
     .HLTX(HLTX),
+
+    .display_update(display_update),
+    .display_reset(display_reset),
 
     .control_status(control_status),
     .control_status_sync(control_status_sync)

@@ -97,7 +97,7 @@ class ComputerControl(QWidget):
         layout.addWidget(self._late, 2, 7)
 
     def _set_cst_onoff(self):
-        state = self._cst_onoff.getState(0)
+        state = self._cst_onoff.getState(0) != 0
         self._usbif.send(usb_msg.ControlSetCSTMode(state))
 
     def _advance_pressed(self):
@@ -119,7 +119,7 @@ class ComputerControl(QWidget):
         self._stop.setState(0, False)
 
     def _auto_man_pressed(self):
-        state = self._auto_man.getState(0)
+        state = usb_msg.RestartMode.AUTO if self._auto_man.getState(0) else usb_msg.RestartMode.MAN_PTC
         self._usbif.send(usb_msg.ControlSetRestartMode(state))
 
     def _restart_pressed(self):
