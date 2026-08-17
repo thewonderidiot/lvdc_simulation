@@ -12,13 +12,21 @@ class ModuleReg(QWidget):
         # Set up the UI
         self._setup_ui(text)
 
-    def setValue(self, value):
+    def setComputerValue(self, value):
         for i in range(3):
             self._switches[i].setState(0, (value & (1 << i)) != 0)
 
-    def setDuplex(self, duplex):
+    def setCommandValue(self, value):
+        for i in range(3):
+            self._switches[i].setState(1, (value & (1 << i)) != 0)
+
+    def setComputerDuplex(self, duplex):
         self._dup.setState(0, duplex)
         self._dup.setState(1, not duplex)
+
+    def setCommandDuplex(self, duplex):
+        self._dup.setState(3, duplex)
+        self._dup.setState(2, not duplex)
 
     def _setup_ui(self, text):
         layout = QGridLayout(self)

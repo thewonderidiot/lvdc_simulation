@@ -47,18 +47,6 @@ class DisplayMode:
     SINGLE = 1
     REPEAT = 2
 
-class DisplaySelect:
-    NONE = 0
-    AI3_IA = 1
-    AI3_DATA = 2
-    MD7 = 3
-    MR1 = 4
-    PR0 = 5
-    HOPC1 = 6
-    RTC = 7
-    MLC = 8
-    SSC = 9
-
 Telemetry = namedtuple('Telemetry', ['tag', 'rtc', 'word'])
 RegisterSSMSR = namedtuple('RegisterSSMSR', ['hist_idx', 'im', 'dupin', 'is_', 'syl', 'dm', 'dupdn', 'ds'])
 RegisterOP_A = namedtuple('RegisterOP_A', ['hist_idx', 'inst_bra', 'inst_brb', 'syl0_bra', 'syl0_brb', 'syl1_bra', 'syl1_brb', 'op', 'a', 'ia'])

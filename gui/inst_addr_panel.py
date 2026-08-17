@@ -11,15 +11,23 @@ class InstAddrPanel(QWidget):
 
         self._usbif = usbif
 
-        self._im_cmd = 0
-        self._dupin_cmd = True
-        self._is_cmd = 0
-        self._syl_cmd = 0
-        self._ia_cmd = 0
-
         # Set up the UI
         self._setup_ui()
         self._usbif.msg_received.connect(self._update)
+        self.reset_command()
+
+    def reset_command(self):
+        self._im_cmd = 0
+        self._dupin_cmd = False
+        self._is_cmd = 0
+        self._syl_cmd = 0
+        self._ia_cmd = 0
+        self._mod_reg.setCommandValue(0)
+        self._mod_reg.setCommandDuplex(0)
+        self._sec_reg.setCommandValue(0)
+        self._sec_reg.setCommandSyl(0)
+        self._addr_reg.setCommandValue(0)
+        self._send_cmd()
 
     def _setup_ui(self):
         self.setStyleSheet(
@@ -91,11 +99,11 @@ class InstAddrPanel(QWidget):
 
     def _update(self, msg):
         if isinstance(msg, usb_msg.RegisterSSMSR):
-            self._mod_reg.setValue(msg.im)
-            self._mod_reg.setDuplex(msg.dupin)
+            self._mod_reg.setComputerValue(msg.im)
+            self._mod_reg.setComputerDuplex(msg.dupin)
 
-            self._sec_reg.setSyl(msg.syl)
-            self._sec_reg.setValue(msg.is_)
+            self._sec_reg.setComputerSyl(msg.syl)
+            self._sec_reg.setComputerValue(msg.is_)
 
         elif isinstance(msg, usb_msg.RegisterOP_A):
-            self._addr_reg.setValue(msg.ia)
+            self._addr_reg.setComputerValue(msg.ia)

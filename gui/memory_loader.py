@@ -1,11 +1,16 @@
 from qtpy.QtWidgets import QGridLayout, QWidget, QLabel, QSizePolicy, QSpacerItem
 from qtpy.QtGui import QColor, QPainter
-from qtpy.QtCore import Qt
+from qtpy.QtCore import Qt, Signal
 from switch_lamp import SwitchLamp2HorizontalToggle, SwitchLamp2Horizontal, SwitchLampMomentary, SwitchLamp
+import usb_msg
 
 class MemoryLoader(QWidget):
-    def __init__(self, parent):
+    resetCommandPressed = Signal()
+
+    def __init__(self, parent, usbif):
         super().__init__(parent)
+
+        self._usbif = usbif
 
         # Set up the UI
         self._setup_ui()
@@ -48,7 +53,12 @@ class MemoryLoader(QWidget):
         layout.addWidget(repeat, 2, 1)
 
         comp_reset = SwitchLampMomentary(self, text='COMPTR\nDISPLAY\nRESET', color=QColor(0,255,0))
+        comp_reset.pressed.connect(self._comp_reset_pressed)
         layout.addWidget(comp_reset, 2, 2)
 
         cmd_reset = SwitchLampMomentary(self, text='COMMAND\nDISPLAY\nRESET', color=QColor(255,0,0))
+        cmd_reset.pressed.connect(lambda: self.resetCommandPressed.emit())
         layout.addWidget(cmd_reset, 2, 3)
+
+    def _comp_reset_pressed(self):
+        self._usbif.send(usb_msg.ControlDisplayReset())

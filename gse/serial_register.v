@@ -46,7 +46,7 @@ always @(posedge SIM_CLK or negedge SIM_RST) begin
 
         sync_r <= sync;
         if (~sync_r & sync) begin
-            for (i = 0; i < WIDTH-1; i = i + 1) begin
+            for (i = 0; i < HISTORY-1; i = i + 1) begin
                 data[i+1] <= data[i];
             end
             data[0] <= delay;
@@ -59,7 +59,7 @@ end
 `else
 always @(posedge clock) delay <= {serial, delay[WIDTH:2]};
 always @(posedge sync) begin
-    for (i = 0; i < WIDTH-1; i = i + 1) begin
+    for (i = 0; i < HISTORY-1; i = i + 1) begin
         data[i+1] <= data[i];
     end
     data[0] <= delay;

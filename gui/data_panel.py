@@ -3,6 +3,7 @@ from qtpy.QtGui import QColor, QPainter
 from qtpy.QtCore import Qt
 from data_parity import DataParity
 from data_reg import DataReg
+from display_select import DisplayOption
 import usb_msg
 
 class DataPanel(QWidget):
@@ -11,9 +12,19 @@ class DataPanel(QWidget):
 
         self._usbif = usbif
 
+        self._display = DisplayOption.NONE
+
         # Set up the UI
         self._setup_ui()
         self._usbif.msg_received.connect(self._update)
+
+    def set_display(self, display):
+        self._display = display
+        if display == DisplayOption.NONE:
+            self._data_reg.setComputerValue(0)
+
+    def reset_command(self):
+        self._data_reg.setCommandValue(0)
 
     def _setup_ui(self):
         self.setStyleSheet(
@@ -57,8 +68,28 @@ class DataPanel(QWidget):
         painter.drawRoundedRect(bottom_rect, 10, 10)
 
     def _update(self, msg):
-        if isinstance(msg, usb_msg.RegisterAI3_DATA):
-            self._data_reg.setValue(msg.data)
         if isinstance(msg, usb_msg.RegisterOP_A):
             self._data_parity.setSyl0Parity(msg.syl0_bra, msg.syl0_brb)
             self._data_parity.setSyl1Parity(msg.syl1_bra, msg.syl1_brb)
+
+        if self._display == DisplayOption.TRS and isinstance(msg, usb_msg.RegisterTRS):
+            self._data_reg.setComputerValue(msg.trs)
+        elif self._display == DisplayOption.AI3_IA and isinstance(msg, usb_msg.RegisterOP_A):
+            self._data_reg.setComputerValue(msg.ia << 18)
+        elif self._display == DisplayOption.AI3_DATA and isinstance(msg, usb_msg.RegisterAI3_DATA):
+            self._data_reg.setComputerValue(msg.data)
+        elif self._display == DisplayOption.MD7 and isinstance(msg, usb_msg.RegisterMD7):
+            self._data_reg.setComputerValue(msg.md7)
+        elif self._display == DisplayOption.MR1 and isinstance(msg, usb_msg.RegisterMR1):
+            self._data_reg.setComputerValue(msg.mr1)
+        elif self._display == DisplayOption.PR0 and isinstance(msg, usb_msg.RegisterPR0):
+            self._data_reg.setComputerValue(msg.pr0)
+        elif self._display == DisplayOption.HOPC1 and isinstance(msg, usb_msg.RegisterHOPC1):
+            self._data_reg.setComputerValue(msg.hopc1)
+        elif self._display == DisplayOption.RTC and isinstance(msg, usb_msg.RegisterRTC):
+            self._data_reg.setComputerValue(msg.rtc << 13)
+        elif self._display == DisplayOption.MLC and isinstance(msg, usb_msg.RegisterSSC_MLC):
+            self._data_reg.setComputerValue(msg.mlc << 13)
+        elif self._display == DisplayOption.SSC and isinstance(msg, usb_msg.RegisterSSC_MLC):
+            self._data_reg.setComputerValue(msg.ssc << 13)
+

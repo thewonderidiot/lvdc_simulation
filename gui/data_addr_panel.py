@@ -16,6 +16,20 @@ class DataAddrPanel(QWidget):
         # Set up the UI
         self._setup_ui()
         self._usbif.msg_received.connect(self._update)
+        self.reset_command()
+
+    def reset_command(self):
+        self._dm_cmd = 0
+        self._dupdn_cmd = False
+        self._ds_cmd = 0
+        self._op_cmd = 0
+        self._a_cmd = 0
+        self._mod_reg.setCommandValue(0)
+        self._mod_reg.setCommandDuplex(0)
+        self._sec_reg.setCommandValue(0)
+        self._op_reg.setCommandOpcode(0)
+        self._op_reg.setCommandOperand(0)
+        self._send_cmd()
 
     def _setup_ui(self):
         self.setStyleSheet(
@@ -69,11 +83,13 @@ class DataAddrPanel(QWidget):
         row_layout.addSpacing(20)
 
         self._mod_reg = ModuleReg(self, 'DM')
+        self._mod_reg.valueChanged.connect(self._mod_changed)
         row_layout.addWidget(self._mod_reg)
 
         row_layout.addSpacing(50)
 
         self._sec_reg = SectorReg(self, 'DS', has_syl=False)
+        self._sec_reg.valueChanged.connect(self._sector_changed)
         row_layout.addWidget(self._sec_reg)
         row_layout.addStretch()
 
@@ -82,16 +98,34 @@ class DataAddrPanel(QWidget):
         row_layout = QHBoxLayout(row)
         row.setLayout(row_layout)
         self._op_reg = OpReg(self)
+        self._op_reg.valueChanged.connect(self._op_changed)
         row_layout.addWidget(self._op_reg)
+
+    def _mod_changed(self, mod, dup):
+        self._dm_cmd = mod
+        self._dupdn_cmd = dup
+        self._send_cmd()
+
+    def _sector_changed(self, sector, syl):
+        self._ds_cmd = sector
+        self._send_cmd()
+
+    def _op_changed(self, opcode, operand):
+        self._op_cmd = opcode
+        self._a_cmd = operand
+        self._send_cmd()
+
+    def _send_cmd(self):
+        self._usbif.send(usb_msg.ControlSetCmdDataAddr(self._dm_cmd, self._dupdn_cmd, self._ds_cmd, self._op_cmd, self._a_cmd))
 
     def _update(self, msg):
         if isinstance(msg, usb_msg.RegisterSSMSR):
-            self._mod_reg.setValue(msg.dm)
-            self._mod_reg.setDuplex(msg.dupdn)
+            self._mod_reg.setComputerValue(msg.dm)
+            self._mod_reg.setComputerDuplex(msg.dupdn)
 
-            self._sec_reg.setValue(msg.ds)
+            self._sec_reg.setComputerValue(msg.ds)
         elif isinstance(msg, usb_msg.RegisterOP_A):
             self._parity.setState(0, msg.inst_bra)
             self._parity.setState(1, msg.inst_brb)
-            self._op_reg.setOpcode(msg.op)
-            self._op_reg.setOperand(msg.a)
+            self._op_reg.setComputerOpcode(msg.op)
+            self._op_reg.setComputerOperand(msg.a)

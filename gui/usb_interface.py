@@ -73,6 +73,9 @@ class USBInterface(QObject):
                 self.msg_received.emit(msg)
 
     def send(self, msg):
+        if not self._serial:
+            return
         packed = usb_msg.pack(msg)
         slipped = slip(packed)
+        print(slipped.hex())
         self._serial.write(slipped)

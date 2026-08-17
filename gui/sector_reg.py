@@ -13,14 +13,23 @@ class SectorReg(QWidget):
         # Set up the UI
         self._setup_ui(text, has_syl)
 
-    def setValue(self, value):
+    def setComputerValue(self, value):
         for i in range(4):
             self._switches[i].setState(0, (value & (1 << i)) != 0)
 
-    def setSyl(self, syl):
+    def setCommandValue(self, value):
+        for i in range(4):
+            self._switches[i].setState(1, (value & (1 << i)) != 0)
+
+    def setComputerSyl(self, syl):
         if self._has_syl:
             self._syl.setState(0, syl ^ 1)
             self._syl.setState(1, syl)
+
+    def setCommandSyl(self, syl):
+        if self._has_syl:
+            self._syl.setState(3, syl ^ 1)
+            self._syl.setState(2, syl)
 
     def _setup_ui(self, text, has_syl):
         layout = QGridLayout(self)
@@ -61,7 +70,10 @@ class SectorReg(QWidget):
         for i,sw in enumerate(self._switches):
             if sw.getState(1):
                 value |= 1 << i
-        syl = 1 if self._syl.getState(2) else 0
+        if self._has_syl:
+            syl = 1 if self._syl.getState(2) else 0
+        else:
+            syl = 0
         self.valueChanged.emit(value, syl)
 
     def paintEvent(self, event):

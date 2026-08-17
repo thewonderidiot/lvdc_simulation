@@ -10,7 +10,7 @@ from computer_control import ComputerControl
 from memory_loader import MemoryLoader
 from display_module import DisplayModule
 from usb_interface import USBInterface
-from switch_lamp import Lamp, SwitchLampToggle, SwitchLamp4Toggle
+from switch_lamp import Lamp, SwitchLampToggle, SwitchLampMomentary, Lamp4
 import usb_msg
 
 class MainWindow(QMainWindow):
@@ -56,7 +56,7 @@ class MainWindow(QMainWindow):
         buttons_layout = QHBoxLayout(buttons)
         buttons.setLayout(buttons_layout)
 
-        lamp_test = SwitchLampToggle(self, text='LAMP\nTEST', color=QColor(255,255,0))
+        lamp_test = SwitchLampToggle(self, text='LAMP\nTEST', color=QColor(0,255,0))
         buttons_layout.addWidget(lamp_test, 0, Qt.AlignBottom | Qt.AlignCenter)
 
         serializer = QWidget(self)
@@ -75,7 +75,7 @@ class MainWindow(QMainWindow):
         acme_parity = Lamp(self, text='ACME\nPARITY\nBIT', color=QColor(255,0,0))
         serializer_layout.addWidget(acme_parity, 0, Qt.AlignCenter)
 
-        serial_out = SwitchLampToggle(self, text='DISPLAY\nSERIAL\nOUT', color=QColor(255,255,0))
+        serial_out = SwitchLampMomentary(self, text='DISPLAY\nSERIAL\nOUT', color=QColor(0,255,0))
         buttons_layout.addWidget(serial_out, 0, Qt.AlignBottom | Qt.AlignCenter)
 
         channel = QWidget(self)
@@ -91,7 +91,8 @@ class MainWindow(QMainWindow):
         channel_layout.addWidget(label)
         channel_layout.setSpacing(0)
         channel_layout.setContentsMargins(0,0,0,0)
-        chan_sw = SwitchLamp4Toggle(self, text=['ALL','1','2','3'], color=QColor(255,255,0))
+        chan_sw = Lamp4(self, text=['ALL','1','2','3'], color=QColor(0,255,0))
+        chan_sw.setState(0, True)
         channel_layout.addWidget(chan_sw, 0, Qt.AlignCenter)
 
         data_panel = DataPanel(self, self._usbif)
@@ -102,10 +103,18 @@ class MainWindow(QMainWindow):
         control_layout = QHBoxLayout(control)
         comp_control = ComputerControl(self, self._usbif)
         control_layout.addWidget(comp_control, 0, Qt.AlignLeft)
-        mem_loader = MemoryLoader(self)
+        mem_loader = MemoryLoader(self, self._usbif)
         control_layout.addWidget(mem_loader, 0, Qt.AlignRight)
+        mem_loader.resetCommandPressed.connect(inst_addr.reset_command)
+        mem_loader.resetCommandPressed.connect(data_addr.reset_command)
+        mem_loader.resetCommandPressed.connect(data_panel.reset_command)
 
         display_module = DisplayModule(self, self._usbif)
+        display_module.resetCommandPressed.connect(inst_addr.reset_command)
+        display_module.resetCommandPressed.connect(data_addr.reset_command)
+        display_module.resetCommandPressed.connect(data_panel.reset_command)
+        display_module.displaySelectChanged.connect(data_panel.set_display)
+        comp_control.CSTStateChanged.connect(display_module.allow_past)
         layout.addWidget(display_module, 0, Qt.AlignCenter)
 
 

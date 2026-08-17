@@ -3,34 +3,7 @@ from qtpy.QtGui import QColor, QPainter
 from qtpy.QtCore import Qt, Signal
 import usb_msg
 
-class DisplayOption:
-    NONE = 0
-    TRS = 1
-    AI3_IA = 2
-    AI3_DATA = 3
-    MD7 = 4
-    MR1 = 5
-    PR0 = 6
-    HOPC1 = 7
-    RTC = 8
-    MLC = 9
-    SSC = 10
-
-DISPLAY_OPTIONS = {
-    'NONE': DisplayOption.NONE,
-    'TRS': DisplayOption.TRS,
-    'AI3-IA': DisplayOption.AI3_IA,
-    'AI3-DATA': DisplayOption.AI3_DATA,
-    'MD7': DisplayOption.MD7,
-    'MR1': DisplayOption.MR1,
-    'PR0': DisplayOption.PR0,
-    'HOPC1': DisplayOption.HOPC1,
-    'RTC': DisplayOption.RTC,
-    'MLC': DisplayOption.MLC,
-    'SSC': DisplayOption.SSC,
-}
-
-class DisplaySelect(QWidget):
+class WordSelect(QWidget):
     valueChanged = Signal(int)
 
     def __init__(self, parent):
@@ -62,24 +35,24 @@ class DisplaySelect(QWidget):
         layout.setContentsMargins(0,0,0,0)
         layout.setAlignment(Qt.AlignLeft)
 
-        label = QLabel('DISPLAY SELECT', self)
+        label = QLabel('WORD', self)
         label.setAlignment(Qt.AlignCenter)
         label.setSizePolicy(QSizePolicy.Maximum, QSizePolicy.Maximum)
         font = label.font()
         font.setPointSize(8)
         font.setBold(True)
         label.setFont(font)
-        layout.addWidget(label, 0, 0, 1, 2, Qt.AlignCenter)
+        layout.addWidget(label, 0, 0, 1, 4, Qt.AlignCenter)
 
         row = 1
         col = 0
 
-        for label,select in DISPLAY_OPTIONS.items():
-            sel = QRadioButton(label, self)
+        for t in range(16):
+            sel = QRadioButton('T' if t == 0 else 'T-%u' % t, self)
             sel.setFont(font)
-            if label == 'NONE':
+            if t == 0:
                 sel.setChecked(True)
-            sel.pressed.connect(lambda s=select: self.valueChanged.emit(s))
+            sel.pressed.connect(lambda s=t: self.valueChanged.emit(s))
             layout.addWidget(sel, row, col)
             row += 1
             if row >= 7:

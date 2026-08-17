@@ -12,9 +12,13 @@ class AddrReg(QWidget):
         # Set up the UI
         self._setup_ui()
 
-    def setValue(self, value):
+    def setComputerValue(self, value):
         for i in range(8):
             self._switches[i].setState(0, (value & (1 << i)) != 0)
+
+    def setCommandValue(self, value):
+        for i in range(8):
+            self._switches[i].setState(1, (value & (1 << i)) != 0)
 
     def _setup_ui(self):
         layout = QGridLayout(self)
