@@ -1,12 +1,10 @@
 from qtpy.QtWidgets import QGridLayout, QWidget, QLabel, QSizePolicy
 from qtpy.QtGui import QColor, QPainter
 from qtpy.QtCore import Qt, Signal
-from switch_lamp import SwitchLamp2HorizontalToggle, SwitchLamp2Horizontal, SwitchLampMomentary, SwitchLamp
+from switch_lamp import SwitchLamp2Horizontal, SwitchLamp
 import usb_msg
 
 class ComputerControl(QWidget):
-    CSTStateChanged = Signal(bool)
-
     def __init__(self, parent, usbif):
         super().__init__(parent)
         self._usbif = usbif
@@ -14,8 +12,6 @@ class ComputerControl(QWidget):
         # Set up the UI
         self._setup_ui()
         self._usbif.msg_received.connect(self._update)
-
-        self._cst_state = False
 
     def _setup_ui(self):
         self.setStyleSheet(
@@ -64,7 +60,7 @@ class ComputerControl(QWidget):
         self._clock_label.setFont(font)
         layout.addWidget(self._clock_label, 1, 5, 1, 3, Qt.AlignCenter)
 
-        self._cst_onoff = SwitchLamp2HorizontalToggle(self, text=['ON', 'OFF'], color=[QColor(0,255,0), QColor(255,0,0)])
+        self._cst_onoff = SwitchLamp2Horizontal(self, text=['ON', 'OFF'], color=[QColor(0,255,0), QColor(255,0,0)])
         self._cst_onoff.pressed.connect(self._set_cst_onoff)
         layout.addWidget(self._cst_onoff, 2, 0)
 
@@ -78,7 +74,7 @@ class ComputerControl(QWidget):
         self._stop.released.connect(self._stop_released)
         layout.addWidget(self._stop, 2, 2)
 
-        self._auto_man = SwitchLamp2HorizontalToggle(self, text=['AUTO', 'MAN/PTC'], color=[QColor(0,255,0), QColor(255,0,0)])
+        self._auto_man = SwitchLamp2Horizontal(self, text=['AUTO', 'MAN/PTC'], color=[QColor(0,255,0), QColor(255,0,0)])
         self._auto_man.pressed.connect(self._auto_man_pressed)
         layout.addWidget(self._auto_man, 2, 3)
 
@@ -101,15 +97,12 @@ class ComputerControl(QWidget):
         layout.addWidget(self._late, 2, 7)
 
     def _set_cst_onoff(self):
-        cst_on = self._cst_onoff.getState(0)
-        if not cst_on:
-            self._cst_state = False
-            self.CSTStateChanged.emit(False)
+        cst_on = not self._cst_onoff.getState(0)
         self._usbif.send(usb_msg.ControlSetCSTMode(cst_on))
 
     def _advance_pressed(self):
-        cst_mode = self._cst_onoff.getState(0)
-        if cst_mode:
+        cst = self._advance.getState(1)
+        if cst:
             self._advance.setState(0, True)
             self._usbif.send(usb_msg.ControlAdvance())
         
@@ -117,8 +110,8 @@ class ComputerControl(QWidget):
         self._advance.setState(0, False)
 
     def _stop_pressed(self):
-        cst_mode = self._cst_onoff.getState(0)
-        if cst_mode:
+        cst_on = self._cst_onoff.getState(0)
+        if cst_on:
             self._stop.setState(0, True)
             self._usbif.send(usb_msg.ControlStop())
         
@@ -126,7 +119,7 @@ class ComputerControl(QWidget):
         self._stop.setState(0, False)
 
     def _auto_man_pressed(self):
-        state = usb_msg.RestartMode.AUTO if self._auto_man.getState(0) else usb_msg.RestartMode.MAN_PTC
+        state = usb_msg.RestartMode.MAN_PTC if self._auto_man.getState(0) else usb_msg.RestartMode.AUTO
         self._usbif.send(usb_msg.ControlSetRestartMode(state))
 
     def _restart_pressed(self):
@@ -188,7 +181,8 @@ class ComputerControl(QWidget):
 
     def _update(self, msg):
         if isinstance(msg, usb_msg.ControlStatus):
+            self._cst_onoff.setState(0, msg.cst_mode)
+            self._cst_onoff.setState(1, not msg.cst_mode)
             self._advance.setState(1, msg.cst)
-            if msg.cst and self._cst_onoff.getState(0) and not self._cst_state:
-                self._cst_state = True
-                self.CSTStateChanged.emit(True)
+            self._auto_man.setState(0, msg.restart_mode == usb_msg.RestartMode.AUTO)
+            self._auto_man.setState(1, msg.restart_mode == usb_msg.RestartMode.MAN_PTC)

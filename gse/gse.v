@@ -122,7 +122,7 @@ module gse(
     input wire W6,     // W clock pulse driver output 6
 
     output wire CST, // Single step
-    output reg DIN, // Data injection
+    output wire DIN, // Data injection
     output wire TE1, // LTE input line 1
     output reg TE2, // LTE input line 2
     output reg TE3, // LTE input line 3
@@ -132,7 +132,6 @@ module gse(
 initial DIN1X = 0;
 initial DIN7X = 0;
 initial DIN8X = 0;
-initial DIN = 0;
 initial GC10 = 0;
 initial GC11 = 0;
 initial GC12 = 0;
@@ -166,6 +165,10 @@ wire z;
 
 wire [47:0] cmd;
 wire cmd_ready;
+
+wire hltx_control;
+wire hltx_memory_loader;
+assign HLTX = hltx_control | hltx_memory_loader;
 
 clock_gen clock_gen1(
     .SIM_CLK(SIM_CLK),
@@ -269,8 +272,8 @@ lvdc_registers lvdc_registers1(
     .reg_stream_sync(reg_stream_sync)
 );
 
-wire [39:0] control_status;
-wire control_status_sync;
+wire [39:0] control_stream;
+wire control_stream_sync;
 
 control control1(
     .SIM_CLK(SIM_CLK),
@@ -302,13 +305,33 @@ control control1(
 
     .CST(CST),
     .TE1(TE1),
-    .HLTX(HLTX),
+    .hltx(hltx_control),
 
     .display_update(display_update),
     .display_reset(display_reset),
 
-    .control_status(control_status),
-    .control_status_sync(control_status_sync)
+    .control_stream(control_stream),
+    .control_stream_sync(control_stream_sync)
+);
+
+memory_loader memory_loader1(
+    .SIM_CLK(SIM_CLK),
+    .SIM_RST(SIM_RST),
+
+    .cmd(cmd),
+    .cmd_ready(cmd_ready),
+
+    .pa(pa),
+    .pb(pb),
+    .pc(pc),
+    .bt(bt),
+    .w(w),
+    .x(x),
+    .y(y),
+    .z(z),
+
+    .DIN(DIN),
+    .hltx(hltx_memory_loader)
 );
 
 `ifdef TARGET_FPGA
@@ -332,8 +355,8 @@ streamer streamer1(
 
     .reg_stream(reg_stream),
     .reg_stream_sync(reg_stream_sync),
-    .control_status(control_status),
-    .control_status_sync(control_status_sync)
+    .control_stream(control_stream),
+    .control_stream_sync(control_stream_sync)
 );
 `else
 reg [47:0] test_cmd = 0;

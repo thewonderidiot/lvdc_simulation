@@ -33,17 +33,17 @@ module control(
 
     output reg CST,
     output wire TE1,
-    output reg HLTX,
+    output reg hltx,
 
     output wire display_update,
     output wire display_reset,
 
-    output wire [39:0] control_status,
-    output wire control_status_sync
+    output reg [39:0] control_stream,
+    output wire control_stream_sync
 );
 
 initial CST = 0;
-initial HLTX = 1;
+initial hltx = 1;
 
 wire control_cmd = (cmd_ready & cmd[47:40] == `MSGID_CONTROL);
 wire advance_cmd = control_cmd & (cmd[39:32] == `CONTROL_CMD_ADVANCE);
@@ -190,36 +190,55 @@ always @(posedge SIM_CLK) begin
 end
 
 always @(*) begin
-    HLTX = (boot_count > 14'o0) || restart;
+    hltx = (boot_count > 14'o0) || restart;
 end
 `else
 initial begin
-    #100000 HLTX = 0;
-    #1000000 HLTX = 1;
+    #100000 hltx = 0;
 end
 `endif
 
-// Commands and telemetry
 `ifdef TARGET_FPGA
+// Commands and telemetry
+localparam NUM_REGISTERS = 3;
 localparam FREQUENCY = 50;
-localparam MAX_COUNT = (40960000 / FREQUENCY);
+localparam MAX_COUNT = (40960000 / NUM_REGISTERS / FREQUENCY);
 localparam COUNTER_LEN = $clog2(MAX_COUNT);
+
 reg [COUNTER_LEN-1:0] counter;
 initial counter = 'd0;
 
+reg [7:0] reg_idx;
+initial reg_idx = 'd0;
+
+// Round-robin register streaming
 always @(posedge SIM_CLK or negedge SIM_RST) begin
     if (~SIM_RST) begin
         counter <= 'd0;
+        reg_idx <= 'd0;
     end else begin
         if (counter == MAX_COUNT - 1) begin
             counter <= 'd0;
+            if (reg_idx == NUM_REGISTERS - 1) begin
+                reg_idx = 0;
+            end else begin
+                reg_idx <= reg_idx + 1;
+            end
         end else begin
             counter <= counter + 1;
         end
     end
 end
-assign control_status = {39'b0, CST};
-assign control_status_sync = counter == 0;
+
+always @(*) begin
+    case (reg_idx)
+        'd0:  control_stream = {reg_idx, 26'b0, display_mode, compare_mode, restart_mode, CST, cst_mode};
+        'd1:  control_stream = {reg_idx, 11'b0, cmd_dupin, 1'b0, cmd_im, 3'b0, cmd_syl, cmd_is, cmd_ai3_ia};
+        'd2:  control_stream = {reg_idx, 4'b0, cmd_op, cmd_dupdn, cmd_dm, cmd_ds, 7'b0, cmd_a};
+    endcase
+end
+
+assign control_stream_sync = counter == 0;
 
 always @(posedge SIM_CLK or negedge SIM_RST) begin
     if (~SIM_RST) begin

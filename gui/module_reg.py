@@ -1,7 +1,7 @@
 from qtpy.QtWidgets import QGridLayout, QWidget, QLabel, QSizePolicy
 from qtpy.QtGui import QColor, QPainter
 from qtpy.QtCore import Qt, Signal
-from switch_lamp import SwitchLamp2ToggleBottom, SwitchLamp4ToggleBottom
+from switch_lamp import SwitchLamp2Horizontal, SwitchLamp4
 
 class ModuleReg(QWidget):
     valueChanged = Signal(int, bool)
@@ -11,12 +11,15 @@ class ModuleReg(QWidget):
 
         # Set up the UI
         self._setup_ui(text)
+        self._cmd_value = 0
+        self._cmd_dup = 0
 
     def setComputerValue(self, value):
         for i in range(3):
             self._switches[i].setState(0, (value & (1 << i)) != 0)
 
     def setCommandValue(self, value):
+        self._cmd_value = value
         for i in range(3):
             self._switches[i].setState(1, (value & (1 << i)) != 0)
 
@@ -25,6 +28,7 @@ class ModuleReg(QWidget):
         self._dup.setState(1, not duplex)
 
     def setCommandDuplex(self, duplex):
+        self._cmd_dup = duplex
         self._dup.setState(3, duplex)
         self._dup.setState(2, not duplex)
 
@@ -56,20 +60,22 @@ class ModuleReg(QWidget):
 
         self._switches = []
         for i in range(3):
-            sw = SwitchLamp2ToggleBottom(self, text='%s%u' % (text, 3-i), color=[QColor(0,255,0), QColor(255,0,0)])
-            sw.pressed.connect(self._switch_pressed)
+            bit = 3-i
+            sw = SwitchLamp2Horizontal(self, text='%s%u' % (text, bit), color=[QColor(0,255,0), QColor(255,0,0)])
+            sw.pressed.connect(lambda b=bit: self._mod_switch_pressed(b-1))
             self._switches.insert(0, sw)
             layout.addWidget(sw, 1, 1+i, 2, 1)
-        self._dup = SwitchLamp4ToggleBottom(self, text=['DX','SX','SX','DX'], color=[QColor(0,255,0), QColor(0,255,0), QColor(255,0,0), QColor(255,0,0)])
-        self._dup.pressed.connect(self._switch_pressed)
+        self._dup = SwitchLamp4(self, text=['DX','SX','SX','DX'], color=[QColor(0,255,0), QColor(0,255,0), QColor(255,0,0), QColor(255,0,0)])
+        self._dup.pressed.connect(self._dup_switch_pressed)
         layout.addWidget(self._dup, 1, 4, 2, 1)
 
-    def _switch_pressed(self):
-        value = 0
-        for i,sw in enumerate(self._switches):
-            if sw.getState(1):
-                value |= 1 << i
-        self.valueChanged.emit(value, self._dup.getState(3))
+    def _mod_switch_pressed(self, bit):
+        value = self._cmd_value ^ (1 << bit)
+        self.valueChanged.emit(value, self._cmd_dup)
+
+    def _dup_switch_pressed(self):
+        dup = self._cmd_dup ^ 1
+        self.valueChanged.emit(self._cmd_value, dup)
 
     def paintEvent(self, event):
         painter = QPainter(self)

@@ -12,8 +12,8 @@ module streamer(
 
     input wire [39:0] reg_stream,
     input wire reg_stream_sync,
-    input wire [39:0] control_status,
-    input wire control_status_sync
+    input wire [39:0] control_stream,
+    input wire control_stream_sync
 );
 
 wire next_msg_ready;
@@ -56,8 +56,8 @@ wire [39:0] next_control;
 stream_fifo control_fifo(
   .clk(SIM_CLK),
   .srst(~SIM_RST),
-  .din(control_status),
-  .wr_en(control_status_sync),
+  .din(control_stream),
+  .wr_en(control_stream_sync),
   .rd_en(read_control),
   .dout(next_control),
   .full(),

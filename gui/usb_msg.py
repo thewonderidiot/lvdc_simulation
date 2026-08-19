@@ -34,6 +34,11 @@ class ControlCmd:
     SET_DISPLAY_MODE = 8
     DISPLAY_RESET = 9
 
+class ControlTlm:
+    CONTROL_STATUS = 0
+    CMD_INS_ADDR = 1
+    CMD_DATA_ADDR = 2
+
 class RestartMode:
     MAN_PTC = 0
     AUTO = 1
@@ -58,7 +63,9 @@ RegisterPR0 = namedtuple('RegisterPR0', ['hist_idx', 'pr0'])
 RegisterHOPC1 = namedtuple('RegisterHOPC1', ['hist_idx', 'hopc1'])
 RegisterRTC = namedtuple('RegisterRTC', ['hist_idx', 'rtc'])
 RegisterSSC_MLC = namedtuple('RegisterSSC_MLC', ['hist_idx', 'ssc', 'mlc'])
-ControlStatus = namedtuple('ControlStatus', ['cst'])
+ControlStatus = namedtuple('ControlStatus', ['cst_mode', 'cst', 'restart_mode', 'compare_mode', 'display_mode'])
+ControlCmdInsAddr = namedtuple('ControlCmdInsAddr', ['im', 'dupin', 'is_', 'syl', 'ia'])
+ControlCmdDataAddr = namedtuple('ControlCmdDataAddr', ['dm', 'dupdn', 'ds', 'op', 'a'])
 
 RegistersSetHistIndex = namedtuple('RegistersSetHistIndex', ['hist_idx'])
 ControlSetCSTMode = namedtuple('ControlSetCSTMode', ['mode'])
@@ -168,8 +175,28 @@ def unpack(msg_bytes):
             msg = RegisterSSC_MLC(hist_idx, ssc, mlc)
 
     elif msg_id == MsgId.Control:
-        cst = (msg_bytes[5] & 0x01) != 0
-        msg = ControlStatus(cst)
+        tlm_id = msg_bytes[1]
+        if tlm_id == ControlTlm.CONTROL_STATUS:
+            cst_mode = msg_bytes[5] & 0x01
+            cst = (msg_bytes[5] & 0x02) != 0
+            restart_mode = (msg_bytes[5] >> 2) & 0x01
+            compare_mode = (msg_bytes[5] >> 3) & 0x01
+            display_mode = (msg_bytes[5] >> 4) & 0x03
+            msg = ControlStatus(cst_mode, cst, restart_mode, compare_mode, display_mode)
+        elif tlm_id == ControlTlm.CMD_INS_ADDR:
+            dupin = (msg_bytes[3] >> 4) & 1
+            im = msg_bytes[3] & 0x7
+            syl = (msg_bytes[4] >> 4) & 1
+            is_ = msg_bytes[4] & 0xf
+            ai3_ia = msg_bytes[5]
+            msg = ControlCmdInsAddr(im, dupin, is_, syl, ai3_ia)
+        elif tlm_id == ControlTlm.CMD_DATA_ADDR:
+            op = msg_bytes[2] & 0xf
+            dupdn = (msg_bytes[3] >> 7) & 1
+            dm = (msg_bytes[3] >> 4) & 0x7
+            ds = msg_bytes[3] & 0xf
+            a, = struct.unpack_from('>H', msg_bytes, 4)
+            msg = ControlCmdDataAddr(dm, dupdn, ds, op, a)
         
     return msg
 

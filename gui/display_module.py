@@ -1,7 +1,7 @@
 from qtpy.QtWidgets import QGridLayout, QWidget, QLabel, QSizePolicy, QSpacerItem
 from qtpy.QtGui import QColor
 from qtpy.QtCore import Qt, Signal
-from switch_lamp import SwitchLamp2HorizontalToggle, SwitchLamp2Horizontal, SwitchLampMomentary
+from switch_lamp import SwitchLamp2Horizontal, SwitchLampMomentary
 from display_select import DisplaySelect
 from word_select import WordSelect
 import usb_msg
@@ -16,16 +16,10 @@ class DisplayModule(QWidget):
 
         # Set up the UI
         self._setup_ui()
+        self._usbif.msg_received.connect(self._update)
 
         self._current_time = 0
-        self._past_allowed = False
-
-    def allow_past(self, past_allowed):
-        self._past_allowed = past_allowed
-        if not self._past_allowed:
-            self._past_present.setState(0, False)
-            self._past_present.setState(1, True)
-        self._send_past_index()
+        self._cst = False
 
     def _setup_ui(self):
         self.setStyleSheet(
@@ -64,7 +58,7 @@ class DisplayModule(QWidget):
         self._repeat.pressed.connect(self._repeat_pressed)
         layout.addWidget(self._repeat, 2, 0, 3, 2)
 
-        self._data_ins = SwitchLamp2HorizontalToggle(self, text=['DATA', 'INS'], color=QColor(0,255,0))
+        self._data_ins = SwitchLamp2Horizontal(self, text=['DATA', 'INS'], color=QColor(0,255,0))
         self._data_ins.pressed.connect(self._data_ins_pressed)
         layout.addWidget(self._data_ins, 2, 1, 3, 2)
 
@@ -106,19 +100,15 @@ class DisplayModule(QWidget):
 
     def _repeat_pressed(self):
         if self._repeat.getState(0):
-            self._repeat.setState(0, False)
-            self._repeat.setState(1, True)
             new_mode = usb_msg.DisplayMode.SINGLE
         elif self._repeat.getState(1):
-            self._repeat.setState(1, False)
             new_mode = usb_msg.DisplayMode.CONTINUOUS
         else:
-            self._repeat.setState(0, True)
             new_mode = usb_msg.DisplayMode.REPEAT
         self._usbif.send(usb_msg.ControlSetDisplayMode(new_mode))
 
     def _data_ins_pressed(self):
-        new_mode = usb_msg.CompareMode.DATA if self._data_ins.getState(0) else usb_msg.CompareMode.INS
+        new_mode = usb_msg.CompareMode.INS if self._data_ins.getState(0) else usb_msg.CompareMode.DATA
         self._usbif.send(usb_msg.ControlSetCompareMode(new_mode))
 
     def _comp_reset_pressed(self):
@@ -126,7 +116,7 @@ class DisplayModule(QWidget):
 
     def _past_present_pressed(self):
         present = self._past_present.getState(1)
-        if present and self._past_allowed:
+        if present and self._cst:
             self._past_present.setState(0, True)
             self._past_present.setState(1, False)
         elif not present:
@@ -146,3 +136,15 @@ class DisplayModule(QWidget):
         past = self._past_present.getState(0)
         if past:
             self._usbif.send(usb_msg.RegistersSetHistIndex(time))
+
+    def _update(self, msg):
+        if isinstance(msg, usb_msg.ControlStatus):
+            self._repeat.setState(0, msg.display_mode == usb_msg.DisplayMode.REPEAT)
+            self._repeat.setState(1, msg.display_mode == usb_msg.DisplayMode.SINGLE)
+            self._data_ins.setState(0, msg.compare_mode == usb_msg.CompareMode.DATA)
+            self._data_ins.setState(1, msg.compare_mode == usb_msg.CompareMode.INS)
+            if self._cst and not msg.cst:
+                self._past_present.setState(0, False)
+                self._past_present.setState(1, True)
+                self._send_past_index()
+            self._cst = msg.cst

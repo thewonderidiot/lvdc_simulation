@@ -123,6 +123,7 @@ IU_SOURCES = $(COMPONENT_SOURCES) \
 	     $(SRC_DIR)/gse/clock_gen.v \
 	     $(SRC_DIR)/gse/control.v \
 	     $(SRC_DIR)/gse/lvdc_registers.v \
+	     $(SRC_DIR)/gse/memory_loader.v \
 	     $(SRC_DIR)/gse/mult_div_counter.v \
 	     $(SRC_DIR)/gse/parallel_register.v \
 	     $(SRC_DIR)/gse/serial_register.v \

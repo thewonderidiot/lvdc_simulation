@@ -296,25 +296,7 @@ class Lamp4(Lamp):
             QLineF(x+w/2, y, x+w/2, y+h),
         ]
 
-class SwitchLamp4Toggle(Lamp4):
+class SwitchLamp4(Lamp4):
     def __init__(self, parent, text='', color=QColor(255,255,255)):
         super().__init__(parent, text=text, color=color)
         self.setEnabled(True)
-        self.pressed.connect(self._pressed)
-        self._states[0] = True
-
-    def _pressed(self):
-        self._states = self._states[-1:] + self._states[:-1]
-        self.update()
-
-class SwitchLamp4ToggleBottom(Lamp4):
-    def __init__(self, parent, text='', color=QColor(255,255,255)):
-        super().__init__(parent, text=text, color=color)
-        self.setEnabled(True)
-        self.pressed.connect(self._pressed)
-        self._states[3] = True
-
-    def _pressed(self):
-        self._states[3] = not self._states[3]
-        self._states[2] = not self._states[3]
-        self.update()

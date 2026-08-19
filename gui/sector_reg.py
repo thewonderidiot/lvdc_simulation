@@ -1,7 +1,7 @@
 from qtpy.QtWidgets import QGridLayout, QWidget, QLabel, QSizePolicy
 from qtpy.QtGui import QColor, QPainter
 from qtpy.QtCore import Qt, Signal
-from switch_lamp import SwitchLamp2ToggleBottom, SwitchLamp4ToggleBottom
+from switch_lamp import SwitchLamp2Horizontal, SwitchLamp4
 
 class SectorReg(QWidget):
     valueChanged = Signal(int, int)
@@ -12,12 +12,15 @@ class SectorReg(QWidget):
 
         # Set up the UI
         self._setup_ui(text, has_syl)
+        self._cmd_value = 0
+        self._cmd_syl = 0
 
     def setComputerValue(self, value):
         for i in range(4):
             self._switches[i].setState(0, (value & (1 << i)) != 0)
 
     def setCommandValue(self, value):
+        self._cmd_value = value
         for i in range(4):
             self._switches[i].setState(1, (value & (1 << i)) != 0)
 
@@ -27,6 +30,7 @@ class SectorReg(QWidget):
             self._syl.setState(1, syl)
 
     def setCommandSyl(self, syl):
+        self._cmd_syl = syl
         if self._has_syl:
             self._syl.setState(3, syl ^ 1)
             self._syl.setState(2, syl)
@@ -54,27 +58,26 @@ class SectorReg(QWidget):
             self._syl_label.setFont(font)
             layout.addWidget(self._syl_label, 0, 0, Qt.AlignCenter)
 
-            self._syl = SwitchLamp4ToggleBottom(self, text=['0','1','1','0'], color=[QColor(0,255,0), QColor(0,255,0), QColor(255,0,0), QColor(255,0,0)])
-            self._syl.pressed.connect(self._switch_pressed)
+            self._syl = SwitchLamp4(self, text=['0','1','1','0'], color=[QColor(0,255,0), QColor(0,255,0), QColor(255,0,0), QColor(255,0,0)])
+            self._syl.pressed.connect(self._syl_switch_pressed)
             layout.addWidget(self._syl, 1, 0)
 
         self._switches = []
         for i in range(4):
-            sw = SwitchLamp2ToggleBottom(self, text='%s%u' % (text, 4-i), color=[QColor(0,255,0), QColor(255,0,0)])
-            sw.pressed.connect(self._switch_pressed)
+            bit = 4-i
+            sw = SwitchLamp2Horizontal(self, text='%s%u' % (text, bit), color=[QColor(0,255,0), QColor(255,0,0)])
+            sw.pressed.connect(lambda b=bit: self._sec_switch_pressed(b-1))
             self._switches.insert(0, sw)
             layout.addWidget(sw, 1, i+1)
 
-    def _switch_pressed(self):
-        value = 0
-        for i,sw in enumerate(self._switches):
-            if sw.getState(1):
-                value |= 1 << i
-        if self._has_syl:
-            syl = 1 if self._syl.getState(2) else 0
-        else:
-            syl = 0
-        self.valueChanged.emit(value, syl)
+    def _syl_switch_pressed(self):
+        syl = self._cmd_syl ^ 1
+        print(syl)
+        self.valueChanged.emit(self._cmd_value, syl)
+
+    def _sec_switch_pressed(self, bit):
+        value = self._cmd_value ^ (1 << bit)
+        self.valueChanged.emit(value, self._cmd_syl)
 
     def paintEvent(self, event):
         painter = QPainter(self)

@@ -22,11 +22,6 @@ class InstAddrPanel(QWidget):
         self._is_cmd = 0
         self._syl_cmd = 0
         self._ia_cmd = 0
-        self._mod_reg.setCommandValue(0)
-        self._mod_reg.setCommandDuplex(0)
-        self._sec_reg.setCommandValue(0)
-        self._sec_reg.setCommandSyl(0)
-        self._addr_reg.setCommandValue(0)
         self._send_cmd()
 
     def _setup_ui(self):
@@ -107,3 +102,10 @@ class InstAddrPanel(QWidget):
 
         elif isinstance(msg, usb_msg.RegisterOP_A):
             self._addr_reg.setComputerValue(msg.ia)
+
+        elif isinstance(msg, usb_msg.ControlCmdInsAddr):
+            self._mod_reg.setCommandValue(msg.im)
+            self._mod_reg.setCommandDuplex(msg.dupin)
+            self._sec_reg.setCommandValue(msg.is_)
+            self._sec_reg.setCommandSyl(msg.syl)
+            self._addr_reg.setCommandValue(msg.ia)

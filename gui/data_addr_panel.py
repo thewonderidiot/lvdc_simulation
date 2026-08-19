@@ -24,11 +24,6 @@ class DataAddrPanel(QWidget):
         self._ds_cmd = 0
         self._op_cmd = 0
         self._a_cmd = 0
-        self._mod_reg.setCommandValue(0)
-        self._mod_reg.setCommandDuplex(0)
-        self._sec_reg.setCommandValue(0)
-        self._op_reg.setCommandOpcode(0)
-        self._op_reg.setCommandOperand(0)
         self._send_cmd()
 
     def _setup_ui(self):
@@ -129,3 +124,10 @@ class DataAddrPanel(QWidget):
             self._parity.setState(1, msg.inst_brb)
             self._op_reg.setComputerOpcode(msg.op)
             self._op_reg.setComputerOperand(msg.a)
+
+        elif isinstance(msg, usb_msg.ControlCmdDataAddr):
+            self._mod_reg.setCommandValue(msg.dm)
+            self._mod_reg.setCommandDuplex(msg.dupdn)
+            self._sec_reg.setCommandValue(msg.ds)
+            self._op_reg.setCommandOpcode(msg.op)
+            self._op_reg.setCommandOperand(msg.a)
