@@ -13,7 +13,9 @@ module streamer(
     input wire [39:0] reg_stream,
     input wire reg_stream_sync,
     input wire [39:0] control_stream,
-    input wire control_stream_sync
+    input wire control_stream_sync,
+    input wire [42:0] verify_stream,
+    input wire verify_stream_sync
 );
 
 wire next_msg_ready;
@@ -64,6 +66,21 @@ stream_fifo control_fifo(
   .empty(control_fifo_empty)
 );
 
+// Verify FIFO
+wire read_verify;
+wire verify_fifo_empty;
+wire [42:0] next_verify;
+verify_fifo verify_fifo1(
+  .clk(SIM_CLK),
+  .srst(~SIM_RST),
+  .din(verify_stream),
+  .wr_en(verify_stream_sync),
+  .rd_en(read_verify),
+  .dout(next_verify),
+  .full(),
+  .empty(verify_fifo_empty)
+);
+
 // Signal to send message FIFO that the message sender is ready for data
 wire sender_ready;
 // Data from send message FIFO to the message sender
@@ -88,14 +105,16 @@ wire [7:0] tx_byte;
 wire tx_byte_read_en;
 
 assign next_msg = ~tlm_fifo_empty ? {`MSGID_TELEMETRY, next_tlm} :
+                  ~verify_fifo_empty ? {`MSG_GROUP_VERIFY, 1'b0, next_verify} :
                   ~reg_fifo_empty ? {`MSGID_REGISTERS, next_reg} :
                   ~control_fifo_empty ? {`MSGID_CONTROL, next_control} :
                   40'b0;
 
 assign read_tlm = (~tlm_fifo_empty & ~send_fifo_full);
-assign read_reg = (tlm_fifo_empty & ~reg_fifo_empty & ~send_fifo_full);
-assign read_control = (tlm_fifo_empty & reg_fifo_empty & ~control_fifo_empty & ~send_fifo_full);
-assign next_msg_ready = read_tlm | read_reg | read_control;
+assign read_verify = (tlm_fifo_empty & ~verify_fifo_empty & ~send_fifo_full);
+assign read_reg = (tlm_fifo_empty & verify_fifo_empty & ~reg_fifo_empty & ~send_fifo_full);
+assign read_control = (tlm_fifo_empty & verify_fifo_empty & reg_fifo_empty & ~control_fifo_empty & ~send_fifo_full);
+assign next_msg_ready = read_tlm | read_verify | read_reg | read_control;
 
 // Send message FIFO
 msg_fifo send_msg_fifo(

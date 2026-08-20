@@ -35,6 +35,11 @@ module control(
     output wire TE1,
     output reg hltx,
 
+    output reg [3:1] cmd_dm,
+    output reg cmd_dupdn,
+    output reg [4:1] cmd_ds,
+    output reg [9:1] cmd_a,
+
     output wire display_update,
     output wire display_reset,
 
@@ -50,6 +55,8 @@ wire advance_cmd = control_cmd & (cmd[39:32] == `CONTROL_CMD_ADVANCE);
 wire stop_cmd = control_cmd & (cmd[39:32] == `CONTROL_CMD_STOP);
 wire restart_cmd = control_cmd & (cmd[39:32] == `CONTROL_CMD_RESTART);
 wire display_reset_cmd = control_cmd & (cmd[39:32] == `CONTROL_CMD_DISPLAY_RESET);
+wire load_cmd = cmd_ready & (cmd[47:44] == `MSG_GROUP_LOAD);
+wire verify_cmd = cmd_ready & (cmd[47:44] == `MSG_GROUP_VERIFY);
 
 assign display_reset = display_reset_cmd;
 
@@ -66,15 +73,15 @@ wire nhop = op == 'b0000;
 wire cst_allowed = cst_mode & ~nexm & ~nhop;
 
 reg [4:1] cmd_op = 0;
-reg [9:1] cmd_a = 0;
 reg [8:1] cmd_ai3_ia = 0;
 reg [3:1] cmd_im = 0;
 reg cmd_dupin = 0;
 reg [4:1] cmd_is = 0;
 reg cmd_syl = 0;
-reg [3:1] cmd_dm = 0;
-reg cmd_dupdn = 0;
-reg [4:1] cmd_ds = 0;
+initial cmd_dm = 0;
+initial cmd_dupdn = 0;
+initial cmd_ds = 0;
+initial cmd_a = 0;
 
 `ifdef CLOCKED
 
@@ -273,6 +280,11 @@ always @(posedge SIM_CLK or negedge SIM_RST) begin
                 `CONTROL_CMD_SET_COMPARE_MODE: compare_mode <= cmd[0];
                 `CONTROL_CMD_SET_DISPLAY_MODE: display_mode <= cmd[1:0];
             endcase
+        end else if (load_cmd | verify_cmd) begin
+            cmd_dm <= cmd[42:40];
+            cmd_dupdn <= cmd[39];
+            cmd_ds <= cmd[38:35];
+            cmd_a <= cmd[34:26];
         end
     end
 end

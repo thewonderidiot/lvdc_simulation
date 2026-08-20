@@ -19,161 +19,155 @@ module memory_loader(
     input wire y,
     input wire z,
 
+    input wire [1:26] trs,
+
+    input wire [3:1] cmd_dm,
+    input wire cmd_dupdn,
+    input wire [4:1] cmd_ds,
+    input wire [9:1] cmd_a,
+
     output reg hltx,
-    output reg DIN
+    output reg DIN,
+
+    output wire busy,
+    output reg [42:0] verify_stream,
+    output reg verify_stream_sync
 );
 
-initial hltx = 0;
+initial hltx = 1;
 initial DIN = 0;
 
-reg [3:1] cmd_dm;
-reg cmd_dupdn;
-reg [4:1] cmd_ds;
-reg [9:1] cmd_a;
-reg [26:1] cmd_word;
+reg [1:26] cmd_data;
 
 `ifdef CLOCKED
 wire load_cmd = cmd_ready & (cmd[47:44] == `MSG_GROUP_LOAD);
 wire verify_cmd = cmd_ready & (cmd[47:44] == `MSG_GROUP_VERIFY);
 
+localparam IDLE = 0,
+           START_LOAD = 1,
+           START_VERIFY = 2,
+           SEND_STO = 3,
+           SEND_DATA = 4,
+           SEND_CLA = 5,
+           READ_DATA = 6;
+
+reg [2:0] state = IDLE;
+reg [2:0] next_state = IDLE;
+
+assign busy = (state != IDLE);
+
 always @(posedge SIM_CLK or negedge SIM_RST) begin
     if (~SIM_RST) begin
-        cmd_dm <= 0;
-        cmd_dupdn <= 0;
-        cmd_ds <= 0;
-        cmd_a <= 0;
-        cmd_word <= 0;
+        state <= IDLE;
+    end else begin
+        state <= next_state;
+    end
+end
+
+always @(*) begin
+    next_state = state;
+    case (state)
+        IDLE: begin
+            if (load_cmd) next_state = START_LOAD;
+            if (verify_cmd) next_state = START_VERIFY;
+        end
+        START_LOAD: begin
+            if (pb & bt[6]) next_state = SEND_STO;
+        end
+        START_VERIFY: begin
+            if (pb & bt[6]) next_state = SEND_CLA;
+        end
+        SEND_STO: begin
+            if (pb & bt[1]) next_state = SEND_DATA;
+        end
+        SEND_DATA: begin
+            if (pa & bt[14]) next_state = SEND_CLA;
+        end
+        SEND_CLA: begin
+            if (pa & bt[13]) next_state = READ_DATA;
+        end
+        READ_DATA: begin
+            if (pa & bt[1] & y) next_state = IDLE;
+        end
+    endcase
+end
+
+always @(*) begin
+    DIN = 0;
+    if ((state == SEND_STO) || (state == SEND_CLA)) begin
+        if (pb & bt[7])  DIN = cmd_dupdn;
+        if (pb & bt[8])  DIN = cmd_dm[1];
+        if (pb & bt[9])  DIN = cmd_dm[2];
+        if (pb & bt[10]) DIN = cmd_dm[3];
+        if (pb & bt[11]) DIN = cmd_ds[1];
+        if (pb & bt[12]) DIN = cmd_ds[2];
+        if (pb & bt[13]) DIN = cmd_ds[3];
+        if (pb & bt[14]) DIN = cmd_ds[4];
+        if (pc & bt[9])  DIN = 1;
+        if (pc & bt[10]) DIN = 1;
+        if (pc & bt[11]) DIN = (state == SEND_CLA);
+        if (pc & bt[12]) DIN = 1;
+        if (pc & bt[13]) DIN = cmd_a[9];
+        if (pc & bt[14]) DIN = cmd_a[1];
+        if (pa & bt[1])  DIN = cmd_a[2];
+        if (pa & bt[2])  DIN = cmd_a[3];
+        if (pa & bt[3])  DIN = cmd_a[4];
+        if (pa & bt[4])  DIN = cmd_a[5];
+        if (pa & bt[5])  DIN = cmd_a[6];
+        if (pa & bt[6])  DIN = cmd_a[7];
+        if (pa & bt[7])  DIN = cmd_a[8];
+    end else if (state == SEND_DATA) begin
+        if (pb & bt[2])  DIN = cmd_data[26];
+        if (pb & bt[3])  DIN = cmd_data[25];
+        if (pb & bt[4])  DIN = cmd_data[24];
+        if (pb & bt[5])  DIN = cmd_data[23];
+        if (pb & bt[6])  DIN = cmd_data[22];
+        if (pb & bt[7])  DIN = cmd_data[21];
+        if (pb & bt[8])  DIN = cmd_data[20];
+        if (pb & bt[9])  DIN = cmd_data[19];
+        if (pb & bt[10]) DIN = cmd_data[18];
+        if (pb & bt[11]) DIN = cmd_data[17];
+        if (pb & bt[12]) DIN = cmd_data[16];
+        if (pb & bt[13]) DIN = cmd_data[15];
+        if (pb & bt[14]) DIN = cmd_data[14];
+        if (pc & bt[1])  DIN = cmd_data[13];
+        if (pc & bt[2])  DIN = cmd_data[12];
+        if (pc & bt[3])  DIN = cmd_data[11];
+        if (pc & bt[4])  DIN = cmd_data[10];
+        if (pc & bt[5])  DIN = cmd_data[9];
+        if (pc & bt[6])  DIN = cmd_data[8];
+        if (pc & bt[7])  DIN = cmd_data[7];
+        if (pc & bt[8])  DIN = cmd_data[6];
+        if (pc & bt[9])  DIN = cmd_data[5];
+        if (pc & bt[10])  DIN = cmd_data[4];
+        if (pc & bt[11])  DIN = cmd_data[3];
+        if (pc & bt[12])  DIN = cmd_data[2];
+        if (pc & bt[13])  DIN = cmd_data[1];
+    end
+end
+
+wire verify_sync = (state == READ_DATA) & pa & bt[1] & x;
+reg verify_sync_r;
+assign verify_stream_sync = verify_sync & ~verify_sync_r;
+always @(posedge SIM_CLK or negedge SIM_RST) begin
+    if (~SIM_RST) begin
+        verify_sync_r <= 0;
+    end else begin
+        verify_sync_r <= verify_sync;
+    end
+end
+assign verify_stream = {cmd_dm, cmd_dupdn, cmd_ds, cmd_a, trs};
+
+always @(posedge SIM_CLK or negedge SIM_RST) begin
+    if (~SIM_RST) begin
+        cmd_data <= 0;
     end else begin
         if (load_cmd | verify_cmd) begin
-            cmd_dm <= cmd[42:40];
-            cmd_dupdn <= cmd[39];
-            cmd_ds <= cmd[38:35];
-            cmd_a <= cmd[34:26];
-            cmd_word <= cmd[25:0];
+            cmd_data <= cmd[25:0];
         end
     end
 end
 
-`else
-initial begin
-    #2000000 hltx = 1;
-    @(posedge pb);
-    @(posedge pb);
-    @(posedge pb);
-    @(posedge pb);
-    @(posedge w);
-    @(posedge w);
-    @(posedge w);
-    @(posedge w);
-    @(posedge w);
-    @(posedge w);         // Duplex, DM2, DS16
-    @(posedge w) DIN = 1; // B-7-X  Data sim/dup
-    @(posedge w) DIN = 0; // B-8-X  DM1
-    @(posedge w) DIN = 0; // B-9-X  DM2
-    @(posedge w) DIN = 0; // B-10-X DM3
-    @(posedge w) DIN = 1; // B-11-X DS1
-    @(posedge w) DIN = 1; // B-12-X DS2
-    @(posedge w) DIN = 1; // B-13-X DS3
-    @(posedge w) DIN = 1; // B-14-X DS4
-    @(posedge w) DIN = 0; // done
-    @(posedge w);
-    @(posedge w);
-    @(posedge w);
-    @(posedge w);
-    @(posedge w);
-    @(posedge w);
-    @(posedge w);         // CLA 0101
-    @(posedge w) DIN = 1; // C-9-X  OP1
-    @(posedge w) DIN = 1; // C-10-X OP2
-    @(posedge w) DIN = 1; // C-11-X OP3
-    @(posedge w) DIN = 1; // C-12-X OP4
-    @(posedge w) DIN = 1; // C-13-X A9
-    @(posedge w) DIN = 1; // C-14-X A1
-    @(posedge w) DIN = 1; // A-1-X  A2
-    @(posedge w) DIN = 1; // A-2-X  A3
-    @(posedge w) DIN = 1; // A-3-X  A4
-    @(posedge w) DIN = 0; // A-4-X  A5
-    @(posedge w) DIN = 0; // A-5-X  A6
-    @(posedge w) DIN = 0; // A-6-X  A7
-    @(posedge w) DIN = 0; // A-7-X  A8
-    @(posedge w) DIN = 0; // done
-    @(posedge w);
-    @(posedge pb);
-    @(posedge pb);
-    @(posedge pb);
-    @(posedge pb);
-    @(posedge w);
-    @(posedge w);
-    @(posedge w);
-    @(posedge w);
-    @(posedge w);
-    @(posedge w);         // Duplex, DM2, DS16
-    @(posedge w) DIN = 1; // B-7-X  Data sim/dup
-    @(posedge w) DIN = 0; // B-8-X  DM1
-    @(posedge w) DIN = 1; // B-9-X  DM2
-    @(posedge w) DIN = 0; // B-10-X DM3
-    @(posedge w) DIN = 0; // B-11-X DS1
-    @(posedge w) DIN = 1; // B-12-X DS2
-    @(posedge w) DIN = 1; // B-13-X DS3
-    @(posedge w) DIN = 1; // B-14-X DS4
-    @(posedge w) DIN = 0; // done
-    @(posedge w);
-    @(posedge w);
-    @(posedge w);
-    @(posedge w);
-    @(posedge w);
-    @(posedge w);
-    @(posedge w);         // STO 0101
-    @(posedge w) DIN = 1; // C-9-X  OP1
-    @(posedge w) DIN = 1; // C-10-X OP2
-    @(posedge w) DIN = 0; // C-11-X OP3
-    @(posedge w) DIN = 1; // C-12-X OP4
-    @(posedge w) DIN = 0; // C-13-X A9
-    @(posedge w) DIN = 1; // C-14-X A1
-    @(posedge w) DIN = 0; // A-1-X  A2
-    @(posedge w) DIN = 0; // A-2-X  A3
-    @(posedge w) DIN = 0; // A-3-X  A4
-    @(posedge w) DIN = 0; // A-4-X  A5
-    @(posedge w) DIN = 0; // A-5-X  A6
-    @(posedge w) DIN = 1; // A-6-X  A7
-    @(posedge w) DIN = 0; // A-7-X  A8
-    @(posedge w) DIN = 0; // done
-    @(posedge w) DIN = 0;
-    @(posedge w) DIN = 0;
-    @(posedge w) DIN = 0;
-    @(posedge w) DIN = 0;
-    @(posedge w) DIN = 0;
-    @(posedge w) DIN = 0;
-    @(posedge w) DIN = 0;
-    @(posedge w) DIN = 0; // B-2-X  D26
-    @(posedge w) DIN = 0; // B-3-X  D25
-    @(posedge w) DIN = 0; // B-4-X  D24
-    @(posedge w) DIN = 0; // B-5-X  D23
-    @(posedge w) DIN = 0; // B-6-X  D22
-    @(posedge w) DIN = 0; // B-7-X  D21
-    @(posedge w) DIN = 0; // B-8-X  D20
-    @(posedge w) DIN = 0; // B-9-X  D19
-    @(posedge w) DIN = 0; // B-10-X D18
-    @(posedge w) DIN = 0; // B-11-X D17
-    @(posedge w) DIN = 0; // B-12-X D16
-    @(posedge w) DIN = 0; // B-13-X D15
-    @(posedge w) DIN = 0; // B-14-X D14
-    @(posedge w) DIN = 0; // C-1-X  D13
-    @(posedge w) DIN = 0; // C-2-X  D12
-    @(posedge w) DIN = 1; // C-3-X  D11
-    @(posedge w) DIN = 1; // C-4-X  D10
-    @(posedge w) DIN = 1; // C-5-X  D9
-    @(posedge w) DIN = 1; // C-6-X  D8
-    @(posedge w) DIN = 0; // C-7-X  D7
-    @(posedge w) DIN = 0; // C-8-X  D6
-    @(posedge w) DIN = 0; // C-9-X  D5
-    @(posedge w) DIN = 0; // C-10-X D4
-    @(posedge w) DIN = 0; // C-11-X D3
-    @(posedge w) DIN = 0; // C-12-X D2
-    @(posedge w) DIN = 1; // C-13-X D1
-    @(posedge w) DIN = 0;
-    #1200000 $finish;
-end
 `endif
 
 

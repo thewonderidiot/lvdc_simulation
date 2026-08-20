@@ -65,12 +65,12 @@ module lvdc_registers(
     output wire [3:1] dm,
     output wire dupdn,
     output wire [4:1] ds,
+    output wire [1:26] trs,
 
     output reg [39:0] reg_stream,
     output wire reg_stream_sync
 );
 
-wire [1:26] trs;
 wire [1:26] md7;
 wire [1:26] mr1;
 wire [1:26] pr0;

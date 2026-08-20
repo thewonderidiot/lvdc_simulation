@@ -162,9 +162,18 @@ wire w;
 wire x;
 wire y;
 wire z;
+wire [1:26] trs;
 
 wire [47:0] cmd;
 wire cmd_ready;
+wire cmd_busy_memory_loader;
+wire cmd_busy;
+assign cmd_busy = cmd_busy_memory_loader;
+
+wire [3:1] cmd_dm;
+wire cmd_dupdn;
+wire [4:1] cmd_ds;
+wire [9:1] cmd_a;
 
 wire hltx_control;
 wire hltx_memory_loader;
@@ -267,6 +276,7 @@ lvdc_registers lvdc_registers1(
     .dm(dm),
     .dupdn(dupdn),
     .ds(ds),
+    .trs(trs),
 
     .reg_stream(reg_stream),
     .reg_stream_sync(reg_stream_sync)
@@ -307,12 +317,20 @@ control control1(
     .TE1(TE1),
     .hltx(hltx_control),
 
+    .cmd_dm(cmd_dm),
+    .cmd_dupdn(cmd_dupdn),
+    .cmd_ds(cmd_ds),
+    .cmd_a(cmd_a),
+
     .display_update(display_update),
     .display_reset(display_reset),
 
     .control_stream(control_stream),
     .control_stream_sync(control_stream_sync)
 );
+
+wire [42:0] verify_stream;
+wire verify_stream_sync;
 
 memory_loader memory_loader1(
     .SIM_CLK(SIM_CLK),
@@ -330,8 +348,19 @@ memory_loader memory_loader1(
     .y(y),
     .z(z),
 
+    .trs(trs),
+
+    .cmd_dm(cmd_dm),
+    .cmd_dupdn(cmd_dupdn),
+    .cmd_ds(cmd_ds),
+    .cmd_a(cmd_a),
+
     .DIN(DIN),
-    .hltx(hltx_memory_loader)
+    .hltx(hltx_memory_loader),
+
+    .busy(cmd_busy_memory_loader),
+    .verify_stream(verify_stream),
+    .verify_stream_sync(verify_stream_sync)
 );
 
 `ifdef TARGET_FPGA
@@ -340,7 +369,7 @@ cmd_interface cmd_interface(
     .SIM_RST(SIM_RST),
     .SIM_UART_RX(SIM_UART_RX),
 
-    .cmd_busy(1'b0),
+    .cmd_busy(cmd_busy),
 
     .cmd(cmd),
     .cmd_ready(cmd_ready)
@@ -356,7 +385,9 @@ streamer streamer1(
     .reg_stream(reg_stream),
     .reg_stream_sync(reg_stream_sync),
     .control_stream(control_stream),
-    .control_stream_sync(control_stream_sync)
+    .control_stream_sync(control_stream_sync),
+    .verify_stream(verify_stream),
+    .verify_stream_sync(verify_stream_sync)
 );
 `else
 reg [47:0] test_cmd = 0;
@@ -365,11 +396,10 @@ assign cmd = test_cmd;
 assign cmd_ready = test_cmd_ready;
 initial begin
     #100000;
-    @(posedge SIM_CLK) test_cmd = 'h020000000001;
-    test_cmd_ready = 1;
-    @(posedge SIM_CLK);
-    @(posedge SIM_CLK) test_cmd = 0;
-    test_cmd_ready = 0;
+    @(posedge SIM_CLK) test_cmd_ready <= 1;
+    test_cmd <= 'h140001234567;
+    @(posedge SIM_CLK) test_cmd_ready <= 0;
+    test_cmd <= 'h0;
 end
 `endif
 

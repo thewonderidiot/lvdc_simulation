@@ -134,7 +134,9 @@ SIM_SOURCES = $(SRC_DIR)/iu_sim.v \
 	      $(IU_SOURCES)
 
 FPGA_SOURCES = $(SRC_DIR)/fpga/hdl/lvdc_fpga.v \
-	       $(IU_SOURCES)
+	       $(IU_SOURCES) \
+	       $(SRC_DIR)/gse/cmd_interface.v \
+	       $(SRC_DIR)/gse/streamer.v \
 
 CORE_FILES = iu/lvdc/core/module0.mem \
 	     iu/lvdc/core/module1.mem \
