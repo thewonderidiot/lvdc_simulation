@@ -1,20 +1,24 @@
 from qtpy.QtWidgets import QGridLayout, QHBoxLayout, QWidget, QLabel, QSizePolicy
 from qtpy.QtGui import QColor, QPainter
-from qtpy.QtCore import Qt
-from switch_lamp import SwitchLamp2ToggleRight, Lamp
+from qtpy.QtCore import Qt, Signal
+from switch_lamp import SwitchLamp2Vertical, Lamp
 
 class DataReg(QWidget):
+    valueChanged = Signal(int)
+
     def __init__(self, parent):
         super().__init__(parent)
 
         # Set up the UI
         self._setup_ui()
+        self._cmd_value = 0
 
     def setComputerValue(self, value):
         for i in range(26):
             self._switches[i].setState(0, (value & (1 << i)) != 0)
 
     def setCommandValue(self, value):
+        self._cmd_value = value
         for i in range(26):
             self._switches[i].setState(1, (value & (1 << i)) != 0)
 
@@ -28,7 +32,8 @@ class DataReg(QWidget):
         self._switches = []
         for i in range(26):
             text = 'S\nI\nG\nN' if i == 0 else '%u' % i
-            sw = SwitchLamp2ToggleRight(self, text=text, color=[QColor(0,255,0), QColor(255,0,0)])
+            sw = SwitchLamp2Vertical(self, text=text, color=[QColor(0,255,0), QColor(255,0,0)])
+            sw.pressed.connect(lambda b=i: self._switch_pressed(25-b))
             self._switches.insert(0, sw)
             layout.addWidget(sw, 1 + i%3, int(i/3))
 
@@ -67,6 +72,10 @@ class DataReg(QWidget):
         self._cmd_label.setAlignment(Qt.AlignCenter)
         self._cmd_label.setFont(font)
         cont_layout.addWidget(self._cmd_label)
+
+    def _switch_pressed(self, bit):
+        value = self._cmd_value ^ (1 << bit)
+        self.valueChanged.emit(value)
 
     def paintEvent(self, event):
         painter = QPainter(self)

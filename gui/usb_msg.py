@@ -6,6 +6,9 @@ class MsgId:
     Telemetry = 1
     Registers = 2
     Control = 3
+    Loader = 4
+    LoadWord = 0x10
+    VerifyWord = 0x20
 
 class Register:
     SSMSR = 0
@@ -39,6 +42,15 @@ class ControlTlm:
     CMD_INS_ADDR = 1
     CMD_DATA_ADDR = 2
 
+class LoaderCmd:
+    SET_MODE = 0
+    SET_CMD_DATA = 1
+    ADDRESS_COMPUTER = 2
+
+class LoaderTlm:
+    LOADER_STATUS = 0
+    CMD_DATA = 1
+
 class RestartMode:
     MAN_PTC = 0
     AUTO = 1
@@ -51,6 +63,10 @@ class DisplayMode:
     CONTINUOUS = 0
     SINGLE = 1
     REPEAT = 2
+
+class Mode:
+    DATA_DISPLAY = 0
+    MEMORY_LOAD = 1
 
 Telemetry = namedtuple('Telemetry', ['tag', 'rtc', 'word'])
 RegisterSSMSR = namedtuple('RegisterSSMSR', ['hist_idx', 'im', 'dupin', 'is_', 'syl', 'dm', 'dupdn', 'ds'])
@@ -66,6 +82,8 @@ RegisterSSC_MLC = namedtuple('RegisterSSC_MLC', ['hist_idx', 'ssc', 'mlc'])
 ControlStatus = namedtuple('ControlStatus', ['cst_mode', 'cst', 'restart_mode', 'compare_mode', 'display_mode'])
 ControlCmdInsAddr = namedtuple('ControlCmdInsAddr', ['im', 'dupin', 'is_', 'syl', 'ia'])
 ControlCmdDataAddr = namedtuple('ControlCmdDataAddr', ['dm', 'dupdn', 'ds', 'op', 'a'])
+LoaderStatus = namedtuple('LoaderStatus', ['mode'])
+LoaderCmdData = namedtuple('LoaderCmdData', ['word', 'syl0_parity', 'syl1_parity'])
 
 RegistersSetHistIndex = namedtuple('RegistersSetHistIndex', ['hist_idx'])
 ControlSetCSTMode = namedtuple('ControlSetCSTMode', ['mode'])
@@ -78,6 +96,12 @@ ControlRestart = namedtuple('ControlRestart', [])
 ControlSetCompareMode = namedtuple('ControlSetCompareMode', ['mode'])
 ControlSetDisplayMode = namedtuple('ControlSetDisplayMode', ['mode'])
 ControlDisplayReset = namedtuple('ControlDisplayReset', [])
+LoaderSetMode = namedtuple('LoaderSetMode', ['mode'])
+LoaderSetCmdData = namedtuple('LoaderSetCmdData', ['word'])
+LoaderAddressComputer = namedtuple('LoaderAddressComputer', [])
+
+LoadWord = namedtuple('LoadWord', ['dm', 'dupdn', 'ds', 'a', 'word'])
+VerifyWord = namedtuple('VerifyWord', ['dm', 'dupdn', 'ds', 'a', 'word'])
 
 def check_parity(tag, word, parity):
     word = (tag << 26) | word
@@ -197,6 +221,26 @@ def unpack(msg_bytes):
             ds = msg_bytes[3] & 0xf
             a, = struct.unpack_from('>H', msg_bytes, 4)
             msg = ControlCmdDataAddr(dm, dupdn, ds, op, a)
+
+    elif msg_id == MsgId.Loader:
+        tlm_id = msg_bytes[1]
+        if tlm_id == LoaderTlm.LOADER_STATUS:
+            mode = msg_bytes[5] & 0x01
+        elif tlm_id == LoaderTlm.CMD_DATA:
+            word, = struct.unpack_from('>I', msg_bytes, 2)
+            syl0_parity = (word >> 26) & 0x01
+            syl1_parity = (word >> 27) & 0x01
+            word &= 0o377777777
+            msg = LoaderCmdData(word, syl0_parity, syl1_parity)
+
+    elif msg_id & 0xF0 == MsgId.VerifyWord:
+        dm = msg_id & 0x7
+        data, = struct.unpack('>Q', b'\x00\x00\x00' + msg_bytes[1:])
+        word = data & 0o377777777
+        a = (data >> 26) & 0o777
+        ds = (data >> 35) & 0o17
+        dupdn = (data >> 39) & 0o1
+        msg = VerifyWord(dm, dupdn, ds, a, word)
         
     return msg
 
@@ -247,5 +291,21 @@ def pack(msg):
         msgid = MsgId.Control
         cmdid = ControlCmd.DISPLAY_RESET
         msg_bytes = struct.pack('>BBxxxx', msgid, cmdid)
+    elif isinstance(msg, LoaderSetMode):
+        msgid = MsgId.Loader
+        cmdid = LoaderCmd.SET_MODE
+        msg_bytes = struct.pack('>BBxxxB', msgid, cmdid, msg.mode)
+    elif isinstance(msg, LoaderSetCmdData):
+        msgid = MsgId.Loader
+        cmdid = LoaderCmd.SET_CMD_DATA
+        msg_bytes = struct.pack('>BBI', msgid, cmdid, msg.word)
+    elif isinstance(msg, LoaderAddressComputer):
+        msgid = MsgId.Loader
+        cmdid = LoaderCmd.ADDRESS_COMPUTER
+        msg_bytes = struct.pack('>BBxxxx', msgid, cmdid)
+    elif isinstance(msg, VerifyWord) or isinstance(msg, LoadWord):
+        msgid = (MsgId.VerifyWord if isinstance(msg, VerifyWord) else MsgId.LoadWord) | msg.dm
+        data = struct.pack('>Q', (msg.dupdn << 39) | (msg.ds << 35)| (msg.a << 26) | msg.word)
+        msg_bytes = struct.pack('>B', msgid) + data[3:]
 
     return msg_bytes

@@ -214,6 +214,9 @@ wire reg_stream_sync;
 wire display_update;
 wire display_reset;
 
+wire [42:0] verify_stream;
+wire verify_stream_sync;
+
 lvdc_registers lvdc_registers1(
     .SIM_CLK(SIM_CLK),
     .SIM_RST(SIM_RST),
@@ -313,6 +316,8 @@ control control1(
     .dupdn(dupdn),
     .ds(ds),
 
+    .verify_sync(verify_stream_sync),
+
     .CST(CST),
     .TE1(TE1),
     .hltx(hltx_control),
@@ -329,8 +334,8 @@ control control1(
     .control_stream_sync(control_stream_sync)
 );
 
-wire [42:0] verify_stream;
-wire verify_stream_sync;
+wire [39:0] loader_stream;
+wire loader_stream_sync;
 
 memory_loader memory_loader1(
     .SIM_CLK(SIM_CLK),
@@ -359,6 +364,8 @@ memory_loader memory_loader1(
     .hltx(hltx_memory_loader),
 
     .busy(cmd_busy_memory_loader),
+    .loader_stream(loader_stream),
+    .loader_stream_sync(loader_stream_sync),
     .verify_stream(verify_stream),
     .verify_stream_sync(verify_stream_sync)
 );
@@ -386,6 +393,8 @@ streamer streamer1(
     .reg_stream_sync(reg_stream_sync),
     .control_stream(control_stream),
     .control_stream_sync(control_stream_sync),
+    .loader_stream(loader_stream),
+    .loader_stream_sync(loader_stream_sync),
     .verify_stream(verify_stream),
     .verify_stream_sync(verify_stream_sync)
 );

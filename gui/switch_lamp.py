@@ -203,41 +203,10 @@ class SwitchLamp2HorizontalToggle(Lamp2Horizontal):
         self._states[1] = not self._states[0]
         self.update()
 
-class SwitchLamp2MomentaryTop(Lamp2Horizontal):
+class SwitchLamp2Vertical(Lamp2Vertical):
     def __init__(self, parent, text='', color=QColor(255,255,255)):
         super().__init__(parent, text=text, color=color)
         self.setEnabled(True)
-        self.pressed.connect(self._pressed)
-        self.released.connect(self._released)
-        self._states = [False, False]
-
-    def _pressed(self):
-        self._states[0] = True
-        self.update()
-
-    def _released(self):
-        self._states[0] = False
-        self.update()
-
-class SwitchLamp2ToggleRight(Lamp2Vertical):
-    def __init__(self, parent, text='', color=QColor(255,255,255)):
-        super().__init__(parent, text=text, color=color)
-        self.setEnabled(True)
-        self.pressed.connect(self._pressed)
-
-    def _pressed(self):
-        self._states[1] = not self._states[1]
-        self.update()
-
-class SwitchLamp2ToggleBottom(Lamp2Horizontal):
-    def __init__(self, parent, text='', color=QColor(255,255,255)):
-        super().__init__(parent, text=text, color=color)
-        self.setEnabled(True)
-        self.pressed.connect(self._pressed)
-
-    def _pressed(self):
-        self._states[1] = not self._states[1]
-        self.update()
 
 class Lamp3Right(Lamp):
     def __init__(self, parent, text='', color=QColor(255,255,255)):

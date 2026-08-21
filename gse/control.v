@@ -31,6 +31,8 @@ module control(
     input wire dupdn,
     input wire [4:1] ds,
 
+    input wire verify_sync,
+
     output reg CST,
     output wire TE1,
     output reg hltx,
@@ -96,6 +98,7 @@ always @(posedge SIM_CLK or negedge SIM_RST) begin
         addr_compare <= 0;
     end else begin
         if (pb & bt[1] & y) addr_compare <= inst_compare || data_compare || advance;
+        if (verify_sync) addr_compare <= 1;
         if (pc & bt[4]) addr_compare <= 0;
     end
 end

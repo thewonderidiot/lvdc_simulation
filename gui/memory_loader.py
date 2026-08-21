@@ -49,8 +49,9 @@ class MemoryLoader(QWidget):
         repeat = SwitchLamp2HorizontalToggle(self, text=['REPEAT', '~REPEAT'], color=[QColor(0,255,0), QColor(255,0,0)])
         layout.addWidget(repeat, 2, 0)
 
-        repeat = SwitchLampMomentary(self, text='ADDRESS\nCOMPTR', color=QColor(0,255,0))
-        layout.addWidget(repeat, 2, 1)
+        address = SwitchLampMomentary(self, text='ADDRESS\nCOMPTR', color=QColor(0,255,0))
+        address.pressed.connect(self._address_pressed)
+        layout.addWidget(address, 2, 1)
 
         comp_reset = SwitchLampMomentary(self, text='COMPTR\nDISPLAY\nRESET', color=QColor(0,255,0))
         comp_reset.pressed.connect(self._comp_reset_pressed)
@@ -62,3 +63,6 @@ class MemoryLoader(QWidget):
 
     def _comp_reset_pressed(self):
         self._usbif.send(usb_msg.ControlDisplayReset())
+
+    def _address_pressed(self):
+        self._usbif.send(usb_msg.LoaderAddressComputer())

@@ -14,15 +14,17 @@ module streamer(
     input wire reg_stream_sync,
     input wire [39:0] control_stream,
     input wire control_stream_sync,
+    input wire [39:0] loader_stream,
+    input wire loader_stream_sync,
     input wire [42:0] verify_stream,
     input wire verify_stream_sync
 );
 
-wire next_msg_ready;
+reg next_msg_ready;
 wire [47:0] next_msg;
 
 // Telemetry FIFO
-wire read_tlm;
+reg read_tlm = 0;
 wire tlm_fifo_empty;
 wire [39:0] next_tlm;
 stream_fifo tlm_fifo(
@@ -37,7 +39,7 @@ stream_fifo tlm_fifo(
 );
 
 // Register FIFO
-wire read_reg;
+reg read_reg = 0;
 wire reg_fifo_empty;
 wire [39:0] next_reg;
 stream_fifo reg_fifo(
@@ -52,7 +54,7 @@ stream_fifo reg_fifo(
 );
 
 // Control FIFO
-wire read_control;
+reg read_control = 0;
 wire control_fifo_empty;
 wire [39:0] next_control;
 stream_fifo control_fifo(
@@ -66,8 +68,23 @@ stream_fifo control_fifo(
   .empty(control_fifo_empty)
 );
 
+// Loader FIFO
+reg read_loader = 0;
+wire loader_fifo_empty;
+wire [39:0] next_loader;
+stream_fifo loader_fifo(
+  .clk(SIM_CLK),
+  .srst(~SIM_RST),
+  .din(loader_stream),
+  .wr_en(loader_stream_sync),
+  .rd_en(read_loader),
+  .dout(next_loader),
+  .full(),
+  .empty(loader_fifo_empty)
+);
+
 // Verify FIFO
-wire read_verify;
+reg read_verify = 0;
 wire verify_fifo_empty;
 wire [42:0] next_verify;
 verify_fifo verify_fifo1(
@@ -108,13 +125,26 @@ assign next_msg = ~tlm_fifo_empty ? {`MSGID_TELEMETRY, next_tlm} :
                   ~verify_fifo_empty ? {`MSG_GROUP_VERIFY, 1'b0, next_verify} :
                   ~reg_fifo_empty ? {`MSGID_REGISTERS, next_reg} :
                   ~control_fifo_empty ? {`MSGID_CONTROL, next_control} :
+                  ~loader_fifo_empty ? {`MSGID_LOADER, next_loader} :
                   40'b0;
 
-assign read_tlm = (~tlm_fifo_empty & ~send_fifo_full);
-assign read_verify = (tlm_fifo_empty & ~verify_fifo_empty & ~send_fifo_full);
-assign read_reg = (tlm_fifo_empty & verify_fifo_empty & ~reg_fifo_empty & ~send_fifo_full);
-assign read_control = (tlm_fifo_empty & verify_fifo_empty & reg_fifo_empty & ~control_fifo_empty & ~send_fifo_full);
-assign next_msg_ready = read_tlm | read_verify | read_reg | read_control;
+always @(*) begin
+    read_tlm = 0;
+    read_verify = 0;
+    read_reg = 0;
+    read_control = 0;
+    read_loader = 0;
+    next_msg_ready = 0;
+    if (~send_fifo_full) begin
+        next_msg_ready = 1;
+        if (~tlm_fifo_empty) read_tlm = 1;
+        else if (~verify_fifo_empty) read_verify = 1;
+        else if (~reg_fifo_empty) read_reg = 1;
+        else if (~control_fifo_empty) read_control = 1;
+        else if (~loader_fifo_empty) read_loader = 1;
+        else next_msg_ready = 0;
+    end
+end
 
 // Send message FIFO
 msg_fifo send_msg_fifo(

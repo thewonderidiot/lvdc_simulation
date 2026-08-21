@@ -12,6 +12,7 @@
 `define MSGID_TELEMETRY        8'h01
 `define MSGID_REGISTERS        8'h02
 `define MSGID_CONTROL          8'h03
+`define MSGID_LOADER           8'h04
 `define MSGID_LOAD_WORD_MOD0   8'h10
 `define MSGID_LOAD_WORD_MOD1   8'h11
 `define MSGID_LOAD_WORD_MOD2   8'h12
@@ -44,3 +45,7 @@
 `define CONTROL_CMD_SET_COMPARE_MODE  8'h07
 `define CONTROL_CMD_SET_DISPLAY_MODE  8'h08
 `define CONTROL_CMD_DISPLAY_RESET     8'h09
+
+`define LOADER_CMD_SET_MODE         8'h0
+`define LOADER_CMD_SET_CMD_DATA     8'h1
+`define LOADER_CMD_ADDRESS_COMPUTER 8'h2

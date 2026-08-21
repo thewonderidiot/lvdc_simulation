@@ -10,13 +10,19 @@ class DataParity(QWidget):
         # Set up the UI
         self._setup_ui()
 
-    def setSyl0Parity(self, bra, brb):
+    def setComputerSyl0Parity(self, bra, brb):
         self._syl0.setState(0, bra)
         self._syl0.setState(2, brb)
 
-    def setSyl1Parity(self, bra, brb):
+    def setComputerSyl1Parity(self, bra, brb):
         self._syl1.setState(0, bra)
         self._syl1.setState(2, brb)
+
+    def setCommandSyl0Parity(self, parity):
+        self._syl0.setState(1, parity)
+
+    def setCommandSyl1Parity(self, parity):
+        self._syl1.setState(1, parity)
 
     def _setup_ui(self):
         self.setSizePolicy(QSizePolicy.Maximum, QSizePolicy.Maximum)

@@ -51,6 +51,7 @@ class DataPanel(QWidget):
         layout.addWidget(self._data_parity, 0, Qt.AlignCenter)
 
         self._data_reg = DataReg(self)
+        self._data_reg.valueChanged.connect(self._data_changed)
         layout.addWidget(self._data_reg, 0, Qt.AlignCenter)
 
     def paintEvent(self, event):
@@ -67,10 +68,18 @@ class DataPanel(QWidget):
         painter.drawRoundedRect(top_rect, 10, 10)
         painter.drawRoundedRect(bottom_rect, 10, 10)
 
+    def _data_changed(self, word):
+        self._usbif.send(usb_msg.LoaderSetCmdData(word))
+
     def _update(self, msg):
         if isinstance(msg, usb_msg.RegisterOP_A):
-            self._data_parity.setSyl0Parity(msg.syl0_bra, msg.syl0_brb)
-            self._data_parity.setSyl1Parity(msg.syl1_bra, msg.syl1_brb)
+            self._data_parity.setComputerSyl0Parity(msg.syl0_bra, msg.syl0_brb)
+            self._data_parity.setComputerSyl1Parity(msg.syl1_bra, msg.syl1_brb)
+
+        if isinstance(msg, usb_msg.LoaderCmdData):
+            self._data_reg.setCommandValue(msg.word)
+            self._data_parity.setCommandSyl0Parity(msg.syl0_parity)
+            self._data_parity.setCommandSyl1Parity(msg.syl1_parity)
 
         if self._display == DisplayOption.TRS and isinstance(msg, usb_msg.RegisterTRS):
             self._data_reg.setComputerValue(msg.trs)

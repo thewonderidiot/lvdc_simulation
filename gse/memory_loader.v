@@ -26,22 +26,29 @@ module memory_loader(
     input wire [4:1] cmd_ds,
     input wire [9:1] cmd_a,
 
-    output reg hltx,
+    output wire hltx,
     output reg DIN,
 
     output wire busy,
+    output reg [39:0] loader_stream,
+    output wire loader_stream_sync,
     output reg [42:0] verify_stream,
     output reg verify_stream_sync
 );
 
-initial hltx = 1;
 initial DIN = 0;
 
+reg mldd_mode = 0;
+assign hltx = mldd_mode;
+
 reg [1:26] cmd_data;
+wire syl0_parity = ^{cmd_data[14:26], 1'b1};
+wire syl1_parity = ^{cmd_data[1:13], 1'b1};
 
 `ifdef CLOCKED
 wire load_cmd = cmd_ready & (cmd[47:44] == `MSG_GROUP_LOAD);
 wire verify_cmd = cmd_ready & (cmd[47:44] == `MSG_GROUP_VERIFY);
+wire loader_cmd = cmd_ready & (cmd[47:40] == `MSGID_LOADER);
 
 localparam IDLE = 0,
            START_LOAD = 1,
@@ -68,7 +75,7 @@ always @(*) begin
     next_state = state;
     case (state)
         IDLE: begin
-            if (load_cmd) next_state = START_LOAD;
+            if (load_cmd || (loader_cmd && (cmd[39:32] == `LOADER_CMD_ADDRESS_COMPUTER))) next_state = START_LOAD;
             if (verify_cmd) next_state = START_VERIFY;
         end
         START_LOAD: begin
@@ -158,12 +165,59 @@ always @(posedge SIM_CLK or negedge SIM_RST) begin
 end
 assign verify_stream = {cmd_dm, cmd_dupdn, cmd_ds, cmd_a, trs};
 
+// Commands and telemetry
+localparam NUM_REGISTERS = 2;
+localparam FREQUENCY = 50;
+localparam MAX_COUNT = (40960000 / NUM_REGISTERS / FREQUENCY);
+localparam COUNTER_LEN = $clog2(MAX_COUNT);
+
+reg [COUNTER_LEN-1:0] counter;
+initial counter = 'd0;
+
+reg [7:0] reg_idx;
+initial reg_idx = 'd0;
+
+// Round-robin data streaming
 always @(posedge SIM_CLK or negedge SIM_RST) begin
     if (~SIM_RST) begin
+        counter <= 'd0;
+        reg_idx <= 'd0;
+    end else begin
+        if (counter == MAX_COUNT - 1) begin
+            counter <= 'd0;
+            if (reg_idx == NUM_REGISTERS - 1) begin
+                reg_idx = 0;
+            end else begin
+                reg_idx <= reg_idx + 1;
+            end
+        end else begin
+            counter <= counter + 1;
+        end
+    end
+end
+
+always @(*) begin
+    case (reg_idx)
+        'd0: loader_stream = {reg_idx, 30'b1, mldd_mode};
+        'd1: loader_stream = {reg_idx, 4'b0, syl1_parity, syl0_parity, cmd_data};
+    endcase
+end
+
+assign loader_stream_sync = counter == 0;
+
+always @(posedge SIM_CLK or negedge SIM_RST) begin
+    if (~SIM_RST) begin
+        mldd_mode <= 0;
         cmd_data <= 0;
     end else begin
-        if (load_cmd | verify_cmd) begin
+        if (load_cmd || verify_cmd) begin
             cmd_data <= cmd[25:0];
+        end
+        if (loader_cmd) begin
+            case (cmd[39:32])
+                `LOADER_CMD_SET_MODE: mldd_mode <= cmd[0];
+                `LOADER_CMD_SET_CMD_DATA: cmd_data <= cmd[25:0];
+            endcase
         end
     end
 end
