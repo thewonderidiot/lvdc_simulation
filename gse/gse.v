@@ -214,6 +214,7 @@ wire reg_stream_sync;
 wire display_update;
 wire display_reset;
 
+wire verify_compare;
 wire [42:0] verify_stream;
 wire verify_stream_sync;
 
@@ -316,7 +317,7 @@ control control1(
     .dupdn(dupdn),
     .ds(ds),
 
-    .verify_sync(verify_stream_sync),
+    .verify_compare(verify_compare),
 
     .CST(CST),
     .TE1(TE1),
@@ -364,6 +365,7 @@ memory_loader memory_loader1(
     .hltx(hltx_memory_loader),
 
     .busy(cmd_busy_memory_loader),
+    .verify_compare(verify_compare),
     .loader_stream(loader_stream),
     .loader_stream_sync(loader_stream_sync),
     .verify_stream(verify_stream),
@@ -399,17 +401,8 @@ streamer streamer1(
     .verify_stream_sync(verify_stream_sync)
 );
 `else
-reg [47:0] test_cmd = 0;
-reg test_cmd_ready = 0;
-assign cmd = test_cmd;
-assign cmd_ready = test_cmd_ready;
-initial begin
-    #100000;
-    @(posedge SIM_CLK) test_cmd_ready <= 1;
-    test_cmd <= 'h140001234567;
-    @(posedge SIM_CLK) test_cmd_ready <= 0;
-    test_cmd <= 'h0;
-end
+assign cmd = 0;
+assign cmd_ready = 0;
 `endif
 
 endmodule

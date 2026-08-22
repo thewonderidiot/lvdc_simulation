@@ -2,6 +2,7 @@ from qtpy.QtWidgets import QMainWindow, QHBoxLayout, QWidget
 from qtpy.QtCore import Qt
 
 from mldd_panel import MLDDPanel
+from io_panel import IOPanel
 from usb_interface import USBInterface
 import usb_msg
 
@@ -26,3 +27,6 @@ class MainWindow(QMainWindow):
 
         mldd_panel = MLDDPanel(self, self._usbif)
         layout.addWidget(mldd_panel)
+
+        io_panel = IOPanel(self, self._usbif)
+        layout.addWidget(io_panel, 0, Qt.AlignTop)

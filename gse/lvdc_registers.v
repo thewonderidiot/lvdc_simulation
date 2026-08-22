@@ -412,6 +412,9 @@ always @(*) begin
 end
 
 assign reg_stream_sync = counter == 0;
+`else
+initial reg_stream = 0;
+assign reg_stream_sync = 0;
 `endif
 
 `ifdef TARGET_FPGA
@@ -426,6 +429,8 @@ always @(posedge SIM_CLK or negedge SIM_RST) begin
         end
     end
 end
+`else
+reg ZERO = 0;
 `endif
 
 endmodule

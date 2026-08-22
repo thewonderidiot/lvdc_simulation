@@ -25,6 +25,7 @@ class DataPanel(QWidget):
 
     def reset_command(self):
         self._data_reg.setCommandValue(0)
+        self._data_changed(0)
 
     def _setup_ui(self):
         self.setStyleSheet(

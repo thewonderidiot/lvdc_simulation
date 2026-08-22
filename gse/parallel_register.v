@@ -19,7 +19,7 @@ module parallel_register #(
 localparam HISTORY = 16;
 
 reg [HISTORY-1:0][1:WIDTH] data;
-reg [1:WIDTH] display_value;
+reg [1:WIDTH] display_value = 0;
 integer i;
 initial begin
     for (i = 0; i < WIDTH; i = i + 1) data = 'b0;

@@ -46,6 +46,7 @@ class LoaderCmd:
     SET_MODE = 0
     SET_CMD_DATA = 1
     ADDRESS_COMPUTER = 2
+    SET_VERIFY_ONLY = 3
 
 class LoaderTlm:
     LOADER_STATUS = 0
@@ -82,7 +83,7 @@ RegisterSSC_MLC = namedtuple('RegisterSSC_MLC', ['hist_idx', 'ssc', 'mlc'])
 ControlStatus = namedtuple('ControlStatus', ['cst_mode', 'cst', 'restart_mode', 'compare_mode', 'display_mode'])
 ControlCmdInsAddr = namedtuple('ControlCmdInsAddr', ['im', 'dupin', 'is_', 'syl', 'ia'])
 ControlCmdDataAddr = namedtuple('ControlCmdDataAddr', ['dm', 'dupdn', 'ds', 'op', 'a'])
-LoaderStatus = namedtuple('LoaderStatus', ['mode'])
+LoaderStatus = namedtuple('LoaderStatus', ['mode', 'verify_only'])
 LoaderCmdData = namedtuple('LoaderCmdData', ['word', 'syl0_parity', 'syl1_parity'])
 
 RegistersSetHistIndex = namedtuple('RegistersSetHistIndex', ['hist_idx'])
@@ -99,6 +100,7 @@ ControlDisplayReset = namedtuple('ControlDisplayReset', [])
 LoaderSetMode = namedtuple('LoaderSetMode', ['mode'])
 LoaderSetCmdData = namedtuple('LoaderSetCmdData', ['word'])
 LoaderAddressComputer = namedtuple('LoaderAddressComputer', [])
+LoaderSetVerifyOnly = namedtuple('LoaderSetVerifyOnly', ['verify_only'])
 
 LoadWord = namedtuple('LoadWord', ['dm', 'dupdn', 'ds', 'a', 'word'])
 VerifyWord = namedtuple('VerifyWord', ['dm', 'dupdn', 'ds', 'a', 'word'])
@@ -226,6 +228,8 @@ def unpack(msg_bytes):
         tlm_id = msg_bytes[1]
         if tlm_id == LoaderTlm.LOADER_STATUS:
             mode = msg_bytes[5] & 0x01
+            verify_only = (msg_bytes[5] & 0x02) != 0
+            msg = LoaderStatus(mode, verify_only)
         elif tlm_id == LoaderTlm.CMD_DATA:
             word, = struct.unpack_from('>I', msg_bytes, 2)
             syl0_parity = (word >> 26) & 0x01
@@ -303,6 +307,10 @@ def pack(msg):
         msgid = MsgId.Loader
         cmdid = LoaderCmd.ADDRESS_COMPUTER
         msg_bytes = struct.pack('>BBxxxx', msgid, cmdid)
+    elif isinstance(msg, LoaderSetVerifyOnly):
+        msgid = MsgId.Loader
+        cmdid = LoaderCmd.SET_VERIFY_ONLY
+        msg_bytes = struct.pack('>BBxxxB', msgid, cmdid, msg.verify_only)
     elif isinstance(msg, VerifyWord) or isinstance(msg, LoadWord):
         msgid = (MsgId.VerifyWord if isinstance(msg, VerifyWord) else MsgId.LoadWord) | msg.dm
         data = struct.pack('>Q', (msg.dupdn << 39) | (msg.ds << 35)| (msg.a << 26) | msg.word)

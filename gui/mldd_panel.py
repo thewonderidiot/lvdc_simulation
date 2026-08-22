@@ -21,6 +21,7 @@ class MLDDPanel(QFrame):
     def _setup_ui(self):
         layout = QVBoxLayout(self)
         self.setLayout(layout)
+        self.setFrameStyle(QFrame.Panel | QFrame.Raised)
 
         label = QLabel('MEMORY LOAD AND DATA DISPLAY')
         label.setAlignment(Qt.AlignCenter)

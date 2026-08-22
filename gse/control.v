@@ -31,7 +31,7 @@ module control(
     input wire dupdn,
     input wire [4:1] ds,
 
-    input wire verify_sync,
+    input wire verify_compare,
 
     output reg CST,
     output wire TE1,
@@ -85,7 +85,7 @@ initial cmd_dupdn = 0;
 initial cmd_ds = 0;
 initial cmd_a = 0;
 
-`ifdef CLOCKED
+`ifdef TARGET_FPGA
 
 // Address Compare
 reg advance = 0;
@@ -98,7 +98,6 @@ always @(posedge SIM_CLK or negedge SIM_RST) begin
         addr_compare <= 0;
     end else begin
         if (pb & bt[1] & y) addr_compare <= inst_compare || data_compare || advance;
-        if (verify_sync) addr_compare <= 1;
         if (pc & bt[4]) addr_compare <= 0;
     end
 end
@@ -115,7 +114,7 @@ always @(posedge SIM_CLK or negedge SIM_RST) begin
     end
 end
 
-assign display_update = (display_mode == 0) || (addr_compare & ~display_locked);
+assign display_update = (display_mode == 0) || ((verify_compare || addr_compare) & ~display_locked);
 
 // Advance
 reg advance_pend = 0;
@@ -202,13 +201,7 @@ end
 always @(*) begin
     hltx = (boot_count > 14'o0) || restart;
 end
-`else
-initial begin
-    #100000 hltx = 0;
-end
-`endif
 
-`ifdef TARGET_FPGA
 // Commands and telemetry
 localparam NUM_REGISTERS = 3;
 localparam FREQUENCY = 50;
@@ -290,6 +283,12 @@ always @(posedge SIM_CLK or negedge SIM_RST) begin
             cmd_a <= cmd[34:26];
         end
     end
+end
+
+`else
+assign display_update = 0;
+initial begin
+    #100000 hltx = 0;
 end
 `endif
 

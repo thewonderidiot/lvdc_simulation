@@ -30,22 +30,25 @@ module memory_loader(
     output reg DIN,
 
     output wire busy,
+    output wire verify_compare,
     output reg [39:0] loader_stream,
     output wire loader_stream_sync,
-    output reg [42:0] verify_stream,
-    output reg verify_stream_sync
+    output wire [42:0] verify_stream,
+    output wire verify_stream_sync
 );
 
 initial DIN = 0;
 
 reg mldd_mode = 0;
+reg verify_only = 0;
+
 assign hltx = mldd_mode;
 
 reg [1:26] cmd_data;
 wire syl0_parity = ^{cmd_data[14:26], 1'b1};
 wire syl1_parity = ^{cmd_data[1:13], 1'b1};
 
-`ifdef CLOCKED
+`ifdef TARGET_FPGA
 wire load_cmd = cmd_ready & (cmd[47:44] == `MSG_GROUP_LOAD);
 wire verify_cmd = cmd_ready & (cmd[47:44] == `MSG_GROUP_VERIFY);
 wire loader_cmd = cmd_ready & (cmd[47:40] == `MSGID_LOADER);
@@ -75,8 +78,8 @@ always @(*) begin
     next_state = state;
     case (state)
         IDLE: begin
-            if (load_cmd || (loader_cmd && (cmd[39:32] == `LOADER_CMD_ADDRESS_COMPUTER))) next_state = START_LOAD;
-            if (verify_cmd) next_state = START_VERIFY;
+            if (load_cmd || (loader_cmd && ((cmd[39:32] == `LOADER_CMD_ADDRESS_COMPUTER) && ~verify_only))) next_state = START_LOAD;
+            if (verify_cmd || (loader_cmd && ((cmd[39:32] == `LOADER_CMD_ADDRESS_COMPUTER) && verify_only))) next_state = START_VERIFY;
         end
         START_LOAD: begin
             if (pb & bt[6]) next_state = SEND_STO;
@@ -153,7 +156,8 @@ always @(*) begin
     end
 end
 
-wire verify_sync = (state == READ_DATA) & pa & bt[1] & x;
+assign verify_compare = (state == READ_DATA);
+wire verify_sync = verify_compare & pa & bt[1] & x;
 reg verify_sync_r;
 assign verify_stream_sync = verify_sync & ~verify_sync_r;
 always @(posedge SIM_CLK or negedge SIM_RST) begin
@@ -198,7 +202,7 @@ end
 
 always @(*) begin
     case (reg_idx)
-        'd0: loader_stream = {reg_idx, 30'b1, mldd_mode};
+        'd0: loader_stream = {reg_idx, 30'b0, verify_only, mldd_mode};
         'd1: loader_stream = {reg_idx, 4'b0, syl1_parity, syl0_parity, cmd_data};
     endcase
 end
@@ -208,6 +212,7 @@ assign loader_stream_sync = counter == 0;
 always @(posedge SIM_CLK or negedge SIM_RST) begin
     if (~SIM_RST) begin
         mldd_mode <= 0;
+        verify_only <= 0;
         cmd_data <= 0;
     end else begin
         if (load_cmd || verify_cmd) begin
@@ -217,6 +222,7 @@ always @(posedge SIM_CLK or negedge SIM_RST) begin
             case (cmd[39:32])
                 `LOADER_CMD_SET_MODE: mldd_mode <= cmd[0];
                 `LOADER_CMD_SET_CMD_DATA: cmd_data <= cmd[25:0];
+                `LOADER_CMD_SET_VERIFY_ONLY: verify_only <= cmd[0];
             endcase
         end
     end

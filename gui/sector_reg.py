@@ -72,7 +72,6 @@ class SectorReg(QWidget):
 
     def _syl_switch_pressed(self):
         syl = self._cmd_syl ^ 1
-        print(syl)
         self.valueChanged.emit(self._cmd_value, syl)
 
     def _sec_switch_pressed(self, bit):

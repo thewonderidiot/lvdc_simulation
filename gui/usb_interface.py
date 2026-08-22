@@ -6,7 +6,7 @@ import struct
 from slip import slip, unslip_from
 import usb_msg
 
-POLL_PERIOD_MS = 20
+POLL_PERIOD_MS = 5
 
 class USBInterface(QObject):
     msg_received = Signal(object)
@@ -77,5 +77,4 @@ class USBInterface(QObject):
             return
         packed = usb_msg.pack(msg)
         slipped = slip(packed)
-        print(slipped.hex())
         self._serial.write(slipped)

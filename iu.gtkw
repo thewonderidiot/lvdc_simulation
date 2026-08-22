@@ -1,21 +1,23 @@
 [*]
 [*] GTKWave Analyzer v3.3.127 (w)1999-2026 BSI
-[*] Mon Jul 13 04:54:51 2026
+[*] Sat Aug 22 23:00:47 2026
 [*]
 [dumpfile] "/home/mike/lvdc/lvdc_simulation/iu.fst"
-[dumpfile_mtime] "Mon Jul 13 04:45:07 2026"
-[dumpfile_size] 845693
+[dumpfile_mtime] "Sat Aug 22 22:54:43 2026"
+[dumpfile_size] 1211151
 [savefile] "/home/mike/lvdc/lvdc_simulation/iu.gtkw"
-[timestart] 0
-[size] 1920 1032
+[timestart] 3095200000
+[size] 2560 1392
 [pos] -1 -1
-*-27.032167 299100000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-27.332170 720718232 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] iu_sim.
+[treeopen] iu_sim.gse1.
+[treeopen] iu_sim.gse1.lvdc_registers1.
 [treeopen] iu_sim.iu1.lvdc1.
-[sst_width] 209
-[signals_width] 282
+[sst_width] 334
+[signals_width] 367
 [sst_expanded] 1
-[sst_vpaned_height] 482
+[sst_vpaned_height] 679
 @10c00028
 [color] 7
 [transaction_args] ""
@@ -54,6 +56,8 @@ iu_sim.iu1.lvdc1.a1a3.YF
 iu_sim.iu1.lvdc1.a1a3.ZF
 @1401200
 -group_end
+@30
++{AI3-IA} iu_sim.gse1.lvdc_registers1.ai3_ia[8:1]
 @10c00022
 [transaction_args] ""
 ^<4 /home/mike/lvdc/lvdc_simulation/scripts/decode_opcode.py
@@ -67,8 +71,36 @@ iu_sim.iu1.lvdc1.OP3V
 iu_sim.iu1.lvdc1.OP4V
 @1401200
 -group_end
-@31
-+{Acc} iu_sim.gse1.acc[26:1]
+@c00030
+#{A} iu_sim.iu1.lvdc1.A9V iu_sim.iu1.lvdc1.A8V iu_sim.iu1.lvdc1.A7V iu_sim.iu1.lvdc1.A6V iu_sim.iu1.lvdc1.A5V iu_sim.iu1.lvdc1.A4V iu_sim.iu1.lvdc1.A3V iu_sim.iu1.lvdc1.A2V iu_sim.iu1.lvdc1.A1V
+@28
+iu_sim.iu1.lvdc1.A1V
+iu_sim.iu1.lvdc1.A2V
+iu_sim.iu1.lvdc1.A3V
+iu_sim.iu1.lvdc1.A4V
+iu_sim.iu1.lvdc1.A5V
+iu_sim.iu1.lvdc1.A6V
+iu_sim.iu1.lvdc1.A7V
+iu_sim.iu1.lvdc1.A8V
+iu_sim.iu1.lvdc1.A9V
+@1401200
+-group_end
+@c00031
+#{TRS} (0)iu_sim.gse1.lvdc_registers1.trs[1:26] (1)iu_sim.gse1.lvdc_registers1.trs[1:26] (2)iu_sim.gse1.lvdc_registers1.trs[1:26] (3)iu_sim.gse1.lvdc_registers1.trs[1:26] (4)iu_sim.gse1.lvdc_registers1.trs[1:26] (5)iu_sim.gse1.lvdc_registers1.trs[1:26] (6)iu_sim.gse1.lvdc_registers1.trs[1:26] (7)iu_sim.gse1.lvdc_registers1.trs[1:26] (8)iu_sim.gse1.lvdc_registers1.trs[1:26] (9)iu_sim.gse1.lvdc_registers1.trs[1:26] (10)iu_sim.gse1.lvdc_registers1.trs[1:26] (11)iu_sim.gse1.lvdc_registers1.trs[1:26] (12)iu_sim.gse1.lvdc_registers1.trs[1:26] (13)iu_sim.gse1.lvdc_registers1.trs[1:26] (14)iu_sim.gse1.lvdc_registers1.trs[1:26] (15)iu_sim.gse1.lvdc_registers1.trs[1:26] (16)iu_sim.gse1.lvdc_registers1.trs[1:26] (17)iu_sim.gse1.lvdc_registers1.trs[1:26] (18)iu_sim.gse1.lvdc_registers1.trs[1:26] (19)iu_sim.gse1.lvdc_registers1.trs[1:26] (20)iu_sim.gse1.lvdc_registers1.trs[1:26] (21)iu_sim.gse1.lvdc_registers1.trs[1:26] (22)iu_sim.gse1.lvdc_registers1.trs[1:26] (23)iu_sim.gse1.lvdc_registers1.trs[1:26] (24)iu_sim.gse1.lvdc_registers1.trs[1:26] (25)iu_sim.gse1.lvdc_registers1.trs[1:26] iu_sim.gse1.lvdc_registers1.ZERO
+@23
+iu_sim.gse1.lvdc_registers1.trs[1:26]
+@29
+iu_sim.gse1.lvdc_registers1.ZERO
+@1401211
+-group_end
+@c00030
+#{AI3-DATA} (0)iu_sim.gse1.lvdc_registers1.ai3_data[1:26] (1)iu_sim.gse1.lvdc_registers1.ai3_data[1:26] (2)iu_sim.gse1.lvdc_registers1.ai3_data[1:26] (3)iu_sim.gse1.lvdc_registers1.ai3_data[1:26] (4)iu_sim.gse1.lvdc_registers1.ai3_data[1:26] (5)iu_sim.gse1.lvdc_registers1.ai3_data[1:26] (6)iu_sim.gse1.lvdc_registers1.ai3_data[1:26] (7)iu_sim.gse1.lvdc_registers1.ai3_data[1:26] (8)iu_sim.gse1.lvdc_registers1.ai3_data[1:26] (9)iu_sim.gse1.lvdc_registers1.ai3_data[1:26] (10)iu_sim.gse1.lvdc_registers1.ai3_data[1:26] (11)iu_sim.gse1.lvdc_registers1.ai3_data[1:26] (12)iu_sim.gse1.lvdc_registers1.ai3_data[1:26] (13)iu_sim.gse1.lvdc_registers1.ai3_data[1:26] (14)iu_sim.gse1.lvdc_registers1.ai3_data[1:26] (15)iu_sim.gse1.lvdc_registers1.ai3_data[1:26] (16)iu_sim.gse1.lvdc_registers1.ai3_data[1:26] (17)iu_sim.gse1.lvdc_registers1.ai3_data[1:26] (18)iu_sim.gse1.lvdc_registers1.ai3_data[1:26] (19)iu_sim.gse1.lvdc_registers1.ai3_data[1:26] (20)iu_sim.gse1.lvdc_registers1.ai3_data[1:26] (21)iu_sim.gse1.lvdc_registers1.ai3_data[1:26] (22)iu_sim.gse1.lvdc_registers1.ai3_data[1:26] (23)iu_sim.gse1.lvdc_registers1.ai3_data[1:26] (24)iu_sim.gse1.lvdc_registers1.ai3_data[1:26] (25)iu_sim.gse1.lvdc_registers1.ai3_data[1:26] iu_sim.gse1.lvdc_registers1.ZERO
+@22
+iu_sim.gse1.lvdc_registers1.ai3_data[1:26]
+@28
+iu_sim.gse1.lvdc_registers1.ZERO
+@1401210
+-group_end
 @10c00022
 [transaction_args] ""
 ^<5 /home/mike/lvdc/lvdc_simulation/scripts/decode_module.py
@@ -109,38 +141,6 @@ iu_sim.iu1.lvdc1.DS1
 iu_sim.iu1.lvdc1.DS2
 iu_sim.iu1.lvdc1.DS3
 iu_sim.iu1.lvdc1.DS4
-@1401200
--group_end
-@c00030
-#{A} iu_sim.iu1.lvdc1.A9V iu_sim.iu1.lvdc1.A8V iu_sim.iu1.lvdc1.A7V iu_sim.iu1.lvdc1.A6V iu_sim.iu1.lvdc1.A5V iu_sim.iu1.lvdc1.A4V iu_sim.iu1.lvdc1.A3V iu_sim.iu1.lvdc1.A2V iu_sim.iu1.lvdc1.A1V
-@28
-iu_sim.iu1.lvdc1.A1V
-iu_sim.iu1.lvdc1.A2V
-iu_sim.iu1.lvdc1.A3V
-iu_sim.iu1.lvdc1.A4V
-iu_sim.iu1.lvdc1.A5V
-iu_sim.iu1.lvdc1.A6V
-iu_sim.iu1.lvdc1.A7V
-iu_sim.iu1.lvdc1.A8V
-iu_sim.iu1.lvdc1.A9V
-@1401200
--group_end
-@c00030
-#{TR} iu_sim.iu1.lvdc1.TR13V iu_sim.iu1.lvdc1.TR12V iu_sim.iu1.lvdc1.TR11V iu_sim.iu1.lvdc1.TR10V iu_sim.iu1.lvdc1.TR9V iu_sim.iu1.lvdc1.TR8V iu_sim.iu1.lvdc1.TR7V iu_sim.iu1.lvdc1.TR6V iu_sim.iu1.lvdc1.TR5V iu_sim.iu1.lvdc1.TR4V iu_sim.iu1.lvdc1.TR3V iu_sim.iu1.lvdc1.TR2V iu_sim.iu1.lvdc1.TR1V
-@28
-iu_sim.iu1.lvdc1.TR1V
-iu_sim.iu1.lvdc1.TR2V
-iu_sim.iu1.lvdc1.TR3V
-iu_sim.iu1.lvdc1.TR4V
-iu_sim.iu1.lvdc1.TR5V
-iu_sim.iu1.lvdc1.TR6V
-iu_sim.iu1.lvdc1.TR7V
-iu_sim.iu1.lvdc1.TR8V
-iu_sim.iu1.lvdc1.TR9V
-iu_sim.iu1.lvdc1.TR10V
-iu_sim.iu1.lvdc1.TR11V
-iu_sim.iu1.lvdc1.TR12V
-iu_sim.iu1.lvdc1.TR13V
 @1401200
 -group_end
 @c000b0
