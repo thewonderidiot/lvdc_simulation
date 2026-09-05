@@ -295,6 +295,30 @@ and a25a(na25a_a25a, Z6, PAV, P2VN);
 and a18b(na18a_a18b, na25a, TMVN);
 and a33a(na25a_a33a, G2V);
 
+// The preflight program begins with two consecutive DIV instructions
+// that are intended to hold off initial interrupts while checks are
+// performed. The behavior of the VOY latch, however, seems to make
+// this impossible as presented in the simplex model schematics.
+// The VOY latch is:
+//  - Set each Z clock B-2 thru B-8 if OP = DIV or MPY
+//  - Reset each Y clock B-5 thru B-11 if phase tratch = 3
+//
+// The phase tratch has the following timing for divide:
+//  - Set to phase 1 if in phase 3 and in B-3-Y *or* Y clocks B-11-Y
+//    thru B-14-Y if VOY set
+//  - Set to phase 3 if in phase 2 at B-4-Y after divide
+//
+// For normal divides (no preceding divide), phase 1 is started at
+// B-3-Y. When a divide is already active, however, phase 2 is still
+// active at this time, and phase 3 is only entered the next bit time
+// at B-4-Y. The B-11-Y thru B-14-Y case is then required to start
+// phase 1. However, since the VOY latch is continuously reset from
+// B-5-Y thru B-11-Y when in phase 3, but only set continuously from
+// B-2-Y thru B-8-Y when DIV is selected, the reset case wins out,
+// VOY is never set, and phase 1 is never started. Presumably this
+// must have been fixed for flight-model LVDCs, but the "correct"
+// fix is not known. I'm fixing it by limiting the VOY reset time to
+// only B-5-Y by ANDing in G6VN, so the "set" side is able to win out.
 and a15a(na15b_a15a, Z6, na16b, OP4VN);
 and a16b(na16b, OP3VN, OP1V, PBV, G2V);
 and a15b(na15b_a15b, V4MOD4, VOY);
@@ -302,7 +326,7 @@ inv a15c(VOYN, na15b, SIM_CLK, SIM_RST);
 inv #(0) a22c(VOY, na22a, SIM_CLK, SIM_RST);
 and a22a(na22a_a22a, V4MOD4, VOYN);
 and a23a(na23a, G5V, P1VN, PCVN, P2VN);
-and a22b(na22a_a22b, Y1, na23a);
+and a22b(na22a_a22b, Y1, na23a, G6VN); // G6VN is a non-original input
 
 and a4a(na4a, V1, Q9N);
 inv #(0) a4b(Q9, na4a, SIM_CLK, SIM_RST);
