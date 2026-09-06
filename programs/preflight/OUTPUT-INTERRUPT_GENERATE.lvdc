@@ -1,0 +1,29 @@
+**********************************************************************
+*                                                                    *
+*                                                                    *
+*      OUTPUT-INTERRUPT GENERATE SUBROUTINE                          *J
+*                                                                    *
+*                                                                    *
+**********************************************************************
+
+* FUNCTION  THE PURPOSE OF THIS SUBRROUTINE IS TO PROVIDE AN INTERRUPT
+*           AFTER CERTAIN COMPUTER TELEMETRY OPERATIONS.
+*           AFTER ISSUING THE INTERRUPT (DO2) TO THE LAUNCH COMPUTER,
+*           THIS SUBROUTINE WAITS 1 MS. FOR THE SYNC SIGNAL FROM THE
+*           LAUNCH COMPUTER. WHEN SYNC IS DETECTED, THE SUBROUTINE
+*           ISSUES SYNC RESET AND RETURNS TO CALLING ROUTINE.
+
+* ENTRY     OIGS     ENTER TO GENERATE OUTPUT-INTERRUPT
+
+       ORG     FBR1,D.DATA
+OIGSRT BSS     1
+
+OIGS   STO     777
+       CLA     777
+       STO     OIGSRT
+
+       HOP     PRUS         PTL REALTIME UPDATE SUBR.                 P
+
+       CLA     D.KB11
+       PIO     016          SET DISCRETE OUTPUT NUMBER 2              B
+       TRA     *            FIXME: NOT DONE YET

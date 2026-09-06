@@ -1,0 +1,20 @@
+**********************************************************************
+*                                                                    *
+*                                                                    *
+*      REAL TIME UPDATE SUBROUTINE                                   *J
+*                                                                    *
+*                                                                    *
+**********************************************************************
+
+* FUNCTION   IS IS THE PURPOSE OF THIS SUBROUTINE TO PROVIDE A MEANS
+*            TO ACCUMULATE ELAPSED TIME FOR THE LVDC PREPARE TO LAUNCH
+*            ROUTINE. IF ENTRY IS FROM ANY OTHER ROUTINE, NO TIME WILL
+*            BE ACCUMULATED.
+
+* ENTRY      PRUS     ENTER TO UPDATE REAL TIME
+
+       ORG     FBR1,D.DATA
+PRUS   STO     777          SAVE RETURN HOP CONSTANT
+*                           FIXME: IN PREPARE TO LAUNCH?
+*                           FIXME: UPDATE DELTA TIME ACCUMULATION
+       HOP     777

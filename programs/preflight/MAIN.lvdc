@@ -1,0 +1,49 @@
+* ***************************************
+* *                                     *
+* *         PREFLIGHT PROGRAM           *
+* *                                     *
+* *                                     *
+* ***************************************
+
+       TITLE   'PSEUDO VARIABLES'
+
+       TITLE   'DATA SECTOR'
+       DOGS    1,16,000
+D.DATA TABLE   1
+
+       TITLE   'VEHICLE DEPENDENT PARAMETERS'
+       DOGS    1,17,001
+MESMAP OCT     776000000
+
+       TITLE   'RESIDUAL SECTOR DATA'
+
+D.KBSG OCT     400000000
+D.KB1  OCT     200000000
+D.KB2  OCT     100000000
+D.KB3  OCT     040000000
+D.KB4  OCT     020000000
+D.KB5  OCT     010000000
+D.KB6  OCT     004000000
+D.KB7  OCT     002000000
+D.KB8  OCT     001000000
+D.KB9  OCT     000400000
+D.KB10 OCT     000200000
+D.KB11 OCT     000100000
+D.KB12 OCT     000040000
+D.KB13 OCT     000020000
+D.KB14 OCT     000010000
+D.KB15 OCT     000004000
+D.KB16 OCT     000002000
+D.KB17 OCT     000001000
+D.KB18 OCT     000000400
+D.KB19 OCT     000000200
+D.KB20 OCT     000000100
+D.KB21 OCT     000000040
+D.KB22 OCT     000000020
+D.KB23 OCT     000000010
+D.KB24 OCT     000000004
+D.KB25 OCT     000000002
+D.KSY1 OCT     777740000
+D.KSY0 OCT     000037776
+D.KONS OCT     777777776
+D.KZRO DEC     0            ZERO

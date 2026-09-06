@@ -1,0 +1,83 @@
+**********************************************************************
+*                                                                    *
+*                                                                    *
+*      POWER UP AND INITIALIZE ROUTINE                               *J
+*                                                                    *
+*                                                                    *
+**********************************************************************
+
+* FUNCTION   THIS ROUTINE PERFORMS THE NECESSARY INITIALIZATION AFTER
+*            POWER HAS BEEN APPLIED TO THE LVDA AND LVDC. THE ROUTINE
+*            IS AUTOMATICALLY ENTERED UPON THE RELEASE OF THE HALT
+*            SIGNAL.
+
+* ENTRIES    START    LOCATED AT 0-00-0-000 AND ENTERED UPON RELEASE
+*                     OF THE HALT SIGNAL.
+
+       ORG     0,0,0,000,0,0,0
+
+START  DIV     =1           DIVIDE TO INHIBIT INTERRUPTS              B
+
+       CLA     OBFLAG       DID PROGRAM COME FROM ORBITAL FLIGHT      Q
+       TNZ     *+2                                                    Y
+       TRA     INIT                                                   N
+
+       PIO     057          IS RCA-110 SYNC PRESENT?                  Q
+       AND     =O00000001
+       TNZ     *+2
+EXIT   TRA     *            ABORT RUN                                 B
+
+       PIO     043          READ RCA-100 COMMAND                      Y
+       AND     =O77776
+       DIV     =1           DIVIDE TO INHIBIT INTERRUPTS              B
+       TNZ     EXIT
+
+INIT   CLA     =O37774
+       PIO     032          RESET ALL INITIAL INTERRUPTS              I
+       CLA     =O37774
+       PIO     072          INHIBIT ALL INITIAL INTERRUPTS            I
+
+       CLA     =O000000002
+       PIO     022          PLACE DOM UNDER G-SYNC CONTROL            I
+       PIO     066          PLACE THE COD ERROR WORD IN THE DOM       I
+
+       CLA     OBFLAG       IS THE PROGRAM FROM ORBITAL FLIGHT        Q
+       TNZ     MEMOK                                                  Y
+
+       CLA     775          FIXME: RESTORE MEMORY TEST LOCATIONS
+
+MEMOK  CLA     =O35774
+       PIO     072          INHIBIT ALL INTERRUPTS EXCEPT TLC         I
+
+       PIO     057          IS RCA-110 SYNC PRESENT
+       AND     =O00000001
+       TNZ     *+2
+       TRA     NORMPF
+
+       PIO     043          IS SPECIAL LOADER COMMANDED               Q
+       AND     =O77776
+       TNZ     NORMPF                                                 Y
+       
+       HOP     RINIT        REGISTER INITIALIZE                       P
+       TRA     *            FIXME: SET UP SPECIAL LOADER
+
+NORMPF CDS     D.DATA       INITIALIZE DATA SECTOR                    B
+       CLA     D.KBSG
+       PIO     671          TELEMETER S.C. 40, LOAD MODE REG. TO 40
+       PIO     006
+
+       HOP     RINIT        REGISTER INITIALIZE                       P
+       HOP     KIN400       HOP 400 INITIALIZE
+
+       PIO     023          DUMMY EMR READ                            I
+
+       CLA     =O35770
+       PIO     072          INHIBIT ALL INTERRUPTS EXCEPT TLC, RCA    I
+
+*                           INITIALIZE ALL NECESSARY PROGRAM CONSTANTS
+*                           FIXME: WHAT DOES THIS MEAN
+       HOP     NORMPF       HOP TO FBR                                X
+
+
+       DOG     0,0,77
+OBFLAG OCT     0

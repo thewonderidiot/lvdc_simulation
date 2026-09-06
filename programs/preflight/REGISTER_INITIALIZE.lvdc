@@ -1,0 +1,45 @@
+**********************************************************************
+*                                                                    *
+*                                                                    *
+*      REGISTER INITIALIZE SUBROUTINE                                *J
+*                                                                    *
+*                                                                    *
+**********************************************************************
+
+* FUNCTION   THE PURPOSE OF THE REGISTER INITIALIZE SUBROUTINE IS TO
+*            GUARANTEE THAT THE SWITCH SELECTOR REGISTER, DISCRETE
+*            OUTPUT REGISTER, LADDER OUTPUT REGISTER, AND THE LADDER
+*            CONVERTER ARE AT THEIR PROPER CONDITION DURING EITHER
+*            POWER UP, OR A COMMANDED RECYCLE THROUGH FORCED BEGIN
+*            FROM AN RCA-110 INTERRUPT.
+
+* ENTRY      RINIT    ENTERED FROM POWER UP OR FORCED BEGIN
+
+       ORG     FBR1,D.DATA
+
+RINIT  STO     777          SAVE HOP RETURN                           B
+
+       CLA     =O777776774
+       PIO     026          RESET ALL ICR BITS EXCEPT 1 AND 9         I
+       XOR     D.KONS
+       PIO     022          SET ICR BITS 1 AND 9                      I
+
+       CLA     D.KONS
+       PIO     012          RESET ALL DISCRETE OUTPUT REGISTER BITS   I
+
+       CLA     D.KZRO
+       PIO     036          RESET ALL SWITCH SELECTOR REGISTER BITS   I
+
+       PIO     172          CLAMP LADDERS TO ZERO                     I
+*      CLA     =O460 
+       CLA     =O006
+       SUB     D.KB8        DELAY 50 MSEC.                            B
+       TNZ     *-1
+       PIO     712          CLAMP LADDERS TO ZERO                     I
+
+       CLA     D.KB12
+       PIO     022          SET ICR BIT 14 TO SELECT CONVERTER A      I
+       
+       PIO     023          READ EMR TO CLEAR SCB BIT                 I
+
+       HOP     777          RETURN                                    X

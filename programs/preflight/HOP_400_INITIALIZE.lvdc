@@ -1,0 +1,63 @@
+**********************************************************************
+*                                                                    *
+*                                                                    *
+*      HOP 400 INITIALIZE SUBROUTINE                                 *J
+*                                                                    *
+*                                                                    *
+**********************************************************************
+
+* FUNCTION   THE HOP 400 INITIALIZE SUBROUTINE INITIALIZES THE
+*            INTERRUPT HOP 400 ADDRESS IN EVERY MODULE PRESENT IN THE
+*            LVDC. WHEN AN INTERRUPT IS ENCOUNTERED DURING PRELAUNCH,
+*            THE HOP 400 ADDRESS IS UTILIZED IN REACHING THE PREFLIGHT
+*            INTERRUPT PROCESSOR SUBROUTINE.
+
+* ENTRY      KIN400   ENTER TO INITIALIZE HOP 400 LOCATIONS
+
+       ORG     FBR1,D.DATA
+
+IN400S BSS     1
+MODCNT BSS     1
+MODMSK BSS     1
+
+       USE     DAT
+ININST CDSS    0,0
+       STO     400
+       USE     INST
+
+KIN400 STO     777
+       CLA     777
+       STO     IN400S       STORE HOP RETURN IN IN400S                B
+
+       CLA     MESMAP       PICK UP MESMAP TO DETERMINE MODULES IN USEB
+       AND     =O776        MASK OUT ALL BUT VALID MODULE BITS (S-8)  B
+       STO     MODMSK       STORE MODULE MAP FOR DOWNSTREAM REFERENCE B
+
+       CLA     D.KZRO
+       STO     MODCNT       INITIALIZE MODULE COUNTER
+
+       CLA     MODMSK
+IN400A TMI     IN400B       DOES MOD. MAP SHOW MOD. UNDER TEST PRESENTQ
+       TNZ     IN400C       DO ANY OTHER MODULES REMAIN               Q
+*                           ALL MODULES INDICATED IN MAP NOW INIT.    B
+*                           FIXME: THE BELOW IS DUBIOUS
+       CLA     000          PERFORM CLA 000 FROM ODD DATA MODULE      B
+*                           THIS IS TO FORCE MEMORY B LATCH ALIGNMENT B
+       CDS     IN400S       CDS BACK FOR HOP EXIT                     B
+       HOP     IN400S       HOP BACK                                  X
+
+IN400B CLA     D.KZRO       FIXME                                     Y
+       STO     775          SET PQ = INTERRUPT PROCESSING HOP CONSTANTB
+
+       CLA     ININST       PICK UP USE DAT OF COS 0,0 AND STO 400    B
+       XOR     MODCNT       INSERT MODULE COUNTER                     B
+       HOP     IEDA         STO INT HPC IN MODULE X                   B
+
+IN400C CLA     MODCNT
+       ADD     D.KB6        INCREMENT MODULE COUNTER BY 1             M
+       STO     MODCNT
+
+       CLA     MODMSK
+       SHL     1            ROTATE MODULE MAP LEFT 1 POSITION         M
+       STO     MODMSK
+       TRA     IN400A       GO TO TEST FOR NEXT MODULE PRESENT        B

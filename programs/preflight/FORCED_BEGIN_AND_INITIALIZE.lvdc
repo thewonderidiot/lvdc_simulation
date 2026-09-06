@@ -1,0 +1,45 @@
+**********************************************************************
+*                                                                    *
+*                                                                    *
+*      FORCED BEGIN AND INITIALIZE ROUTINE                           *J
+*                                                                    *
+*                                                                    *
+**********************************************************************
+
+* FUNCTION   THE PURPOSE OF THIS ROUTINE IS TO INITIALIZE CERTAIN
+*            PROGRAM CONSTANTS AND LVDA REGISTERS PRIOR TO EXECUTING
+*            ANY PREFLIGHT ROUTINE. THIS ROUTINE SHALL BE ENTERED ONLY
+*            FROM THE POWER UP ROUTINE, OR AS A RESULT OF AN RCA-110
+*            INTERRUPT. THIS INTERRUPT IS USED WHEN THE LAUNCH COM-
+*            PUTER TERMINATES AN LVDC ROUTINE PRIOR TO COMPLETION, OR
+*            RE-INITIALIZES PROGRAM CONSTANTS AND CERTAIN LVDA REG-
+*            ISTERS.
+
+* ENTRIES    FBR1     ENTERED FROM POWER UP INITIALIZE
+*            FBR2     ENTERED FROM RCA-110 INTERRUPT
+
+       ORGSS   0,0,1,000,1,16,0
+
+D.EMR  BSS     1
+EMCON  BSS     1
+
+FBR1   PIO     023          READ EMR AND SAVE                         B
+       TRA     FBR3
+
+FBR2   CLA     =O35770
+       PIO     072          INHIBIT ALL INTERRUPTS EXCEPT TLC AND RCA I
+
+       PIO     023
+       AND     =O375377776  READ EMR, MASK EM8, EM3 AND 2 SPARE BITS  B
+FBR3   STO     D.EMR        AND SAVE                                  B
+*                           FIXME: LVDA MANUAL ONLY SHOWS ONE SPARE
+       HOP     KIN400       HOP 400 INITIALIZE
+
+       CLA     =O000001002
+       PIO     022          SET ICR'S 1 + 9, RESET ALL ICR'S EXCEPT   B
+       XOR     D.KONS       1 AND 9                                   B
+       PIO     026
+
+       CLA     =O265252260
+       HOP     ISS          ISSUE STATUS CODE                         P
+       TRA     *

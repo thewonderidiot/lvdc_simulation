@@ -1,0 +1,29 @@
+**********************************************************************
+*                                                                    *
+*                                                                    *
+*      ISSUE STATUS CODE SUBROUTINE                                  *J
+*                                                                    *
+*                                                                    *
+**********************************************************************
+
+* FUNCTION   THE FUNCTION OF THIS SUBROUTINE IS TO TELEMETER THE
+*            STATUS CODE OF THE CURRENT ROUTINE, LOAD THE MODE
+*            REGISTER, AND INTERRUPT THE RCA-110A BY ISSUING DO 2.
+*            SYNC IS THEN RECEIVED FROM THE RCA-110A AND RESET BY
+*            THE SYNC RESET SUBROUTINE. A DELAY OF 6 MS. IS UTILIZED
+*            TO INSURE THE SYNC SIGNAL HAS BEEN RESET AND CONTROL IS
+*            RETURNED TO THE CALLING ROUTINE.
+
+* ENTRY      ISS      ENTER TO ISSUE STATUS CODE
+
+       ORG     FBR1,D.DATA
+ISSRT  BSS     1
+
+ISS    STO     777
+       CLA     777
+       STO     ISSRT
+       PIO     671          TELEMETER PRESENT STATUS CODE             B
+       PIO     006          PLACE THE PRESENT STATUS CODE IN THE MODE B
+*                           REGISTER                                  B
+       HOP     OIGS         GENERATE OUTPUT INTERRUPT
+       HOP     ISSRT        RET TO CAL RT                             X

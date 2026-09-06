@@ -1,0 +1,35 @@
+**********************************************************************
+*                                                                    *
+*                                                                    *
+*      INSTRUCTION EXECUTE SUBROUTINE                                *J
+*                                                                    *
+*                                                                    *
+**********************************************************************
+
+* FUNCTION   LVDC PROGRAMMING STANDARDS REQUIRE THAT THE INSTRUCTIONS
+*            FOR A GIVEN ROUTINE AND THE ACCOMPANYING DATA WORDS BE
+*            STORED IN DIFFERENT SECTORS. IT IS, THEREFORE, IMPOSSIBLE
+*            TO EXECUTE PROGRAM-BUILT AND MODIFIED INSTRUCTIONS WITH-
+*            OUT FIRST CHANGING THE CURRENT DATA SECTOR TO THE CURRENT
+*            INSTRUCTION SECTOR. THE INSTRUCTION EXECUTE SUBROUTINE
+*            PROVIDES A QUICK AND EFFICIENT MEANS TO EXECUTE THESE
+*            PROGRAM-BUILT INSTRUCTIONS.
+
+* ENTRY      IEDA     CALL WITH FIRST INSTRUCTION IN SYLLABLE 1,
+*                     SECOND INSTRUCTION IN SYLLABLE 0, AND DATA TO
+*                     BE OPERATED ON IN PQ.
+
+       ORGSS   0,16,0,000,0,16,0
+L.IEDA TABLE   6
+       ORG     L.IEDA
+       ORG     *,*,*+(1),*,*,*,*
+IEDA   STO     777          SAVE RETURN HOP CONSTANT                  B
+       STO     INST         STORE INST                                B
+       CLA     775          OBTAIN DATA WORD TO BE OPERATED ON, IF ANYB
+INST   HOP     0            EXECUTE PROGRAM BUILT INSTRUCTIONS        B
+       TRA     IEDA1
+       ORG     L.IEDA
+       ORG     *,*,*,*+(3),*,*,*
+IEDA1  HOP     0
+       CDS     L.IEDA
+       HOP     777          HOP TO PEP                                X
