@@ -1,0 +1,155 @@
+**********************************************************************
+*                                                                    *
+*                                                                    *
+*      MODE SORT                                                     *J
+*                                                                    *
+*                                                                    *
+**********************************************************************
+
+* FUNCTION   
+
+* ENTRIES    MDSRT    ENTERED FROM FORCED BEGIN AND INITIALIZE
+
+       ORGSS   0,2,0,000,1,16,
+
+MODCMD BSS     1
+       USE     DAT
+MODPTR CDS     MODTAB       POINTER TO MODE TABLE
+       HOP     MODTAB
+       USE     INST
+
+MDSRT  CLA     D.KZRO
+       HOP     ISS          ISSUE STATUS CODE                         P
+
+MDSRT1 HOP     AMS          ACCELEROMETER MONITOR                     P
+       HOP     EMS          ERROR MONITOR                             P
+       HOP     STS          LVDC SELFTEST                             P
+
+       CLA     =O35774
+       PIO     072          INHIBIT RCA-110 INTERRUPT                 I
+
+       HOP     DAS          DATA ADAPTER TEST                         P
+
+       CLA     =O35770
+       PIO     072          RESTORE NORMAL INHIBITS                   I
+
+       CLA     =O707070706
+       PIO     001          TELEMETER PATTERN WORD                    I
+
+       PIO     057          READ + TELEMETER DIN WORD                 I
+       PIO     445
+
+       PIO     053          READ + TELEMETER DIS WORD                 I
+       PIO     545
+
+       PIO     137          READ + TELEMETER INT REG                  I
+       PIO     565
+
+       PIO     107          READ + TELEMETER DR, CR, + VERT ACCELS    B
+       PIO     501          DOWNRANGE ACCELEROMETER (Z)
+       PIO     117
+       PIO     511          CROSSRANGE ACCELEROMETER (Y)
+       PIO     127
+       PIO     505          VERTICAL ACCELEROMETER (X)
+
+       CLA     EMCON
+       XOR     EMCON1       IS EMR MASK SET TO SPECIAL VALUE          Q
+       TNZ     *+2                                                    Y
+       TRA     MDSRT2                                                 N
+
+       PIO     023
+       AND     EMCON        IS ANY UNACCEPTABLE EMR BIT ON            Q
+       TNZ     *+2                                                    Y
+       TRA     MDSRT2                                                 N
+
+       CLA     =O1          FIXME: ERROR CODE
+       HOP     EMS          ISSUE ERROR MESSAGE                       P
+
+MDSRT2 PIO     057
+       AND     D.KB23       IS SYNC ON                                Q
+       TNZ     *+2                                                    Y
+       TRA     MDSRT1                                                 N
+
+       PIO     043          READ RCA-110A INPUT WORD                  I
+       STO     MODCMD
+       HOP     SRS          SYNC RESET                                P
+
+       CLA     MODCMD
+       TMI     MDSRT3       IS INPUT WORD MODE INFORMATION            Q
+
+BADMOD CLA     =O001                                                  N
+       HOP     EMS          ERROR MONITOR                             P
+       TRA     MDSRT1
+
+MDSRT3 AND     =O176
+       MPH     D.KB13       SHIFT RIGHT 13 PLACES
+       ADD     MODPTR
+       HOP     IEDA         INSTRUCTION EXECUTE                       P
+*                           HOP TO CR                                 X
+
+       DOGS    1,15,
+       TABLE   64
+MODTAB HPC     BADMOD       SPECIAL LOADER MODE SORT           MODE 00
+       HPC     BADMOD       ERROR - ILLEGAL MODE               MODE 01
+       HPC     BADMOD       ACCELEROMETER PULSE COUNT          MODE 02
+       HPC     BADMOD       GIMBAL ANGLE MONITOR               MODE 03
+       HPC     BADMOD       DISCRETE INPUT ROUTINE             MODE 04
+       HPC     BADMOD       DISCRETE OUTPUT ROUTINE            MODE 05
+       HPC     BADMOD       G & C STEERING TEST                MODE 06
+       HPC     BADMOD       DOM TEST                           MODE 07
+       HPC     BADMOD       LADDER ERROR TEST                  MODE 10
+       HPC     BADMOD       PREPARE TO LAUNCH SIM FLT W/O PLAT MODE 11
+       HPC     BADMOD       PREPARE TO LAUNCH FLIGHT W/ PLAT   MODE 12
+       HPC     BADMOD       EXERCISE ATTITUDE CMD MODE 1       MODE 13
+       HPC     BADMOD       COMPUTER INTERFACE UNIT READ       MODE 14
+       HPC     BADMOD       SWITCH SELECTOR ROUTINE            MODE 15
+       HPC     BADMOD       SECTOR SUMCHECK                    MODE 16
+       HPC     BADMOD       EXERCISE ATTITUDE CMD MODE 2       MODE 17
+       HPC     BADMOD       SECTOR DUMP                        MODE 20
+       HPC     BADMOD       VERIFY AND PREPARE TO LOAD         MODE 21
+       HPC     BADMOD       MEMORY ERROR TEST                  MODE 22
+       HPC     BADMOD       LOAD ROUTINE                       MODE 23
+       HPC     BADMOD       ML, SS, AND RTC COUNTER TESTS      MODE 24
+       HPC     BADMOD       ERROR - ILLEGAL MODE               MODE 25
+       HPC     BADMOD       ERROR - ILLEGAL MODE               MODE 26
+       HPC     BADMOD       SIB TARGET DUMP ROUTINE            MODE 27
+       HPC     BADMOD       PREPARE TO LAUNCH SIM FLT W/ PLAT  MODE 30
+       HPC     BADMOD       REPEATABLE FLIGHT SIM              MODE 31
+       HPC     BADMOD       TELEMETRY TEST                     MODE 32
+       HPC     BADMOD       ERROR - ILLEGAL MODE               MODE 33
+       HPC     BADMOD       ERROR - ILLEGAL MODE               MODE 34
+       HPC     BADMOD       COMMAND RECEIVER LINKAGE           MODE 35
+       HPC     BADMOD       ERROR - ILLEGAL MODE               MODE 36
+       HPC     BADMOD       ERROR - ILLEGAL MODE               MODE 37
+       HPC     START        POWER UP AND INITIALIZE            MODE 40
+       HPC     BADMOD       ERROR - ILLEGAL MODE               MODE 41
+       HPC     BADMOD       ERROR - ILLEGAL MODE               MODE 42
+       HPC     BADMOD       ERROR - ILLEGAL MODE               MODE 43
+       HPC     BADMOD       ERROR - ILLEGAL MODE               MODE 44
+       HPC     BADMOD       ERROR - ILLEGAL MODE               MODE 45
+       HPC     BADMOD       ERROR - ILLEGAL MODE               MODE 46
+       HPC     BADMOD       ERROR - ILLEGAL MODE               MODE 47
+       HPC     BADMOD       SIB TARGET DUMP ROUTINE            MODE 50
+       HPC     BADMOD       ERROR - ILLEGAL MODE               MODE 51
+       HPC     BADMOD       ERROR - ILLEGAL MODE               MODE 52
+       HPC     BADMOD       ML, SS, AND RTC COUNTER TESTS      MODE 53
+       HPC     BADMOD       LOAD ROUTINE                       MODE 54
+       HPC     BADMOD       MEMORY ERROR TEST                  MODE 55
+       HPC     BADMOD       ERROR - ILLEGAL MODE               MODE 56
+       HPC     BADMOD       SECTOR DUMP                        MODE 57
+       HPC     BADMOD       EXERCISE ATTITUDE CMD MODE 2       MODE 60
+       HPC     BADMOD       ERROR - ILLEGAL MODE               MODE 61
+       HPC     BADMOD       SWITCH SELECTOR ROUTINE            MODE 62
+       HPC     BADMOD       COMPUTER INTERFACE UNIT READ       MODE 63
+       HPC     BADMOD       EXERCISE ATTITUDE CMD MODE 1       MODE 64
+       HPC     BADMOD       PREPARE TO LAUNCH FLIGHT W/ PLAT   MODE 65
+       HPC     BADMOD       ERROR - ILLEGAL MODE               MODE 66
+       HPC     BADMOD       LADDER ERROR TEST                  MODE 67
+       HPC     BADMOD       ERROR - ILLEGAL MODE               MODE 70
+       HPC     BADMOD       G & C STEERING TEST                MODE 71
+       HPC     BADMOD       DISCRETE OUTPUT ROUTINE            MODE 72
+       HPC     BADMOD       DISCRETE INPUT ROUTINE             MODE 73
+       HPC     BADMOD       GIMBAL ANGLE MONITOR               MODE 74
+       HPC     BADMOD       ACCELEROMETER PULSE COUNT          MODE 75
+       HPC     BADMOD       ERROR - ILLEGAL MODE               MODE 76
+       HPC     BADMOD       ERROR - ILLEGAL MODE               MODE 77

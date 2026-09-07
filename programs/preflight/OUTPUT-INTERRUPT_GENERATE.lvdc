@@ -25,5 +25,20 @@ OIGS   STO     777
        HOP     PRUS         PTL REALTIME UPDATE SUBR.                 P
 
        CLA     D.KB11
-       PIO     016          SET DISCRETE OUTPUT NUMBER 2              B
-       TRA     *            FIXME: NOT DONE YET
+       PIO     016          SET DISCRETE OUTPUT NUMBER 2              I
+
+       CLA     =O5
+OIGS1  SUB     =O1          HAS 1 MS ELAPSED                          Q
+       TNZ     OIGS1                                                  N
+
+       CLA     D.KB11                                                 Y
+       PIO     012          RESET DISCRETE OUTPUT NUMBER 2            I
+
+OIGS2  PIO     057
+       AND     D.KB23       IS SYNC DISCRETE ON                       Q
+       TNZ     *+2                                                    Y
+       TRA     OIGS2                                                  N
+
+       HOP     SRS          SYNC RESET SUBROUTINE                     P
+
+       HOP     OIGSRT       RET TO CAL RT                             X

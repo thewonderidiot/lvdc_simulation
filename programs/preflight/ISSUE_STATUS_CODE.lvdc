@@ -25,5 +25,5 @@ ISS    STO     777
        PIO     671          TELEMETER PRESENT STATUS CODE             B
        PIO     006          PLACE THE PRESENT STATUS CODE IN THE MODE B
 *                           REGISTER                                  B
-       HOP     OIGS         GENERATE OUTPUT INTERRUPT
+       HOP     OIGS         GENERATE OUTPUT INTERRUPT                 P
        HOP     ISSRT        RET TO CAL RT                             X

@@ -18,7 +18,7 @@
 * ENTRIES    FBR1     ENTERED FROM POWER UP INITIALIZE
 *            FBR2     ENTERED FROM RCA-110 INTERRUPT
 
-       ORGSS   0,0,1,000,1,16,0
+       ORGSS   0,1,0,000,1,16,0
 
 D.EMR  BSS     1
 EMCON  BSS     1
@@ -42,4 +42,43 @@ FBR3   STO     D.EMR        AND SAVE                                  B
 
        CLA     =O265252260
        HOP     ISS          ISSUE STATUS CODE                         P
-       TRA     *
+
+       HOP     RINIT        REGISTER INITIALIZE                       P
+
+       CLA     EMCON1       INITIALIZE EMCON = EMCON1                 B
+       STO     EMCON
+
+       CLA     GCOTST       IS GCO TEST ON                            Q
+       TNZ     FBR4                                                   Y
+
+       PIO     203          STOP COD COUNTERS WITH A DUMMY GROUP 5 PIOI
+       CLA     D.EMR
+       AND     EMCON        IS SAVED EMR (MASKED) EQUAL ERROR         Q
+       TNZ     *+2                                                    Y
+       TRA     FBR6                                                   N
+       CLA     =O512525510
+       HOP     ISS          ISSUE STATUS CODE 51                      P
+       CLA     D.EMR
+       PIO     701          TELEMETER EMR CONTENTS                    I
+
+       HOP     OIGS         GENERATE OUTPUT INT.                      P
+
+       TRA     *+2
+
+FBR4   TMI     FBR5         IS GCO TEST LOCATION MINUS                Q
+       CLA     =O512525510                                            N
+       HOP     ISS          ISSUE STATUS CODE 51                      P
+FBR5   PIO     057
+       AND     D.KB23       IS SYNC ON                                Q
+       TNZ     *+2                                                    Y
+       TRA     FBR5
+
+       HOP     SRS          SYNC RESET                                P
+
+FBR6   CLA     D.KB12
+       PIO     032          RESET RCA-110 INTERRUPT CONDITION         I
+
+*                           INITIALIZE PROGRAM CONSTANT
+*                           FIXME: WHAT DOES THIS MEAN
+
+       HOP     MDSRT        HOP TO MD SRT                             X

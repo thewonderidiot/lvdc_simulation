@@ -14,7 +14,7 @@
 * ENTRY      PRUS     ENTER TO UPDATE REAL TIME
 
        ORG     FBR1,D.DATA
-PRUS   STO     777          SAVE RETURN HOP CONSTANT
+PRUS   STO     776          SAVE RETURN HOP CONSTANT
 *                           FIXME: IN PREPARE TO LAUNCH?
 *                           FIXME: UPDATE DELTA TIME ACCUMULATION
-       HOP     777
+       HOP     776

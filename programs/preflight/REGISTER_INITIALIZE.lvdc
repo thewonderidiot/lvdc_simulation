@@ -35,7 +35,7 @@ RINIT  STO     777          SAVE HOP RETURN                           B
        CLA     =O006
        SUB     D.KB8        DELAY 50 MSEC.                            B
        TNZ     *-1
-       PIO     712          CLAMP LADDERS TO ZERO                     I
+       PIO     172          CLAMP LADDERS TO ZERO                     I
 
        CLA     D.KB12
        PIO     022          SET ICR BIT 14 TO SELECT CONVERTER A      I

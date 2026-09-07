@@ -1,0 +1,31 @@
+**********************************************************************
+*                                                                    *
+*                                                                    *
+*      SYNC RESET SUBROUTINE                                         *J
+*                                                                    *
+*                                                                    *
+**********************************************************************
+
+* FUNCTION  THE PURPOSE OF THIS SUBROUTINE IS TO TURN OFF THE RCA-110A
+*           SYNC SIGNALS TO THE LVDC. THIS WILL BE ACCOMPLISHED BY
+*           SETTING DISCRETE OUTPUT 1, WHICH CAUSES THE SYNC LOGIC TO
+*           BE RESET. THE LVDC WILL THEN CYCLE WAITING FOR THE SYNC
+*           INPUT TO RESET. WHEN SYNC IS RESET AND FOUND OFF, THE LVDC
+*           WILL RETURN TO THE CALLING ROUTINE.
+
+* ENTRY     SRS      ENTER TO RESET RCA-110 SYNC
+
+SRS    STO     777
+       CLA     D.KB12
+       PIO     016          SET DISCRETE OUTPUT 1                     I
+
+SRS1   PIO     057
+       AND     D.KB23       IS SYNC OFF                               Q
+       TNZ     SRS2                                                   N
+
+       CLA     D.KB12                                                 Y
+       PIO     012          RESET DISCRETE OUTPUT 1                   I
+       HOP     777          RET TO CAL RT                             X
+
+SRS2   HOP     PRUS         PTL REALTIME UPDATE SUBR.                 P
+       TRA     SRS1

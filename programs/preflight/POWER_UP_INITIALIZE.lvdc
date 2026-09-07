@@ -76,7 +76,7 @@ NORMPF CDS     D.DATA       INITIALIZE DATA SECTOR                    B
 
 *                           INITIALIZE ALL NECESSARY PROGRAM CONSTANTS
 *                           FIXME: WHAT DOES THIS MEAN
-       HOP     NORMPF       HOP TO FBR                                X
+       HOP     FBR1         HOP TO FBR                                X
 
 
        DOG     0,0,77
