@@ -309,7 +309,7 @@ and a4d(na4d_a4d, V1, DM5BN);
 and a4e(na4d_a4e, Y1, ETTS);
 
 and a10d(na10d, PS4BN);
-and a10e(na10e, V1, na10d, PS4AN, SIM_CLK, SIM_RST);
+and a10e(na10e, V1, na10d, PS4AN);
 inv #(0) a10f(PS4, na10e, SIM_CLK, SIM_RST);
 
 and a8c(na8c, V1, PS4A);

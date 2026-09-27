@@ -266,7 +266,7 @@ and a7a(na7a_a7a, V1, ML4);
 and a7b(na7a_a7b, Z2, na6b, RESMV);
 and a6b(na6b, MLAV);
 
-// 10-127
+// 10-126
 and a18d(na20d_a18d, Y2, na19c, ML3, G3DV, G4DVN);
 and a19c(na19c, MLAV);
 and a18e(na20d_a18e, Y2, na19d, MLAV, G4DV, ML4);
