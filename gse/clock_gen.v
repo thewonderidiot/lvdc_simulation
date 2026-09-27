@@ -36,32 +36,29 @@ localparam BIT_CLOCKS = 20;
 localparam PHASE_CTR_LEN = $clog2(3 * PHASE_CLOCKS);
 localparam BIT_CTR_LEN = $clog2(4 * BIT_CLOCKS);
 
-reg pbavn_r;
-reg w6_r;
-reg [PHASE_CTR_LEN-1:0] phase_ctr;
-reg [BIT_CTR_LEN-1:0] bit_ctr;
+reg pbavn_r = 0;
+reg w6_r = 0;
+reg [PHASE_CTR_LEN-1:0] phase_ctr = 0;
+reg [BIT_CTR_LEN-1:0] bit_ctr = 0;
 
-always @(posedge SIM_CLK or negedge SIM_RST) begin
-    if (~SIM_RST) begin
-        phase_ctr <= 0;
+always @(posedge SIM_CLK) begin
+    pbavn_r <= PBAVN;
+    w6_r <= W6;
+end
+
+always @(posedge SIM_CLK) begin
+    if (~w6_r & W6) begin
         bit_ctr <= 0;
-        bt <= 'o20000;
+        bt <= {bt[13:1], bt[14]};
     end else begin
-        pbavn_r <= PBAVN;
-        w6_r <= W6;
-        if (~w6_r & W6) begin
-            bit_ctr <= 0;
-            bt <= {bt[13:1], bt[14]};
-        end else begin
-            bit_ctr <= bit_ctr + 1;
-        end
+        bit_ctr <= bit_ctr + 1;
+    end
 
-        if (pbavn_r & ~PBAVN) begin
-            bt <= 'b1;
-            phase_ctr <= 0;
-        end else begin
-            phase_ctr <= phase_ctr + 1;
-        end
+    if (pbavn_r & ~PBAVN) begin
+        bt <= 'b1;
+        phase_ctr <= 0;
+    end else begin
+        phase_ctr <= phase_ctr + 1;
     end
 end
 

@@ -66,42 +66,29 @@ assign mrsync = mgmr | dgmr | pqmr;
 
 `ifdef CLOCKED
 wire bt14z = bt[14] & z;
-reg bt14z_r;
-always @(posedge SIM_CLK or negedge SIM_RST) begin
-    if (~SIM_RST) begin
-        bt14z_r <= 0;
-        phase <= 0;
+reg bt14z_r = 0;
+always @(posedge SIM_CLK) begin
+    bt14z_r <= bt14z;
+    if (gmmh | gdiv) begin
+        phase <= 1;
         count <= 0;
-    end else begin
-        bt14z_r <= bt14z;
-        if (gmmh | gdiv) begin
-            phase <= 1;
-            count <= 0;
-        end else if (bt14z_r & ~bt14z) begin
-            phase <= ~phase;
-            if (~phase) count <= count + 1;
-        end
+    end else if (bt14z_r & ~bt14z) begin
+        phase <= ~phase;
+        if (~phase) count <= count + 1;
     end
 end
 
 reg gmmh_r = 0;
 reg gdiv_r = 0;
-always @(posedge SIM_CLK or negedge SIM_RST) begin
-    if (~SIM_RST) begin
-        nmmh <= 0;
-        ndiv <= 0;
-        gmmh_r <= 0;
-        gdiv_r <= 0;
-    end else begin
-        gdiv_r <= gdiv;
-        gmmh_r <= gmmh;
+always @(posedge SIM_CLK) begin
+    gdiv_r <= gdiv;
+    gmmh_r <= gmmh;
 
-        if (~gmmh_r & gmmh) nmmh <= 1;
-        else if (bt14z_r & ~bt14z & (count == 'd7)) nmmh <= 0;
+    if (~gmmh_r & gmmh) nmmh <= 1;
+    else if (bt14z_r & ~bt14z & (count == 'd7)) nmmh <= 0;
 
-        if (~gdiv_r & gdiv) ndiv <= 1;
-        else if (bt14z_r & ~bt14z & (count == 'd12)) ndiv <= 0;
-    end
+    if (~gdiv_r & gdiv) ndiv <= 1;
+    else if (bt14z_r & ~bt14z & (count == 'd12)) ndiv <= 0;
 end
 
 `else

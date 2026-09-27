@@ -3,7 +3,6 @@
 
 module lvdc_fpga(
     input wire clk,
-    input wire rst,
     input wire INTR7X,
     output wire PIODV,
     output wire AI3V,
@@ -13,34 +12,34 @@ module lvdc_fpga(
     output wire SIM_UART_TX
 );
 
+reg SIM_RST = 1'b0;
 wire SIM_CLK;
-wire SIM_RST;
 wire [39:0] SIM_TLM;
 wire SIM_TLM_SYNC;
+
+wire locked;
 
 prop_clk prop_clk0(
     .clk_in1(clk),
     .clk_out1(SIM_CLK),
-    .reset(rst),
-    .locked()
+    .reset(1'b0),
+    .locked(locked)
 );
 
-reg [4:0] rst_count;
-reg [4:0] next_rst_count;
-initial rst_count = 5'o37;
-
-assign SIM_RST = (~rst) & (rst_count == 5'o0);
-
-always @(*) begin
-    if (rst_count > 5'o0) begin
-        next_rst_count = rst_count - 5'o1;
-    end else begin
-        next_rst_count = 5'o0;
-    end
-end
+// Startup reset
+(* ASYNC_REG = "TRUE" *) reg [1:0] locked_sync = 2'b00;
+reg [4:0] rst_count = 5'o37;
 
 always @(posedge SIM_CLK) begin
-    rst_count <= next_rst_count;
+    locked_sync <= {locked_sync[0], locked};
+
+    if (~locked_sync[1]) begin
+        rst_count <= 5'o37;
+        SIM_RST <= 1'b0;
+    end else begin
+        if (rst_count != 5'o0) rst_count <= rst_count - 5'o1;
+        SIM_RST <= (rst_count == 5'o0);
+    end
 end
 
 // Unimplemented inputs

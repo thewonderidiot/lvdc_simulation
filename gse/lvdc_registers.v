@@ -378,21 +378,16 @@ reg [3:0] reg_idx;
 initial reg_idx = 'd0;
 
 // Round-robin register streaming
-always @(posedge SIM_CLK or negedge SIM_RST) begin
-    if (~SIM_RST) begin
+always @(posedge SIM_CLK) begin
+    if (counter == MAX_COUNT - 1) begin
         counter <= 'd0;
-        reg_idx <= 'd0;
-    end else begin
-        if (counter == MAX_COUNT - 1) begin
-            counter <= 'd0;
-            if (reg_idx == NUM_REGISTERS - 1) begin
-                reg_idx = 0;
-            end else begin
-                reg_idx <= reg_idx + 1;
-            end
+        if (reg_idx == NUM_REGISTERS - 1) begin
+            reg_idx <= 0;
         end else begin
-            counter <= counter + 1;
+            reg_idx <= reg_idx + 1;
         end
+    end else begin
+        counter <= counter + 1;
     end
 end
 
@@ -408,6 +403,7 @@ always @(*) begin
         'd7:  reg_stream = {reg_idx, hist_idx, 6'b0, hopc1_disp};
         'd8:  reg_stream = {reg_idx, hist_idx, 19'b0, rtc_disp};
         'd9:  reg_stream = {reg_idx, hist_idx, 3'b0, ssc_disp, 3'b0, mlc_disp};
+        default: reg_stream = 'd0;
     endcase
 end
 
@@ -418,15 +414,11 @@ assign reg_stream_sync = 0;
 `endif
 
 `ifdef TARGET_FPGA
-always @(posedge SIM_CLK or negedge SIM_RST) begin
-    if (~SIM_RST) begin
-        hist_idx <= 'd0;
-    end else begin
-        if (cmd_ready & cmd[47:40] == `MSGID_REGISTERS) begin
-            case (cmd[39:32])
-                `REGISTERS_CMD_SET_HIST_IDX: hist_idx <= cmd[3:0];
-            endcase
-        end
+always @(posedge SIM_CLK) begin
+    if (cmd_ready & cmd[47:40] == `MSGID_REGISTERS) begin
+        case (cmd[39:32])
+            `REGISTERS_CMD_SET_HIST_IDX: hist_idx <= cmd[3:0];
+        endcase
     end
 end
 `else

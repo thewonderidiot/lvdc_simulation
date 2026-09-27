@@ -93,88 +93,60 @@ wire inst_compare = ~compare_mode && (im == cmd_im) && (dupin == cmd_dupin) && (
 wire data_compare = compare_mode && (dm == cmd_dm) && (dupdn == cmd_dupdn) && (ds == cmd_ds) && (op == cmd_op) && (a == cmd_a);
 
 reg addr_compare = 0;
-always @(posedge SIM_CLK or negedge SIM_RST) begin
-    if (~SIM_RST) begin
-        addr_compare <= 0;
-    end else begin
-        if (pb & bt[1] & y) addr_compare <= inst_compare || data_compare || advance;
-        if (pc & bt[4]) addr_compare <= 0;
-    end
+always @(posedge SIM_CLK) begin
+    if (pb & bt[1] & y) addr_compare <= inst_compare || data_compare || advance;
+    if (pc & bt[4]) addr_compare <= 0;
 end
 
 // Display Updates
 reg display_locked = 0;
-always @(posedge SIM_CLK or negedge SIM_RST) begin
-    if (~SIM_RST) begin
-        display_locked <= 0;
-    end else begin
-        if (addr_compare & display_mode[0]) display_locked <= 1;
-        else if (display_reset_cmd) display_locked <= 0;
-        else if (display_mode != 'b01) display_locked <= 0;
-    end
+always @(posedge SIM_CLK) begin
+    if (addr_compare & display_mode[0]) display_locked <= 1;
+    else if (display_reset_cmd) display_locked <= 0;
+    else if (display_mode != 'b01) display_locked <= 0;
 end
 
 assign display_update = (display_mode == 0) || ((verify_compare || addr_compare) & ~display_locked);
 
 // Advance
 reg advance_pend = 0;
-always @(posedge SIM_CLK or negedge SIM_RST) begin
-    if (~SIM_RST) begin
-        advance_pend <= 0;
-    end else begin
-        if (advance_cmd & CST) advance_pend <= 1;
-        else if (advance) advance_pend <= 0;
-    end
+always @(posedge SIM_CLK) begin
+    if (advance_cmd & CST) advance_pend <= 1;
+    else if (advance) advance_pend <= 0;
 end
 
-always @(posedge SIM_CLK or negedge SIM_RST) begin
-    if (~SIM_RST) begin
-        advance <= 0;
-    end else begin
-        if (advance_pend & pc & bt[9]) advance <= 1;
-        else if (advance & cst_allowed & pc & bt[8]) advance <= 0;
-        else if (~cst_mode) advance <= 0;
-    end
+always @(posedge SIM_CLK) begin
+    if (advance_pend & pc & bt[9]) advance <= 1;
+    else if (advance & cst_allowed & pc & bt[8]) advance <= 0;
+    else if (~cst_mode) advance <= 0;
 end
 
 // Stop
 reg stop = 0;
-always @(posedge SIM_CLK or negedge SIM_RST) begin
-    if (~SIM_RST) begin
-        stop <= 0;
-    end else begin
-        if (stop_cmd) stop <= 1;
-        else if (CST) stop <= 0;
-    end
+always @(posedge SIM_CLK) begin
+    if (stop_cmd) stop <= 1;
+    else if (CST) stop <= 0;
 end
 
 // CST control
-always @(posedge SIM_CLK or negedge SIM_RST) begin
-    if (~SIM_RST) begin
-        CST <= 1'b0;
-    end else begin
-        if (cst_allowed && (stop || (addr_compare & pc & bt[2]))) begin
-            CST <= 1;
-        end
-        if (advance & pc & bt[10]) begin
-            CST <= 0;
-        end
-        if (~cst_mode & pc & bt[10]) begin
-            CST <= 0;
-        end
+always @(posedge SIM_CLK) begin
+    if (cst_allowed && (stop || (addr_compare & pc & bt[2]))) begin
+        CST <= 1;
+    end
+    if (advance & pc & bt[10]) begin
+        CST <= 0;
+    end
+    if (~cst_mode & pc & bt[10]) begin
+        CST <= 0;
     end
 end
 
 // Restart control
 wire hop0 = {op, im, dupin, is, syl, ai3_ia, dm, dupdn, ds, a} == 0;
 reg restart = 0;
-always @(posedge SIM_CLK or negedge SIM_RST) begin
-    if (~SIM_RST) begin
-        restart <= 0;
-    end else begin
-        if ((restart_cmd & ~restart_mode) | (addr_compare & restart_mode)) restart <= 1;
-        if (hop0) restart <= 0;
-    end
+always @(posedge SIM_CLK) begin
+    if ((restart_cmd & ~restart_mode) | (addr_compare & restart_mode)) restart <= 1;
+    if (hop0) restart <= 0;
 end
 
 // Boot sequencing
@@ -215,21 +187,16 @@ reg [7:0] reg_idx;
 initial reg_idx = 'd0;
 
 // Round-robin register streaming
-always @(posedge SIM_CLK or negedge SIM_RST) begin
-    if (~SIM_RST) begin
+always @(posedge SIM_CLK) begin
+    if (counter == MAX_COUNT - 1) begin
         counter <= 'd0;
-        reg_idx <= 'd0;
-    end else begin
-        if (counter == MAX_COUNT - 1) begin
-            counter <= 'd0;
-            if (reg_idx == NUM_REGISTERS - 1) begin
-                reg_idx = 0;
-            end else begin
-                reg_idx <= reg_idx + 1;
-            end
+        if (reg_idx == NUM_REGISTERS - 1) begin
+            reg_idx <= 0;
         end else begin
-            counter <= counter + 1;
+            reg_idx <= reg_idx + 1;
         end
+    end else begin
+        counter <= counter + 1;
     end
 end
 
@@ -238,50 +205,39 @@ always @(*) begin
         'd0:  control_stream = {reg_idx, 26'b0, display_mode, compare_mode, restart_mode, CST, cst_mode};
         'd1:  control_stream = {reg_idx, 11'b0, cmd_dupin, 1'b0, cmd_im, 3'b0, cmd_syl, cmd_is, cmd_ai3_ia};
         'd2:  control_stream = {reg_idx, 4'b0, cmd_op, cmd_dupdn, cmd_dm, cmd_ds, 7'b0, cmd_a};
+        default: control_stream = 'd0;
     endcase
 end
 
 assign control_stream_sync = counter == 0;
 
-always @(posedge SIM_CLK or negedge SIM_RST) begin
-    if (~SIM_RST) begin
-        cst_mode <= 0;
-        cmd_im <= 0;
-        cmd_dupin <= 0;
-        cmd_is <= 0;
-        cmd_syl <= 0;
-        cmd_ai3_ia <= 0;
-        restart_mode <= 0;
-        compare_mode <= 0;
-        display_mode <= 0;
-    end else begin
-        if (control_cmd) begin
-            case (cmd[39:32])
-                `CONTROL_CMD_SET_CST_MODE: cst_mode <= cmd[0];
-                `CONTROL_CMD_SET_CMD_INS_ADDR: begin
-                    cmd_ai3_ia <= cmd[7:0];
-                    cmd_is <= cmd[11:8];
-                    cmd_syl <= cmd[12];
-                    cmd_im <= cmd[18:16];
-                    cmd_dupin <= cmd[20];
-                end
-                `CONTROL_CMD_SET_CMD_DATA_ADDR: begin
-                    cmd_a <= cmd[8:0];
-                    cmd_ds <= cmd[19:16];
-                    cmd_dm <= cmd[22:20];
-                    cmd_dupdn <= cmd[23];
-                    cmd_op <= cmd[27:24];
-                end
-                `CONTROL_CMD_SET_RESTART_MODE: restart_mode <= cmd[0];
-                `CONTROL_CMD_SET_COMPARE_MODE: compare_mode <= cmd[0];
-                `CONTROL_CMD_SET_DISPLAY_MODE: display_mode <= cmd[1:0];
-            endcase
-        end else if (load_cmd | verify_cmd) begin
-            cmd_dm <= cmd[42:40];
-            cmd_dupdn <= cmd[39];
-            cmd_ds <= cmd[38:35];
-            cmd_a <= cmd[34:26];
-        end
+always @(posedge SIM_CLK) begin
+    if (control_cmd) begin
+        case (cmd[39:32])
+            `CONTROL_CMD_SET_CST_MODE: cst_mode <= cmd[0];
+            `CONTROL_CMD_SET_CMD_INS_ADDR: begin
+                cmd_ai3_ia <= cmd[7:0];
+                cmd_is <= cmd[11:8];
+                cmd_syl <= cmd[12];
+                cmd_im <= cmd[18:16];
+                cmd_dupin <= cmd[20];
+            end
+            `CONTROL_CMD_SET_CMD_DATA_ADDR: begin
+                cmd_a <= cmd[8:0];
+                cmd_ds <= cmd[19:16];
+                cmd_dm <= cmd[22:20];
+                cmd_dupdn <= cmd[23];
+                cmd_op <= cmd[27:24];
+            end
+            `CONTROL_CMD_SET_RESTART_MODE: restart_mode <= cmd[0];
+            `CONTROL_CMD_SET_COMPARE_MODE: compare_mode <= cmd[0];
+            `CONTROL_CMD_SET_DISPLAY_MODE: display_mode <= cmd[1:0];
+        endcase
+    end else if (load_cmd | verify_cmd) begin
+        cmd_dm <= cmd[42:40];
+        cmd_dupdn <= cmd[39];
+        cmd_ds <= cmd[38:35];
+        cmd_a <= cmd[34:26];
     end
 end
 

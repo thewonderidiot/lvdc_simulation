@@ -44,7 +44,7 @@ reg verify_only = 0;
 
 assign hltx = mldd_mode;
 
-reg [1:26] cmd_data;
+reg [1:26] cmd_data = 0;
 wire syl0_parity = ^{cmd_data[14:26], 1'b1};
 wire syl1_parity = ^{cmd_data[1:13], 1'b1};
 
@@ -66,12 +66,8 @@ reg [2:0] next_state = IDLE;
 
 assign busy = (state != IDLE);
 
-always @(posedge SIM_CLK or negedge SIM_RST) begin
-    if (~SIM_RST) begin
-        state <= IDLE;
-    end else begin
-        state <= next_state;
-    end
+always @(posedge SIM_CLK) begin
+    state <= next_state;
 end
 
 always @(*) begin
@@ -158,14 +154,10 @@ end
 
 assign verify_compare = (state == READ_DATA);
 wire verify_sync = verify_compare & pa & bt[1] & x;
-reg verify_sync_r;
+reg verify_sync_r = 0;
 assign verify_stream_sync = verify_sync & ~verify_sync_r;
-always @(posedge SIM_CLK or negedge SIM_RST) begin
-    if (~SIM_RST) begin
-        verify_sync_r <= 0;
-    end else begin
-        verify_sync_r <= verify_sync;
-    end
+always @(posedge SIM_CLK) begin
+    verify_sync_r <= verify_sync;
 end
 assign verify_stream = {cmd_dm, cmd_dupdn, cmd_ds, cmd_a, trs};
 
@@ -182,21 +174,16 @@ reg [7:0] reg_idx;
 initial reg_idx = 'd0;
 
 // Round-robin data streaming
-always @(posedge SIM_CLK or negedge SIM_RST) begin
-    if (~SIM_RST) begin
+always @(posedge SIM_CLK) begin
+    if (counter == MAX_COUNT - 1) begin
         counter <= 'd0;
-        reg_idx <= 'd0;
-    end else begin
-        if (counter == MAX_COUNT - 1) begin
-            counter <= 'd0;
-            if (reg_idx == NUM_REGISTERS - 1) begin
-                reg_idx = 0;
-            end else begin
-                reg_idx <= reg_idx + 1;
-            end
+        if (reg_idx == NUM_REGISTERS - 1) begin
+            reg_idx <= 0;
         end else begin
-            counter <= counter + 1;
+            reg_idx <= reg_idx + 1;
         end
+    end else begin
+        counter <= counter + 1;
     end
 end
 
@@ -204,27 +191,22 @@ always @(*) begin
     case (reg_idx)
         'd0: loader_stream = {reg_idx, 30'b0, verify_only, mldd_mode};
         'd1: loader_stream = {reg_idx, 4'b0, syl1_parity, syl0_parity, cmd_data};
+        default: loader_stream = 'd0;
     endcase
 end
 
 assign loader_stream_sync = counter == 0;
 
-always @(posedge SIM_CLK or negedge SIM_RST) begin
-    if (~SIM_RST) begin
-        mldd_mode <= 0;
-        verify_only <= 0;
-        cmd_data <= 0;
-    end else begin
-        if (load_cmd || verify_cmd) begin
-            cmd_data <= cmd[25:0];
-        end
-        if (loader_cmd) begin
-            case (cmd[39:32])
-                `LOADER_CMD_SET_MODE: mldd_mode <= cmd[0];
-                `LOADER_CMD_SET_CMD_DATA: cmd_data <= cmd[25:0];
-                `LOADER_CMD_SET_VERIFY_ONLY: verify_only <= cmd[0];
-            endcase
-        end
+always @(posedge SIM_CLK) begin
+    if (load_cmd || verify_cmd) begin
+        cmd_data <= cmd[25:0];
+    end
+    if (loader_cmd) begin
+        case (cmd[39:32])
+            `LOADER_CMD_SET_MODE: mldd_mode <= cmd[0];
+            `LOADER_CMD_SET_CMD_DATA: cmd_data <= cmd[25:0];
+            `LOADER_CMD_SET_VERIFY_ONLY: verify_only <= cmd[0];
+        endcase
     end
 end
 

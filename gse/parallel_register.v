@@ -21,29 +21,22 @@ localparam HISTORY = 16;
 reg [HISTORY-1:0][1:WIDTH] data;
 reg [1:WIDTH] display_value = 0;
 integer i;
-initial begin
-    for (i = 0; i < WIDTH; i = i + 1) data = 'b0;
-end
+initial data = 'b0;
 assign out = data[0];
 assign display = (index == 0) ? display_value : data[index];
 
 `ifdef CLOCKED
-reg sync_r;
-always @(posedge SIM_CLK or negedge SIM_RST) begin
-    if (~SIM_RST) begin
-        for (i = 0; i < WIDTH; i = i + 1) data = 'b0;
-        sync_r <= 0;
-    end else begin
-        sync_r <= sync;
-        if (~sync_r & sync) begin
-            for (i = 0; i < HISTORY-1; i = i + 1) begin
-                data[i+1] <= data[i];
-            end
-            data[0] <= in;
+reg sync_r = 0;
+always @(posedge SIM_CLK) begin
+    sync_r <= sync;
+    if (~sync_r & sync) begin
+        for (i = 0; i < HISTORY-1; i = i + 1) begin
+            data[i+1] <= data[i];
         end
-        if (display_update) display_value <= data[0];
-        if (display_reset) display_value <= 0;
+        data[0] <= in;
     end
+    if (display_update) display_value <= data[0];
+    if (display_reset) display_value <= 0;
 end
 `else
 always @(posedge sync) begin

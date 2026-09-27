@@ -27,7 +27,7 @@ localparam IDLE = 0,
            ACTIVE = 1,
            ESCAPE = 2;
 
-reg [1:0] state;
+reg [1:0] state = IDLE;
 reg [1:0] next_state;
 
 /*******************************************************************************.
@@ -42,11 +42,11 @@ assign out_byte_ready = ((msg_ready) || (state != IDLE)) && (~byte_fifo_full);
 * Active Message                                                                *
 '*******************************************************************************/
 // The message actively being processed
-reg [47:0] active_msg;
+reg [47:0] active_msg = 0;
 reg [47:0] active_msg_q;
 
 // View into the active message at the byte level
-reg [2:0] byte_index;
+reg [2:0] byte_index = 0;
 reg [2:0] byte_index_q;
 
 reg [7:0] cur_byte;
@@ -65,16 +65,10 @@ end
 /*******************************************************************************.
 * Message Sender State Machine                                                  *
 '*******************************************************************************/
-always @(posedge SIM_CLK or negedge SIM_RST) begin
-    if (~SIM_RST) begin
-        state <= IDLE;
-        byte_index <= 0;
-        active_msg <= 0;
-    end else begin
-        state <= next_state;
-        byte_index <= byte_index_q;
-        active_msg <= active_msg_q;
-    end
+always @(posedge SIM_CLK) begin
+    state <= next_state;
+    byte_index <= byte_index_q;
+    active_msg <= active_msg_q;
 end
 
 always @(*) begin

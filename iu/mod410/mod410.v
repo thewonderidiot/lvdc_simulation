@@ -98,15 +98,11 @@ assign SIM_TLM = {
 
 localparam MAX_COUNT = 170666;
 localparam COUNT_LEN = $clog2(MAX_COUNT);
-reg [COUNT_LEN-1:0] counter;
+reg [COUNT_LEN-1:0] counter = 0;
 
-always @(posedge SIM_CLK or negedge SIM_RST) begin
-    if (~SIM_RST) begin
-        counter <= 0;
-    end else begin
-        if (counter >= MAX_COUNT - 1) counter <= 0;
-        else counter <= counter + 1;
-    end
+always @(posedge SIM_CLK) begin
+    if (counter >= MAX_COUNT - 1) counter <= 0;
+    else counter <= counter + 1;
 end
 assign SIM_TLM_SYNC = counter == 0;
 assign TSYNC = counter < 7864; // about 192us

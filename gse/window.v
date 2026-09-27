@@ -16,16 +16,11 @@ initial out = 'b0;
 
 `ifdef CLOCKED
 
-reg clock_r;
-always @(posedge SIM_CLK or negedge SIM_RST) begin
-    if (~SIM_RST) begin
-        clock_r <= 0;
-        out <= 'b0;
-    end else begin
-        clock_r <= clock;
-        if (~clock_r & clock) begin
-            out <= {line, out[WIDTH:2]};
-        end
+reg clock_r = 0;
+always @(posedge SIM_CLK) begin
+    clock_r <= clock;
+    if (~clock_r & clock) begin
+        out <= {line, out[WIDTH:2]};
     end
 end
 
