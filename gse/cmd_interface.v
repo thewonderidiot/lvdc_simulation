@@ -35,13 +35,13 @@ uart_rx #(
     .uart_rxd(SIM_UART_RX),
     .uart_rx_en(1'b1),
     .uart_rx_data(rx_data),
-    .uart_rx_valid(rx_data_ready)
+    .uart_rx_valid(rx_data_ready),
+    .uart_rx_break()
 );
 
 // Command receiver
 cmd_receiver cmd_rx(
     .clk(SIM_CLK),
-    .rst_n(SIM_RST),
     .data(rx_data),
     .data_ready(rx_data_ready),
     .cmd_valid(cmd_valid),
@@ -56,7 +56,8 @@ cmd_fifo cmd_queue(
     .wr_en(cmd_valid),
     .rd_en(cmd_ready),
     .dout(cmd),
-    .empty(cmd_fifo_empty)
+    .empty(cmd_fifo_empty),
+    .full()
 );
 
 endmodule

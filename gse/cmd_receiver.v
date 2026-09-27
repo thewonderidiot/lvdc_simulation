@@ -5,7 +5,6 @@
 
 module cmd_receiver(
     input wire clk,
-    input wire rst_n,
 
     // Input bytes
     input wire [7:0] data,
@@ -13,8 +12,10 @@ module cmd_receiver(
 
     // Output commands
     output reg cmd_valid,
-    output reg [48:0] cmd_msg
+    output reg [47:0] cmd_msg
 );
+
+initial cmd_msg = 48'b0;
 
 /*******************************************************************************.
 * FSM States                                                                    *
@@ -23,7 +24,7 @@ localparam IDLE = 0,
            ACTIVE = 1,
            ESCAPED = 2;
 
-reg [1:0] state;
+reg [1:0] state = IDLE;
 reg [1:0] next_state;
 
 /*******************************************************************************.
@@ -35,34 +36,29 @@ reg data_valid;
 reg [7:0] data_q;
 
 // Current byte index into the command being processed
-reg [2:0] write_index;
+reg [2:0] write_index = 3'd0;
 reg [2:0] write_index_q;
 
 /*******************************************************************************.
 * Command Receiver State Machine                                                *
 '*******************************************************************************/
-always @(posedge clk or negedge rst_n) begin
-    if (~rst_n) begin
-        state <= IDLE;
-        write_index <= 3'd0;
-        cmd_msg <= 48'b0;
-    end else begin
-        state <= next_state;
-        write_index <= write_index_q;
+always @(posedge clk) begin
+    state <= next_state;
+    write_index <= write_index_q;
 
-        if (state == IDLE) begin
-            cmd_msg <= 48'b0;
-        end else if (data_valid) begin
-            // A byte has been un-SLIPped and is ready for writing
-            case (write_index)
-            3'd0: cmd_msg[47:40] <= data_q;
-            3'd1: cmd_msg[39:32] <= data_q;
-            3'd2: cmd_msg[31:24] <= data_q;
-            3'd3: cmd_msg[23:16] <= data_q;
-            3'd4: cmd_msg[15:8]  <= data_q;
-            3'd5: cmd_msg[7:0]   <= data_q;
-            endcase
-        end
+    if (state == IDLE) begin
+        cmd_msg <= 48'b0;
+    end else if (data_valid) begin
+        // A byte has been un-SLIPped and is ready for writing
+        case (write_index)
+        3'd0: cmd_msg[47:40] <= data_q;
+        3'd1: cmd_msg[39:32] <= data_q;
+        3'd2: cmd_msg[31:24] <= data_q;
+        3'd3: cmd_msg[23:16] <= data_q;
+        3'd4: cmd_msg[15:8]  <= data_q;
+        3'd5: cmd_msg[7:0]   <= data_q;
+        default: ;
+        endcase
     end
 end
 
@@ -134,6 +130,7 @@ always @(*) begin
             end
         end
 
+        default: next_state = IDLE;
         endcase
     end
 end

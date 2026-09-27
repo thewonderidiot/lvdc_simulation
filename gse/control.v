@@ -232,6 +232,7 @@ always @(posedge SIM_CLK) begin
             `CONTROL_CMD_SET_RESTART_MODE: restart_mode <= cmd[0];
             `CONTROL_CMD_SET_COMPARE_MODE: compare_mode <= cmd[0];
             `CONTROL_CMD_SET_DISPLAY_MODE: display_mode <= cmd[1:0];
+            default: ;
         endcase
     end else if (load_cmd | verify_cmd) begin
         cmd_dm <= cmd[42:40];

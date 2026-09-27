@@ -5,7 +5,6 @@
 
 module lvdc_registers(
     input wire SIM_CLK,
-    input wire SIM_RST,
 
     input wire [47:0] cmd,
     input wire cmd_ready,
@@ -108,7 +107,6 @@ reg [3:0] hist_idx = 0;
 wire [4:1] OPV = {OP4V, OP3V, OP2V, OP1V};
 parallel_register #(4) reg_op(
     .SIM_CLK(SIM_CLK),
-    .SIM_RST(SIM_RST),
     .in(OPV),
     .sync(pa & bt[12] & z & ~CST),
     .display_update(display_update),
@@ -121,7 +119,6 @@ parallel_register #(4) reg_op(
 wire [9:1] AV = {A9V, A8V, A7V, A6V, A5V, A4V, A3V, A2V, A1V};
 parallel_register #(9) reg_a(
     .SIM_CLK(SIM_CLK),
-    .SIM_RST(SIM_RST),
     .in({A9V, A8V, A7V, A6V, A5V, A4V, A3V, A2V, A1V}),
     .sync(pa & bt[14] & w & ADV & ~CST),
     .display_update(display_update),
@@ -135,7 +132,6 @@ wire [2:1] inst_brp;
 wire [2:1] inst_brp_disp;
 parallel_register #(2) reg_inst_brp(
     .SIM_CLK(SIM_CLK),
-    .SIM_RST(SIM_RST),
     .in({BRA14P, BRB14P}),
     .sync(pa & bt[12] & x & ~CST),
     .display_update(display_update),
@@ -150,7 +146,6 @@ wire [2:1] syl0_brp;
 wire [2:1] syl0_brp_disp;
 parallel_register #(2) reg_syl0_brp(
     .SIM_CLK(SIM_CLK),
-    .SIM_RST(SIM_RST),
     .in({BRA14P, BRB14P}),
     .sync((sto ? pc : pb) & bt[4] & x & ~CST),
     .display_update(display_update),
@@ -164,7 +159,6 @@ wire [2:1] syl1_brp;
 wire [2:1] syl1_brp_disp;
 parallel_register #(2) reg_syl1_brp(
     .SIM_CLK(SIM_CLK),
-    .SIM_RST(SIM_RST),
     .in({BRA14P, BRB14P}),
     .sync((sto ? pa : pc) & bt[4] & x & ~CST),
     .display_update(display_update),
@@ -181,7 +175,6 @@ wire selph;
 wire mrsync;
 mult_div_counter mult_div_counter1(
     .SIM_CLK(SIM_CLK),
-    .SIM_RST(SIM_RST),
     .pa(pa),
     .pb(pb),
     .pc(pc),
@@ -197,7 +190,6 @@ mult_div_counter mult_div_counter1(
 // TRS
 serial_register reg_trs(
     .SIM_CLK(SIM_CLK),
-    .SIM_RST(SIM_RST),
 
     .serial(TRSV),
     .clock(z),
@@ -212,7 +204,6 @@ serial_register reg_trs(
 // AI3V
 serial_register #(8) reg_ai3_ia(
     .SIM_CLK(SIM_CLK),
-    .SIM_RST(SIM_RST),
 
     .serial(AI3V),
     .clock(y),
@@ -226,7 +217,6 @@ serial_register #(8) reg_ai3_ia(
 
 serial_register reg_ai3_data(
     .SIM_CLK(SIM_CLK),
-    .SIM_RST(SIM_RST),
 
     .serial(AI3V),
     .clock(y),
@@ -241,7 +231,6 @@ serial_register reg_ai3_data(
 // MD7
 serial_register reg_md7(
     .SIM_CLK(SIM_CLK),
-    .SIM_RST(SIM_RST),
 
     .serial(MD7V),
     .clock(y),
@@ -256,7 +245,6 @@ serial_register reg_md7(
 // MR1
 serial_register reg_mr1(
     .SIM_CLK(SIM_CLK),
-    .SIM_RST(SIM_RST),
 
     .serial(MR1V),
     .clock(y),
@@ -271,7 +259,6 @@ serial_register reg_mr1(
 // PR0
 serial_register reg_pr0(
     .SIM_CLK(SIM_CLK),
-    .SIM_RST(SIM_RST),
 
     .serial(PR0V),
     .clock(z),
@@ -286,7 +273,6 @@ serial_register reg_pr0(
 // HOPC1
 serial_register reg_hopc1(
     .SIM_CLK(SIM_CLK),
-    .SIM_RST(SIM_RST),
 
     .serial(HOPC1V),
     .clock(z),
@@ -304,7 +290,6 @@ serial_register reg_hopc1(
 //RTC
 serial_register #(13) reg_rtc(
     .SIM_CLK(SIM_CLK),
-    .SIM_RST(SIM_RST),
 
     .serial(C4RDV),
     .clock(x),
@@ -319,7 +304,6 @@ serial_register #(13) reg_rtc(
 //MLC
 serial_register #(13) reg_mlc(
     .SIM_CLK(SIM_CLK),
-    .SIM_RST(SIM_RST),
 
     .serial(C3RD),
     .clock(w),
@@ -334,7 +318,6 @@ serial_register #(13) reg_mlc(
 //SSC
 serial_register #(13) reg_ssc(
     .SIM_CLK(SIM_CLK),
-    .SIM_RST(SIM_RST),
 
     .serial(~C2RDN),
     .clock(z),
@@ -352,7 +335,6 @@ wire cds = (OPV == 'b1110) & ~A9V;
 // SSMSR
 serial_register reg_ssmsr(
     .SIM_CLK(SIM_CLK),
-    .SIM_RST(SIM_RST),
 
     .serial((hop | cds) ? TRSV : HOPC1V),
     .clock(z),
@@ -418,6 +400,7 @@ always @(posedge SIM_CLK) begin
     if (cmd_ready & cmd[47:40] == `MSGID_REGISTERS) begin
         case (cmd[39:32])
             `REGISTERS_CMD_SET_HIST_IDX: hist_idx <= cmd[3:0];
+            default: ;
         endcase
     end
 end

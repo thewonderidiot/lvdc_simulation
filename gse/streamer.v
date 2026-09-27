@@ -160,7 +160,6 @@ msg_fifo send_msg_fifo(
 
 msg_sender msg_sender1(
     .SIM_CLK(SIM_CLK),
-    .SIM_RST(SIM_RST),
 
     .msg(send_msg),
     .msg_ready(send_fifo_ready),

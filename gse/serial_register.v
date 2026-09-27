@@ -5,7 +5,6 @@ module serial_register #(
     parameter WIDTH = 26
 )(
     input wire SIM_CLK,
-    input wire SIM_RST,
 
     input wire serial,
     input wire clock,

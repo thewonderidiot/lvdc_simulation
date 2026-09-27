@@ -3,7 +3,6 @@
 
 module mult_div_counter(
     input wire SIM_CLK,
-    input wire SIM_RST,
 
     input wire pa,
     input wire pb,

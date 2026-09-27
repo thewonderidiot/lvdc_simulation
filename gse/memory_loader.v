@@ -5,7 +5,6 @@
 
 module memory_loader(
     input wire SIM_CLK,
-    input wire SIM_RST,
 
     input wire [47:0] cmd,
     input wire cmd_ready,
@@ -95,6 +94,7 @@ always @(*) begin
         READ_DATA: begin
             if (pa & bt[1] & y) next_state = IDLE;
         end
+        default: next_state = IDLE;
     endcase
 end
 
@@ -206,6 +206,7 @@ always @(posedge SIM_CLK) begin
             `LOADER_CMD_SET_MODE: mldd_mode <= cmd[0];
             `LOADER_CMD_SET_CMD_DATA: cmd_data <= cmd[25:0];
             `LOADER_CMD_SET_VERIFY_ONLY: verify_only <= cmd[0];
+            default: ;
         endcase
     end
 end

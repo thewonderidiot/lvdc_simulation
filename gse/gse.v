@@ -181,7 +181,6 @@ assign HLTX = hltx_control | hltx_memory_loader;
 
 clock_gen clock_gen1(
     .SIM_CLK(SIM_CLK),
-    .SIM_RST(SIM_RST),
 
     .PBAVN(PBAVN),
     .W6(W6),
@@ -220,7 +219,6 @@ wire verify_stream_sync;
 
 lvdc_registers lvdc_registers1(
     .SIM_CLK(SIM_CLK),
-    .SIM_RST(SIM_RST),
 
     .cmd(cmd),
     .cmd_ready(cmd_ready),
@@ -340,7 +338,6 @@ wire loader_stream_sync;
 
 memory_loader memory_loader1(
     .SIM_CLK(SIM_CLK),
-    .SIM_RST(SIM_RST),
 
     .cmd(cmd),
     .cmd_ready(cmd_ready),

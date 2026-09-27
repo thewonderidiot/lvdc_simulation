@@ -5,7 +5,6 @@ module parallel_register #(
     parameter WIDTH = 9
 )(
     input wire SIM_CLK,
-    input wire SIM_RST,
 
     input wire [WIDTH:1] in,
     input wire sync,

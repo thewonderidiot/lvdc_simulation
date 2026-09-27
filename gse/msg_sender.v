@@ -5,7 +5,6 @@
 
 module msg_sender(
     input wire SIM_CLK,
-    input wire SIM_RST,
 
     // Input message
     input wire [47:0] msg,
@@ -119,6 +118,7 @@ always @(*) begin
             byte_index_q = byte_index + 1;
         end
 
+        default: next_state = IDLE;
         endcase
     end
 end

@@ -3,7 +3,6 @@
 
 module clock_gen(
     input wire SIM_CLK,
-    input wire SIM_RST,
 
     input wire PBAVN,
     input wire W6,
