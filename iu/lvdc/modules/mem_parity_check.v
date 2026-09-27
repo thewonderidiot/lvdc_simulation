@@ -384,7 +384,7 @@ and a8e(na8d_a8e, V1, PBO2);
 inv a8f(PBE1, na8d, SIM_CLK, SIM_RST);
 
 and a10d(na11d_a10d, V1, PBE1);
-and a11d(na11d_a11d, na11e, PBO2);
+and a11d(na11d_a11d, V1, na11e, PBO2);
 and a11e(na11e, PBO1);
 inv a11f(PBO8, na11d, SIM_CLK, SIM_RST);
 

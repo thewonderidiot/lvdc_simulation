@@ -96,12 +96,12 @@ assign na10b = na10b_a9b | na10b_a9c | na10b_a11a | na10b_a11b | na10b_a17a | na
 wire na10d;
 wire na10e;
 wire na10e_a9e;
-wire na10e_afe;
+wire na10e_a9f;
 wire na10e_a11d;
 wire na10e_a11e;
 wire na10e_a17d;
 wire na10e_a10e;
-assign na10e = na10e_a9e | na10e_afe | na10e_a11d | na10e_a11e | na10e_a17d | na10e_a10e;
+assign na10e = na10e_a9e | na10e_a9f | na10e_a11d | na10e_a11e | na10e_a17d | na10e_a10e;
 wire na11c;
 wire na11f;
 wire na13a;
@@ -279,7 +279,7 @@ inv #(0) a8f(BRx5, na8e, SIM_CLK, SIM_RST);
 and a8e(na8e, V1, BRx5N);
 
 and a9e(na10e_a9e, MaSA8);
-and afe(na10e_afe, MbSA8);
+and a9f(na10e_a9f, MbSA8);
 and a11d(na10e_a11d, McSA8);
 and a11e(na10e_a11e, MdSA8);
 and a11f(na11f, V1, AnTR8V);
