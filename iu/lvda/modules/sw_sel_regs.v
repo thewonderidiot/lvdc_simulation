@@ -302,7 +302,7 @@ idl idl5(SSR5H, SSR5, SIM_CLK, SIM_RST);
 and a20c(na20c, Z1, SSRV, PCINFV, G1DV, G7DV);
 and a21a(na14b_a21a, na20c);
 and a14a(na14a, SSRR);
-and a14b(na14b_a14b, V1, na4a, SSR6);
+and a14b(na14b_a14b, V1, na14a, SSR6);
 inv a14c(SSR6N, na14b, SIM_CLK, SIM_RST);
 inv #(0) a21c(SSR6, na21b, SIM_CLK, SIM_RST);
 and a21b(na21b, V1, SSR6N);

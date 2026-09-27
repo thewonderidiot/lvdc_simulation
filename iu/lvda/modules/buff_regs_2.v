@@ -82,7 +82,7 @@ wire BRD8N;
 wire MODR1N;
 wire MODR2N;
 
-// 10-202
+// 10-208
 and a18a(na11b_a18a, Z3, na17a, G6DV, G7DVN, PBAV);
 and a17a(na17a, LTRV, INFOV);
 and a11a(na11a, BRR1);
