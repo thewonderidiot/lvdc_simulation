@@ -104,6 +104,7 @@ COMPONENTS = bfr_pa \
 	     tmv \
 	     vi \
 	     vsg \
+	     smv \
 
 LVDC_MODULE_SOURCES = $(addsuffix .v, $(addprefix $(SRC_DIR)/iu/lvdc/modules/, $(LVDC_MODULES)))
 LVDA_MODULE_SOURCES = $(addsuffix .v, $(addprefix $(SRC_DIR)/iu/lvda/modules/, $(LVDA_MODULES)))

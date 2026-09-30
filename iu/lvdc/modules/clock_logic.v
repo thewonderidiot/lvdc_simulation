@@ -243,18 +243,18 @@ and a1b(na1a_a1b, V1, na2b, A3QN);
 and a1a(na1a_a1a, V1, A3R);
 inv a1c(A3RN, na1a, SIM_CLK, SIM_RST);
 
-tmv a26a(na26a, V5, V5, V5, A1R, A2R, A3R);
+tmv a26a(na26a, V5, V5, V5, A1R, A2R, A3R, SIM_CLK, SIM_RST);
 vi a28a(A1RV, na26a);
-tmv a19a(na19a, V5, V5, V5, A1R, A2R, A3R);
+tmv a19a(na19a, V5, V5, V5, A1R, A2R, A3R, SIM_CLK, SIM_RST);
 vi a21a(A2RV, na19a);
-tmv a12a(na12a, V5, V5, V5, A1R, A2R, A3R);
+tmv a12a(na12a, V5, V5, V5, A1R, A2R, A3R, SIM_CLK, SIM_RST);
 vi a14a(A3RV, na12a);
 
-tmv a27a(na27a, V5, V5, V5, A1RN, A2RN, A3RN);
+tmv a27a(na27a, V5, V5, V5, A1RN, A2RN, A3RN, SIM_CLK, SIM_RST);
 vi a28b(A1RVN, na27a);
-tmv a20a(na20a, V5, V5, V5, A1RN, A2RN, A3RN);
+tmv a20a(na20a, V5, V5, V5, A1RN, A2RN, A3RN, SIM_CLK, SIM_RST);
 vi a21b(A2RVN, na20a);
-tmv a13a(na13a, V5, V5, V5, A1RN, A2RN, A3RN);
+tmv a13a(na13a, V5, V5, V5, A1RN, A2RN, A3RN, SIM_CLK, SIM_RST);
 vi a14b(A3RVN, na13a);
 
 // 10-97
@@ -353,18 +353,18 @@ efl a10d(BO1P, BO1);
 efl a24d(BO2P, BO2);
 efl a28c(BO3P, BO3);
 
-tmv a5d(na5d, V5, V5, V5, A1S, A2S, A3S);
+tmv a5d(na5d, V5, V5, V5, A1S, A2S, A3S, SIM_CLK, SIM_RST);
 vi a12b(A1SV, na5d);
-tmv a6d(na6d, V5, V5, V5, A1S, A2S, A3S);
+tmv a6d(na6d, V5, V5, V5, A1S, A2S, A3S, SIM_CLK, SIM_RST);
 vi a13b(A2SV, na6d);
-tmv a7d(na7d, V5, V5, V5, A1S, A2S, A3S);
+tmv a7d(na7d, V5, V5, V5, A1S, A2S, A3S, SIM_CLK, SIM_RST);
 vi a14c(A3SV, na7d);
 
-tmv a16f(na16f, V5, V5, V5, A1SN, A2SN, A3SN);
+tmv a16f(na16f, V5, V5, V5, A1SN, A2SN, A3SN, SIM_CLK, SIM_RST);
 vi a12c(A1SVN, na16f);
-tmv a19b(na19b, V5, V5, V5, A1SN, A2SN, A3SN);
+tmv a19b(na19b, V5, V5, V5, A1SN, A2SN, A3SN, SIM_CLK, SIM_RST);
 vi a13c(A2SVN, na19b);
-tmv a20b(na20b, V5, V5, V5, A1SN, A2SN, A3SN);
+tmv a20b(na20b, V5, V5, V5, A1SN, A2SN, A3SN, SIM_CLK, SIM_RST);
 vi a14d(A3SVN, na20b);
 
 // 10-99
