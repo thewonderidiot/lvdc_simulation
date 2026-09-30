@@ -55,7 +55,7 @@ end
 
 always @(posedge a) begin
     y <= #400 b;
-    y <= #460 1;
+    y <= #860 1;
 end
 
 `endif

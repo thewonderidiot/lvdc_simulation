@@ -53,7 +53,7 @@ end
 
 always @(posedge a) begin
     y <= #500 1;
-    y <= #delay 0;
+    y <= #(500 + delay) 0;
 end
 
 `endif
