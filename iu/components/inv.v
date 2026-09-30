@@ -41,7 +41,11 @@ end
 
 `else
 
-assign #2 y = rst ? ~a : iv;
+localparam real dt = 24.4140625;
+
+wire yn = rst ? ~a : iv;
+wire #(dt + !iv, dt + iv) yd = yn;
+assign y = (yd === 1'bx) ? iv : yd;
 
 `endif
 
