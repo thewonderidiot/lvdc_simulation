@@ -18,20 +18,19 @@
 * ENTRIES    FBR1     ENTERED FROM POWER UP INITIALIZE
 *            FBR2     ENTERED FROM RCA-110 INTERRUPT
 
-       ORGSS   0,1,0,000,1,16,0
+       ORGSS   0,1,0,000,0,16,0
 
-D.EMR  BSS     1
 EMCON  BSS     1
 
 FBR1   PIO     023          READ EMR AND SAVE                         B
        TRA     FBR3
 
-FBR2   CLA     =O35770
+FBR2   CLA     =O35754
        PIO     072          INHIBIT ALL INTERRUPTS EXCEPT TLC AND RCA I
 
        PIO     023
-       AND     =O375377776  READ EMR, MASK EM8, EM3 AND 2 SPARE BITS  B
-FBR3   STO     D.EMR        AND SAVE                                  B
+       AND     =O777775366  READ EMR, MASK EM8, EM3 AND 2 SPARE BITS  B
+FBR3   STO     V.EMR        AND SAVE                                  B
 *                           FIXME: LVDA MANUAL ONLY SHOWS ONE SPARE
        HOP     KIN400       HOP 400 INITIALIZE
 
@@ -52,13 +51,12 @@ FBR3   STO     D.EMR        AND SAVE                                  B
        TNZ     FBR4                                                   Y
 
        PIO     203          STOP COD COUNTERS WITH A DUMMY GROUP 5 PIOI
-       CLA     D.EMR
+       CLA     V.EMR
        AND     EMCON        IS SAVED EMR (MASKED) EQUAL ERROR         Q
        TNZ     *+2                                                    Y
-       TRA     FBR6                                                   N
+       TRA     FBR5                                                   N
        CLA     =O512525510
        HOP     ISS          ISSUE STATUS CODE 51                      P
-       CLA     D.EMR
        PIO     701          TELEMETER EMR CONTENTS                    I
 
        HOP     OIGS         GENERATE OUTPUT INT.                      P

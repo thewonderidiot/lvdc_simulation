@@ -15,6 +15,7 @@
 
 * ENTRY     SRS      ENTER TO RESET RCA-110 SYNC
 
+       ORG     FBR1,D.DATA
 SRS    STO     777
        CLA     D.KB12
        PIO     016          SET DISCRETE OUTPUT 1                     I

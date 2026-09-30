@@ -32,7 +32,7 @@ RINIT  STO     777          SAVE HOP RETURN                           B
 
        PIO     172          CLAMP LADDERS TO ZERO                     I
 *      CLA     =O460 
-       CLA     =O006
+       CLA     =O006        FIXME: LESS DELAY FOR SIM
        SUB     D.KB8        DELAY 50 MSEC.                            B
        TNZ     *-1
        PIO     172          CLAMP LADDERS TO ZERO                     I

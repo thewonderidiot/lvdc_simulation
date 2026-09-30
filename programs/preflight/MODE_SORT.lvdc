@@ -10,7 +10,7 @@
 
 * ENTRIES    MDSRT    ENTERED FROM FORCED BEGIN AND INITIALIZE
 
-       ORGSS   0,2,0,000,1,16,
+       ORGSS   0,2,0,000,0,16,
 
 MODCMD BSS     1
        USE     DAT
@@ -22,6 +22,7 @@ MDSRT  CLA     D.KZRO
        HOP     ISS          ISSUE STATUS CODE                         P
 
 MDSRT1 HOP     AMS          ACCELEROMETER MONITOR                     P
+       CLA     D.KZRO
        HOP     EMS          ERROR MONITOR                             P
        HOP     STS          LVDC SELFTEST                             P
 
@@ -30,39 +31,45 @@ MDSRT1 HOP     AMS          ACCELEROMETER MONITOR                     P
 
        HOP     DAS          DATA ADAPTER TEST                         P
 
-       CLA     =O35770
+       CLA     =O35754
        PIO     072          RESTORE NORMAL INHIBITS                   I
 
-       CLA     =O707070706
-       PIO     001          TELEMETER PATTERN WORD                    I
+*      FIXME: THIS IS PROBABLY MORE COMPLICATED INVOLVING MULTIPLE
+*      PIOS (INCLUDING 040, 061, 735, 741)
+       TELM    V.TPAT       TELEMETER PATTERN WORD                    I
 
        PIO     057          READ + TELEMETER DIN WORD                 I
-       PIO     445
+       STO     V.DINT
+       TELM    V.DINT
 
        PIO     053          READ + TELEMETER DIS WORD                 I
-       PIO     545
+       STO     V.DIST
+       TELM    V.DIST
 
        PIO     137          READ + TELEMETER INT REG                  I
-       PIO     565
+       STO     V.INTR
+       TELM    V.INTR
 
        PIO     107          READ + TELEMETER DR, CR, + VERT ACCELS    B
-       PIO     501          DOWNRANGE ACCELEROMETER (Z)
+       STO     V.OACZ
+       TELM    V.OACZ       DOWNRANGE ACCELEROMETER (Z)
        PIO     117
-       PIO     511          CROSSRANGE ACCELEROMETER (Y)
+       STO     V.OACY
+       TELM    V.OACY       CROSSRANGE ACCELEROMETER (Y)
        PIO     127
-       PIO     505          VERTICAL ACCELEROMETER (X)
+       STO     V.OACX
+       TELM    V.OACX       VERTICAL ACCELEROMETER (X)
 
        CLA     EMCON
        XOR     EMCON1       IS EMR MASK SET TO SPECIAL VALUE          Q
-       TNZ     *+2                                                    Y
-       TRA     MDSRT2                                                 N
+       TNZ     MDSRT2                                                 Y
 
        PIO     023
        AND     EMCON        IS ANY UNACCEPTABLE EMR BIT ON            Q
        TNZ     *+2                                                    Y
        TRA     MDSRT2                                                 N
 
-       CLA     =O1          FIXME: ERROR CODE
+       CLA     =O0011       FIXME: ERROR CODE
        HOP     EMS          ISSUE ERROR MESSAGE                       P
 
 MDSRT2 PIO     057
@@ -77,15 +84,20 @@ MDSRT2 PIO     057
        CLA     MODCMD
        TMI     MDSRT3       IS INPUT WORD MODE INFORMATION            Q
 
-BADMOD CLA     =O001                                                  N
-       HOP     EMS          ERROR MONITOR                             P
-       TRA     MDSRT1
+       STO     V.EMR
+       CLA     =O001                                                  N
+       HOP     EMSR         ERROR MONITOR                             P
+       TRA     MDSRT
 
 MDSRT3 AND     =O176
        MPH     D.KB13       SHIFT RIGHT 13 PLACES
        ADD     MODPTR
        HOP     IEDA         INSTRUCTION EXECUTE                       P
 *                           HOP TO CR                                 X
+
+BADMOD CLA     =O0012
+       HOP     EMS
+       TRA     MDSRT
 
        DOGS    1,15,
        TABLE   64

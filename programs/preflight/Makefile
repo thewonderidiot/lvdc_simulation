@@ -13,6 +13,7 @@ SOURCES = MAIN.lvdc \
 	  LVDA_TIMING_AND_COUNTER_TEST.lvdc \
 	  REGISTER_INITIALIZE.lvdc \
 	  HOP_400_INITIALIZE.lvdc \
+	  REAL-TIME_TELEMETRY_DELAY_UTILITY.lvdc \
 
 .PHONY: all
 all: yaASM.tsv
@@ -27,7 +28,7 @@ core: yaASM.tsv
 
 .DELETE_ON_ERROR:
 yaASM.tsv: ${SOURCES}
-	yaASM.py --newer < <(cat $^) >yaASM.lst
+	cat $^ | yaASM.py --newer >yaASM.lst
 	@grep --after-context=6 "Assembly[-]message summary" \
 		yaASM.lst
 	@grep "Errors:                 0" yaASM.lst

@@ -6,12 +6,133 @@
 *                                                                    *
 **********************************************************************
 
-* FUNCTION   X
+* FUNCTION   THE PURPOSE OF THIS SUBROUTINE IS TO INTERROGATE THE
+*            CONTENTS OF THE ERROR MONITOR REGISTER, AND TO OUTPUT
+*            ERROR MESSAGES WHEN AN ERROR IS DETECTED DURING THE
+*            PERFORMANCE OF A PREFLIGHT ROUTINE.
 
-* ENTRIES    EMS      X
+* ENTRIES    EMS      ENTER WITH ERROR CODE IN ACCUMULATOR TO OUTPUT
+*                     ERROR MESSAGE.
+*                     ENTER WITH ZERO IN ACCUMULATOR TO INTERROGATE
+*                     EMR.
+*            EMSR     ENTER WITH ERROR CODE IN ACCUMULATOR AND ERROR
+*                     IN V.EMR.
 
        ORG     FBR1,D.DATA
 
-EMS    STO     777
-*                           FIXME
-       HOP     777
+DISR   BSS     1
+EMRM   BSS     1
+EMSCMD BSS     1
+OLDSTT BSS     1
+EMSRT  BSS     1
+
+EMSR   STO     777          ENTER WITH EMW IN ACC, ERROR IN V.EMR
+       STO     V.EMW
+       CLA     777
+       STO     EMSRT
+       TRA     EMS1
+
+EMS    STO     777          SAVE RETURN HOP CONSTANT                  B
+       STO     V.EMW        SAVE ERROR MESSAGE WORD
+
+       CLA     777
+       STO     EMSRT
+
+       PIO     053          READ DISR                                 I
+       AND     =O0000006    MASK OUT UNWANTED DISR BITS AND SAVE      B
+       STO     DISR
+
+       PIO     023          READ ERROR MONITOR REGISTER               I
+       STO     V.EMR
+       AND     EMCON        MASK OUT UNWANTED EMR BITS AND SAVE       B
+       STO     EMRM
+
+       CLA     V.EMW        WAS ENTRY TO TELEMETER ERROR MESSAGE      Q
+       TNZ     EMS1                                                   Y
+
+       CLA     EMRM         DOES MASKED EMR INDICATE BITS OTHER       Q
+       AND     =O777776776  THAN SCB
+       TNZ     EMS1                                                   Y
+
+       CLA     EMRM
+       AND     D.KB17
+       ADD     DISR
+       XOR     =O0000012    DO BOTH EMR + DISR INDICATE SCB           Q
+       TNZ     *+2                                                    N
+       TRA     EMS1                                                   Y
+
+       CLA     EMRM         WAS THE MASKED EMR ZERO                   Q
+       TNZ     EMS1                                                   N
+       HOP     EMSRT        HOP RETURN                                X
+
+EMS1   CLA     D.KB25
+       PIO     022          SET ICR1 SELECT G-SYNC CONTROL            I
+
+       CLA     V.STAT       SAVE CALLING ROUTINE STATUS CODE          B
+       STO     OLDSTT
+
+*      FIXME: IS THIS PTL CHECK SUFFICIENT?
+       SUB     =O12         WAS ENTRY FROM PTL                        Q
+       TNZ     EMS2                                                   N
+
+       CLA     D.KBSG                                                 Y
+       PIO     016          SET D.O. 13                               I
+
+EMS2   CLA     V.EMW        WAS ENTRY TO TELEMETER ERROR MESSAGE      Q
+       TNZ     EMS3                                                   Y
+       TRA     EMS4                                                   N
+
+EMS3   PIO     371          TELEMETER ERROR MESSAGE                   I
+       TRA     EMS5
+
+EMS4   PIO     701          TELEMETER RAW EMR READING                 I
+
+EMS5   CLA     =O47
+       HOP     ISS          ISSUE STATUS CODE                         P
+
+       CLA     V.EMW        WAS ENTRY TO TELEMETER ERROR MESSAGE      Q
+       TNZ     *+2
+       TRA     EMS6
+
+       PIO     371          TELEMETER ERROR MESSAGE                   I
+       HOP     OIGS         OUTPUT INTERRUPT GEN.                     P
+
+EMS6   PIO     701          TELEMETER RAW EMR READING                 I
+       HOP     OIGS         OUTPUT INTERRUPT GEN.                     P
+
+EMS7   PIO     057
+       AND     D.KB23       IS SYNC ON                                Q
+       TNZ     EMS8                                                   Y
+       HOP     PRUS         PTL REALTIME UPDATE SUBROUTINE            P
+       TRA     EMS7
+
+EMS8   CLA     OLDSTT
+       SUB     =O12         WAS ENTRY FROM PTL                        Q
+       TNZ     EMS9                                                   N
+
+       HOP     SRS          RESET SYNC                                P
+       TRA     EMS10
+
+EMS9   PIO     043          READ RCA-110A REGISTER                    I
+       AND     =O77776
+       STO     EMSCMD
+       HOP     SRS          RESET SYNC                                P
+
+       CLA     EMSCMD       DOES RCA COMMAND=00                       Q
+       TNZ     EMS11                                                  N
+
+EMS10  CLA     OLDSTT       DOES ROUTINE EXIT TO MODE SORT            Q
+       TNZ     *+2                                                    N
+       HOP     EMSRT        EXIT TO MODE SORT                         X
+
+       CLA     OLDSTT       RESTORE PREV STATUS CODE                  P
+       HOP     ISS
+       HOP     EMSRT        EXIT HOP RETURN                           X
+
+EMS11  XOR     =O576        IS RCA COMMAND = 77                       Q
+       TNZ     EMS7                                                   N
+       CLA     =O7          SET EMCON AND EMCON1 = 700000000          B
+       STO     EMCON
+       STO     EMCON1
+
+       HOP     FBR1         EXIT FORCED BEGIN                         X

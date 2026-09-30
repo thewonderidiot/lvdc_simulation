@@ -23,13 +23,14 @@ START  DIV     =1           DIVIDE TO INHIBIT INTERRUPTS              B
        TRA     INIT                                                   N
 
        PIO     057          IS RCA-110 SYNC PRESENT?                  Q
-       AND     =O00000001
+       AND     D.KB23
        TNZ     *+2
 EXIT   TRA     *            ABORT RUN                                 B
 
        PIO     043          READ RCA-100 COMMAND                      Y
        AND     =O77776
        DIV     =1           DIVIDE TO INHIBIT INTERRUPTS              B
+       XOR     D.KBSG
        TNZ     EXIT
 
 INIT   CLA     =O37774
@@ -37,7 +38,7 @@ INIT   CLA     =O37774
        CLA     =O37774
        PIO     072          INHIBIT ALL INITIAL INTERRUPTS            I
 
-       CLA     =O000000002
+       CLA     D.KB25
        PIO     022          PLACE DOM UNDER G-SYNC CONTROL            I
        PIO     066          PLACE THE COD ERROR WORD IN THE DOM       I
 
@@ -50,19 +51,21 @@ MEMOK  CLA     =O35774
        PIO     072          INHIBIT ALL INTERRUPTS EXCEPT TLC         I
 
        PIO     057          IS RCA-110 SYNC PRESENT
-       AND     =O00000001
+       AND     D.KB23
        TNZ     *+2
        TRA     NORMPF
 
        PIO     043          IS SPECIAL LOADER COMMANDED               Q
        AND     =O77776
-       TNZ     NORMPF                                                 Y
+       XOR     D.KBSG
+       TNZ     NORMPF                                                 N
        
        HOP     RINIT        REGISTER INITIALIZE                       P
        TRA     *            FIXME: SET UP SPECIAL LOADER
 
 NORMPF CDS     D.DATA       INITIALIZE DATA SECTOR                    B
        CLA     D.KBSG
+       STO     V.STAT
        PIO     671          TELEMETER S.C. 40, LOAD MODE REG. TO 40
        PIO     006
 
@@ -71,7 +74,7 @@ NORMPF CDS     D.DATA       INITIALIZE DATA SECTOR                    B
 
        PIO     023          DUMMY EMR READ                            I
 
-       CLA     =O35770
+       CLA     =O35754
        PIO     072          INHIBIT ALL INTERRUPTS EXCEPT TLC, RCA    I
 
 *                           INITIALIZE ALL NECESSARY PROGRAM CONSTANTS

@@ -1,0 +1,31 @@
+* FUNCTION     THE FUNCTION OF THE REAL-TIME TELEMETRY DELAY UTILITY
+*              ROUTINE IS TO DELAY THE PROPER TIME BETWEEN TELEMETRY
+*              ITEMS, AND TO SET THE MODE REGISTER TO THE PROPER
+*              SETTING.
+
+* ENTRY        U.TR00
+
+       ORG     FBR1,D.DATA
+       BLOCK   18
+
+U.TR00 STO     777          SAVE RETURN LINKAGE
+TR10   MPY     =1           INHIBIT INTERRUPTS                        B
+       PIO     103          READ REAL TIME CLOCK                      I
+       SUB     D.VTD        COMPARE AGAINST LAST TELM TIME
+       AND     D.KSY0       MASK 13 L.O. BITS
+       SUB     D.KTD        REQUIRED TELM DALAY
+       MPY     =1
+       TMI     TR20         SUFFICIENT DELAY FOR TELEMETRY            N
+       PIO     103
+       ADD     =(P.TIBS)
+       ADD     D.KZRO
+
+       MPY     =1
+       STO     D.VTD        UPDATE TELEMETRY TIME                     B
+       HOP     777          RETURN                                    X
+
+
+TR20   ADD     D.KZRO       DELAY FOR TELEMETRY                       B
+       ADD     D.KZRO
+       ADD     D.KZRO
+       TRA     TR10                                                   G
