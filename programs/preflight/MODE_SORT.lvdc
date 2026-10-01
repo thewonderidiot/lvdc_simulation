@@ -26,13 +26,11 @@ MDSRT1 HOP     AMS          ACCELEROMETER MONITOR                     P
        HOP     EMS          ERROR MONITOR                             P
        HOP     STS          LVDC SELFTEST                             P
 
-       CLA     =O35774
-       PIO     072          INHIBIT RCA-110 INTERRUPT                 I
+       PIO     272          INHIBIT RCA-110 INTERRUPT                 I
 
        HOP     DAS          DATA ADAPTER TEST                         P
 
-       CLA     =O35754
-       PIO     072          RESTORE NORMAL INHIBITS                   I
+       PIO     672          RESTORE NORMAL INHIBITS                   I
 
 *      FIXME: THIS IS PROBABLY MORE COMPLICATED INVOLVING MULTIPLE
 *      PIOS (INCLUDING 040, 061, 735, 741)

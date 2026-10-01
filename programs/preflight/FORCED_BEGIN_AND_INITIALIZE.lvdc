@@ -25,8 +25,7 @@ EMCON  BSS     1
 FBR1   PIO     023          READ EMR AND SAVE                         B
        TRA     FBR3
 
-FBR2   CLA     =O35754
-       PIO     072          INHIBIT ALL INTERRUPTS EXCEPT TLC AND RCA I
+FBR2   PIO     672          INHIBIT ALL INTERRUPTS EXCEPT TLC AND RCA I
 
        PIO     023
        AND     =O777775366  READ EMR, MASK EM8, EM3 AND 2 SPARE BITS  B
@@ -57,7 +56,7 @@ FBR3   STO     V.EMR        AND SAVE                                  B
        TRA     FBR5                                                   N
        CLA     =O512525510
        HOP     ISS          ISSUE STATUS CODE 51                      P
-       PIO     701          TELEMETER EMR CONTENTS                    I
+       TELM    V.EMR        TELEMETER EMR CONTENTS                    I
 
        HOP     OIGS         GENERATE OUTPUT INT.                      P
 
@@ -73,7 +72,7 @@ FBR5   PIO     057
 
        HOP     SRS          SYNC RESET                                P
 
-FBR6   CLA     D.KB12
+FBR6   CLA     D.KB10
        PIO     032          RESET RCA-110 INTERRUPT CONDITION         I
 
 *                           INITIALIZE PROGRAM CONSTANT

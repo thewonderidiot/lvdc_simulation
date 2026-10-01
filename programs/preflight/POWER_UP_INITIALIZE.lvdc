@@ -66,7 +66,7 @@ MEMOK  CLA     =O35774
 NORMPF CDS     D.DATA       INITIALIZE DATA SECTOR                    B
        CLA     D.KBSG
        STO     V.STAT
-       PIO     671          TELEMETER S.C. 40, LOAD MODE REG. TO 40
+       TELM    V.STAT       TELEMETER S.C. 40, LOAD MODE REG. TO 40
        PIO     006
 
        HOP     RINIT        REGISTER INITIALIZE                       P
@@ -75,12 +75,12 @@ NORMPF CDS     D.DATA       INITIALIZE DATA SECTOR                    B
        PIO     023          DUMMY EMR READ                            I
 
        CLA     =O35754
-       PIO     072          INHIBIT ALL INTERRUPTS EXCEPT TLC, RCA    I
+       STO     INTH
+       PIO     672          INHIBIT ALL INTERRUPTS EXCEPT TLC, RCA    I
 
 *                           INITIALIZE ALL NECESSARY PROGRAM CONSTANTS
 *                           FIXME: WHAT DOES THIS MEAN
        HOP     FBR1         HOP TO FBR                                X
-
 
        DOG     0,0,77
 OBFLAG OCT     0

@@ -18,6 +18,11 @@ P.INST EQU     (12.0*.08203125*P.CMSR) REAL TIME TELM BIAS
 D.DATA TABLE   1
 
 * THE FOLLOWING DATA MUST BE IN SPECIFIED LOCATIONS
+
+       DOG     D.DATA
+       DOG     *,*,*+(186)  LOC = 272
+K.IHB1 OCT     357740000    INHIBIT STATUS FOR LEVEL 3
+
        DOG     D.DATA
        DOG     *,*,*+(249)  LOC = 371
 V.EMW  BSS     1            ERROR MESSAGE WORD
@@ -47,6 +52,10 @@ D.RESD TABLE   1
        DOG     D.RESD
        DOG     *,*,*+(185)  LOC = 271
 V.STAT BSS     1            STATUS WORD FOR TELEMETRY
+
+       DOG     D.RESD
+       DOG     *,*,*+(186)  LOC = 272
+INTH   BSS     1            INTERRUPT INHIBIT IMAGE
 
        DOG     D.RESD
        DOG     *,*,*+(193)  LOC = 301
@@ -94,17 +103,23 @@ D.KZRO DEC     0            ZERO
 
        TITLE   'TELEMETRY DEFINITIONS'
 *                              BTG      PCM    SCL     UNITS
-       TELD    V.TPAT,0,001    FIXME   FIXME   OCT
+       TELD    V.TPAT,0,001    0600    1400    OCT
 *          TELEMETRY PATTERN WORD
+       TELD    V.EMW,0,371     0771    1674    OCT
+*          ERROR MESSAGE WORD
        TELD    V.DINT,0,445    0646    1522    OCT
 *          DISCRETE INPUT REGISTER STATUS
-       TELD    V.OACZ,0,501    FIXME   FIXME           .05 M/SEC
+       TELD    V.OACZ,0,501    0702    1540            .05 M/SEC
 *          Z ACCELEROMETER READING
-       TELD    V.OACX,0,505    FIXME   FIXME           .05 M/SEC
+       TELD    V.OACX,0,505    0706    1542            .05 M/SEC
 *          X ACCELEROMETER READING
-       TELD    V.OACY,0,511    FIXME   FIXME           .05 M/SEC
+       TELD    V.OACY,0,511    0712    1544            .05 M/SEC
 *          Y ACCELEROMETER READING
-       TELD    V.DIST,0,545    FIXME   FIXME   OCT
+       TELD    V.DIST,0,545    0746    1562    OCT
 *          DISCRETE INPUT SPARES REGISTER STATUS
-       TELD    V.INTR,0,565    FIXME   FIXME   OCT
+       TELD    V.INTR,0,565    0766    1572    OCT
 *          INTERRUPT REGISTER STATUS
+       TELD    V.STAT,0,671    0673    1734    OCT
+*          SPECIAL STATUS CODE WORD
+       TELD    V.EMR,0,701     0703    1740    OCT
+*          ERROR MONITOR REGISTER CONTENTS

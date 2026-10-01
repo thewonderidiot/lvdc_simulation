@@ -82,10 +82,10 @@ EMS2   CLA     V.EMW        WAS ENTRY TO TELEMETER ERROR MESSAGE      Q
        TNZ     EMS3                                                   Y
        TRA     EMS4                                                   N
 
-EMS3   PIO     371          TELEMETER ERROR MESSAGE                   I
+EMS3   TELM    V.EMW        TELEMETER ERROR MESSAGE                   I
        TRA     EMS5
 
-EMS4   PIO     701          TELEMETER RAW EMR READING                 I
+EMS4   TELM    V.EMR        TELEMETER RAW EMR READING                 I
 
 EMS5   CLA     =O47
        HOP     ISS          ISSUE STATUS CODE                         P
@@ -94,10 +94,10 @@ EMS5   CLA     =O47
        TNZ     *+2
        TRA     EMS6
 
-       PIO     371          TELEMETER ERROR MESSAGE                   I
+       TELM    V.EMW        TELEMETER ERROR MESSAGE                   I
        HOP     OIGS         OUTPUT INTERRUPT GEN.                     P
 
-EMS6   PIO     701          TELEMETER RAW EMR READING                 I
+EMS6   TELM    V.EMR        TELEMETER RAW EMR READING                 I
        HOP     OIGS         OUTPUT INTERRUPT GEN.                     P
 
 EMS7   PIO     057
