@@ -47,12 +47,14 @@ while True:
         sig_name = signal_names[sig_num]
         signals[sig_name] = state
 
-        if signals['PAV'] and not signals['PBV']:
+        if signals['pa']:
             phase = 'A'
-        elif signals['PBV'] and not signals['PCV']:
+        elif signals['pb']:
             phase = 'B'
-        elif signals['PCV'] and not signals['PAV']:
+        elif signals['pc']:
             phase = 'C'
+        else:
+            phase = last_phase
 
         if phase != last_phase:
             print('#%u %s' % (time, phase))

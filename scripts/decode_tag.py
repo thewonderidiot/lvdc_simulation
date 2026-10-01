@@ -7,10 +7,10 @@ signals = {}
 signal_names = {}
 
 dump_lines = []
-last_clock = '-'
+last_tag = '-'
 while True:
     time = 0
-    clock = '-'
+    tag = '-'
 
     # Buffer up all the lines we need. Going on the fly is too slow
     line = sys.stdin.readline()
@@ -33,7 +33,7 @@ while True:
                 signal_names[sig_num] = sig_name
                 signals[sig_name] = 0
             elif line.startswith('$dumpvars'):
-                print('$name Clock')
+                print('$name Tag')
                 print('#0')
 
             continue
@@ -47,18 +47,28 @@ while True:
         sig_name = signal_names[sig_num]
         signals[sig_name] = state
 
-        if signals['w']:
-            clock = 'W'
-        elif signals['x']:
-            clock = 'X'
-        elif signals['y']:
-            clock = 'Y'
-        elif signals['z']:
-            clock = 'Z'
+        t = ((signals['MOD2']  << 11) |
+             (signals['MOD1']  << 10) |
+             (signals['RT1X']  <<  9) |
+             (signals['TAG8X'] <<  8) |
+             (signals['TAG1X'] <<  7) |
+             (signals['TAG2X'] <<  6) |
+             (signals['TAG7X'] <<  5) |
+             (signals['TAG6X'] <<  4) |
+             (signals['TAG5X'] <<  3) |
+             (signals['TAG4X'] <<  2) |
+             (signals['TAG3X'] <<  1) |
+             (signals['MOD3']  <<  0))
 
-        if clock != last_clock:
-            print('#%u %s' % (time, clock))
-            last_clock = clock
+        if signals['TAG8X']:
+            tag = '%04o' % t
+        else:
+            tag = '%03o' % ((t & 0o776) >> 1)
+
+
+        if tag != last_tag:
+            print('#%u %s' % (time, tag))
+            last_tag = tag
 
     print('$finish')
     sys.stdout.flush()

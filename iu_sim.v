@@ -441,10 +441,10 @@ gse gse1(
 
 initial begin
     $dumpfile("iu.fst");
-    $dumpvars(4, iu_sim);
+    $dumpvars(3, iu_sim);
     #100 SIM_RST = 1;
     // GSE sequencing is located in gse/gse.v
-    #10000000 $finish;
+    #100000000 $finish;
 end
 
 endmodule

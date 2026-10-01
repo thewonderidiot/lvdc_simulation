@@ -1,19 +1,19 @@
 [*]
-[*] GTKWave Analyzer v3.3.127 (w)1999-2026 BSI
-[*] Sat Aug 22 23:00:47 2026
+[*] GTKWave Analyzer v3.3.128 (w)1999-2026 BSI
+[*] Thu Oct  1 03:27:52 2026
 [*]
 [dumpfile] "/home/mike/lvdc/lvdc_simulation/iu.fst"
-[dumpfile_mtime] "Sat Aug 22 22:54:43 2026"
-[dumpfile_size] 1211151
+[dumpfile_mtime] "Thu Oct  1 03:21:06 2026"
+[dumpfile_size] 4984379
 [savefile] "/home/mike/lvdc/lvdc_simulation/iu.gtkw"
-[timestart] 3095200000
+[timestart] 28740000000
 [size] 2560 1392
 [pos] -1 -1
-*-27.332170 720718232 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-31.832172 46550000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] iu_sim.
 [treeopen] iu_sim.gse1.
 [treeopen] iu_sim.gse1.lvdc_registers1.
-[treeopen] iu_sim.iu1.lvdc1.
+[treeopen] iu_sim.iu1.
 [sst_width] 334
 [signals_width] 367
 [sst_expanded] 1
@@ -22,76 +22,76 @@
 [color] 7
 [transaction_args] ""
 ^<1 /home/mike/lvdc/lvdc_simulation/scripts/decode_phase.py
-#{phase} iu_sim.iu1.lvdc1.a1a13.PCV iu_sim.iu1.lvdc1.a1a13.PBV iu_sim.iu1.lvdc1.a1a13.PAV
+#{Phase} iu_sim.gse1.pc iu_sim.gse1.pb iu_sim.gse1.pa
 @28
-iu_sim.iu1.lvdc1.a1a13.PAV
-iu_sim.iu1.lvdc1.a1a13.PBV
-iu_sim.iu1.lvdc1.a1a13.PCV
+iu_sim.gse1.pa
+iu_sim.gse1.pb
+iu_sim.gse1.pc
 @1401200
 -group_end
-@10c00022
+@400c00024
 [color] 6
-[transaction_args] ""
-^<2 /home/mike/lvdc/lvdc_simulation/scripts/decode_bit_time.py
-#{bit time} iu_sim.iu1.lvdc1.a1a13.G7V iu_sim.iu1.lvdc1.a1a13.G6V iu_sim.iu1.lvdc1.a1a13.G5V iu_sim.iu1.lvdc1.a1a13.G4V iu_sim.iu1.lvdc1.a1a13.G3V iu_sim.iu1.lvdc1.a1a13.G2V iu_sim.iu1.lvdc1.a1a13.G1V
+#{BitTime} (0)iu_sim.gse1.bt[14:1] (1)iu_sim.gse1.bt[14:1] (2)iu_sim.gse1.bt[14:1] (3)iu_sim.gse1.bt[14:1] (4)iu_sim.gse1.bt[14:1] (5)iu_sim.gse1.bt[14:1] (6)iu_sim.gse1.bt[14:1] (7)iu_sim.gse1.bt[14:1] (8)iu_sim.gse1.bt[14:1] (9)iu_sim.gse1.bt[14:1] (10)iu_sim.gse1.bt[14:1] (11)iu_sim.gse1.bt[14:1] (12)iu_sim.gse1.bt[14:1] (13)iu_sim.gse1.bt[14:1] iu_sim.gse1.lvdc_registers1.ZERO
+@22
+iu_sim.gse1.bt[14:1]
 @28
-iu_sim.iu1.lvdc1.a1a13.G1V
-iu_sim.iu1.lvdc1.a1a13.G2V
-iu_sim.iu1.lvdc1.a1a13.G3V
-iu_sim.iu1.lvdc1.a1a13.G4V
-iu_sim.iu1.lvdc1.a1a13.G5V
-iu_sim.iu1.lvdc1.a1a13.G6V
-iu_sim.iu1.lvdc1.a1a13.G7V
+iu_sim.gse1.lvdc_registers1.ZERO
 @1401200
 -group_end
 @10c00022
 [color] 5
 [transaction_args] ""
-^<3 /home/mike/lvdc/lvdc_simulation/scripts/decode_clock.py
-#{Clock} iu_sim.iu1.lvdc1.a1a3.ZF iu_sim.iu1.lvdc1.a1a3.YF iu_sim.iu1.lvdc1.a1a3.XF iu_sim.iu1.lvdc1.a1a3.WF
+^<2 /home/mike/lvdc/lvdc_simulation/scripts/decode_clock.py
+#{Clock} iu_sim.gse1.w iu_sim.gse1.x iu_sim.gse1.y iu_sim.gse1.z
 @28
-iu_sim.iu1.lvdc1.a1a3.WF
-iu_sim.iu1.lvdc1.a1a3.XF
-iu_sim.iu1.lvdc1.a1a3.YF
-iu_sim.iu1.lvdc1.a1a3.ZF
-@1401200
--group_end
-@30
-+{AI3-IA} iu_sim.gse1.lvdc_registers1.ai3_ia[8:1]
-@10c00022
-[transaction_args] ""
-^<4 /home/mike/lvdc/lvdc_simulation/scripts/decode_opcode.py
-#{Opcode} iu_sim.iu1.lvdc1.OP4V iu_sim.iu1.lvdc1.OP3V iu_sim.iu1.lvdc1.OP2V iu_sim.iu1.lvdc1.OP1V iu_sim.iu1.lvdc1.A9V iu_sim.iu1.lvdc1.A8V
-@28
-iu_sim.iu1.lvdc1.A8V
-iu_sim.iu1.lvdc1.A9V
-iu_sim.iu1.lvdc1.OP1V
-iu_sim.iu1.lvdc1.OP2V
-iu_sim.iu1.lvdc1.OP3V
-iu_sim.iu1.lvdc1.OP4V
+iu_sim.gse1.w
+iu_sim.gse1.x
+iu_sim.gse1.y
+iu_sim.gse1.z
 @1401200
 -group_end
 @c00030
-#{A} iu_sim.iu1.lvdc1.A9V iu_sim.iu1.lvdc1.A8V iu_sim.iu1.lvdc1.A7V iu_sim.iu1.lvdc1.A6V iu_sim.iu1.lvdc1.A5V iu_sim.iu1.lvdc1.A4V iu_sim.iu1.lvdc1.A3V iu_sim.iu1.lvdc1.A2V iu_sim.iu1.lvdc1.A1V
+[color] 1
++{AI3-IA} iu_sim.gse1.lvdc_registers1.ai3_ia[8:1]
 @28
-iu_sim.iu1.lvdc1.A1V
-iu_sim.iu1.lvdc1.A2V
-iu_sim.iu1.lvdc1.A3V
-iu_sim.iu1.lvdc1.A4V
-iu_sim.iu1.lvdc1.A5V
-iu_sim.iu1.lvdc1.A6V
-iu_sim.iu1.lvdc1.A7V
-iu_sim.iu1.lvdc1.A8V
-iu_sim.iu1.lvdc1.A9V
+(0)iu_sim.gse1.lvdc_registers1.ai3_ia[8:1]
+(1)iu_sim.gse1.lvdc_registers1.ai3_ia[8:1]
+(2)iu_sim.gse1.lvdc_registers1.ai3_ia[8:1]
+(3)iu_sim.gse1.lvdc_registers1.ai3_ia[8:1]
+(4)iu_sim.gse1.lvdc_registers1.ai3_ia[8:1]
+(5)iu_sim.gse1.lvdc_registers1.ai3_ia[8:1]
+(6)iu_sim.gse1.lvdc_registers1.ai3_ia[8:1]
+(7)iu_sim.gse1.lvdc_registers1.ai3_ia[8:1]
 @1401200
 -group_end
-@c00031
-#{TRS} (0)iu_sim.gse1.lvdc_registers1.trs[1:26] (1)iu_sim.gse1.lvdc_registers1.trs[1:26] (2)iu_sim.gse1.lvdc_registers1.trs[1:26] (3)iu_sim.gse1.lvdc_registers1.trs[1:26] (4)iu_sim.gse1.lvdc_registers1.trs[1:26] (5)iu_sim.gse1.lvdc_registers1.trs[1:26] (6)iu_sim.gse1.lvdc_registers1.trs[1:26] (7)iu_sim.gse1.lvdc_registers1.trs[1:26] (8)iu_sim.gse1.lvdc_registers1.trs[1:26] (9)iu_sim.gse1.lvdc_registers1.trs[1:26] (10)iu_sim.gse1.lvdc_registers1.trs[1:26] (11)iu_sim.gse1.lvdc_registers1.trs[1:26] (12)iu_sim.gse1.lvdc_registers1.trs[1:26] (13)iu_sim.gse1.lvdc_registers1.trs[1:26] (14)iu_sim.gse1.lvdc_registers1.trs[1:26] (15)iu_sim.gse1.lvdc_registers1.trs[1:26] (16)iu_sim.gse1.lvdc_registers1.trs[1:26] (17)iu_sim.gse1.lvdc_registers1.trs[1:26] (18)iu_sim.gse1.lvdc_registers1.trs[1:26] (19)iu_sim.gse1.lvdc_registers1.trs[1:26] (20)iu_sim.gse1.lvdc_registers1.trs[1:26] (21)iu_sim.gse1.lvdc_registers1.trs[1:26] (22)iu_sim.gse1.lvdc_registers1.trs[1:26] (23)iu_sim.gse1.lvdc_registers1.trs[1:26] (24)iu_sim.gse1.lvdc_registers1.trs[1:26] (25)iu_sim.gse1.lvdc_registers1.trs[1:26] iu_sim.gse1.lvdc_registers1.ZERO
-@23
-iu_sim.gse1.lvdc_registers1.trs[1:26]
-@29
-iu_sim.gse1.lvdc_registers1.ZERO
-@1401211
+@10c00022
+[color] 2
+[transaction_args] ""
+^<3 /home/mike/lvdc/lvdc_simulation/scripts/decode_opcode.py
+#{Opcode} iu_sim.gse1.OP4V iu_sim.gse1.OP3V iu_sim.gse1.OP2V iu_sim.gse1.OP1V iu_sim.gse1.A9V iu_sim.gse1.A8V
+@28
+iu_sim.gse1.A8V
+iu_sim.gse1.A9V
+iu_sim.gse1.OP1V
+iu_sim.gse1.OP2V
+iu_sim.gse1.OP3V
+iu_sim.gse1.OP4V
+@1401200
+-group_end
+@c000b0
+[color] 3
+#{A} iu_sim.gse1.A1V iu_sim.gse1.A2V iu_sim.gse1.A3V iu_sim.gse1.A4V iu_sim.gse1.A5V iu_sim.gse1.A6V iu_sim.gse1.A7V iu_sim.gse1.A8V iu_sim.gse1.A9V
+@28
+iu_sim.gse1.A1V
+iu_sim.gse1.A2V
+iu_sim.gse1.A3V
+iu_sim.gse1.A4V
+iu_sim.gse1.A5V
+iu_sim.gse1.A6V
+iu_sim.gse1.A7V
+iu_sim.gse1.A8V
+iu_sim.gse1.A9V
+@1401200
 -group_end
 @c00030
 #{AI3-DATA} (0)iu_sim.gse1.lvdc_registers1.ai3_data[1:26] (1)iu_sim.gse1.lvdc_registers1.ai3_data[1:26] (2)iu_sim.gse1.lvdc_registers1.ai3_data[1:26] (3)iu_sim.gse1.lvdc_registers1.ai3_data[1:26] (4)iu_sim.gse1.lvdc_registers1.ai3_data[1:26] (5)iu_sim.gse1.lvdc_registers1.ai3_data[1:26] (6)iu_sim.gse1.lvdc_registers1.ai3_data[1:26] (7)iu_sim.gse1.lvdc_registers1.ai3_data[1:26] (8)iu_sim.gse1.lvdc_registers1.ai3_data[1:26] (9)iu_sim.gse1.lvdc_registers1.ai3_data[1:26] (10)iu_sim.gse1.lvdc_registers1.ai3_data[1:26] (11)iu_sim.gse1.lvdc_registers1.ai3_data[1:26] (12)iu_sim.gse1.lvdc_registers1.ai3_data[1:26] (13)iu_sim.gse1.lvdc_registers1.ai3_data[1:26] (14)iu_sim.gse1.lvdc_registers1.ai3_data[1:26] (15)iu_sim.gse1.lvdc_registers1.ai3_data[1:26] (16)iu_sim.gse1.lvdc_registers1.ai3_data[1:26] (17)iu_sim.gse1.lvdc_registers1.ai3_data[1:26] (18)iu_sim.gse1.lvdc_registers1.ai3_data[1:26] (19)iu_sim.gse1.lvdc_registers1.ai3_data[1:26] (20)iu_sim.gse1.lvdc_registers1.ai3_data[1:26] (21)iu_sim.gse1.lvdc_registers1.ai3_data[1:26] (22)iu_sim.gse1.lvdc_registers1.ai3_data[1:26] (23)iu_sim.gse1.lvdc_registers1.ai3_data[1:26] (24)iu_sim.gse1.lvdc_registers1.ai3_data[1:26] (25)iu_sim.gse1.lvdc_registers1.ai3_data[1:26] iu_sim.gse1.lvdc_registers1.ZERO
@@ -99,87 +99,107 @@ iu_sim.gse1.lvdc_registers1.ZERO
 iu_sim.gse1.lvdc_registers1.ai3_data[1:26]
 @28
 iu_sim.gse1.lvdc_registers1.ZERO
-@1401210
--group_end
-@10c00022
-[transaction_args] ""
-^<5 /home/mike/lvdc/lvdc_simulation/scripts/decode_module.py
-#{IM} iu_sim.iu1.lvdc1.a1a14.IM3 iu_sim.iu1.lvdc1.a1a14.IM2 iu_sim.iu1.lvdc1.a1a14.IM1 iu_sim.iu1.lvdc1.a1a14.IM0
-@28
-iu_sim.iu1.lvdc1.a1a14.IM0
-iu_sim.iu1.lvdc1.a1a14.IM1
-iu_sim.iu1.lvdc1.a1a14.IM2
-iu_sim.iu1.lvdc1.a1a14.IM3
 @1401200
 -group_end
 @c00030
-#{IS} iu_sim.iu1.lvdc1.IS4 iu_sim.iu1.lvdc1.IS3 iu_sim.iu1.lvdc1.IS2 iu_sim.iu1.lvdc1.IS1
+#{TRS} (0)iu_sim.gse1.lvdc_registers1.trs[1:26] (1)iu_sim.gse1.lvdc_registers1.trs[1:26] (2)iu_sim.gse1.lvdc_registers1.trs[1:26] (3)iu_sim.gse1.lvdc_registers1.trs[1:26] (4)iu_sim.gse1.lvdc_registers1.trs[1:26] (5)iu_sim.gse1.lvdc_registers1.trs[1:26] (6)iu_sim.gse1.lvdc_registers1.trs[1:26] (7)iu_sim.gse1.lvdc_registers1.trs[1:26] (8)iu_sim.gse1.lvdc_registers1.trs[1:26] (9)iu_sim.gse1.lvdc_registers1.trs[1:26] (10)iu_sim.gse1.lvdc_registers1.trs[1:26] (11)iu_sim.gse1.lvdc_registers1.trs[1:26] (12)iu_sim.gse1.lvdc_registers1.trs[1:26] (13)iu_sim.gse1.lvdc_registers1.trs[1:26] (14)iu_sim.gse1.lvdc_registers1.trs[1:26] (15)iu_sim.gse1.lvdc_registers1.trs[1:26] (16)iu_sim.gse1.lvdc_registers1.trs[1:26] (17)iu_sim.gse1.lvdc_registers1.trs[1:26] (18)iu_sim.gse1.lvdc_registers1.trs[1:26] (19)iu_sim.gse1.lvdc_registers1.trs[1:26] (20)iu_sim.gse1.lvdc_registers1.trs[1:26] (21)iu_sim.gse1.lvdc_registers1.trs[1:26] (22)iu_sim.gse1.lvdc_registers1.trs[1:26] (23)iu_sim.gse1.lvdc_registers1.trs[1:26] (24)iu_sim.gse1.lvdc_registers1.trs[1:26] (25)iu_sim.gse1.lvdc_registers1.trs[1:26] iu_sim.gse1.lvdc_registers1.ZERO
+@22
+iu_sim.gse1.lvdc_registers1.trs[1:26]
 @28
-iu_sim.iu1.lvdc1.IS1
-iu_sim.iu1.lvdc1.IS2
-iu_sim.iu1.lvdc1.IS3
-iu_sim.iu1.lvdc1.IS4
+iu_sim.gse1.lvdc_registers1.ZERO
 @1401200
 -group_end
+@10c00022
+[transaction_args] ""
+^<4 /home/mike/lvdc/lvdc_simulation/scripts/decode_module.py
+#{IM} (0)iu_sim.gse1.im[3:1] (1)iu_sim.gse1.im[3:1] (2)iu_sim.gse1.im[3:1] iu_sim.gse1.dupin
+@28
+iu_sim.gse1.im[3:1]
+iu_sim.gse1.dupin
+@1401200
+-group_end
+@30
++{IS} iu_sim.gse1.is[4:1]
 @24
-+{S} iu_sim.iu1.lvdc1.SYLC1V
++{S} iu_sim.gse1.syl
 @10c00022
 [transaction_args] ""
-^<5 /home/mike/lvdc/lvdc_simulation/scripts/decode_module.py
-#{DM} iu_sim.iu1.lvdc1.a1a14.DM3 iu_sim.iu1.lvdc1.a1a14.DM2 iu_sim.iu1.lvdc1.a1a14.DM1 iu_sim.iu1.lvdc1.a1a14.DM0
+^<4 /home/mike/lvdc/lvdc_simulation/scripts/decode_module.py
+#{DM} iu_sim.gse1.dupdn (2)iu_sim.gse1.dm[3:1] (1)iu_sim.gse1.dm[3:1] (0)iu_sim.gse1.dm[3:1]
 @28
-iu_sim.iu1.lvdc1.a1a14.DM0
-iu_sim.iu1.lvdc1.a1a14.DM1
-iu_sim.iu1.lvdc1.a1a14.DM2
-iu_sim.iu1.lvdc1.a1a14.DM3
+iu_sim.gse1.dm[3:1]
+iu_sim.gse1.dupdn
 @1401200
 -group_end
-@c00030
-#{DS} iu_sim.iu1.lvdc1.DS4 iu_sim.iu1.lvdc1.DS3 iu_sim.iu1.lvdc1.DS2 iu_sim.iu1.lvdc1.DS1
+@30
++{DS} iu_sim.gse1.ds[4:1]
+@c000b0
+#{Mode} iu_sim.gse1.MOD1 iu_sim.gse1.MOD2 iu_sim.gse1.MOD3 iu_sim.gse1.MOD4 iu_sim.gse1.MOD5 iu_sim.gse1.MOD6
 @28
-iu_sim.iu1.lvdc1.DS1
-iu_sim.iu1.lvdc1.DS2
-iu_sim.iu1.lvdc1.DS3
-iu_sim.iu1.lvdc1.DS4
+iu_sim.gse1.MOD1
+iu_sim.gse1.MOD2
+iu_sim.gse1.MOD3
+iu_sim.gse1.MOD4
+iu_sim.gse1.MOD5
+iu_sim.gse1.MOD6
+@1401200
+-group_end
+@10c00022
+[transaction_args] ""
+^<5 /home/mike/lvdc/lvdc_simulation/scripts/decode_tag.py
+#{Tag} iu_sim.gse1.MOD1 iu_sim.gse1.MOD2 iu_sim.gse1.MOD3 iu_sim.gse1.RT1X iu_sim.gse1.TAG1X iu_sim.gse1.TAG2X iu_sim.gse1.TAG3X iu_sim.gse1.TAG4X iu_sim.gse1.TAG5X iu_sim.gse1.TAG6X iu_sim.gse1.TAG7X iu_sim.gse1.TAG8X
+@28
+iu_sim.gse1.MOD1
+iu_sim.gse1.MOD2
+iu_sim.gse1.MOD3
+iu_sim.gse1.RT1X
+iu_sim.gse1.TAG1X
+iu_sim.gse1.TAG2X
+iu_sim.gse1.TAG3X
+iu_sim.gse1.TAG4X
+iu_sim.gse1.TAG5X
+iu_sim.gse1.TAG6X
+iu_sim.gse1.TAG7X
+iu_sim.gse1.TAG8X
 @1401200
 -group_end
 @c000b0
-#{BRA} iu_sim.iu1.lvdc1.BRA14 iu_sim.iu1.lvdc1.BRA13 iu_sim.iu1.lvdc1.BRA12 iu_sim.iu1.lvdc1.BRA11 iu_sim.iu1.lvdc1.BRA10 iu_sim.iu1.lvdc1.BRA9 iu_sim.iu1.lvdc1.BRA8 iu_sim.iu1.lvdc1.BRA7 iu_sim.iu1.lvdc1.BRA6 iu_sim.iu1.lvdc1.BRA5 iu_sim.iu1.lvdc1.BRA4 iu_sim.iu1.lvdc1.BRA3 iu_sim.iu1.lvdc1.BRA2 iu_sim.iu1.lvdc1.BRA1
+#{Tlm} iu_sim.gse1.lvdc_registers1.ZERO iu_sim.gse1.BR1X iu_sim.gse1.BR2X iu_sim.gse1.BR3X iu_sim.gse1.BR4X iu_sim.gse1.BR5X iu_sim.gse1.BR6X iu_sim.gse1.BR7X iu_sim.gse1.BR8X iu_sim.gse1.BR9X iu_sim.gse1.BR10X iu_sim.gse1.BR11X iu_sim.gse1.BR12X iu_sim.gse1.BR13X iu_sim.gse1.BR14X iu_sim.gse1.BR15X iu_sim.gse1.BR16X iu_sim.gse1.BR17X iu_sim.gse1.BR18X iu_sim.gse1.BR19X iu_sim.gse1.BR20X iu_sim.gse1.BR21X iu_sim.gse1.BR22X iu_sim.gse1.BR23X iu_sim.gse1.BR24X iu_sim.gse1.BR25X iu_sim.gse1.BR26X
 @28
-iu_sim.iu1.lvdc1.BRA1
-iu_sim.iu1.lvdc1.BRA2
-iu_sim.iu1.lvdc1.BRA3
-iu_sim.iu1.lvdc1.BRA4
-iu_sim.iu1.lvdc1.BRA5
-iu_sim.iu1.lvdc1.BRA6
-iu_sim.iu1.lvdc1.BRA7
-iu_sim.iu1.lvdc1.BRA8
-iu_sim.iu1.lvdc1.BRA9
-iu_sim.iu1.lvdc1.BRA10
-iu_sim.iu1.lvdc1.BRA11
-iu_sim.iu1.lvdc1.BRA12
-iu_sim.iu1.lvdc1.BRA13
-iu_sim.iu1.lvdc1.BRA14
+iu_sim.gse1.lvdc_registers1.ZERO
+iu_sim.gse1.BR1X
+iu_sim.gse1.BR2X
+iu_sim.gse1.BR3X
+iu_sim.gse1.BR4X
+iu_sim.gse1.BR5X
+iu_sim.gse1.BR6X
+iu_sim.gse1.BR7X
+iu_sim.gse1.BR8X
+iu_sim.gse1.BR9X
+iu_sim.gse1.BR10X
+iu_sim.gse1.BR11X
+iu_sim.gse1.BR12X
+iu_sim.gse1.BR13X
+iu_sim.gse1.BR14X
+iu_sim.gse1.BR15X
+iu_sim.gse1.BR16X
+iu_sim.gse1.BR17X
+iu_sim.gse1.BR18X
+iu_sim.gse1.BR19X
+iu_sim.gse1.BR20X
+iu_sim.gse1.BR21X
+iu_sim.gse1.BR22X
+iu_sim.gse1.BR23X
+iu_sim.gse1.BR24X
+iu_sim.gse1.BR25X
+iu_sim.gse1.BR26X
 @1401200
 -group_end
-@c000b0
-#{BRB} iu_sim.iu1.lvdc1.BRB14 iu_sim.iu1.lvdc1.BRB13 iu_sim.iu1.lvdc1.BRB12 iu_sim.iu1.lvdc1.BRB11 iu_sim.iu1.lvdc1.BRB10 iu_sim.iu1.lvdc1.BRB9 iu_sim.iu1.lvdc1.BRB8 iu_sim.iu1.lvdc1.BRB7 iu_sim.iu1.lvdc1.BRB6 iu_sim.iu1.lvdc1.BRB5 iu_sim.iu1.lvdc1.BRB4 iu_sim.iu1.lvdc1.BRB3 iu_sim.iu1.lvdc1.BRB2 iu_sim.iu1.lvdc1.BRB1
 @28
-iu_sim.iu1.lvdc1.BRB1
-iu_sim.iu1.lvdc1.BRB2
-iu_sim.iu1.lvdc1.BRB3
-iu_sim.iu1.lvdc1.BRB4
-iu_sim.iu1.lvdc1.BRB5
-iu_sim.iu1.lvdc1.BRB6
-iu_sim.iu1.lvdc1.BRB7
-iu_sim.iu1.lvdc1.BRB8
-iu_sim.iu1.lvdc1.BRB9
-iu_sim.iu1.lvdc1.BRB10
-iu_sim.iu1.lvdc1.BRB11
-iu_sim.iu1.lvdc1.BRB12
-iu_sim.iu1.lvdc1.BRB13
-iu_sim.iu1.lvdc1.BRB14
-@1401200
--group_end
+iu_sim.gse1.DO2RCA
+@29
+iu_sim.gse1.DIN1X
+@28
+iu_sim.gse1.DO1RCA
 [pattern_trace] 1
 [pattern_trace] 0

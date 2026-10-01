@@ -11,7 +11,8 @@ last_mod = '-'
 
 while True:
     time = 0
-    mod_type = 'I'
+    last_mod = '-'
+    mod_type = 'i'
 
     # Buffer up all the lines we need. Going on the fly is too slow
     line = sys.stdin.readline()
@@ -32,11 +33,11 @@ while True:
                 
                 sig_name = toks[idx+1]
                 signal_names[sig_num] = sig_name
-                if 'DM' in sig_name:
-                    mod_type = 'D'
+                if 'dm' in sig_name:
+                    mod_type = 'd'
                 signals[sig_name] = 0
             elif line.startswith('$dumpvars'):
-                print('$name %sM' % mod_type)
+                print('$name %sM' % mod_type.upper())
                 print('#0')
 
             continue
@@ -45,24 +46,22 @@ while True:
             time = int(line[1:])
             continue
         
-        state = int(line[0]) if line[0] not in 'zx' else 0
-        sig_num = int(line[1:])
-        sig_name = signal_names[sig_num]
+        if line.startswith('b'):
+            parts = line.split()
+            val = '0' + parts[0]
+            sig_num = parts[1]
+        else:
+            val = line[0]
+            sig_num = line[1]
+
+        state = int(val,0) if val not in 'zx' else 0
+        sig_name = signal_names[int(sig_num)]
         signals[sig_name] = state
 
-        mod_bit = [0, 0, 0, 0]
-        for i in range(4):
-            mod_bit[i] = signals['%sM%u' % (mod_type, i)]
-
-        plex = '-S'
-        m1 = 1
-        if mod_bit[0]:
-            m1 = 0
-            if mod_bit[1]:
-                plex = '-D'
-
-        mod_num = (mod_bit[3] << 2) | (mod_bit[2] << 1) | m1
-        mod = '%u%s' % (mod_num, plex)
+        dup = 'dup%sn' % mod_type
+        
+        plex = '-D' if signals[dup] else '-S'
+        mod = '%u%s' % (signals[mod_type+'m[3:1]'], plex)
         
         if mod != last_mod:
             print('#%u %s' % (time, mod))
