@@ -8,7 +8,7 @@ module inv(
     input wire rst
 );
 
-parameter iv = 1;
+parameter [0:0] iv = 1;
 
 `ifdef CLOCKED
 
