@@ -30,14 +30,11 @@ initial z = 0;
 
 `ifdef CLOCKED
 
-localparam PHASE_CLOCKS = 1120;
 localparam BIT_CLOCKS = 20;
-localparam PHASE_CTR_LEN = $clog2(3 * PHASE_CLOCKS);
 localparam BIT_CTR_LEN = $clog2(4 * BIT_CLOCKS);
 
 reg pbavn_r = 0;
 reg w6_r = 0;
-reg [PHASE_CTR_LEN-1:0] phase_ctr = 0;
 reg [BIT_CTR_LEN-1:0] bit_ctr = 0;
 
 always @(posedge SIM_CLK) begin
@@ -49,22 +46,17 @@ always @(posedge SIM_CLK) begin
     if (~w6_r & W6) begin
         bit_ctr <= 0;
         bt <= {bt[13:1], bt[14]};
+        if (bt[14]) begin
+            {pa, pb, pc} <= {pc, pa, pb};
+        end
     end else begin
         bit_ctr <= bit_ctr + 1;
     end
 
     if (pbavn_r & ~PBAVN) begin
         bt <= 'b1;
-        phase_ctr <= 0;
-    end else begin
-        phase_ctr <= phase_ctr + 1;
+        {pa, pb, pc} <= 3'b010;
     end
-end
-
-always @(*) begin
-    pb = phase_ctr < (PHASE_CLOCKS - 10);
-    pc = (phase_ctr >= PHASE_CLOCKS) && (phase_ctr < (2*PHASE_CLOCKS - 10));
-    pa = (phase_ctr >= 2*PHASE_CLOCKS) && (phase_ctr < (3*PHASE_CLOCKS - 10));
 end
 
 always @(*) begin
@@ -77,17 +69,7 @@ end
 
 `else
 
-localparam phase_delay = 27243.75;
 localparam clock_delay = 388.28125;
-
-always @(negedge PBAVN) begin
-    pb <= 1;
-    #phase_delay pb <= 0;
-    #100 pc <= 1;
-    #phase_delay pc <= 0;
-    #100 pa <= 1;
-    #phase_delay pa <= 0;
-end
 
 always @(posedge W6) begin
     #50 w <= 1;
@@ -102,9 +84,14 @@ end
 
 always @(posedge W6) begin
     bt <= {bt[13:1], bt[14]};
+    if (bt[14]) begin
+        {pa, pb, pc} <= {pc, pa, pb};
+    end
 end
-always @(posedge pb) begin
+
+always @(negedge PBAVN) begin
     bt <= 'b1;
+    {pa, pb, pc} <= 3'b010;
 end
 
 `endif
