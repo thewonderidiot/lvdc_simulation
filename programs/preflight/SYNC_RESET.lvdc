@@ -16,7 +16,13 @@
 * ENTRY     SRS      ENTER TO RESET RCA-110 SYNC
 
        ORG     FBR1,D.DATA
+
+SRSRT  BSS     1
+
 SRS    STO     777
+       CLA     777
+       STO     SRSRT
+
        CLA     D.KB12
        PIO     016          SET DISCRETE OUTPUT 1                     I
 
@@ -26,7 +32,7 @@ SRS1   PIO     057
 
        CLA     D.KB12                                                 Y
        PIO     012          RESET DISCRETE OUTPUT 1                   I
-       HOP     777          RET TO CAL RT                             X
+       HOP     SRSRT        RET TO CAL RT                             X
 
 SRS2   HOP     PRUS         PTL REALTIME UPDATE SUBR.                 P
        TRA     SRS1

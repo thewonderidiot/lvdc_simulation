@@ -1,0 +1,118 @@
+**********************************************************************
+*                                                                    *
+*                                                                    *
+*      INTERRUPT PROCESSING ROUTINE                                  *J
+*                                                                    *
+*                                                                    *
+**********************************************************************
+
+* FUNCTION   THE PURPOSE OF THE INTERRUPT PROCESSING ROUTINE IS TO
+*            DETERMINE WHICH INTERRUPT OCCURRED AND TO DIRECT THE LVDC
+*            TO THE CORRESPONDING PROCESSING ROUTINE.
+
+* ENTRY      INTP     ENTERED AUTOMATICALLY EVERY TIME AN INTERRUPT
+*                     HOP 400 IS GENERATED.
+
+       ORGSS   0,1,1,000,0,3,0
+
+INTP   STO     776
+       STO     INACC        SAVE PARTIAL RESULTS IF ANY FROM          B
+       CLA     775          INTERRUPTED PRGM                          B
+       STO     INPQ
+       CLA     776
+       STO     INHC
+
+       CLA     INTH
+       XOR     D.KONS       ELIMINATE INTERRUPT BITS WITH SET INHIBITSB
+       SHL     1
+       STO     775
+
+       PIO     137          GET CONTENTS OF INTERRUPT STORAGE REGISTERI
+       AND     775
+       STO     775
+
+       AND     D.KB3
+       TNZ     TLC          TLC INTERRUPT                             Q
+
+       CLA     775                                                    N
+       AND     D.KB5
+       TNZ     GRR1         GUID REF REL INTERRUPT                    Q
+
+       CLA     775                                                    N
+       TMI     MLC          MINOR LOOP CONTROL INTERRUPT              Q
+       SHL     1                                                      N
+       TMI     SSC          SWITCH SELECTOR CONTROL INTERRUPT         Q
+       SHL     1                                                      N
+       TMI     CIU          ORB C.O.(CIU) INTERRUPT                   Q
+       SHL     2                                                      N
+       TMI     CRI          COMMAND RECEIVER INTERRUPT                Q
+       SHL     2                                                      N
+       TMI     S2PD         SII PROPEL DELETION INTERRUPT             Q
+       SHL     1                                                      N
+       TMI     S1PD         SI PROPEL DELETION INTERRUPT              Q
+       SHL     1                                                      N
+       TMI     S4BEO        S-IVB ENG OUT INTERRUPT                   Q
+       SHL     1                                                      N
+       TMI     RCAI         RCA 110 INTERRUPT                         Q
+       SHL     1                                                      N
+       TMI     LLS          LOW LEVEL SENSE INTERRUPT                 Q
+SPARE  CLA     =O37774
+       PIO     032          RESET INTERRUPT LATCH                     I
+
+       CLA     INEM1
+       HOP     EMS          ERROR MONITOR                             P
+
+       CLA     D.KZRO
+       PIO     172          PIO LADDER CLAMP                          I
+
+       HOP     MDSRT        EXIT TO MODE SORT                         X
+
+TLC    CLA     =O37774      RESET ALL DISCRETE OUTPUTS EXCEPT D.O     I
+       PIO     012          NUMBER 13                                 I
+
+       CLA     =O35774
+       PIO     072          INHIBIT ALL INT BUT TLC                   I
+
+       CLA     D.KB4
+       PIO     032          ISSUE TLC LIMITING BIT TO RESET INTERRUPT I
+
+       CLA     INEM2
+       HOP     EMS          ERROR MONITOR-ISSUE TLC ERROR MSG         P
+
+       CLA     INTH
+       PIO     072          RESTORE TO NORMAL INHIBITS                I
+
+       CLA     D.KZRO
+       PIO     172          CLAMP LADDERS TO ZERO                     I
+
+       HOP     MDSRT        EXIT TO MODE SORT                         X
+
+GRR1   CLA     V.STAT
+       SUB     =O12         IS EXIT FROM MODE 12 OF PREPARE TO LAUNCH Q
+       TNZ     *+2                                                    N
+       CLA     D.KZRO       ARM THE ABORT TEST FLAG (MSFLT) FIXME     B
+
+       CLA     D.KZRO       STORE DELTA TIME CLOCK RDNG IN FLIGHT DATAB
+*                           SECTOR (FIXME)                            B
+       CLA     D.KB25
+       PIO     026          SELECT T-SYNC DOM CONTROL                 I
+
+       HOP     GRIHC        EXIT HOP GRIHC                            X
+
+MLC    HOP     MLHC
+SSC    HOP     SSHC
+CIU    HOP     CIUHC
+CRI    HOP     CRAIHC
+S2PD   HOP     PDHC
+S1PD   HOP     PDHC
+S4BEO  HOP     EOHC
+RCAI   HOP     FBHC
+LLS    HOP     LLSHC
+
+MLHC   HPC     SPARE,D.DATA  FIXME
+SSHC   HPC     SPARE,D.DATA  FIXME
+CIUHC  HPC     SPARE,D.DATA  FIXME
+PDHC   HPC     SPARE,D.DATA  FIXME
+EOHC   HPC     SPARE,D.DATA  FIXME
+FBHC   HPC     FBR2,D.DATA
+LLSHC  HPC     SPARE,D.DATA  FIXME

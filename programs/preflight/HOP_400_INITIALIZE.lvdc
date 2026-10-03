@@ -46,7 +46,7 @@ IN400A TMI     IN400B       DOES MOD. MAP SHOW MOD. UNDER TEST PRESENTQ
        CDS     IN400S       CDS BACK FOR HOP EXIT                     B
        HOP     IN400S       HOP BACK                                  X
 
-IN400B CLA     D.KZRO       FIXME                                     Y
+IN400B CLA     INHOPC                                                 Y
        STO     775          SET PQ = INTERRUPT PROCESSING HOP CONSTANTB
 
        CLA     ININST       PICK UP USE DAT OF COS 0,0 AND STO 400    B

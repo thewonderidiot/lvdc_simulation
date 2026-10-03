@@ -5,23 +5,46 @@
 * *                                     *
 * ***************************************
 
-       TITLE   'ERROR MESSAGE TABLES'
-
        TITLE   'PSEUDO VARIABLES'
 P.CMSR EQU     (4.063492)   MS TO RTC PULSES
 P.TD1  EQU     (4.350*P.CMSR) REAL TIME TELEMETRY DELAY
 P.TIBS EQU     (6.0*.08203125*P.CMSR) REAL TIME TELEMETRY BIAS
 P.INST EQU     (12.0*.08203125*P.CMSR) REAL TIME TELM BIAS
 
+       TITLE   'PREFLIGHT LINKAGES'
+       DOGS    0,4,227
+PFSCHC HPCDD   0,11,0,005,2,17
+       DOGS    0,7,006
+GCFIHC HPCDD   0,11,0,002,2,17
+       DOGS    0,17,157
+GRIHC  HPCDD   0,11,0,000,2,17
+       DOGS    0,7,253
+OCRLHC HPCDD   4,17,0,274,4,17
+       DOGS    0,5,371
+AZCHC  HPCDD   0,11,0,012,2,13
+       DOGS    0,5,372
+IBOLHC HPCDD   0,11,0,005,2,16
+
+       DOGS    0,7,007
+FIRMC  BSS     1
+
+       DOGS    0,17,154
+CRAIHC HPC     SPARE,D.DATA
+
+       DOGS    0,17,210
+INACC  BSS     1
+       DOGS    0,17,212
+INHC   BSS     1
+       DOGS    0,17,214
+INPQ   BSS     1
+       DOGS    0,17,216
+INTH   BSS     1
+
        TITLE   'DATA SECTOR'
-       DOGS    0,16,000
+       DOGS    0,3,000
 D.DATA TABLE   1
 
 * THE FOLLOWING DATA MUST BE IN SPECIFIED LOCATIONS
-
-       DOG     D.DATA
-       DOG     *,*,*+(186)  LOC = 272
-K.IHB1 OCT     357740000    INHIBIT STATUS FOR LEVEL 3
 
        DOG     D.DATA
        DOG     *,*,*+(249)  LOC = 371
@@ -55,7 +78,7 @@ V.STAT BSS     1            STATUS WORD FOR TELEMETRY
 
        DOG     D.RESD
        DOG     *,*,*+(186)  LOC = 272
-INTH   BSS     1            INTERRUPT INHIBIT IMAGE
+D.VIH  BSS     1            INTERRUPT INHIBIT IMAGE
 
        DOG     D.RESD
        DOG     *,*,*+(193)  LOC = 301
@@ -99,7 +122,16 @@ D.KSY1 OCT     777740000
 D.KSY0 OCT     000037776
 D.KONS OCT     777777776
 D.KZRO DEC     0            ZERO
-       ENDLIT
+
+INHOPC HPC     INTP,D.DATA
+
+       TITLE   'ERROR MESSAGE TABLES'
+MSEM0  OCT     000000000
+MSEM1  OCT     001000000
+MSEM2  OCT     001100000
+MSEM3  OCT     001200000
+INEM1  OCT     331000000
+INEM2  OCT     332000000
 
        TITLE   'TELEMETRY DEFINITIONS'
 *                              BTG      PCM    SCL     UNITS

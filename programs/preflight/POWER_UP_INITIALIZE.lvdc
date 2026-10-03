@@ -75,10 +75,9 @@ NORMPF CDS     D.DATA       INITIALIZE DATA SECTOR                    B
        PIO     023          DUMMY EMR READ                            I
 
        CLA     =O35754
-       STO     INTH
-       PIO     672          INHIBIT ALL INTERRUPTS EXCEPT TLC, RCA    I
+       PIO     072          INHIBIT ALL INTERRUPTS EXCEPT TLC, RCA    I
 
-*                           INITIALIZE ALL NECESSARY PROGRAM CONSTANTS
+       STO     INTH         INITIALIZE ALL NECESSARY PROGRAM CONSTANTS
 *                           FIXME: WHAT DOES THIS MEAN
        HOP     FBR1         HOP TO FBR                                X
 

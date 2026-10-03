@@ -10,7 +10,7 @@
 
 * ENTRIES    MDSRT    ENTERED FROM FORCED BEGIN AND INITIALIZE
 
-       ORGSS   0,2,0,000,0,16,
+       ORGSS   0,2,0,000,0,3,
 
 MODCMD BSS     1
        USE     DAT
@@ -22,15 +22,20 @@ MDSRT  CLA     D.KZRO
        HOP     ISS          ISSUE STATUS CODE                         P
 
 MDSRT1 HOP     AMS          ACCELEROMETER MONITOR                     P
-       CLA     D.KZRO
+       CLA     MSEM0
        HOP     EMS          ERROR MONITOR                             P
        HOP     STS          LVDC SELFTEST                             P
 
-       PIO     272          INHIBIT RCA-110 INTERRUPT                 I
+       CLA     D.KB10
+       XOR     D.KONS
+       AND     INTH
+       XOR     D.KB10
+       PIO     072          INHIBIT RCA-110 INTERRUPT                 I
 
        HOP     DAS          DATA ADAPTER TEST                         P
 
-       PIO     672          RESTORE NORMAL INHIBITS                   I
+       CLA     INTH
+       PIO     072          RESTORE NORMAL INHIBITS                   I
 
 *      FIXME: THIS IS PROBABLY MORE COMPLICATED INVOLVING MULTIPLE
 *      PIOS (INCLUDING 040, 061, 735, 741)
@@ -67,7 +72,7 @@ MDSRT1 HOP     AMS          ACCELEROMETER MONITOR                     P
        TNZ     *+2                                                    Y
        TRA     MDSRT2                                                 N
 
-       CLA     =O0011       FIXME: ERROR CODE
+       CLA     MSEM2
        HOP     EMS          ISSUE ERROR MESSAGE                       P
 
 MDSRT2 PIO     057
@@ -83,7 +88,7 @@ MDSRT2 PIO     057
        TMI     MDSRT3       IS INPUT WORD MODE INFORMATION            Q
 
        STO     V.EMR
-       CLA     =O001                                                  N
+       CLA     MSEM1
        HOP     EMSR         ERROR MONITOR                             P
        TRA     MDSRT
 
@@ -93,11 +98,11 @@ MDSRT3 AND     =O176
        HOP     IEDA         INSTRUCTION EXECUTE                       P
 *                           HOP TO CR                                 X
 
-BADMOD CLA     =O0012
+BADMOD CLA     MSEM3
        HOP     EMS
        TRA     MDSRT
 
-       DOGS    1,15,
+       DOGS    1,1,
        TABLE   64
 MODTAB HPC     BADMOD       SPECIAL LOADER MODE SORT           MODE 00
        HPC     BADMOD       ERROR - ILLEGAL MODE               MODE 01

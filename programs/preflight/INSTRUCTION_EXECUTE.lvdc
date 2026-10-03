@@ -19,7 +19,7 @@
 *                     SECOND INSTRUCTION IN SYLLABLE 0, AND DATA TO
 *                     BE OPERATED ON IN PQ.
 
-       ORGSS   0,16,0,000,0,16,0
+       ORGSS   0,3,0,000,0,3,0
 L.IEDA TABLE   6
        ORG     L.IEDA
        ORG     *,*,*+(1),*,*,*,*
