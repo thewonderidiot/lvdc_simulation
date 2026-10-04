@@ -129,7 +129,7 @@ MODTAB HPC     BADMOD       SPECIAL LOADER MODE SORT           MODE 00
        HPC     BADMOD       ERROR - ILLEGAL MODE               MODE 26
        HPC     BADMOD       SIB TARGET DUMP ROUTINE            MODE 27
        HPC     BADMOD       PREPARE TO LAUNCH SIM FLT W/ PLAT  MODE 30
-       HPC     BADMOD       REPEATABLE FLIGHT SIM              MODE 31
+       HPC     PFDA         REPEATABLE FLIGHT SIM              MODE 31
        HPC     BADMOD       TELEMETRY TEST                     MODE 32
        HPC     BADMOD       ERROR - ILLEGAL MODE               MODE 33
        HPC     BADMOD       ERROR - ILLEGAL MODE               MODE 34

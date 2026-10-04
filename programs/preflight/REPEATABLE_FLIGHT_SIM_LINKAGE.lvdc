@@ -1,0 +1,22 @@
+**********************************************************************
+*                                                                    *
+*                                                                    *
+*      REPEATABLE FLIGHT SIM LINKAGE                                 *J
+*                                                                    *
+*                                                                    *
+**********************************************************************
+
+* FUNCTION   THE PURPOSE OF THIS ROUTINE IS TO PROVIDE THE CAPABILITY
+*            TO EXECUTE THE FLIGHT PROGRAM IN ITS REPEATABLE FLIGHT
+*            SIM MODE
+
+* ENTRIES    PFDA     ENTERED FROM MODE SORT
+
+       ORG     FBR1,D.DATA
+PFDA   CLA     =O31
+       HOP     ISS          ISSUE STATUS CODE                         P
+
+       CLA     D.KB25
+       PIO     026          SELECT T-SYNC DOM CONTROL                 I
+
+       HOP     GRIHC        EXIT TO FLT PROG                          X
