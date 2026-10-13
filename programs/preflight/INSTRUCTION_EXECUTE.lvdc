@@ -24,9 +24,9 @@ L.IEDA TABLE   6
        ORG     L.IEDA
        ORG     *,*,*+(1),*,*,*,*
 IEDA   STO     777          SAVE RETURN HOP CONSTANT                  B
-       STO     INST         STORE INST                                B
+       STO     CW           STORE INST                                B
        CLA     775          OBTAIN DATA WORD TO BE OPERATED ON, IF ANYB
-INST   HOP     0            EXECUTE PROGRAM BUILT INSTRUCTIONS        B
+CW     HOP     0            EXECUTE PROGRAM BUILT INSTRUCTIONS        B
        TRA     IEDA1
        ORG     L.IEDA
        ORG     *,*,*,*+(3),*,*,*

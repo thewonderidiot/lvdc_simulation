@@ -58,7 +58,7 @@ FBR3   STO     V.EMR        AND SAVE                                  B
        TRA     FBR5                                                   N
        CLA     =O512525510
        HOP     ISS          ISSUE STATUS CODE 51                      P
-       TELM    V.EMR        TELEMETER EMR CONTENTS                    I
+       PIO     701          TELEMETER EMR CONTENTS                    I
 
        HOP     OIGS         GENERATE OUTPUT INT.                      P
 

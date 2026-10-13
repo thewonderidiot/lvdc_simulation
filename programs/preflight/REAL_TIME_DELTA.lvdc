@@ -1,0 +1,34 @@
+**********************************************************************
+*                                                                    *
+*                                                                    *
+*      REAL TIME DELTA SUBROUTINE                                    *J
+*                                                                    *
+*                                                                    *
+**********************************************************************
+
+* FUNCTION   THE PURPOSE OF THE REAL TIME DELTA SUBROUTINE IS TO
+*            PROVIDE A CURRENT VALUE OF REAL TIME AND A DELTA TIME
+*            VALUE. THE DELTA TIME IS THE DIFFERENCE BETWEEN THE
+*            CURRENT TIME AND THE LAST VALUE OF REAL TIME THAT WAS
+*            READ IN THIS SUBROUTINE.
+
+* ENTRIES    RTS      ENTERED TO READ REAL AND DELTA TIME
+
+       ORG     INTP,D.DATA
+
+OLDT   BSS     1
+
+RTS    STO     777          SAVE RETURN HOP CONSTANT                  B
+
+       CLA     775          OBT PREV DET VALUE OF REAL TIME FROM      B
+       STO     OLDT         PQ VALUE                                  B
+
+       PIO     103          OBTAIN CURRENT VALUE OF REAL TIME AND     I
+*                           FORM DELTA TM.                            I
+
+       STO     775          PUT CURRENT REAL TIME IN PQ REGISTER      B
+
+       SUB     OLDT         PUT DELTA TIME IN ACCUMULATOR             B
+       AND     D.KSY0
+
+       HOP     777          EXIT HOP TO CR                            X

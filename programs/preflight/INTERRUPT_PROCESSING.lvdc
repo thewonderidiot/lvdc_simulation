@@ -13,7 +13,7 @@
 * ENTRY      INTP     ENTERED AUTOMATICALLY EVERY TIME AN INTERRUPT
 *                     HOP 400 IS GENERATED.
 
-       ORGSS   0,1,1,000,0,3,0
+       ORG     0,0,0,100,0,16,
 
 INTP   STO     776
        STO     INACC        SAVE PARTIAL RESULTS IF ANY FROM          B
@@ -32,7 +32,7 @@ INTP   STO     776
        STO     775
 
        AND     D.KB3
-       TNZ     TLC          TLC INTERRUPT                             Q
+       TNZ     TLCI         TLC INTERRUPT                             Q
 
        CLA     775                                                    N
        AND     D.KB5
@@ -67,7 +67,7 @@ SPARE  CLA     =O37774
 
        HOP     MDSRT        EXIT TO MODE SORT                         X
 
-TLC    CLA     =O37774      RESET ALL DISCRETE OUTPUTS EXCEPT D.O     I
+TLCI   CLA     =O37774      RESET ALL DISCRETE OUTPUTS EXCEPT D.O     I
        PIO     012          NUMBER 13                                 I
 
        CLA     =O35774

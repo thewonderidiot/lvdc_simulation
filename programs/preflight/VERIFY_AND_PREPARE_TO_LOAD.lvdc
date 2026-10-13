@@ -1,0 +1,196 @@
+**********************************************************************
+*                                                                    *
+*                                                                    *
+*      VERIFY AND PREPARE TO LOAD                                    *J
+*                                                                    *
+*                                                                    *
+**********************************************************************
+
+* FUNCTION   THIS ROUTINE HAS TWO DISTINCT MODES. THE PURPOSE OF MODE
+*            1 (VERIFY) IS TO ALLOW THE LAUNCH COMPUTER TO EXAMINE THE
+*            CONTENTS OF ANY LVDC MEMORY LOCATION. MODE 2 (PREPARE TO
+*            LOAD) REQUIRES THE RCA-110A TO SUPPLY FOUR WORDS FOR EACH
+*            LVDC MEMORY LOCATION WHICH IT WISHES TO LOAD.
+
+* ENTRIES    VPLD     ENTERED FROM MODE SORT, PREPARE TO LAUNCH
+
+       ORGSS   0,1,1,000,0,3,0
+WORDNO BSS     1
+LVWORD BSS     1
+LVCW   BSS     1
+LVDATA BSS     1
+LVLAST BSS     1
+LVV    BSS     1
+LDPEND BSS     1
+STOCW  BSS     1
+
+       USE     DAT
+LVINST CDSS    0,0
+       STO     000
+LVSTO  CDS     LVBUF
+       STO     LVBUF
+       USE     INST
+
+VPLD   CLA     LDPEND       TRYING TO VERIFY OR PREP TO LOAD WITHOUT  Q
+*                           PREV LOAD                                 Q
+       TNZ     VPLD1
+       CLA     =O21         PREPARE TO TELEMETER STATUS CODE          N
+       TRA     *+2
+
+VPLD1  CLA     =O56         PREPARE TO TELEMETER STATUS CODE WITH     Y
+*                           ERROR MESSAGE                             Y
+       HOP     ISS          ISSUE STATUS CODE                         P
+
+       CLA     D.KB4
+       XOR     D.KONS
+       AND     INTH
+       XOR     D.KB4
+       PIO     072          INHIBIT TLC INTERRUPT
+
+       CLA     D.KBSG       INITIALIZE CONSTANTS                      B
+       STO     LVV
+
+       CLA     LVSTO
+       STO     STOCW
+
+       CLA     D.KZRO
+       STO     LDPEND
+       STO     WORDNO
+       STO     LVDATA
+       STO     LVLAST
+
+       TRA     VPLD3
+
+VPLD2  CLA     WORDNO
+       ADD     D.KB13
+VPLD3  STO     WORDNO
+
+       HOP     RIS          READ INPUT DATA                           P
+       STO     LVWORD
+       AND     =O00006
+       SUB     WORDNO
+       TNZ     VPCCE
+
+VPWD1  CLA     WORDNO       WAS FIRST RCA WORD JUST READ              Q
+       TNZ     VPWD2                                                  N
+
+       CLA     LVWORD       SAVE SECTOR, MODULE, DATA BITS            B
+       AND     =O376
+       SHL     1
+       XOR     LVINST
+       STO     LVCW
+
+       CLA     LVWORD
+       AND     =O0017
+       SHL     8
+       STO     LVDATA
+       TRA     VPLD2
+
+VPWD2  SUB     D.KB13       WAS SECOND RCA WORD JUST READ             Q
+       TNZ     VPWD3                                                  N
+
+       CLA     LVWORD       SAVE ADDRESS BITS L, V, AND S/D
+       AND     =O377        ADDRESS BITS
+       MPH     D.KB12
+       XOR     LVCW
+       STO     LVCW
+
+       CLA     LVWORD
+       AND     D.KB11       S/D
+       SHL     4
+       XOR     LVCW
+       STO     LVCW
+
+       CLA     LVWORD       L
+       AND     D.KB9
+       STO     LVLAST
+
+       CLA     LVV          IS THIS THE FIRST V BIT
+       TMI     VPWD2B
+
+       CLA     LVWORD
+       AND     D.KB10
+       XOR     LVV          IS V BIT SAME AS INITIAL V BIT            Q
+       TNZ     VMSMCH                                                 N
+
+VPWD2A CLA     LVV          V
+       MPH     D.KB13
+       XOR     LVCW
+       STO     775
+
+       CLA     STOCW        STORE THE NEWLY FORMED CONTROL WORD IN
+       HOP     IEDA         THE TEMPORARY BUFFER
+
+       CLA     LVV          WAS THIS ROUTINE ENTERED TO VERIFY AND    Q
+       TNZ     VPWD2C       PREP TO LOAD                              Q
+       TRA     VPLD2
+
+VPWD2B CLA     LVWORD
+       AND     D.KB10
+       STO     LVV
+       TRA     VPWD2A
+
+*      ROUTINE WAS ENTERED TO VERIFY ONLY
+VPWD2C CLA     775 
+       HOP     IEDA         READ WORD TO BE VERIFIED AND PLACE IN     B
+       STO     775          TEMP STORAGE                              B
+
+       HOP     TLC          TLC MONITOR                               P
+
+       CLA     STOCW
+       ADD     D.KB20
+       HOP     IEDA
+       TRA     VPLD4
+
+VPWD3  SUB     D.KB13       WAS THIRD RCA WORD JUST READ              Q
+       TNZ     VPWD4                                                  N
+
+       CLA     LVWORD       SAVE DATA BITS                            B
+       AND     =O3777
+       SHR     3
+       XOR     LVDATA
+       STO     LVDATA
+       TRA     VPLD2
+
+VPWD4  CLA     LVWORD       SAVE DATA BITS                            B
+       AND     =O3777
+       MPH     D.KB14
+       XOR     LVDATA       COMBINE DATA BITS OF FIRST, THIRD, FOURTH B
+       STO     775          RCA WRDS
+       CLA     STOCW
+       ADD     D.KB20
+       HOP     IEDA         STORE IN TEMPORARY STORAGE
+
+VPLD4  CLA     STOCW
+       AND     =O0000777
+       SUB     D.KB12       WAS TEMPORARY STORAGE ACCIDENTALLY        Q
+       TMI     VPLD5        OVERFLOWED                                Q
+
+       CLA     LVEM6        PREP ERR MESSAGE TEMP STORAGE ACCIDENTALLYB
+       TRA     VPERR        OVERFLOWED                                B
+
+VPLD5  CLA     STOCW        INCREMENT BUFFER POINTER BY TWO
+       ADD     D.KB19
+       STO     STOCW
+
+       CLA     LVLAST       HAS LAST WORD BEEN READ                   Q
+       TNZ     VPLD6
+       CLA     D.KZRO
+       TRA     VPLD3                                                  N
+
+VPLD6  HOP     OS           OUTPUT                                    P
+       CLA     LVV
+       XOR     D.KB10
+       STO     LDPEND
+       TRA     VPEXIT
+
+VMSMCH CLA     LVEM5        PREP ERR MESSAGE V BITS DIAGREE           B
+       TRA     VPERR
+
+VPCCE  CLA     WORDNO
+       SHL     5
+       ADD     LVEM1
+VPERR  HOP     EMS
+VPEXIT CLA     INTH         RESTORE NORMAL INTERRUPTS
+       PIO     072
+       HOP     MDSRT        FIXME: CHECK IF EXIT IS TO PTL            X

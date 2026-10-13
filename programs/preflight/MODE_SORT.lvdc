@@ -37,32 +37,6 @@ MDSRT1 HOP     AMS          ACCELEROMETER MONITOR                     P
        CLA     INTH
        PIO     072          RESTORE NORMAL INHIBITS                   I
 
-*      FIXME: THIS IS PROBABLY MORE COMPLICATED INVOLVING MULTIPLE
-*      PIOS (INCLUDING 040, 061, 735, 741)
-       TELM    V.TPAT       TELEMETER PATTERN WORD                    I
-
-       PIO     057          READ + TELEMETER DIN WORD                 I
-       STO     V.DINT
-       TELM    V.DINT
-
-       PIO     053          READ + TELEMETER DIS WORD                 I
-       STO     V.DIST
-       TELM    V.DIST
-
-       PIO     137          READ + TELEMETER INT REG                  I
-       STO     V.INTR
-       TELM    V.INTR
-
-       PIO     107          READ + TELEMETER DR, CR, + VERT ACCELS    B
-       STO     V.OACZ
-       TELM    V.OACZ       DOWNRANGE ACCELEROMETER (Z)
-       PIO     117
-       STO     V.OACY
-       TELM    V.OACY       CROSSRANGE ACCELEROMETER (Y)
-       PIO     127
-       STO     V.OACX
-       TELM    V.OACX       VERTICAL ACCELEROMETER (X)
-
        CLA     EMCON
        XOR     EMCON1       IS EMR MASK SET TO SPECIAL VALUE          Q
        TNZ     MDSRT2                                                 Y

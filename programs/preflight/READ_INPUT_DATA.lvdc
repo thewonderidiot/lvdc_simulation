@@ -1,0 +1,80 @@
+**********************************************************************
+*                                                                    *
+*                                                                    *
+*      READ INPUT DATA SUBROUTINE                                    *J
+*                                                                    *
+*                                                                    *
+**********************************************************************
+
+* FUNCTION   IT IS THE PURPOSE OF THE READ INPUT DATA SUBROUTINE TO
+*            HANDLE DATA SENT TO THE LVDC/LVDA VIA THE FOURTEEN
+*            RCA-110A INPUT LINES.
+
+* ENTRIES    RIS      ENTERED FROM VERIFY AND PREPARE TO LOAD
+
+       ORG     VPLD,D.DATA
+
+RISRT  BSS     1
+RISDT  BSS     1
+RISCMD BSS     1
+RISTAT BSS     1
+
+RIS    STO     777          ENTER FROM CALL RT                        B
+       CLA     777
+       STO     RISRT
+
+       CLA     V.STAT
+       STO     RISTAT
+
+RIS1   CLA     D.KZRO       INITIALIZE TO OBTAIN DELTA TIME           B
+       STO     RISDT
+       PIO     103
+       STO     775
+
+RIS2   PIO     057
+       AND     D.KB23       IS SYNC ON                                Q
+       TNZ     RIS3                                                   Y
+       
+       HOP     ATS          ABORT TEST                                P
+
+       HOP     RTS          REAL TIME DELTA                           P
+       ADD     RISDT        UPDATE DELTA TIME                         B
+       STO     RISDT
+
+       SUB     =(256000.0*P.CMSR) HAVE 256 SECONDS ELAPSED YET?       Q
+       TMI     RIS2                                                   N
+
+       CLA     =O45
+       HOP     ISS          ISSUE OVERTIME STATUS CODE                P
+       TRA     RIS1
+
+RIS3   PIO     043          READ IN RCA-110A INPUT DATA               I
+       AND     =O77776
+       STO     RISCMD
+
+       HOP     SRS          SYNC RESET                                P
+
+       CLA     RISCMD       IS INPUT DATA                             Q
+       TMI     RIS5                                                   N
+
+       CLA     RISTAT
+       SUB     V.STAT
+       TNZ     *+2
+       TRA     RIS4
+
+       CLA     RISTAT       RE-ESTABLISH STATUS CODE OF CALLING PGM
+       HOP     ISS
+
+RIS4   CLA     RISCMD       PLACE RCA-110A DATA IN ACCUMULATOR        B
+       HOP     RISRT        HOP ON HOP SV                             X
+
+RIS5   CLA     RISCMD
+       STO     V.EMR
+       CLA     RIEM1        INPUT IS MODE                             B
+       HOP     EMSR         ERROR MESSAGE                             P
+
+       CLA     RISTAT
+       SUB     =O12         IS PREPARE TO LAUNCH INDICATED?           Q
+       TNZ     *+2          
+       HOP     MDSRT        FIXME: THIS SHOULD GO TO PTL 
+       HOP     MDSRT        EXIT TO MODE SORT                         X

@@ -18,12 +18,12 @@
 *            EMSR     ENTER WITH ERROR CODE IN ACCUMULATOR AND ERROR
 *                     IN V.EMR.
 
-       ORG     FBR1,D.DATA
+       ORG     INTP,D.DATA
 
 DISR   BSS     1
 EMRM   BSS     1
 EMSCMD BSS     1
-OLDSTT BSS     1
+EMSTAT BSS     1
 EMSRT  BSS     1
 
 EMSR   STO     777          ENTER WITH EMW IN ACC, ERROR IN V.EMR
@@ -69,7 +69,7 @@ EMS1   CLA     D.KB25
        PIO     022          SET ICR1 SELECT G-SYNC CONTROL            I
 
        CLA     V.STAT       SAVE CALLING ROUTINE STATUS CODE          B
-       STO     OLDSTT
+       STO     EMSTAT
 
 *      FIXME: IS THIS PTL CHECK SUFFICIENT?
        SUB     =O12         WAS ENTRY FROM PTL                        Q
@@ -82,10 +82,10 @@ EMS2   CLA     V.EMW        WAS ENTRY TO TELEMETER ERROR MESSAGE      Q
        TNZ     EMS3                                                   Y
        TRA     EMS4                                                   N
 
-EMS3   TELM    V.EMW        TELEMETER ERROR MESSAGE                   I
+EMS3   PIO     371          TELEMETER ERROR MESSAGE                   I
        TRA     EMS5
 
-EMS4   TELM    V.EMR        TELEMETER RAW EMR READING                 I
+EMS4   PIO     701          TELEMETER RAW EMR READING                 I
 
 EMS5   CLA     =O47
        HOP     ISS          ISSUE STATUS CODE                         P
@@ -94,10 +94,10 @@ EMS5   CLA     =O47
        TNZ     *+2
        TRA     EMS6
 
-       TELM    V.EMW        TELEMETER ERROR MESSAGE                   I
+       PIO     371          TELEMETER ERROR MESSAGE                   I
        HOP     OIGS         OUTPUT INTERRUPT GEN.                     P
 
-EMS6   TELM    V.EMR        TELEMETER RAW EMR READING                 I
+EMS6   PIO     701          TELEMETER RAW EMR READING                 I
        HOP     OIGS         OUTPUT INTERRUPT GEN.                     P
 
 EMS7   PIO     057
@@ -106,7 +106,7 @@ EMS7   PIO     057
        HOP     PRUS         PTL REALTIME UPDATE SUBROUTINE            P
        TRA     EMS7
 
-EMS8   CLA     OLDSTT
+EMS8   CLA     EMSTAT
        SUB     =O12         WAS ENTRY FROM PTL                        Q
        TNZ     EMS9                                                   N
 
@@ -121,11 +121,11 @@ EMS9   PIO     043          READ RCA-110A REGISTER                    I
        CLA     EMSCMD       DOES RCA COMMAND=00                       Q
        TNZ     EMS11                                                  N
 
-EMS10  CLA     OLDSTT       DOES ROUTINE EXIT TO MODE SORT            Q
+EMS10  CLA     EMSTAT       DOES ROUTINE EXIT TO MODE SORT            Q
        TNZ     *+2                                                    N
        HOP     EMSRT        EXIT TO MODE SORT                         X
 
-       CLA     OLDSTT       RESTORE PREV STATUS CODE                  P
+       CLA     EMSTAT       RESTORE PREV STATUS CODE                  P
        HOP     ISS
        HOP     EMSRT        EXIT HOP RETURN                           X
 

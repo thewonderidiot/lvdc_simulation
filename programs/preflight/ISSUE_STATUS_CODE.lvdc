@@ -21,10 +21,15 @@ ISSRT  BSS     1
 
 ISS    STO     777
        STO     V.STAT
-       CLA     777
-       STO     ISSRT
-       TELM    V.STAT       TELEMETER PRESENT STATUS CODE             B
+       PIO     671          TELEMETER PRESENT STATUS CODE             B
        PIO     006          PLACE THE PRESENT STATUS CODE IN THE MODE B
 *                           REGISTER                                  B
+       CLA     777
+       STO     ISSRT
        HOP     OIGS         GENERATE OUTPUT INTERRUPT                 P
+
+       CLA     =O045        DELAY 6 MS                                B
+       SUB     D.KB8
+       TNZ     *-1
+
        HOP     ISSRT        RET TO CAL RT                             X

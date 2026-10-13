@@ -66,7 +66,7 @@ MEMOK  CLA     =O35774
 NORMPF CDS     D.DATA       INITIALIZE DATA SECTOR                    B
        CLA     D.KBSG
        STO     V.STAT
-       TELM    V.STAT       TELEMETER S.C. 40, LOAD MODE REG. TO 40
+       PIO     671          TELEMETER S.C. 40, LOAD MODE REG. TO 40
        PIO     006
 
        HOP     RINIT        REGISTER INITIALIZE                       P
@@ -79,6 +79,9 @@ NORMPF CDS     D.DATA       INITIALIZE DATA SECTOR                    B
 
        STO     INTH         INITIALIZE ALL NECESSARY PROGRAM CONSTANTS
 *                           FIXME: WHAT DOES THIS MEAN
+       CLA     D.KZRO
+       STO     LDPEND
+
        HOP     FBR1         HOP TO FBR                                X
 
        DOG     0,0,77

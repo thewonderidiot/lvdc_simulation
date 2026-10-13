@@ -1,0 +1,43 @@
+**********************************************************************
+*                                                                    *
+*                                                                    *
+*      TLC MONITOR SUBROUTINE                                        *J
+*                                                                    *
+*                                                                    *
+**********************************************************************
+
+* FUNCTION   THIS SUBROUTINE TESTS THE EMR FOR OCCURRENCE OF A TLC,
+*            EAM, OR EBM. IF ANY OF THESE BITS ARE DETECTED "ON", THE
+*            MODULE, SECTOR, AND ADDRESS BITS OF THE CALLING ROUTINE
+*            ARE INSERTED INTO AN ERROR MESSAGE. THIS ERROR MESSAGE IS
+*            THEN TELEMETERED.
+
+* ENTRIES    TLC      ENTERED EACH TIME CORE IS ACCESSED.
+
+       ORG     INTP,D.DATA
+TLCRT  BSS     1
+
+TLC    STO     777
+       CLA     777          SAVE HOP RETURN                           B
+       STO     TLCRT
+
+       PIO     023
+       AND     =O7          HAS TLC, EAM, OR EBM OCCURRED             Q
+       TNZ     *+2                                                    Y
+       HOP     TLCRT                                                  N
+
+       CLA     D.KB4        ISSUE TLC LIMITING BIT TO RESET INTERRUPT
+       PIO     032
+
+       CLA     CW           PICK UP ROLLOVER CW                       B
+       SHR     3            SAVE MOD., SECT., ADD BITS                B
+       AND     =O00000377
+       STO     V.EMW
+       CLA     CW
+       SHR     9
+       AND     =O000774
+       XOR     V.EMW
+       XOR     LVEM7        INSERT BITS INTO ERROR MESSAGE            B
+       HOP     EMS          ERROR MONITOR                             P
+
+       HOP     TLCRT        EXIT ON HOP RETURN                        X

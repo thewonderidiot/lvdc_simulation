@@ -10,7 +10,7 @@
 
 * ENTRIES    DAS      X
 
-       ORG     FBR1,D.DATA
+       ORG     INTP,D.DATA
 
 DAS    STO     777
 *                           FIXME
