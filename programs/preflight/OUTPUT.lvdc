@@ -6,12 +6,86 @@
 *                                                                    *
 **********************************************************************
 
-* FUNCTION   X
+* FUNCTION   THE PURPOSE OF THIS SUBROUTINE IS TO TELEMETER WORD
+*            PLACED IN TEMPORARY STORAGE.
 
-* ENTRIES    OS       X
+* ENTRIES    OS       ENTER TO TELEMETER WORDS FROM NORMAL OPERATIONS.
+*            OSLV     ENTER TO TELEMETER WORDS FROM VERIFY & PREPARE
+*                     TO LOAD.
 
        ORG     VPLD,D.DATA
+OSRT   BSS     1
+WORDCT BSS     1
+TAGCT  BSS     1
+OSCW   BSS     1
 
-OS     STO     777
-*                           FIXME
-       HOP     777
+       USE     DAT
+LVCLA  CDS     LVBUF
+       CLA     LVBUF
+GENCLA CDS     GENBUF
+       CLA     GENBUF
+SENDCW ADD     D.KZRO
+       PIO     000
+       USE     INST
+
+OS     STO     777          ENTER FROM NORM OP                        B
+       STO     WORDCT
+       CLA     GENCLA       INITIALIZE CONSTANTS AND OBTAIN           B
+       STO     OSCW         CONTROL WORD                              B
+       TRA     OS1
+
+OSLV   STO     777          ENTER FROM V+P TO L                       B
+       STO     WORDCT
+       CLA     LVCLA        INITIALIZE CONSTANTS AND OBTAIN           B
+       STO     OSCW         CONTROL WORD                              B
+
+OS1    CLA     777
+       STO     OSRT
+
+OS2    CLA     WORDCT       ARE THERE 32 OR MORE WORDS TO TELEMETER   Q
+       SUB     =(32)B20
+       TMI     OS3                                                    N
+
+       CLA     =(31)B18     SET TAG COUNTER TO MAXIMUM VALUE (31)     B
+       STO     TAGCT
+       TRA     OS5
+
+OS3    CLA     WORDCT       PLACE THE NUMBER OF WORDS TO TELEMETER    B
+       SHL     2
+       SUB     D.KB18
+       STO     TAGCT
+
+OS4    CLA     WORDCT
+       SUB     D.KB20
+       TNZ     OS5          IS THIS THE LAST OR ONLY WORD TO TELEMETERQ
+       CLA     D.KB21       SET A9=1 ON LAST WORD                     Y
+       STO     TAGCT
+
+OS5    CLA     OSCW
+       HOP     IEDA         EXECUTE CONTROL WORD                      P
+       STO     775
+       CLA     SENDCW
+       ADD     TAGCT
+       HOP     IEDA
+
+       HOP     OIGS         OUTPUT INTERRUPT GENERATE                 P
+
+       CLA     WORDCT       DECREMENT WORD COUNTER                    B
+       SUB     D.KB20
+       STO     WORDCT
+
+       CLA     OSCW         UPDATE CONTROL WORD                       B
+       ADD     D.KB20
+       STO     OSCW
+
+       CLA     TAGCT        IS TAG COUNTER EQUAL ZERO                 Q
+       AND     =(31)B18
+       TNZ     OS6                                                    N
+
+       CLA     WORDCT       IS WORD COUNTER EQUAL ZERO                Q
+       TNZ     OS2                                                    N
+       HOP     OSRT         EXIT HOP TO CR                            X
+
+OS6    SUB     D.KB18       DECREMENT TAG COUNTER                     B
+       STO     TAGCT
+       TRA     OS4

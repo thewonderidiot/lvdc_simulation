@@ -178,7 +178,9 @@ VPLD5  CLA     STOCW        INCREMENT BUFFER POINTER BY TWO
        CLA     D.KZRO
        TRA     VPLD3                                                  N
 
-VPLD6  HOP     OS           OUTPUT                                    P
+VPLD6  CLA     STOCW
+       SUB     LVSTO
+       HOP     OSLV         OUTPUT                                    P
        CLA     LVV
        XOR     D.KB10
        STO     LDPEND

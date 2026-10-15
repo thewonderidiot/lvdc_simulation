@@ -51,9 +51,11 @@ V.EMW  BSS     1            ERROR MESSAGE WORD
        DOG     D.DATA
 GCOTST OCT     000000000
 
-       TITLE   'MEMORY BUFFER'
+       TITLE   'MEMORY BUFFERS'
        DOGS    0,4,234
 LVBUF  BSS     100
+       DOGS    0,6,234
+GENBUF BSS     100
 
        TITLE   'RESIDUAL DATA'
 

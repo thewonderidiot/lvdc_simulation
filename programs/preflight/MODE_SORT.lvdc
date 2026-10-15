@@ -95,7 +95,7 @@ MODTAB HPC     BADMOD       SPECIAL LOADER MODE SORT           MODE 00
        HPC     BADMOD       SECTOR SUMCHECK                    MODE 16
        HPC     BADMOD       EXERCISE ATTITUDE CMD MODE 2       MODE 17
        HPC     BADMOD       SECTOR DUMP                        MODE 20
-       HPC     BADMOD       VERIFY AND PREPARE TO LOAD         MODE 21
+       HPC     VPLD         VERIFY AND PREPARE TO LOAD         MODE 21
        HPC     BADMOD       MEMORY ERROR TEST                  MODE 22
        HPC     BADMOD       LOAD ROUTINE                       MODE 23
        HPC     BADMOD       ML, SS, AND RTC COUNTER TESTS      MODE 24
