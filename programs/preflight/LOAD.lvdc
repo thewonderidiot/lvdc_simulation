@@ -1,0 +1,71 @@
+**********************************************************************
+*                                                                    *
+*                                                                    *
+*      LOAD ROUTINE                                                  *J
+*                                                                    *
+*                                                                    *
+**********************************************************************
+
+* FUNCTION   THIS ROUTINE ALLOWS THE INFORMATION PREVIOUSLY PLACED IN
+*            TEMPORARY STORAGE BY THE VERIFY AND PREPARE TO LOAD
+*            ROUTINE TO BE TRANSFERRED TO THE PERMANENT MEMORY
+*            LOCATIONS SPECIFIED.
+
+* ENTRIES    LD       ENTER TO LOAD PREPARED INFORMATION
+
+       ORG     FBR1,D.DATA
+
+LDPTR  BSS     1
+LDEND  BSS     1
+       USE     DAT
+LDAREA CDSD    0,16
+       STO     360
+       USE     INST
+LDMASK OCT     777776076
+
+LD     CLA     =O23
+       HOP     ISS          ISSUE STATUS CODE                         P
+
+       CLA     LDPEND       PREPARED TO LOAD                          Q
+       TNZ     LD1                                                    Y
+
+       CLA     LDEM1        PREPARE ERROR MESSAGE, ENTERED THIS       N
+*                           ROUTINE WHEN NOT PREP TO LOAD OR WHILE IN B
+*                           VERIFY ONLY                               B
+       HOP     EMS          ERROR MONITOR                             P
+
+LDOUT  CLA     INPTL        IS RETURN TO MODE SORT                    Q
+       TNZ     *+2                                                    N
+       HOP     MDSRT        EXIT TO MODE SORT                         X
+       HOP     MDSRT        FIXME: EXIT PREP TO LAUNCH                X
+
+LD1    CLA     INPTL        CALLED FROM PREPARE TO LAUNCH             Q
+       TNZ     LD2                                                    Y
+       HOP     CWS          CW EXECUTE                                P
+*                           LOAD TEMPORARY STORED DATA INTO           B
+*                           DESIGNATED LOC                            B
+       TRA     LDOUT
+
+LD2    CLA     CWCLA        ARE ALL LOADS SET FOR RIGHT AREA          Q
+       STO     LDPTR
+       ADD     LDPEND
+       STO     LDEND
+
+LD3    CLA     LDPTR
+       HOP     IEDA         PICK UP NEXT CONTROL WORD                 P
+       XOR     LDAREA
+       AND     LDMASK
+       TNZ     LDBAD
+
+       CLA     LDPTR
+       ADD     D.KB19
+       STO     LDPTR
+       SUB     LDEND
+       TNZ     LD3
+
+       HOP     CWS          CONT WORD EXEC                            P
+       HOP     MDSRT        FIXME: EXIT PREP TO LNCH                  X
+
+LDBAD  CLA     LDEM2        PREP ERR MSG-TRIED TO LOAD ILLEGAL ADDRESSB
+       HOP     EMS          ERROR MONITOR                             P
+       HOP     MDSRT        FIXME: EXIT PREP TO LNCH                  X

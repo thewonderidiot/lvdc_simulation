@@ -97,7 +97,7 @@ MODTAB HPC     BADMOD       SPECIAL LOADER MODE SORT           MODE 00
        HPC     BADMOD       SECTOR DUMP                        MODE 20
        HPC     VPLD         VERIFY AND PREPARE TO LOAD         MODE 21
        HPC     BADMOD       MEMORY ERROR TEST                  MODE 22
-       HPC     BADMOD       LOAD ROUTINE                       MODE 23
+       HPC     LD           LOAD ROUTINE                       MODE 23
        HPC     BADMOD       ML, SS, AND RTC COUNTER TESTS      MODE 24
        HPC     BADMOD       ERROR - ILLEGAL MODE               MODE 25
        HPC     BADMOD       ERROR - ILLEGAL MODE               MODE 26
@@ -122,7 +122,7 @@ MODTAB HPC     BADMOD       SPECIAL LOADER MODE SORT           MODE 00
        HPC     BADMOD       ERROR - ILLEGAL MODE               MODE 51
        HPC     BADMOD       ERROR - ILLEGAL MODE               MODE 52
        HPC     BADMOD       ML, SS, AND RTC COUNTER TESTS      MODE 53
-       HPC     BADMOD       LOAD ROUTINE                       MODE 54
+       HPC     LD           LOAD ROUTINE                       MODE 54
        HPC     BADMOD       MEMORY ERROR TEST                  MODE 55
        HPC     BADMOD       ERROR - ILLEGAL MODE               MODE 56
        HPC     BADMOD       SECTOR DUMP                        MODE 57

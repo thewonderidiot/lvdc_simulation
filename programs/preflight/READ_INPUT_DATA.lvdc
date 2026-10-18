@@ -73,8 +73,7 @@ RIS5   CLA     RISCMD
        CLA     RIEM1        INPUT IS MODE                             B
        HOP     EMSR         ERROR MESSAGE                             P
 
-       CLA     RISTAT
-       SUB     =O12         IS PREPARE TO LAUNCH INDICATED?           Q
+       CLA     INPTL        IS PREPARE TO LAUNCH INDICATED?           Q
        TNZ     *+2          
-       HOP     MDSRT        FIXME: THIS SHOULD GO TO PTL 
        HOP     MDSRT        EXIT TO MODE SORT                         X
+       HOP     MDSRT        FIXME: THIS SHOULD GO TO PTL 

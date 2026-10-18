@@ -1,0 +1,69 @@
+**********************************************************************
+*                                                                    *
+*                                                                    *
+*      CONTROL WORD EXECUTE SUBROUTINE                               *J
+*                                                                    *
+*                                                                    *
+**********************************************************************
+
+* FUNCTION   THE CW EXECUTE SUBROUTINE IS CALLED BY THE LOAD ROUTINE
+*            AND BY THE VERIFY MODE OF THE VERIFY AND PREPARE TO LOAD
+*            ROUTINE.
+*
+*            WHEN USED BY THE LOAD ROUTINE, THIS SUBROUTINE LOADS THE
+*            DATA PREPARED BY THE VERIFY AND PREPARE TO LOAD ROUITNE,
+*            INTO THE MEMORY LOCATIONS SPECIFIED BY THE CONTROL WORDS
+*            WHAT WERE ALSO PREPARED IN THAT PROGRAM.
+*
+*            WHEN CALLED BY THE VERIFY PORTION OF THE VERIFY AND
+*            PREPARE TO LOAD ROUTINE, HTE CW EXECUTE SUBROUTINE USES
+*            THE PREVIOUSLY PREPARED CONTROL WORDS TO OBTAIN THE
+*            REQUIRED INFORMATION FROM MEMORY.
+
+* ENTRIES    CWS      CALLED FROM LOAD AND VERIFY AND PREPARE TO LOAD
+
+       ORG     MDSRT,D.DATA
+CWSRT  BSS     1
+CWPTR  BSS     1
+
+       USE     DAT
+CWCLA  CDS     LVBUF
+       CLA     LVBUF
+       USE     INST
+
+CWS    STO     777
+       CLA     777
+       STO     CWSRT
+
+       CLA     LDPEND
+       TNZ     CWS1         LOADING                                   Q
+
+*      VERIFYING                                                      B
+       CLA     775          PLACE CONTROL WRD TO BE EXECUTED IN       N
+*                           ACCUMULATOR                               N
+       HOP     IEDA
+       HOP     CWSRT        EXIT HOP TO CR                            X
+
+*      LOADING                                                        B
+CWS1   CLA     CWCLA                                                  Y
+       STO     CWPTR
+
+CWS2   CLA     CWPTR
+       ADD     D.KB20
+       HOP     IEDA         PICKUP DATA TO LOAD                       P
+       STO     775
+
+       CLA     CWPTR
+       HOP     IEDA         PICKUP CTRL WORD TO LOAD                  P
+       HOP     IEDA         EXEC CTRL WORD AND LOAD                   P
+
+       CLA     CWPTR        UPDATE CNTR ALLOWING PICKUP OF SEQ LOC IN B
+       ADD     D.KB19       TEMP STOR                                 B
+       STO     CWPTR
+
+       CLA     LDPEND
+       SUB     D.KB19
+       STO     LDPEND
+       TNZ     CWS2         ALL WORDS LOADED                          Q
+
+       HOP     CWSRT        EXIT HOP TO CR                            X

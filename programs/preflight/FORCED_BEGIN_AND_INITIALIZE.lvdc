@@ -79,5 +79,7 @@ FBR6   CLA     D.KB10
 
 *                           INITIALIZE PROGRAM CONSTANT
 *                           FIXME: WHAT DOES THIS MEAN
+       CLA     D.KZRO
+       STO     INPTL
 
        HOP     MDSRT        HOP TO MD SRT                             X

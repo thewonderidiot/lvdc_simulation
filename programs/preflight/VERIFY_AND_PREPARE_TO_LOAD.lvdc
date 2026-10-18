@@ -131,8 +131,7 @@ VPWD2B CLA     LVWORD
        TRA     VPWD2A
 
 *      ROUTINE WAS ENTERED TO VERIFY ONLY
-VPWD2C CLA     775 
-       HOP     IEDA         READ WORD TO BE VERIFIED AND PLACE IN     B
+VPWD2C HOP     CWS          READ WORD TO BE VERIFIED AND PLACE IN     B
        STO     775          TEMP STORAGE                              B
 
        HOP     TLC          TLC MONITOR                               P
@@ -182,7 +181,9 @@ VPLD6  CLA     STOCW
        SUB     LVSTO
        HOP     OSLV         OUTPUT                                    P
        CLA     LVV
-       XOR     D.KB10
+       TNZ     VPEXIT
+       CLA     STOCW        SET NUMBER OF WORDS PENDING LOAD          B
+       SUB     LVSTO
        STO     LDPEND
        TRA     VPEXIT
 
@@ -195,4 +196,8 @@ VPCCE  CLA     WORDNO
 VPERR  HOP     EMS
 VPEXIT CLA     INTH         RESTORE NORMAL INTERRUPTS
        PIO     072
-       HOP     MDSRT        FIXME: CHECK IF EXIT IS TO PTL            X
+
+       CLA     INPTL        IS EXIT TO MODE SORT                      Q
+       TNZ     *+2                                                    N
+       HOP     MDSRT        EXIT TO MODE SORT                         X
+       HOP     MDSRT        FIXME: EXIT PREP TO LNCH                  X

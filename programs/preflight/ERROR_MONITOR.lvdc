@@ -71,9 +71,9 @@ EMS1   CLA     D.KB25
        CLA     V.STAT       SAVE CALLING ROUTINE STATUS CODE          B
        STO     EMSTAT
 
-*      FIXME: IS THIS PTL CHECK SUFFICIENT?
-       SUB     =O12         WAS ENTRY FROM PTL                        Q
-       TNZ     EMS2                                                   N
+       CLA     INPTL        WAS ENTRY FROM PTL                        Q
+       TNZ     *+2                                                    Y
+       TRA     EMS2                                                   N
 
        CLA     D.KBSG                                                 Y
        PIO     016          SET D.O. 13                               I
@@ -106,9 +106,9 @@ EMS7   PIO     057
        HOP     PRUS         PTL REALTIME UPDATE SUBROUTINE            P
        TRA     EMS7
 
-EMS8   CLA     EMSTAT
-       SUB     =O12         WAS ENTRY FROM PTL                        Q
-       TNZ     EMS9                                                   N
+EMS8   CLA     INPTL        WAS ENTRY FROM PTL                        Q 
+       TNZ     *+2                                                    Y
+       TRA     EMS9                                                   N
 
        HOP     SRS          RESET SYNC                                P
        TRA     EMS10
